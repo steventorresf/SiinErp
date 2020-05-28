@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.6" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\General\Controllers\" />
+    <Folder Include="Areas\General\Data\" />
+    <Folder Include="Areas\General\Models\" />
+    <Folder Include="Areas\General\Views\" />
+    <Folder Include="Models\Cartera\Business\" />
+    <Folder Include="Models\Cartera\Entities\" />
+    <Folder Include="Models\Compras\Business\" />
+    <Folder Include="Models\Compras\Entities\" />
+    <Folder Include="Models\Contabilidad\Business\" />
+    <Folder Include="Models\Contabilidad\Entities\" />
+    <Folder Include="Models\Inventario\Business\" />
+    <Folder Include="Models\Inventario\Entities\" />
+    <Folder Include="Models\Nomina\Business\" />
+    <Folder Include="Models\Nomina\Entities\" />
+    <Folder Include="Models\Tesoreria\Business\" />
+    <Folder Include="Models\Tesoreria\Entities\" />
+    <Folder Include="Models\Ventas\Business\" />
+    <Folder Include="Models\Ventas\Entities\" />
+    <Folder Include="wwwroot\vendor\font-awesome\less\" />
+    <Folder Include="wwwroot\vendor\font-awesome\scss\" />
+    <Folder Include="wwwroot\vendor\google-maps-infobox\types\" />
+    <Folder Include="wwwroot\vendor\nouislider\distribute\" />
+  </ItemGroup>
+
+</Project>
