@@ -68,6 +68,9 @@ namespace SiinErp
             {
                 routes.MapRoute(
                     name: "default",
+                    template: "{area:exists}/{controller=Login}/{action=Index}/{id?}");
+                routes.MapRoute(
+                    name: "default",
                     template: "{controller=Login}/{action=Index}/{id?}");
             });
         }

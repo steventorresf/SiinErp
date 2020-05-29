@@ -21,6 +21,8 @@ namespace SiinErp.Models._DAL
         public virtual DbSet<Usuarios> Usuarios { get; set; }
 
         public virtual DbSet<Errores> Errores { get; set; }
+
+        public virtual DbSet<Empresas> Empresas { get; set; }
         #endregion
     }
 }
