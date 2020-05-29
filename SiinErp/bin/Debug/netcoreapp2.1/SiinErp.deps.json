@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.1",
-    "signature": "c28e81f44abe5cec9b59610e2f04b0e3585cd015"
+    "signature": "34f907dbb489b11673b4c9343ee12160b0474eaf"
   },
   "compilationOptions": {
     "defines": [
@@ -30,7 +30,8 @@
           "Microsoft.EntityFrameworkCore.Proxies": "2.1.1",
           "Microsoft.EntityFrameworkCore.SqlServer.Design": "1.1.6",
           "Microsoft.NETCore.App": "2.1.0",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.1.9"
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.1.9",
+          "angularjs": "1.7.8.1"
         },
         "runtime": {
           "SiinErp.dll": {}
@@ -39,6 +40,7 @@
           "SiinErp.dll": {}
         }
       },
+      "angularjs/1.7.8.1": {},
       "Castle.Core/4.2.1": {
         "dependencies": {
           "NETStandard.Library": "2.0.3",
@@ -3587,6 +3589,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "angularjs/1.7.8.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-TUoD6xM6PyPlhFTZLpEel4l0tM2j5Ata4IRdMumg2d4nVMEfRQ3BTZBzi4SqG4nsd2yUj9djIo2nywpVEkSzDw==",
+      "path": "angularjs/1.7.8.1",
+      "hashPath": "angularjs.1.7.8.1.nupkg.sha512"
     },
     "Castle.Core/4.2.1": {
       "type": "package",

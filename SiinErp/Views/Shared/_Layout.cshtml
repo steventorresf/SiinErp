@@ -1,9 +1,9 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="app">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - SiinErp</title>
+    <title>@ViewData["Title"]</title>
 
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="~/vendor/bootstrap/css/bootstrap.min.css">
@@ -29,14 +29,17 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 
     <style>
-        #TextoTitulo span{
-            font-size:1.5em;
-            text-transform:capitalize;
+        #TextoTitulo span {
+            font-size: 1.5em;
+            text-transform: capitalize;
         }
     </style>
 
+    <script>
+        var url = '@Url.Content("~/")';
+    </script>
 </head>
-<body>
+<body ng-controller="AppController as vm">
     <!-- Side Navbar -->
     <nav class="side-navbar">
         <div class="side-navbar-wrapper">
@@ -212,13 +215,16 @@
             </nav>
         </header>
 
+        <script src="~/vendor/angular/angular.js"></script>
+        <script src="~/master/js/app.js"></script>
+
         @RenderBody()
 
         <footer class="main-footer">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-6">
-                        <p>Your company &copy; 2017-2020</p>
+                        <p>Your company &copy; 2017-2020 {{ vm.title }}</p>
                     </div>
                     <div class="col-sm-6 text-right">
                         <p>Version 1.4.7</p>
