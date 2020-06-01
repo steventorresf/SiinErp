@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SiinErp.Areas.General.Controllers
 {
+    [Area("General")]
     public class HomeController : Controller
     {
         public IActionResult Empresas()
@@ -13,6 +14,10 @@ namespace SiinErp.Areas.General.Controllers
             return View();
         }
         public IActionResult Usuarios()
+        {
+            return View();
+        }
+        public IActionResult Tablas()
         {
             return View();
         }

@@ -9,6 +9,7 @@
 
     function GenEmpresasService($http, $q) {
         var nameSpace = '/api/Empresas/';
+
         var service = {
             getAll: getAll,
         };

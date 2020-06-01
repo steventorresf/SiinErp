@@ -39,7 +39,7 @@
         var url = '@Url.Content("~/")';
     </script>
 </head>
-<body ng-controller="AppController as vm">
+<body ng-controller="AppController as vm" ng-init="vm.init()">
     <!-- Side Navbar -->
     <nav class="side-navbar">
         <div class="side-navbar-wrapper">
@@ -47,7 +47,7 @@
             <div class="sidenav-header d-flex align-items-center justify-content-center">
                 <!-- User Info-->
                 <div class="sidenav-header-inner text-center">
-                    <a href="pages-profile.html"><img src="img/avatar-7.jpg" alt="person" class="img-fluid rounded-circle"></a>
+                    <a href="pages-profile.html"><img src="~/img/avatar-7.jpg" alt="person" class="img-fluid rounded-circle"></a>
                     <h2 class="h5">Nathan Andrews</h2><span>Web Developer</span>
                 </div>
                 <!-- Small Brand information, appears on minimized sidebar-->
@@ -57,17 +57,17 @@
             <div class="main-menu">
                 <h5 class="sidenav-heading">Main</h5>
                 <ul id="side-main-menu" class="side-menu list-unstyled">
-                    <li><a href="index.html"><i class="icon-home"></i>Home</a></li>
+                    <li><a href="@Url.Content("~/Home")"><i class="icon-home"></i>Home</a></li>
                     <li>
                         <a href="#MenuGeneral" aria-expanded="false" data-toggle="collapse"> <i class="icon-form"></i>General</a>
                         <ul id="MenuGeneral" class="collapse list-unstyled ">
-                            <li><a href="@Url.Content("~/")General/Home/Empresas">Empresas</a></li>
-                            <li><a href="forms.html">Usuarios</a></li>
-                            <li><a href="forms-advanced.html">Tablas</a></li>
-                            <li><a href="forms-autocomplete.html">Tipos Documento</a></li>
-                            <li><a href="forms-dropzone.html">Parametros</a></li>
-                            <li><a href="forms-texteditor.html">Terceros</a></li>
-                            <li><a href="forms-validation.html">Periodos</a></li>
+                            <li><a href="@Url.Content("~/General/Home/Empresas")">Empresas</a></li>
+                            <li><a href="@Url.Content("~/General/Home/Usuarios")">Usuarios</a></li>
+                            <li><a href="@Url.Content("~/General/Home/Tablas")">Tablas</a></li>
+                            <li><a href="@Url.Content("~/General/Home/TiposDocumento")">Tipos Documento</a></li>
+                            <li><a href="@Url.Content("~/General/Home/Parametros")">Parametros</a></li>
+                            <li><a href="@Url.Content("~/General/Home/Terceros")">Terceros</a></li>
+                            <li><a href="@Url.Content("~/General/Home/Periodos")">Periodos</a></li>
                         </ul>
                     </li>
                     <li>
@@ -174,7 +174,7 @@
                                 <ul aria-labelledby="notifications" class="dropdown-menu">
                                     <li>
                                         <a rel="nofollow" href="#" class="dropdown-item d-flex">
-                                            <div class="msg-profile"> <img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                                            <div class="msg-profile"> <img src="~/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
                                             <div class="msg-body">
                                                 <h3 class="h5">Jason Doe</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
                                             </div>
@@ -182,7 +182,7 @@
                                     </li>
                                     <li>
                                         <a rel="nofollow" href="#" class="dropdown-item d-flex">
-                                            <div class="msg-profile"> <img src="img/avatar-2.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                                            <div class="msg-profile"> <img src="~/img/avatar-2.jpg" alt="..." class="img-fluid rounded-circle"></div>
                                             <div class="msg-body">
                                                 <h3 class="h5">Frank Williams</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
                                             </div>
@@ -190,7 +190,7 @@
                                     </li>
                                     <li>
                                         <a rel="nofollow" href="#" class="dropdown-item d-flex">
-                                            <div class="msg-profile"> <img src="img/avatar-3.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                                            <div class="msg-profile"> <img src="~/img/avatar-3.jpg" alt="..." class="img-fluid rounded-circle"></div>
                                             <div class="msg-body">
                                                 <h3 class="h5">Ashley Wood</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
                                             </div>
@@ -201,10 +201,10 @@
                             </li>
                             <!-- Languages dropdown    -->
                             <li class="nav-item dropdown">
-                                <a id="languages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link language dropdown-toggle"><img src="img/flags/16/GB.png" alt="English"><span class="d-none d-sm-inline-block">English</span></a>
+                                <a id="languages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link language dropdown-toggle"><img src="~/img/flags/16/GB.png" alt="English"><span class="d-none d-sm-inline-block">English</span></a>
                                 <ul aria-labelledby="languages" class="dropdown-menu">
-                                    <li><a rel="nofollow" href="#" class="dropdown-item"> <img src="img/flags/16/DE.png" alt="English" class="mr-2"><span>German</span></a></li>
-                                    <li><a rel="nofollow" href="#" class="dropdown-item"> <img src="img/flags/16/FR.png" alt="English" class="mr-2"><span>French                                                         </span></a></li>
+                                    <li><a rel="nofollow" href="#" class="dropdown-item"> <img src="~/img/flags/16/DE.png" alt="English" class="mr-2"><span>German</span></a></li>
+                                    <li><a rel="nofollow" href="#" class="dropdown-item"> <img src="~/img/flags/16/FR.png" alt="English" class="mr-2"><span>French                                                         </span></a></li>
                                 </ul>
                             </li>
                             <!-- Log out-->
@@ -215,8 +215,18 @@
             </nav>
         </header>
 
-        <script src="~/vendor/angular/angular.js"></script>
+        <link rel="stylesheet" href="~/vendor/angular/css/ui-grid.css" />
+        <link rel="stylesheet" href="~/vendor/angular/css/select.css" />
+
+        <script src="~/vendor/angular/js/angular.js"></script>
+        <script src="~/vendor/angular/js/angular-sanitize.min.js"></script>
         <script src="~/master/js/app.js"></script>
+        <script src="~/vendor/angular/js/ui-grid.js"></script>
+        <script src="~/vendor/angular/js/select.js"></script>
+        @*<script src="~/vendor/angular/js/select2.js"></script>*@
+
+
+        @*<link rel="stylesheet" href="~/vendor/angular/css/select2.css" />*@
 
         @RenderBody()
 

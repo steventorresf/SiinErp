@@ -8,9 +8,8 @@
     GenUsuariosService.$inject = ['$http', '$q'];
 
     function GenUsuariosService($http, $q) {
-        var nameSpace = '/api/Usuarios/';
+        var nameSpace = 'api/Usuarios/';
         var service = {
-            getData: getData,
             Login: Login,
         };
 
@@ -29,6 +28,5 @@
                 );
         }
 
-        function getData() { }
     }
 })();

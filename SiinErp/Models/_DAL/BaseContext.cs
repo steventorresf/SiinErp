@@ -18,11 +18,17 @@ namespace SiinErp.Models._DAL
         }
 
         #region General
+        public virtual DbSet<Modulos> Modulos { get; set; }
+
         public virtual DbSet<Usuarios> Usuarios { get; set; }
 
         public virtual DbSet<Errores> Errores { get; set; }
 
         public virtual DbSet<Empresas> Empresas { get; set; }
+
+        public virtual DbSet<Tablas> Tablas { get; set; }
+
+        public virtual DbSet<TablasDetalle> TablasDetalles { get; set; }
         #endregion
     }
 }

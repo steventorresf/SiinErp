@@ -59,6 +59,7 @@ namespace SiinErp
 
             app.UseSession();
             app.UseHttpsRedirection();
+            app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
@@ -67,8 +68,9 @@ namespace SiinErp
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "default",
-                    template: "{area:exists}/{controller=Login}/{action=Index}/{id?}");
+                    name: "areas",
+                    template: "{area:exists}/{controller=Login}/{action=Index}");
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Login}/{action=Index}/{id?}");
