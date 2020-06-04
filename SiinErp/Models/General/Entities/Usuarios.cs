@@ -28,5 +28,9 @@ namespace SiinErp.Models.General.Entities
         [Required]
         [StringLength(1)]
         public string Estado { get; set; }
+
+
+        [NotMapped]
+        public string NombreEstado { get; set; }
     }
 }

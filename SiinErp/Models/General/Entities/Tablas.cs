@@ -11,7 +11,7 @@ namespace SiinErp.Models.General.Entities
     public class Tablas
     {
         [Key]
-        [StringLength(1)]
+        [StringLength(10)]
         public string CodTabla { get; set; }
 
         [Required]
@@ -27,5 +27,9 @@ namespace SiinErp.Models.General.Entities
 
         [Required]
         public int IdUsuario { get; set; }
+
+
+        [NotMapped]
+        public string NombreModulo { get; set; }
     }
 }

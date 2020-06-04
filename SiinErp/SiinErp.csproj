@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="bundleconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="angularjs" Version="1.7.8.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
@@ -36,5 +40,66 @@
     <Folder Include="wwwroot\vendor\google-maps-infobox\types\" />
     <Folder Include="wwwroot\vendor\nouislider\distribute\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bundleconfig.json" />
+    <None Include="wwwroot\vendor\angular\angular-cookies\angular-cookies.js" />
+    <None Include="wwwroot\vendor\angular\angular-cookies\angular-cookies.min.js" />
+    <None Include="wwwroot\vendor\angular\angular-cookies\angular-cookies.min.js.map" />
+    <None Include="wwwroot\vendor\angular\angular-cookies\index.js" />
+    <None Include="wwwroot\vendor\angular\angular-cookies\LICENSE.md" />
+    <None Include="wwwroot\vendor\angular\angular-cookies\README.md" />
+    <None Include="wwwroot\vendor\angular\ui-select\.editorconfig" />
+    <None Include="wwwroot\vendor\angular\ui-select\.gitattributes" />
+    <None Include="wwwroot\vendor\angular\ui-select\.github\ISSUE_TEMPLATE.md" />
+    <None Include="wwwroot\vendor\angular\ui-select\.npmignore" />
+    <None Include="wwwroot\vendor\angular\ui-select\.travis.yml" />
+    <None Include="wwwroot\vendor\angular\ui-select\CHANGELOG.md" />
+    <None Include="wwwroot\vendor\angular\ui-select\CONTRIBUTING.md" />
+    <None Include="wwwroot\vendor\angular\ui-select\deploy-docs.sh" />
+    <None Include="wwwroot\vendor\angular\ui-select\dist\select.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\dist\select.min.css.map" />
+    <None Include="wwwroot\vendor\angular\ui-select\dist\select.min.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\dist\select.min.js.map" />
+    <None Include="wwwroot\vendor\angular\ui-select\docs-built\assets\app.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\docs-built\assets\demo.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\docs-built\assets\plunkr.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\docs-built\dist\select.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\docs-built\dist\select.min.css.map" />
+    <None Include="wwwroot\vendor\angular\ui-select\docs-built\dist\select.min.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\docs-built\dist\select.min.js.map" />
+    <None Include="wwwroot\vendor\angular\ui-select\docs-out\assets\app.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\docs-out\assets\demo.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\docs-out\assets\plunkr.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\docs-out\dist\select.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\docs-out\dist\select.min.css.map" />
+    <None Include="wwwroot\vendor\angular\ui-select\docs-out\dist\select.min.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\docs-out\dist\select.min.js.map" />
+    <None Include="wwwroot\vendor\angular\ui-select\docs\assets\app.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\docs\assets\demo.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\docs\assets\plunkr.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\gulpfile.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\index.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\karma.conf.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\LICENSE" />
+    <None Include="wwwroot\vendor\angular\ui-select\README.md" />
+    <None Include="wwwroot\vendor\angular\ui-select\src\.jshintrc" />
+    <None Include="wwwroot\vendor\angular\ui-select\src\common.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\src\uisDebounceService.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\src\uiSelectChoicesDirective.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\src\uiSelectController.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\src\uiSelectDirective.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\src\uiSelectMatchDirective.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\src\uiSelectMultipleDirective.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\src\uiSelectNoChoiceDirective.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\src\uiSelectSingleDirective.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\src\uiSelectSortDirective.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\src\uisOpenCloseDirective.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\src\uisRepeatParserService.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\test\helpers.js" />
+    <None Include="wwwroot\vendor\angular\ui-select\test\select.spec.js" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties bundleconfig_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

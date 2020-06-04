@@ -17,7 +17,7 @@ namespace SiinErp.Areas.General.Controllers
     {
         private UsuariosBusiness BusinessUsu = new UsuariosBusiness();
 
-        [HttpPost]
+        [HttpPost("Login")]
         public IActionResult Login([FromBody] JObject data)
         {
             try
@@ -53,5 +53,78 @@ namespace SiinErp.Areas.General.Controllers
                 throw;
             }
         }
+
+        [HttpGet]
+        public IActionResult GetUsuarios()
+        {
+            try
+            {
+                var lista = BusinessUsu.GetUsuarios();
+                return Ok(lista);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        public IActionResult CreateUsuario([FromBody] Usuarios entity)
+        {
+            try
+            {
+                BusinessUsu.Create(entity);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpPut("{IdUsu}")]
+        public IActionResult UpdateUsuario(int IdUsu, [FromBody] Usuarios entity)
+        {
+            try
+            {
+                BusinessUsu.Update(IdUsu, entity);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost("UpEst")]
+        public IActionResult UpdateEstado([FromBody] JObject data)
+        {
+            try
+            {
+                int IdUsuario = data["IdUsuario"].ToObject<int>();
+                string Estado = data["Estado"].ToObject<string>();
+                BusinessUsu.UpdateEstado(IdUsuario, Estado);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpPut("Reset/{IdUsu}")]
+        public IActionResult ResetearClave(int IdUsu)
+        {
+            try
+            {
+                BusinessUsu.ResetearClave(IdUsu);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
     }
 }

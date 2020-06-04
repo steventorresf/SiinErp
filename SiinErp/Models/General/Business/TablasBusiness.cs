@@ -46,7 +46,17 @@ namespace SiinErp.Models.General.Business
             try
             {
                 BaseContext context = new BaseContext();
-                List<Tablas> Lista = context.Tablas.OrderBy(x => x.Descripcion).OrderBy(x => x.CodModulo).ToList();
+                List<Tablas> Lista = (from ta in context.Tablas
+                                      join mo in context.Modulos on ta.CodModulo equals mo.CodModulo
+                                      select new Tablas()
+                                      {
+                                          CodModulo = ta.CodModulo,
+                                          CodTabla = ta.CodTabla,
+                                          Descripcion = ta.Descripcion,
+                                          FechaCreacion = ta.FechaCreacion,
+                                          IdUsuario = ta.IdUsuario,
+                                          NombreModulo = mo.Descripcion,
+                                      }).ToList().OrderBy(x => x.Descripcion).OrderBy(x => x.CodModulo).ToList();
                 return Lista;
             }
             catch (Exception ex)

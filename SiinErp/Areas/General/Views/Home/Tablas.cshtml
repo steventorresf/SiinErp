@@ -4,7 +4,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row mt-4" ng-show="!vm.formVisible">
+<style>
+    .ui-select-choices {
+        opacity: 1 !important;
+    }
+</style>
+
+<div class="row mt-4" ng-show="!vm.modoDet  && !vm.formVisible">
     <div class="col-12 offset-md-1 col-md-10">
         <div class="card">
             <div class="card-header">
@@ -13,7 +19,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-12">
-                        <div ui-grid="vm.gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize></div>
+                        <div class="fontsize-10" ui-grid="vm.gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize></div>
                     </div>
                 </div>
             </div>
@@ -21,7 +27,7 @@
     </div>
 </div>
 
-<div class="row mt-4" ng-show="vm.formVisible">
+<div class="row mt-4" ng-show="!vm.modoDet && vm.formVisible">
     <div class="col-12 offset-md-2 col-md-8">
         <div class="card">
             <div class="card-header">
@@ -37,16 +43,18 @@
                         </div>
                         <div class="col-12 col-md-6">
                             <label>M&oacute;dulo:</label>
-                            <ui-select ng-model="vm.entity.codModulo"
+                            <select ng-model="vm.entity.codModulo" form="formApp" class="form-control" required>
+                                <option ng-repeat="item in vm.listModulos" value="{{ item.codModulo }}">{{ item.descripcion }}</option>
+                            </select>
+
+                            @*<ui-select ng-model="vm.entity.codModulo"
                                        theme="bootstrap"
-                                       required
-                                       append-to-body="false">
+                                       tabindex="7">
                                 <ui-select-match placeholder="Seleccione un modulo...">{{$select.selected.descripcion}}</ui-select-match>
-                                <ui-select-choices repeat="item.codModulo as item in vm.listModulos | filter: $select.search track by $index"
-                                                   refresh-delay="0">
+                                <ui-select-choices repeat="item.codModulo as item in vm.listModulos | filter: $select.search">
                                     <div ng-bind-html="item.descripcion | highlight: $select.search"></div>
                                 </ui-select-choices>
-                            </ui-select>
+                            </ui-select>*@
                         </div>
                     </div>
                     <div class="form-group row">
@@ -67,6 +75,74 @@
     </div>
 </div>
 
+
+<div class="row mt-4" ng-show="vm.modoDet && !vm.formVisibleDet">
+    <div class="col-12 offset-md-1 col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <button class="btn btn-default" ng-click="vm.regresarDet()">Regresar</button>
+                <button class="btn btn-primary" ng-click="vm.nuevoDet()">Nuevo</button>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h4>{{ vm.entity.descripcion }}</h4>
+                    </div>
+                    <div class="col-12 mt-3">
+                        <div class="fontsize-10" ui-grid="vm.gridOptionsDet" ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4" ng-show="vm.modoDet && vm.formVisibleDet">
+    <div class="col-12 offset-md-2 col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 ng-show="!vm.formModifyDet">Nuevo</h4>
+                <h4 ng-show="vm.formModifyDet">Editar</h4>
+            </div>
+            <div class="card-body">
+                <form id="formAppDet" name="formAppDet" novalidate="" class="form-horizontal">
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <label>Descripci&oacute;n Tabla:</label>
+                            <input type="text" form="formAppDet" ng-model="vm.entity.descripcion" class="form-control" disabled="disabled" required />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12 col-md-6">
+                            <label>C&oacute;digo:</label>
+                            <input type="text" form="formAppDet" ng-model="vm.entityDet.codValor" class="form-control" required />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label>Estado:</label>
+                            <select ng-model="vm.entityDet.estado" form="formAppDet" class="form-control" required>
+                                <option ng-repeat="item in vm.listEstados" value="{{ item.codigo }}">{{ item.descripcion }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <label>Descripci&oacute;n:</label>
+                            <input type="text" form="formAppDet" ng-model="vm.entityDet.descripcion" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <button class="btn btn-primary" ng-click="vm.guardarDet()" ng-disabled="formAppDet.$invalid">Guardar</button>
+                            <button class="btn btn-default" ng-click="vm.cancelarDet()">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="~/master/js/services/general/modulos.service.js"></script>
 <script src="~/master/js/services/general/tablas.service.js"></script>
+<script src="~/master/js/services/general/tablas.detalles.service.js"></script>
 <script src="~/master/js/controllers/general/tablas.controller.js"></script>

@@ -50,7 +50,6 @@ C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.Views.pdb
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.dll
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.pdb
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.csproj.CopyComplete
-C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.csprojAssemblyReference.cache
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.csproj.CoreCompileInputs.cache
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\General\Views\Home\Empresas.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\General\Views\Home\Usuarios.g.cshtml.cs
@@ -66,3 +65,4 @@ C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Vali
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Views\_ViewImports.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Views\_ViewStart.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\General\Views\Home\Tablas.g.cshtml.cs
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.csprojAssemblyReference.cache

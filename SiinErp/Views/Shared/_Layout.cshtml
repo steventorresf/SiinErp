@@ -6,7 +6,7 @@
     <title>@ViewData["Title"]</title>
 
     <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="~/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/vendor/bootstrap/css/bootstrap.css">
     <!-- Font Awesome CSS-->
     <link rel="stylesheet" href="~/vendor/font-awesome/css/font-awesome.min.css">
     <!-- Fontastic Custom icon font-->
@@ -32,6 +32,14 @@
         #TextoTitulo span {
             font-size: 1.5em;
             text-transform: capitalize;
+        }
+
+        .fontsize-10 {
+            font-size: 0.8em;
+        }
+
+        .fontsize-10 .fa{
+            font-size:1.5em;
         }
     </style>
 
@@ -215,18 +223,12 @@
             </nav>
         </header>
 
-        <link rel="stylesheet" href="~/vendor/angular/css/ui-grid.css" />
-        <link rel="stylesheet" href="~/vendor/angular/css/select.css" />
+        
+        <script src="~/js/basic.js"></script>
+        <link rel="stylesheet" href="~/vendor/angular/angular-ui-grid/ui-grid.css" />
+        @*<link rel="stylesheet" href="~/vendor/angular/angular-ui-select/select.css" />*@
+        <link rel="stylesheet" href="~/vendor/angular/ui-select/dist/select.css" />
 
-        <script src="~/vendor/angular/js/angular.js"></script>
-        <script src="~/vendor/angular/js/angular-sanitize.min.js"></script>
-        <script src="~/master/js/app.js"></script>
-        <script src="~/vendor/angular/js/ui-grid.js"></script>
-        <script src="~/vendor/angular/js/select.js"></script>
-        @*<script src="~/vendor/angular/js/select2.js"></script>*@
-
-
-        @*<link rel="stylesheet" href="~/vendor/angular/css/select2.css" />*@
 
         @RenderBody()
 
@@ -234,7 +236,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-6">
-                        <p>Your company &copy; 2017-2020 {{ vm.title }}</p>
+                        <p>Your company &copy; @DateTimeOffset.Now.Year</p>
                     </div>
                     <div class="col-sm-6 text-right">
                         <p>Version 1.4.7</p>
@@ -244,7 +246,7 @@
         </footer>
     </div>
 
-    <script src="~/vendor/jquery/jquery.min.js"></script>
+    @*<script src="~/vendor/jquery/jquery.min.js"></script>
     <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
     <script src="~/vendor/jquery.cookie/jquery.cookie.js"></script>
@@ -257,7 +259,7 @@
     <script src="~/vendor/messenger-hubspot/build/js/messenger-theme-flat.js"></script>
     <script src="~/js/home-premium.js"></script>
     <!-- Main File-->
-    <script src="~/js/front.js"></script>
+    <script src="~/js/front.js"></script>*@
 
     @RenderSection("Scripts", required: false)
 </body>
