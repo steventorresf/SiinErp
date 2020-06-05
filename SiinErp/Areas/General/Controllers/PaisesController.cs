@@ -11,16 +11,16 @@ namespace SiinErp.Areas.General.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmpresasController : ControllerBase
+    public class PaisesController : ControllerBase
     {
-        private EmpresasBusiness BusinessEmp = new EmpresasBusiness();
+        private PaisesBusiness BusinessPais = new PaisesBusiness();
 
         [HttpGet]
-        public IActionResult GetEmpresas()
+        public IActionResult GetPaises()
         {
             try
             {
-                var lista = BusinessEmp.GetEmpresas();
+                var lista = BusinessPais.GetPaises();
                 return Ok(lista);
             }
             catch (Exception ex)
@@ -30,11 +30,11 @@ namespace SiinErp.Areas.General.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateEmpresa([FromBody] Empresas entity)
+        public IActionResult CreatePais([FromBody] Paises entity)
         {
             try
             {
-                BusinessEmp.Create(entity);
+                BusinessPais.Create(entity);
                 return Ok("Ok");
             }
             catch (Exception ex)
@@ -43,12 +43,12 @@ namespace SiinErp.Areas.General.Controllers
             }
         }
 
-        [HttpPut("{IdEmp}")]
-        public IActionResult UpdateEmpresa(int IdEmp, [FromBody] Empresas entity)
+        [HttpPut("{IdPais}")]
+        public IActionResult UpdatePais(int IdPais, [FromBody] Paises entity)
         {
             try
             {
-                BusinessEmp.Update(IdEmp, entity);
+                BusinessPais.Update(IdPais, entity);
                 return Ok("Ok");
             }
             catch (Exception ex)

@@ -1,0 +1,135 @@
+﻿
+@{
+    ViewData["Title"] = "Ciudades";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row mt-4" ng-show="!vm.modoCiu  && !vm.formVisible">
+    <div class="col-12 offset-md-1 col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <button class="btn btn-primary" ng-click="vm.nuevo()">Nuevo</button>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="fontsize-10" ui-grid="vm.gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4" ng-show="!vm.modoCiu && vm.formVisible">
+    <div class="col-12 offset-md-2 col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 ng-show="!vm.formModify">Nuevo Departamento</h4>
+                <h4 ng-show="vm.formModify">Editar Departamento</h4>
+            </div>
+            <div class="card-body">
+                <form id="formApp" name="formApp" novalidate="" class="form-horizontal">
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <label>Nombre Departamento:</label>
+                            <input type="text" form="formApp" ng-model="vm.entity.nombreDepartamento" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12 col-md-4">
+                            <label>C&oacute;digo Dane:</label>
+                            <input type="text" form="formApp" ng-model="vm.entity.codigoDane" class="form-control" required />
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <label>Pa&iacute;s:</label>
+                            <select ng-model="vm.entity.idPais" form="formApp" class="form-control" required>
+                                <option ng-repeat="item in vm.listPaises" value="{{ item.idPais }}">{{ item.nombrePais }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <button class="btn btn-primary" ng-click="vm.guardar()" ng-disabled="formApp.$invalid">Guardar</button>
+                            <button class="btn btn-default" ng-click="vm.cancelar()">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row mt-4" ng-show="vm.modoCiu && !vm.formVisibleCiu">
+    <div class="col-12 offset-md-1 col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <button class="btn btn-default" ng-click="vm.regresarCiu()">Regresar</button>
+                <button class="btn btn-primary" ng-click="vm.nuevoCiu()">Nuevo</button>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h4>{{ vm.entity.nombreDepartamento }}</h4>
+                    </div>
+                    <div class="col-12 mt-3">
+                        <div class="fontsize-10" ui-grid="vm.gridOptionsCiu" ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4" ng-show="vm.modoCiu && vm.formVisibleCiu">
+    <div class="col-12 offset-md-2 col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 ng-show="!vm.formModifyCiu">Nueva Ciudad</h4>
+                <h4 ng-show="vm.formModifyCiu">Editar Ciudad</h4>
+            </div>
+            <div class="card-body">
+                <form id="formAppCiu" name="formAppCiu" novalidate="" class="form-horizontal">
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <label>Descripci&oacute;n Departamento:</label>
+                            <input type="text" form="formAppCiu" ng-model="vm.entity.nombreDepartamento" class="form-control" disabled="disabled" required />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <label>Nombre Ciudad:</label>
+                            <input type="text" form="formAppCiu" ng-model="vm.entityCiu.nombreCiudad" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12 col-md-4">
+                            <label>C&oacute;digo Dane:</label>
+                            <input type="text" form="formAppCiu" ng-model="vm.entityCiu.codigoDane" class="form-control" required />
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <label>Departamento:</label>
+                            <select ng-model="vm.entityCiu.idDepartamento" form="formAppCiu" class="form-control" required>
+                                <option ng-repeat="item in vm.listDepartamentos" value="{{ item.idDepartamento }}">{{ item.nombreDepartamento }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <button class="btn btn-primary" ng-click="vm.guardarCiu()" ng-disabled="formAppCiu.$invalid">Guardar</button>
+                            <button class="btn btn-default" ng-click="vm.cancelarCiu()">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="~/master/js/services/general/paises.service.js"></script>
+<script src="~/master/js/services/general/departamentos.service.js"></script>
+<script src="~/master/js/services/general/ciudades.service.js"></script>
+<script src="~/master/js/controllers/general/departamentos.ciudades.controller.js"></script>

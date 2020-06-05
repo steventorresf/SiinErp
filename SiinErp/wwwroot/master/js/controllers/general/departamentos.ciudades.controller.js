@@ -5,51 +5,49 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$scope', 'GenTablasService', 'GenTablasDetService', 'GenModulosService'];
+    AppController.$inject = ['$location', '$scope', 'GenPaisesService', 'GenDepartamentosService', 'GenCiudadesService'];
 
-    function AppController($location, $scope, tabService, tabdetService, modService) {
+    function AppController($location, $scope, paisService, depService, ciuService) {
         var vm = this;
 
         vm.title = 'Home Page';
         vm.formVisible = false;
         vm.formModify = false;
-        vm.formVisibleDet = false;
-        vm.formModifyDet = false;
+        vm.formVisibleCiu = false;
+        vm.formModifyCiu = false;
         vm.entity = {};
 
         vm.init = init;
-        vm.getModulos = getModulos;
-        vm.getTablas = getTablas;
+        vm.getDepartamentos = getDepartamentos;
         vm.nuevo = nuevo;
         vm.editar = editar;
         vm.guardar = guardar;
         vm.cancelar = cancelar;
-        vm.getDetalle = getDetalle;
+        vm.getCiudades = getCiudades;
         $scope.editar = editar;
 
-        $scope.getDetalle = getDetalle;
-        vm.nuevoDet = nuevoDet;
-        vm.editarDet = editarDet;
-        vm.guardarDet = guardarDet;
-        vm.cancelarDet = cancelarDet;
-        vm.regresarDet = regresarDet;
-        $scope.editarDet = editarDet;
-        vm.listEstados = [{ codigo: 'A', descripcion: 'Activo' }, { codigo: 'I', descripcion: 'Inactivo' }];
+        $scope.getCiudades = getCiudades;
+        vm.nuevoCiu = nuevoCiu;
+        vm.editarCiu = editarCiu;
+        vm.guardarCiu = guardarCiu;
+        vm.cancelarCiu = cancelarCiu;
+        vm.regresarCiu = regresarCiu;
+        $scope.editarCiu = editarCiu;
 
-        vm.modoDet = false;
+        vm.modoCiu = false;
 
         function init() {
-            getTablas();
-            getModulos();
+            getDepartamentos();
+            getPaises();
         }
 
 
-        function getModulos() {
-            var response = modService.getAll();
+        function getDepartamentos() {
+            var response = depService.getAll();
             response.then(
                 function (response) {
-                    vm.listModulos = response.data;
-                    console.log(vm.listModulos);
+                    vm.gridOptions.data = response.data;
+                    vm.listDepartamentos = response.data;
                 },
                 function (response) {
                     console.log(response);
@@ -57,11 +55,11 @@
             );
         }
 
-        function getTablas() {
-            var response = tabService.getAll();
+        function getPaises() {
+            var response = paisService.getAll();
             response.then(
                 function (response) {
-                    vm.gridOptions.data = response.data;
+                    vm.listPaises = response.data;
                 },
                 function (response) {
                     console.log(response);
@@ -75,23 +73,23 @@
             vm.formVisible = true;
         }
 
-        function editar (entity) {
+        function editar(entity) {
             vm.entity = angular.copy(entity);
-            vm.codTabla = angular.copy(entity.codTabla);
+            vm.entity.idPais = angular.copy(entity.idPais).toString();
+            console.log(vm.entity);
             vm.formModify = true;
             vm.formVisible = true;
         }
 
         function guardar() {
             var response = null;
-            if (vm.formModify) { response = tabService.update(vm.codTabla, vm.entity); }
-            else { response = tabService.create(vm.entity); }
-            console.log(vm.formModify);
+            if (vm.formModify) { response = depService.update(vm.entity.idDepartamento, vm.entity); }
+            else { response = depService.create(vm.entity); }
 
             response.then(
                 function (response) {
                     cancelar();
-                    getTablas();
+                    getDepartamentos();
                 },
                 function (response) {
                     console.log(response);
@@ -114,25 +112,25 @@
             enableFiltering: true,
             columnDefs: [
                 {
-                    name: 'codTabla',
-                    field: 'codTabla',
-                    displayName: 'Código',
+                    name: 'codigoDane',
+                    field: 'codigoDane',
+                    displayName: 'CódigoDane',
                     headerCellClass: 'text-center',
-                    width: 150,
+                    width: 100,
                 },
                 {
-                    name: 'descripcion',
-                    field: 'descripcion',
-                    displayName: 'Descripción',
+                    name: 'nombreDepartamento',
+                    field: 'nombreDepartamento',
+                    displayName: 'Nombre Departamento',
                     headerCellClass: 'text-center',
                 },
                 {
-                    name: 'nombreModulo',
-                    field: 'nombreModulo',
-                    displayName: 'Modulo',
+                    name: 'nombrePais',
+                    field: 'nombrePais',
+                    displayName: 'Nombre País',
                     headerCellClass: 'text-center',
                     cellClass: 'text-center',
-                    width: 250,
+                    width: 150,
                 },
                 {
                     name: 'tool',
@@ -141,11 +139,11 @@
                     enableColumnMenu: false,
                     enableFiltering: false,
                     enableSorting: false,
-                    cellClass:'text-center',
+                    cellClass: 'text-center',
                     cellTemplate:
                         "<span><a href='' ng-click='grid.appScope.editar(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
                         "<i class='fa fa-edit'></i></a></span>" +
-                        "<span><a href='' ng-click='grid.appScope.getDetalle(row.entity)' tooltip='Detalles' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<span><a href='' ng-click='grid.appScope.getCiudades(row.entity)' tooltip='Ciudades' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
                         "<i class='fa fa-book text-info'></i></a></span>",
                     width: 100,
                 }
@@ -155,7 +153,7 @@
             },
         };
 
-        vm.gridOptionsDet = {
+        vm.gridOptionsCiu = {
             data: [],
             enableSorting: true,
             enableRowSelection: true,
@@ -166,25 +164,17 @@
             enableFiltering: true,
             columnDefs: [
                 {
-                    name: 'codValor',
-                    field: 'codValor',
-                    displayName: 'Código',
+                    name: 'codigoDane',
+                    field: 'codigoDane',
+                    displayName: 'CódigoDane',
                     headerCellClass: 'text-center',
                     width: 100,
                 },
                 {
-                    name: 'descripcion',
-                    field: 'descripcion',
-                    displayName: 'Descripción',
+                    name: 'nombreCiudad',
+                    field: 'nombreCiudad',
+                    displayName: 'Nombre Ciudad',
                     headerCellClass: 'text-center',
-                },
-                {
-                    name: 'estado',
-                    field: 'estado',
-                    displayName: 'Estado',
-                    headerCellClass: 'text-center',
-                    cellClass: 'text-center',
-                    width: 100,
                 },
                 {
                     name: 'tool',
@@ -195,31 +185,31 @@
                     enableSorting: false,
                     cellClass: 'text-center',
                     cellTemplate:
-                        "<span><a href='' ng-click='grid.appScope.editarDet(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<span><a href='' ng-click='grid.appScope.editarCiu(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
                         "<i class='fa fa-edit'></i></a></span>",
                     width: 100,
                 }
             ],
             onRegisterApi: function (gridApi) {
-                vm.gridApiDet = gridApi;
+                vm.gridApiCiu = gridApi;
             },
         };
 
-        function regresarDet() {
-            vm.modoDet = false;
+        function regresarCiu() {
+            vm.modoCiu = false;
         }
 
-        function getDetalle(entity) {
+        function getCiudades(entity) {
             vm.entity = angular.copy(entity);
-            vm.modoDet = true;
-            getAllDet();
+            vm.modoCiu = true;
+            getAllCiu();
         }
 
-        function getAllDet() {
-            var response = tabdetService.getAll(vm.entity.codTabla);
+        function getAllCiu() {
+            var response = ciuService.getAll(vm.entity.idDepartamento);
             response.then(
                 function (response) {
-                    vm.gridOptionsDet.data = response.data;
+                    vm.gridOptionsCiu.data = response.data;
                 },
                 function (response) {
                     console.log(response);
@@ -227,30 +217,29 @@
             );
         }
 
-        function nuevoDet() {
-            vm.entityDet = {};
-            vm.entityDet.estado = 'A';
-            vm.formModifyDet = false;
-            vm.formVisibleDet = true;
+        function nuevoCiu() {
+            vm.entityCiu = {};
+            vm.entityCiu.idDepartamento = angular.copy(vm.entity.idDepartamento).toString();
+            vm.formModifyCiu = false;
+            vm.formVisibleCiu = true;
         }
 
-        function editarDet(entity) {
-            vm.entityDet = angular.copy(entity);
-            vm.formModifyDet = true;
-            vm.formVisibleDet = true;
+        function editarCiu(entity) {
+            vm.entityCiu = angular.copy(entity);
+            vm.entityCiu.idDepartamento = angular.copy(entity.idDepartamento).toString();
+            vm.formModifyCiu = true;
+            vm.formVisibleCiu = true;
         }
 
-        function guardarDet() {
-            vm.entityDet.codTabla = vm.entity.codTabla;
-
+        function guardarCiu() {
             var response = null;
-            if (vm.formModifyDet) { response = tabdetService.update(vm.entityDet.idDetalle, vm.entityDet); }
-            else { response = tabdetService.create(vm.entityDet); }
+            if (vm.formModifyCiu) { response = ciuService.update(vm.entityCiu.idCiudad, vm.entityCiu); }
+            else { response = ciuService.create(vm.entityCiu); }
 
             response.then(
                 function (response) {
-                    cancelarDet();
-                    getAllDet();
+                    cancelarCiu();
+                    getAllCiu();
                 },
                 function (response) {
                     console.log(response);
@@ -258,8 +247,8 @@
             );
         }
 
-        function cancelarDet() {
-            vm.formVisibleDet = false;
+        function cancelarCiu() {
+            vm.formVisibleCiu = false;
         }
     }
 })();

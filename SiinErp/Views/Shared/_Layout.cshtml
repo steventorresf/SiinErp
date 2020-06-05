@@ -70,12 +70,13 @@
                         <a href="#MenuGeneral" aria-expanded="false" data-toggle="collapse"> <i class="icon-form"></i>General</a>
                         <ul id="MenuGeneral" class="collapse list-unstyled ">
                             <li><a href="@Url.Content("~/General/Home/Empresas")">Empresas</a></li>
-                            <li><a href="@Url.Content("~/General/Home/Usuarios")">Usuarios</a></li>
                             <li><a href="@Url.Content("~/General/Home/Tablas")">Tablas</a></li>
                             <li><a href="@Url.Content("~/General/Home/TiposDocumento")">Tipos Documento</a></li>
                             <li><a href="@Url.Content("~/General/Home/Parametros")">Parametros</a></li>
                             <li><a href="@Url.Content("~/General/Home/Terceros")">Terceros</a></li>
                             <li><a href="@Url.Content("~/General/Home/Periodos")">Periodos</a></li>
+                            <li><a href="@Url.Content("~/General/Home/DptosCiudads")">Ciudades</a></li>
+                            <li><a href="@Url.Content("~/General/Home/Usuarios")">Usuarios</a></li>
                         </ul>
                     </li>
                     <li>
@@ -228,7 +229,7 @@
         <link rel="stylesheet" href="~/vendor/angular/angular-ui-grid/ui-grid.css" />
         @*<link rel="stylesheet" href="~/vendor/angular/angular-ui-select/select.css" />*@
         <link rel="stylesheet" href="~/vendor/angular/ui-select/dist/select.css" />
-
+        <script src="~/master/js/constantes.js"></script>
 
         @RenderBody()
 

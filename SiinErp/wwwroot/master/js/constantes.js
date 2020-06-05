@@ -1,0 +1,3 @@
+﻿const Tab = {
+    Regimen: 'GENREG',
+}

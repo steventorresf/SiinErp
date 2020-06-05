@@ -21,5 +21,9 @@ namespace SiinErp.Areas.General.Controllers
         {
             return View();
         }
+        public IActionResult DptosCiudads()
+        {
+            return View();
+        }
     }
 }

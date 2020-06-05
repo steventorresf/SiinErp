@@ -11,16 +11,16 @@ namespace SiinErp.Areas.General.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmpresasController : ControllerBase
+    public class CiudadesController : ControllerBase
     {
-        private EmpresasBusiness BusinessEmp = new EmpresasBusiness();
+        private CiudadesBusiness BusinessCiu = new CiudadesBusiness();
 
-        [HttpGet]
-        public IActionResult GetEmpresas()
+        [HttpGet("{IdDep}")]
+        public IActionResult GetCiudades(int IdDep)
         {
             try
             {
-                var lista = BusinessEmp.GetEmpresas();
+                var lista = BusinessCiu.GetCiudades(IdDep);
                 return Ok(lista);
             }
             catch (Exception ex)
@@ -30,11 +30,11 @@ namespace SiinErp.Areas.General.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateEmpresa([FromBody] Empresas entity)
+        public IActionResult CreateCiudad([FromBody] Ciudades entity)
         {
             try
             {
-                BusinessEmp.Create(entity);
+                BusinessCiu.Create(entity);
                 return Ok("Ok");
             }
             catch (Exception ex)
@@ -43,12 +43,12 @@ namespace SiinErp.Areas.General.Controllers
             }
         }
 
-        [HttpPut("{IdEmp}")]
-        public IActionResult UpdateEmpresa(int IdEmp, [FromBody] Empresas entity)
+        [HttpPut("{IdCiu}")]
+        public IActionResult UpdateCiudad(int IdCiu, [FromBody] Ciudades entity)
         {
             try
             {
-                BusinessEmp.Update(IdEmp, entity);
+                BusinessCiu.Update(IdCiu, entity);
                 return Ok("Ok");
             }
             catch (Exception ex)
@@ -56,6 +56,5 @@ namespace SiinErp.Areas.General.Controllers
                 throw;
             }
         }
-
     }
 }

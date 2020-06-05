@@ -3,12 +3,12 @@
 
     angular
         .module('app')
-        .factory('GenEmpresasService', GenEmpresasService);
+        .factory('GenDepartamentosService', GenDepartamentosService);
 
-    GenEmpresasService.$inject = ['$http', '$q'];
+    GenDepartamentosService.$inject = ['$http', '$q'];
 
-    function GenEmpresasService($http, $q) {
-        var nameSpace = '/api/Empresas/';
+    function GenDepartamentosService($http, $q) {
+        var nameSpace = '/api/Departamentos/';
 
         var service = {
             getAll: getAll,
@@ -56,6 +56,5 @@
                     }
                 );
         }
-
     }
 })();

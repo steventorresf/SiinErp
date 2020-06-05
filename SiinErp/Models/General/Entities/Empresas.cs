@@ -41,7 +41,16 @@ namespace SiinErp.Models.General.Entities
         public string Representante { get; set; }
 
         [Required]
-        [StringLength(50)]
-        public string Regimen { get; set; }
+        public int IdDetRegimen { get; set; }
+
+
+        [NotMapped]
+        public int IdDepartamento { get; set; }
+
+        [NotMapped]
+        public string NombreCiudad { get; set; }
+
+        [NotMapped]
+        public string NombreRegimen { get; set; }
     }
 }

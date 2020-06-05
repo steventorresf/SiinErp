@@ -29,6 +29,12 @@ namespace SiinErp.Models._DAL
         public virtual DbSet<Tablas> Tablas { get; set; }
 
         public virtual DbSet<TablasDetalle> TablasDetalles { get; set; }
+
+        public virtual DbSet<Paises> Paises { get; set; }
+
+        public virtual DbSet<Departamentos> Departamentos { get; set; }
+
+        public virtual DbSet<Ciudades> Ciudades { get; set; }
         #endregion
     }
 }

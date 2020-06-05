@@ -4,6 +4,97 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="row mt-4" ng-show="!vm.formVisible">
+    <div class="col-12 offset-md-1 col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <button class="btn btn-primary" ng-click="vm.nuevo()">Nuevo</button>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="fontsize-10" ui-grid="vm.gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+
+<div class="row mt-4" ng-show="vm.formVisible">
+    <div class="col-12 offset-md-2 col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 ng-show="!vm.formModify">Nueva Empresa</h4>
+                <h4 ng-show="vm.formModify">Editar Empresa</h4>
+            </div>
+            <div class="card-body">
+                <form id="formApp" name="formApp" novalidate="" class="form-horizontal">
+                    <div class="form-group row">
+                        <div class="col-12 col-md-4">
+                            <label>NitEmpresa:</label>
+                            <input type="text" form="formApp" ng-model="vm.entity.nitEmpresa" class="form-control" required />
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <label>Raz&oacute;n Social:</label>
+                            <input type="text" form="formApp" ng-model="vm.entity.razonSocial" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12 col-md-6">
+                            <label>Departamento:</label>
+                            <select ng-model="vm.entity.idDepartamento" form="formApp" class="form-control" ng-change="vm.getCiudades()" required>
+                                <option ng-repeat="item in vm.listDepartamentos" value="{{ item.idDepartamento }}">{{ item.nombreDepartamento }}</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label>Ciudad:</label>
+                            <select ng-model="vm.entity.idCiudad" form="formApp" class="form-control" required>
+                                <option ng-repeat="item in vm.listCiudades" value="{{ item.idCiudad }}">{{ item.nombreCiudad }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12 col-md-6">
+                            <label>Direcci&oacute;n:</label>
+                            <input type="text" form="formApp" ng-model="vm.entity.direccion" class="form-control" required />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label>Tel&eacute;fono:</label>
+                            <input type="text" form="formApp" ng-model="vm.entity.telefono" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12 col-md-3">
+                            <label>CodEan:</label>
+                            <input type="text" form="formApp" ng-model="vm.entity.codEan" class="form-control" required />
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label>R&eacute;gimen:</label>
+                            <select ng-model="vm.entity.idDetRegimen" form="formApp" class="form-control" required>
+                                <option ng-repeat="item in vm.listRegimens" value="{{ item.idDetalle }}">{{ item.descripcion }}</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-5">
+                            <label>Representante:</label>
+                            <input type="text" form="formApp" ng-model="vm.entity.representante" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <button class="btn btn-primary" ng-click="vm.guardar()" ng-disabled="formApp.$invalid">Guardar</button>
+                            <button class="btn btn-default" ng-click="vm.cancelar()">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/master/js/services/general/departamentos.service.js"></script>
+<script src="~/master/js/services/general/ciudades.service.js"></script>
+<script src="~/master/js/services/general/tablas.detalles.service.js"></script>
 <script src="~/master/js/services/general/empresas.service.js"></script>
 <script src="~/master/js/controllers/general/empresas.controller.js"></script>
