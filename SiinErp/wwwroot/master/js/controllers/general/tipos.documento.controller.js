@@ -1,20 +1,19 @@
 ﻿(function () {
-    'use-strict';
+    'use strict';
 
     angular
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$scope', 'GenEmpresasService', 'GenDepartamentosService', 'GenCiudadesService', 'GenTablasDetService'];
+    AppController.$inject = ['$location', '$scope', '$cookies', 'GenTiposDocService', 'GenTablasDetService'];
 
-    function AppController($location, $scope, empService, depService, ciuService, tabdetService) {
+    function AppController($location, $scope, $cookies, tipdocService, tabdetService) {
         var vm = this;
 
         vm.title = 'Home Page';
+        vm.userApp = angular.copy($cookies.getObject('UsuApp'));
         vm.init = init;
-        vm.getEmpresas = getEmpresas;
-        vm.onChangeDepartamento = onChangeDepartamento;
-        vm.getCiudades = getCiudades;
+        vm.getTiposDoc = getTiposDoc;
         vm.nuevo = nuevo;
         vm.editar = editar;
         vm.guardar = guardar;
@@ -22,13 +21,13 @@
         $scope.editar = editar;
 
         function init() {
-            getEmpresas();
-            getDepartamentos();
-            getRegimens();
+            getTiposDoc();
+            getTransaccionGen();
+            getClasesDoc();
         }
 
-        function getEmpresas() {
-            var response = empService.getAll();
+        function getTiposDoc() {
+            var response = tipdocService.getAll(vm.userApp.idEmpresa);
             response.then(
                 function (response) {
                     vm.gridOptions.data = response.data;
@@ -39,11 +38,11 @@
             );
         }
 
-        function getDepartamentos() {
-            var response = depService.getAll();
+        function getTransaccionGen() {
+            var response = tabdetService.getAll(Tab.Transac);
             response.then(
                 function (response) {
-                    vm.listDepartamentos = response.data;
+                    vm.listTransaccions = response.data;
                 },
                 function (response) {
                     console.log(response);
@@ -51,16 +50,11 @@
             );
         }
 
-        function onChangeDepartamento() {
-            vm.entity.idCiudad = null;
-            getCiudades();
-        }
-
-        function getCiudades() {
-            var response = ciuService.getAll(vm.entity.idDepartamento);
+        function getClasesDoc() {
+            var response = tabdetService.getAll(Tab.ClaseDoc);
             response.then(
                 function (response) {
-                    vm.listCiudades = response.data;
+                    vm.listClasesDoc = response.data;
                 },
                 function (response) {
                     console.log(response);
@@ -68,18 +62,7 @@
             );
         }
 
-        function getRegimens() {
-            var response = tabdetService.getAll(Tab.Regimen);
-            response.then(
-                function (response) {
-                    vm.listRegimens = response.data;
-                },
-                function (response) {
-                    console.log(response);
-                }
-            );
-        }
-
+        
 
         function nuevo() {
             vm.entity = {};
@@ -89,21 +72,23 @@
 
         function editar(entity) {
             vm.entity = angular.copy(entity);
-            getCiudades();
-            vm.entity.idDetRegimen = angular.copy(entity.idDetRegimen).toString();
+            vm.entity.idDetTransaccion = angular.copy(entity.idDetTransaccion).toString();
+            vm.entity.idDetClaseDoc = angular.copy(entity.idDetClaseDoc).toString();
             vm.formModify = true;
             vm.formVisible = true;
         }
 
         function guardar() {
+            vm.entity.idEmpresa = vm.userApp.idEmpresa;
+
             var response = null;
-            if (vm.formModify) { response = empService.update(vm.entity.idEmpresa, vm.entity); }
-            else { response = empService.create(vm.entity); }
+            if (vm.formModify) { response = tipdocService.update(vm.entity.idTipoDoc, vm.entity); }
+            else { response = tipdocService.create(vm.entity); }
 
             response.then(
                 function (response) {
                     cancelar();
-                    getEmpresas();
+                    getTiposDoc();
                 },
                 function (response) {
                     console.log(response);
@@ -126,66 +111,75 @@
             enableFiltering: true,
             columnDefs: [
                 {
-                    name: 'nitEmpresa',
-                    field: 'nitEmpresa',
-                    displayName: 'NitEmpresa',
+                    name: 'tipoDoc',
+                    field: 'tipoDoc',
+                    displayName: 'TipoDoc',
                     headerCellClass: 'text-center',
+                    cellClass: 'text-center',
                     width: 100,
                 },
                 {
-                    name: 'razonSocial',
-                    field: 'razonSocial',
-                    displayName: 'RazonSocial',
+                    name: 'numDoc',
+                    field: 'numDoc',
+                    displayName: 'NumDoc',
+                    headerCellClass: 'text-center',
+                    cellClass: 'text-center',
+                    width: 100,
+                },
+                {
+                    name: 'descripcion',
+                    field: 'descripcion',
+                    displayName: 'Descripcion',
                     headerCellClass: 'text-center',
                     width: 300,
                 },
                 {
-                    name: 'nombreCiudad',
-                    field: 'nombreCiudad',
-                    displayName: 'Nombre Ciudad',
+                    name: 'nomTransaccion',
+                    field: 'nomTransaccion',
+                    displayName: 'Transacción',
                     headerCellClass: 'text-center',
                     cellClass: 'text-center',
-                    width: 300,
+                    width: 120,
                 },
                 {
-                    name: 'direccion',
-                    field: 'direccion',
-                    displayName: 'Dirección',
+                    name: 'nomClaseDoc',
+                    field: 'nomClaseDoc',
+                    displayName: 'ClaseDocumento',
                     headerCellClass: 'text-center',
                     cellClass: 'text-center',
-                    width: 300,
+                    width: 120,
                 },
                 {
-                    name: 'telefono',
-                    field: 'telefono',
-                    displayName: 'Teléfono',
+                    name: 'idCuentaDoc',
+                    field: 'idCuentaDoc',
+                    displayName: 'CuentaDoc',
                     headerCellClass: 'text-center',
                     cellClass: 'text-center',
-                    width: 250,
+                    width: 120,
                 },
                 {
-                    name: 'codEan',
-                    field: 'codEan',
-                    displayName: 'CodEan',
+                    name: 'idCuentaCargo',
+                    field: 'idCuentaCargo',
+                    displayName: 'CuentaCargo',
                     headerCellClass: 'text-center',
                     cellClass: 'text-center',
-                    width: 80,
+                    width: 120,
                 },
                 {
-                    name: 'representante',
-                    field: 'representante',
-                    displayName: 'Representante',
+                    name: 'idCuentaOtro',
+                    field: 'idCuentaOtro',
+                    displayName: 'CuentaOtro',
                     headerCellClass: 'text-center',
                     cellClass: 'text-center',
-                    width: 300,
+                    width: 120,
                 },
                 {
-                    name: 'nombreRegimen',
-                    field: 'nombreRegimen',
-                    displayName: 'Regimen',
+                    name: 'idCuentaReteFuente',
+                    field: 'idCuentaReteFuente',
+                    displayName: 'CuentaReteFuente',
                     headerCellClass: 'text-center',
                     cellClass: 'text-center',
-                    width: 200,
+                    width: 120,
                 },
                 {
                     name: 'tool',
@@ -205,6 +199,5 @@
                 vm.gridApi = gridApi;
             },
         };
-
     }
 })();

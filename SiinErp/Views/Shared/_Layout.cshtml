@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
 
+    
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="~/vendor/bootstrap/css/bootstrap.css">
     <!-- Font Awesome CSS-->
@@ -27,21 +28,6 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-
-    <style>
-        #TextoTitulo span {
-            font-size: 1.5em;
-            text-transform: capitalize;
-        }
-
-        .fontsize-10 {
-            font-size: 0.8em;
-        }
-
-        .fontsize-10 .fa{
-            font-size:1.5em;
-        }
-    </style>
 
     <script>
         var url = '@Url.Content("~/")';
@@ -224,12 +210,8 @@
             </nav>
         </header>
 
-        
         <script src="~/js/basic.js"></script>
-        <link rel="stylesheet" href="~/vendor/angular/angular-ui-grid/ui-grid.css" />
-        @*<link rel="stylesheet" href="~/vendor/angular/angular-ui-select/select.css" />*@
-        <link rel="stylesheet" href="~/vendor/angular/ui-select/dist/select.css" />
-        <script src="~/master/js/constantes.js"></script>
+        <link rel="stylesheet" href="~/css/basic.css" />
 
         @RenderBody()
 
@@ -261,6 +243,10 @@
     <script src="~/js/home-premium.js"></script>
     <!-- Main File-->
     <script src="~/js/front.js"></script>*@
+
+    <script>
+        
+    </script>
 
     @RenderSection("Scripts", required: false)
 </body>

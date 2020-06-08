@@ -40,28 +40,50 @@
         var url = '@Url.Content("~/")';
     </script>
 
+    <script src="~/js/basic.js"></script>
+    <link rel="stylesheet" href="~/css/basic.css" />
 </head>
-<body ng-controller="AppController as vm">
+<body ng-controller="AppController as vm" ng-init="vm.init()">
     <div class="page login-page">
         <div class="container">
             <div class="form-outer text-center d-flex align-items-center">
                 <div class="form-inner">
-                    <div class="logo text-uppercase"><span></span><strong class="text-primary">Sistema Integral de Informaci&oacute;n</strong></div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.</p>
+                    <div class="logo text-capitalize"><span></span><strong class="text-primary">Sistema Integral de Informaci&oacute;n</strong></div>
+                    <p></p>
                     <form id="formApp" name="formApp" class="text-left form-validate">
-                        <div class="form-group-material">
-                            <input form="formApp" id="login-username" ng-model="vm.entity.nomUsu" type="text" name="loginUsername" required data-msg="Por favor ingresa tu nombre de usuario" class="input-material">
-                            <label for="login-username" class="label-material">Nombre de Usuario</label>
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <label>Empresa:<label class="">*</label></label>
+                                <select ng-model="vm.entity.idEmp" form="formApp" ng-change="vm.onChangeEmp(item)" class="form-control" required data-msg="Por favor selecciona una empresa">
+                                    <option ng-repeat="item in vm.listEmpresas" value="{{ item.idEmpresa }}">{{ item.razonSocial }}</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group-material">
-                            <input form="formApp" id="login-password" ng-model="vm.entity.clave" type="password" name="loginPassword" required data-msg="Por favor ingresa tu contraseña" class="input-material">
-                            <label for="login-password" class="label-material">Contraseña</label>
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <label>Nombre de Usuario:<label class="">*</label></label>
+                                <input type="text" form="formApp" class="form-control" ng-model="vm.entity.nomUsu" required data-msg="Por favor ingresa tu nombre de usuario" />
+                            </div>
                         </div>
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <label>Contraseña:<label class="">*</label></label>
+                                <input type="password" form="formApp" class="form-control" ng-model="vm.entity.clave" required data-msg="Por favor ingresa tu contraseña" />
+                            </div>
+                        </div>
+                        @*<div class="form-group-material">
+                                <input form="formApp" id="login-username" ng-model="vm.entity.nomUsu" type="text" name="loginUsername" required data-msg="Por favor ingresa tu nombre de usuario" class="input-material">
+                                <label for="login-username" class="label-material">Nombre de Usuario</label>
+                            </div>
+                            <div class="form-group-material">
+                                <input form="formApp" id="login-password" ng-model="vm.entity.clave" type="password" name="loginPassword" required data-msg="Por favor ingresa tu contraseña" class="input-material">
+                                <label for="login-password" class="label-material">Contraseña</label>
+                            </div>*@
                         <div class="form-group text-center">
-                            <button id="login" class="btn btn-primary" ng-click="vm.loginUsu()" ng-disabled="formApp.invalid">Ingresar al sistema</button>
-                            <!-- This should be submit button but I replaced it with <a> for demo purposes-->
+                            <button id="login" class="btn btn-primary" ng-click="vm.loginUsu()" ng-disabled="formApp.$invalid">Ingresar al sistema</button>
                         </div>
-                    </form><a href="#" class="forgot-pass">Forgot Password?</a><small>Do not have an account? </small><a href="register.html" class="signup">Signup</a>
+                    </form>
+                    <a href="#" class="forgot-pass">Forgot Password?</a><small>Do not have an account? </small><a href="register.html" class="signup">Signup</a>
                 </div>
                 <div class="copyrights text-center">
                     <p>Design by <a href="#" class="external">Your company</a></p>
@@ -69,29 +91,8 @@
             </div>
         </div>
     </div>
-    @*<!-- JavaScript files-->
-        <script src="~/vendor/jquery/jquery.min.js"></script>
-        <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="~/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
-        <script src="~/vendor/jquery.cookie/jquery.cookie.js"></script>
-        <script src="~/vendor/chart.js/Chart.min.js"></script>
-        <script src="~/vendor/jquery-validation/jquery.validate.min.js"></script>
-        <script src="~/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-        <!-- Main File-->
-        <script src="~/js/front.js"></script>
 
-        <script src="~/vendor/angular/angular/angular.js"></script>
-        <script src="~/vendor/angular/angular-sanitize/angular-sanitize.js"></script>
-        <script src="~/vendor/angular/angular-ui-utils/modules/utils.js"></script>
-        <script src="~/master/js/app.js"></script>
-        <script src="~/vendor/angular/angular-ui-grid/ui-grid.js"></script>
-        <script src="~/vendor/angular/angular-ui-select/select.js"></script>*@
-
-    <script src="~/js/basic.js"></script>
-
-    <link rel="stylesheet" href="~/vendor/angular/angular-ui-grid/ui-grid.css" />
-    <link rel="stylesheet" href="~/vendor/angular/angular-ui-select/select.css" />
-
+    <script src="~/master/js/services/general/empresas.service.js"></script>
     <script src="~/master/js/services/general/usuarios.service.js"></script>
     <script src="~/master/js/controllers/login.controller.js"></script>
 </body>

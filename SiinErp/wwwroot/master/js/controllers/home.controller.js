@@ -5,16 +5,16 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', 'GenUsuariosService'];
+    AppController.$inject = ['$location', '$cookies'];
 
-    function AppController($location, usuService) {
+    function AppController($location, $cookies) {
         var vm = this;
 
         vm.title = 'Home Page';
+        vm.init = init;
 
         function init() {
-            
+            console.log($cookies.getObject('UsuApp'));
         }
-        init();
     }
 })();

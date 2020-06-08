@@ -23,9 +23,10 @@ namespace SiinErp.Areas.General.Controllers
             try
             {
                 string respuesta = "TodoOkey";
+                Cookies dataCookie = new Cookies();
                 if (data != null)
                 {
-                    
+                    int IdEmp = data["idEmp"].ToObject<int>();
                     string Usu = data["nomUsu"].ToObject<string>();
                     string Con = data["clave"].ToObject<string>();
                     string Clave = Util.EncriptarMD5(Con);
@@ -35,6 +36,12 @@ namespace SiinErp.Areas.General.Controllers
                     {
                         if (obUsu.Estado.Equals(Constantes.EstadoActivo))
                         {
+                            dataCookie.IdUsu = obUsu.IdUsuario;
+                            dataCookie.NombreUsuario = obUsu.NombreUsuario;
+                            dataCookie.NombreCompleto = obUsu.NombreCompleto;
+                            dataCookie.Imagen = "favicon.ico";
+                            dataCookie.IdEmpresa = IdEmp;
+
                             HttpContext.Session.SetString("IdUsu", obUsu.IdUsuario.ToString());
                             HttpContext.Session.SetString("NombreUsuario", obUsu.NombreUsuario);
                             HttpContext.Session.SetString("NombreCompleto", obUsu.NombreCompleto);
@@ -46,7 +53,8 @@ namespace SiinErp.Areas.General.Controllers
                 }
                 else { respuesta = "Hacker"; }
 
-                return Ok(respuesta);
+                dataCookie.Respuesta = respuesta;
+                return Ok(dataCookie);
             }
             catch(Exception ex)
             {

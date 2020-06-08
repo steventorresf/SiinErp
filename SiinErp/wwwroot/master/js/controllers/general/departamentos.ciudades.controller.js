@@ -219,14 +219,13 @@
 
         function nuevoCiu() {
             vm.entityCiu = {};
-            vm.entityCiu.idDepartamento = angular.copy(vm.entity.idDepartamento).toString();
+            vm.entityCiu.idDepartamento = angular.copy(vm.entity.idDepartamento);
             vm.formModifyCiu = false;
             vm.formVisibleCiu = true;
         }
 
         function editarCiu(entity) {
             vm.entityCiu = angular.copy(entity);
-            vm.entityCiu.idDepartamento = angular.copy(entity.idDepartamento).toString();
             vm.formModifyCiu = true;
             vm.formVisibleCiu = true;
         }

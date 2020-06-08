@@ -2,15 +2,15 @@
   {
     "outputFileName": "wwwroot/js/basic.js",
     "inputFiles": [
-      "wwwroot/vendor/angular/angular/angular.js",
-      "wwwroot/vendor/angular/angular-sanitize/angular-sanitize.js",
-      "wwwroot/vendor/angular/angular-ui-utils/modules/utils.js",
-      "wwwroot/vendor/angular/angular-cookies/angular-cookies.js",
-      "wwwroot/vendor/angular/angular-ui-grid/ui-grid.js",
-      "wwwroot/vendor/angular/ui-select/dist/select.js",
+      "wwwroot/vendor/jquery/jquery.js",
+      "wwwroot/vendor/bootstrap/js/bootstrap.js",
+      "wwwroot/vendor/node_modules/angular/angular.js",
+      "wwwroot/vendor/node_modules/angular-sanitize/angular-sanitize.js",
+      "wwwroot/vendor/node_modules/angular-ui-utils/modules/utils.js",
+      "wwwroot/vendor/node_modules/angular-cookies/angular-cookies.js",
+      "wwwroot/vendor/node_modules/angular-ui-grid/ui-grid.js",
+      "wwwroot/vendor/node_modules/ui-select/dist/select.js",
       "wwwroot/master/js/app.js",
-      "wwwroot/vendor/jquery/jquery.min.js",
-      "wwwroot/vendor/bootstrap/js/bootstrap.bundle.min.js",
       "wwwroot/js/grasp_mobile_progress_circle-1.0.0.min.js",
       "wwwroot/vendor/jquery.cookie/jquery.cookie.js",
       "wwwroot/vendor/jquery-validation/jquery.validate.min.js",
@@ -18,7 +18,16 @@
       "wwwroot/vendor/messenger-hubspot/build/js/messenger.min.js",
       "wwwroot/vendor/messenger-hubspot/build/js/messenger-theme-flat.js",
       "wwwroot/js/home-premium.js",
-      "wwwroot/js/front.js"
+      "wwwroot/js/front.js",
+      "wwwroot/master/js/constantes.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/basic.css",
+    "inputFiles": [
+      "wwwroot/vendor/node_modules/angular-ui-grid/ui-grid.css",
+      "wwwroot/vendor/node_modules/ui-select/dist/select.css",
+      "wwwroot/master/css/general.css"
     ]
   }
 ]

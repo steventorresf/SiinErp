@@ -110,9 +110,16 @@
                         </div>
                         <div class="col-12 col-md-8">
                             <label>Departamento:</label>
-                            <select ng-model="vm.entityCiu.idDepartamento" form="formAppCiu" class="form-control" required>
-                                <option ng-repeat="item in vm.listDepartamentos" value="{{ item.idDepartamento }}">{{ item.nombreDepartamento }}</option>
-                            </select>
+                            <ui-select ng-model="vm.entityCiu.idDepartamento"
+                                       form="formAppCiu"
+                                       theme="bootstrap"
+                                       tabindex="7"
+                                       required>
+                                <ui-select-match placeholder="Seleccione un departamento...">{{$select.selected.nombreDepartamento}}</ui-select-match>
+                                <ui-select-choices repeat="item.idDepartamento as item in vm.listDepartamentos | filter: $select.search">
+                                    <div ng-bind-html="item.nombreDepartamento | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
                         </div>
                     </div>
                     <div class="form-group row">

@@ -24,6 +24,7 @@ namespace SiinErp.Models.General.Business
                 throw;
             }
         }
+
         public void Update(int IdDetalle, TablasDetalle entity)
         {
             try

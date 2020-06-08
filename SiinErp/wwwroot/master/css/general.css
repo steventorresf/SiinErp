@@ -1,0 +1,27 @@
+﻿#TextoTitulo span {
+    font-size: 1.5em;
+    text-transform: capitalize;
+}
+
+.fontsize-10 {
+    font-size: 0.8em;
+}
+
+    .fontsize-10 .fa {
+        font-size: 1.5em;
+    }
+
+.ui-select-choices.ui-select-choices-content.ui-select-dropdown.dropdown-menu {
+    display: block;
+}
+
+.ui-select-bootstrap .ui-select-choices-row.active > span {
+    color: #fff;
+    text-decoration: none;
+    outline: 0;
+    background-color: #33b35a;
+}
+
+.ui-select-bootstrap .form-control {
+    background-color: transparent !important;
+}

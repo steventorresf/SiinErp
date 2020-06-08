@@ -25,5 +25,9 @@ namespace SiinErp.Areas.General.Controllers
         {
             return View();
         }
+        public IActionResult TiposDocumento()
+        {
+            return View();
+        }
     }
 }

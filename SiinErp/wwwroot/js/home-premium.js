@@ -1,14 +1,15 @@
-$(function () {
-
-    Messenger.options = {
-        extraClasses: 'messenger-fixed messenger-on-top  messenger-on-right',
-        theme: 'flat',
-        messageDefaults: {
-            showCloseButton: true
+function fnMessenger(message, type) {
+    $(function () {
+        Messenger.options = {
+            extraClasses: 'messenger-fixed messenger-on-bottom  messenger-on-center',
+            theme: 'flat',
+            messageDefaults: {
+                showCloseButton: true
+            }
         }
-    }
-    Messenger().post({
-        message: 'Hey, how are you?<br>Welcome to the Material Admin Premium template by Bootstrapious.',
-        type: 'success'
+        Messenger().post({
+            message: message,
+            type: type
+        });
     });
-});
+}

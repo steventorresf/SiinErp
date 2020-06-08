@@ -44,15 +44,30 @@
                     <div class="form-group row">
                         <div class="col-12 col-md-6">
                             <label>Departamento:</label>
-                            <select ng-model="vm.entity.idDepartamento" form="formApp" class="form-control" ng-change="vm.getCiudades()" required>
-                                <option ng-repeat="item in vm.listDepartamentos" value="{{ item.idDepartamento }}">{{ item.nombreDepartamento }}</option>
-                            </select>
+                            <ui-select ng-model="vm.entity.idDepartamento"
+                                       form="formApp"
+                                       theme="bootstrap"
+                                       tabindex="7"
+                                       required
+                                       on-select="vm.onChangeDepartamento()">
+                                <ui-select-match placeholder="Seleccione un departamento...">{{$select.selected.nombreDepartamento}}</ui-select-match>
+                                <ui-select-choices repeat="item.idDepartamento as item in vm.listDepartamentos | filter: $select.search">
+                                    <div ng-bind-html="item.nombreDepartamento | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
                         </div>
                         <div class="col-12 col-md-6">
                             <label>Ciudad:</label>
-                            <select ng-model="vm.entity.idCiudad" form="formApp" class="form-control" required>
-                                <option ng-repeat="item in vm.listCiudades" value="{{ item.idCiudad }}">{{ item.nombreCiudad }}</option>
-                            </select>
+                            <ui-select ng-model="vm.entity.idCiudad"
+                                       form="formApp"
+                                       theme="bootstrap"
+                                       tabindex="7"
+                                       required>
+                                <ui-select-match placeholder="Seleccione una ciudad...">{{$select.selected.nombreCiudad}}</ui-select-match>
+                                <ui-select-choices repeat="item.idCiudad as item in vm.listCiudades | filter: $select.search">
+                                    <div ng-bind-html="item.nombreCiudad | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
                         </div>
                     </div>
                     <div class="form-group row">

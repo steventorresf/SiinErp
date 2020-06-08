@@ -4,12 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<style>
-    .ui-select-choices {
-        opacity: 1 !important;
-    }
-</style>
-
 <div class="row mt-4" ng-show="!vm.modoDet  && !vm.formVisible">
     <div class="col-12 offset-md-1 col-md-10">
         <div class="card">
@@ -43,18 +37,16 @@
                         </div>
                         <div class="col-12 col-md-6">
                             <label>M&oacute;dulo:</label>
-                            <select ng-model="vm.entity.codModulo" form="formApp" class="form-control" required>
-                                <option ng-repeat="item in vm.listModulos" value="{{ item.codModulo }}">{{ item.descripcion }}</option>
-                            </select>
-
-                            @*<ui-select ng-model="vm.entity.codModulo"
+                            <ui-select ng-model="vm.entity.codModulo"
+                                       form="formApp"
                                        theme="bootstrap"
-                                       tabindex="7">
+                                       tabindex="7"
+                                       required>
                                 <ui-select-match placeholder="Seleccione un modulo...">{{$select.selected.descripcion}}</ui-select-match>
                                 <ui-select-choices repeat="item.codModulo as item in vm.listModulos | filter: $select.search">
                                     <div ng-bind-html="item.descripcion | highlight: $select.search"></div>
                                 </ui-select-choices>
-                            </ui-select>*@
+                            </ui-select>
                         </div>
                     </div>
                     <div class="form-group row">

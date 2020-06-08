@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewData["Title"] = "TiposDocumento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row mt-4" ng-show="!vm.formVisible">
+    <div class="col-12 offset-md-1 col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <button class="btn btn-primary" ng-click="vm.nuevo()">Nuevo</button>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="fontsize-10" ui-grid="vm.gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row mt-4" ng-show="vm.formVisible">
+    <div class="col-12 offset-md-2 col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 ng-show="!vm.formModify">Nuevo TipoDocumento</h4>
+                <h4 ng-show="vm.formModify">Editar TipoDocumento</h4>
+            </div>
+            <div class="card-body">
+                <form id="formApp" name="formApp" novalidate="" class="form-horizontal">
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <label>Descripci&oacute;n:</label>
+                            <input type="text" form="formApp" ng-model="vm.entity.descripcion" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12 col-md-3">
+                            <label>Tipo Documento:</label>
+                            <input type="text" form="formApp" ng-model="vm.entity.tipoDoc" class="form-control" required />
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label>N&uacute;mero Documento:</label>
+                            <input type="text" form="formApp" ng-model="vm.entity.numDoc" class="form-control" required />
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label>Transacci&oacute;n:</label>
+                            <select ng-model="vm.entity.idDetTransaccion" form="formApp" class="form-control" required>
+                                <option ng-repeat="item in vm.listTransaccions" value="{{ item.idDetalle }}">{{ item.descripcion }}</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label>Clase Documento:</label>
+                            <select ng-model="vm.entity.idDetClaseDoc" form="formApp" class="form-control" required>
+                                <option ng-repeat="item in vm.listClasesDoc" value="{{ item.idDetalle }}">{{ item.descripcion }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12 col-md-4">
+                            <label>CuentaDoc:</label>
+                            <input type="number" form="formApp" ng-model="vm.entity.idCuentaDoc" class="form-control" required />
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label>CuentaCargo:</label>
+                            <input type="number" form="formApp" ng-model="vm.entity.idCuentaCargo" class="form-control" required />
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label>CuentaOtro:</label>
+                            <input type="number" form="formApp" ng-model="vm.entity.idCuentaOtro" class="form-control" required />
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label>CuentaReteFuente:</label>
+                            <input type="number" form="formApp" ng-model="vm.entity.idCuentaReteFuente" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <button class="btn btn-primary" ng-click="vm.guardar()" ng-disabled="formApp.$invalid">Guardar</button>
+                            <button class="btn btn-default" ng-click="vm.cancelar()">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/master/js/services/general/empresas.service.js"></script>
+<script src="~/master/js/services/general/tablas.detalles.service.js"></script>
+<script src="~/master/js/services/general/tipos.documento.service.js"></script>
+<script src="~/master/js/controllers/general/tipos.documento.controller.js"></script>
