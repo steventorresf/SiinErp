@@ -1,5 +1,5 @@
 ﻿const Tab = {
-    Regimen: 'GENREG',
-    Transac: 'GENTRA',
-    ClaseDoc: 'GENCDOC',
+    Regimen: 'GenRegimen',
+    Transac: 'GenTrans',
+    ClaseDoc: 'GenClaseDoc',
 }

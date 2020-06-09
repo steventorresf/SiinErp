@@ -6,6 +6,7 @@
         'ui.grid',
         'ui.grid.selection',
         'ui.grid.autoResize',
+        'ui.grid.edit',
         'ngSanitize',
         'ui.select',
         'ngCookies',

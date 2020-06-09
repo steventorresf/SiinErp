@@ -24,12 +24,13 @@ namespace SiinErp.Models.General.Business
                 throw;
             }
         }
-        public void Update(string CodTabla, Tablas entity)
+        public void Update(int IdTabla, Tablas entity)
         {
             try
             {
                 BaseContext context = new BaseContext();
-                Tablas ob = context.Tablas.Find(CodTabla);
+                Tablas ob = context.Tablas.Find(IdTabla);
+                ob.CodTabla = entity.CodTabla;
                 ob.Descripcion = entity.Descripcion;
                 ob.CodModulo = entity.CodModulo;
                 context.SaveChanges();
@@ -50,6 +51,7 @@ namespace SiinErp.Models.General.Business
                                       join mo in context.Modulos on ta.CodModulo equals mo.CodModulo
                                       select new Tablas()
                                       {
+                                          IdTabla = ta.IdTabla,
                                           CodModulo = ta.CodModulo,
                                           CodTabla = ta.CodTabla,
                                           Descripcion = ta.Descripcion,

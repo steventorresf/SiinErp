@@ -15,6 +15,20 @@ namespace SiinErp.Areas.General.Controllers
     {
         private TablasDetalleBusiness BusinessTabDet = new TablasDetalleBusiness();
 
+        [HttpGet("ByIdTab/{IdTab}")]
+        public IActionResult GetTablaDetalles(int IdTab)
+        {
+            try
+            {
+                var lista = BusinessTabDet.GetAllTablaDetalleByIdTab(IdTab);
+                return Ok(lista);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         [HttpGet("{CodTab}")]
         public IActionResult GetTablaDetalles(string CodTab)
         {
@@ -49,6 +63,20 @@ namespace SiinErp.Areas.General.Controllers
             try
             {
                 BusinessTabDet.Update(idDet, entity);
+                return Ok("Ok");
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpPut("UpOrd/{IdDet}/{Orden}")]
+        public IActionResult UpdateOrden(int IdDet, short Orden)
+        {
+            try
+            {
+                BusinessTabDet.UpdateOrden(IdDet, Orden);
                 return Ok("Ok");
             }
             catch (Exception ex)

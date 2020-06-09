@@ -14,8 +14,7 @@ namespace SiinErp.Models.General.Entities
         public int IdDetalle { get; set; }
 
         [Required]
-        [StringLength(10)]
-        public string CodTabla { get; set; }
+        public int IdTabla { get; set; }
 
         [Required]
         [StringLength(10)]
@@ -24,6 +23,9 @@ namespace SiinErp.Models.General.Entities
         [Required]
         [StringLength(50)]
         public string Descripcion { get; set; }
+
+        [Required]
+        public short Orden { get; set; }
 
         [Required]
         public DateTimeOffset FechaCreacion { get; set; }

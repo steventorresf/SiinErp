@@ -49,7 +49,6 @@
             response.then(
                 function (response) {
                     vm.listModulos = response.data;
-                    console.log(vm.listModulos);
                 },
                 function (response) {
                     console.log(response);
@@ -77,16 +76,14 @@
 
         function editar (entity) {
             vm.entity = angular.copy(entity);
-            vm.codTabla = angular.copy(entity.codTabla);
             vm.formModify = true;
             vm.formVisible = true;
         }
 
         function guardar() {
             var response = null;
-            if (vm.formModify) { response = tabService.update(vm.codTabla, vm.entity); }
+            if (vm.formModify) { response = tabService.update(vm.entity.idTabla, vm.entity); }
             else { response = tabService.create(vm.entity); }
-            console.log(vm.formModify);
 
             response.then(
                 function (response) {
@@ -158,8 +155,8 @@
         vm.gridOptionsDet = {
             data: [],
             enableSorting: true,
-            enableRowSelection: true,
-            enableFullRowSelection: true,
+            enableRowSelection: false,
+            enableFullRowSelection: false,
             multiSelect: false,
             enableRowHeaderSelection: true,
             enableColumnMenus: false,
@@ -171,12 +168,25 @@
                     displayName: 'Código',
                     headerCellClass: 'text-center',
                     width: 100,
+                    enableCellEdit: false,
                 },
                 {
                     name: 'descripcion',
                     field: 'descripcion',
                     displayName: 'Descripción',
                     headerCellClass: 'text-center',
+                    enableCellEdit: false,
+                },
+                {
+                    name: 'orden',
+                    type: 'number',
+                    field: 'orden',
+                    displayName: 'Orden',
+                    headerCellClass: 'text-center',
+                    cellClass: 'text-right',
+                    cellFilter: 'number: 0',
+                    enableCellEdit: true,
+                    width: 100,
                 },
                 {
                     name: 'estado',
@@ -185,6 +195,7 @@
                     headerCellClass: 'text-center',
                     cellClass: 'text-center',
                     width: 100,
+                    enableCellEdit: false,
                 },
                 {
                     name: 'tool',
@@ -198,10 +209,16 @@
                         "<span><a href='' ng-click='grid.appScope.editarDet(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
                         "<i class='fa fa-edit'></i></a></span>",
                     width: 100,
+                    enableCellEdit: false,
                 }
             ],
             onRegisterApi: function (gridApi) {
                 vm.gridApiDet = gridApi;
+                gridApi.edit.on.afterCellEdit($scope, function (rowEntity, colDef, newValue, oldValue) {
+                    if (colDef.name === 'orden') {
+                        updateOrdenDet(rowEntity.idDetalle, newValue);
+                    }
+                });
             },
         };
 
@@ -216,7 +233,7 @@
         }
 
         function getAllDet() {
-            var response = tabdetService.getAll(vm.entity.codTabla);
+            var response = tabdetService.getAllById(vm.entity.idTabla);
             response.then(
                 function (response) {
                     vm.gridOptionsDet.data = response.data;
@@ -227,9 +244,22 @@
             );
         }
 
+        function updateOrdenDet(idDetalle, orden) {
+            var response = tabdetService.updateOrden(idDetalle, orden);
+            response.then(
+                function (response) {
+                    
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
         function nuevoDet() {
             vm.entityDet = {};
             vm.entityDet.estado = 'A';
+            vm.entityDet.idUsuario = vm.userApp.idUsuario;
             vm.formModifyDet = false;
             vm.formVisibleDet = true;
         }
@@ -241,7 +271,7 @@
         }
 
         function guardarDet() {
-            vm.entityDet.codTabla = vm.entity.codTabla;
+            vm.entityDet.idTabla = vm.entity.idTabla;
 
             var response = null;
             if (vm.formModifyDet) { response = tabdetService.update(vm.entityDet.idDetalle, vm.entityDet); }

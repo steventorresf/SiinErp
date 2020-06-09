@@ -85740,6 +85740,7 @@ $templateCache.put("selectize/select.tpl.html","<div class=\"ui-select-container
         'ui.grid',
         'ui.grid.selection',
         'ui.grid.autoResize',
+        'ui.grid.edit',
         'ngSanitize',
         'ui.select',
         'ngCookies',
@@ -86064,7 +86065,7 @@ $(document).ready(function () {
 
 });
 const Tab = {
-    Regimen: 'GENREG',
-    Transac: 'GENTRA',
-    ClaseDoc: 'GENCDOC',
+    Regimen: 'GenRegimen',
+    Transac: 'GenTrans',
+    ClaseDoc: 'GenClaseDoc',
 }

@@ -43,12 +43,12 @@ namespace SiinErp.Areas.General.Controllers
             }
         }
 
-        [HttpPut("{CodTab}")]
-        public IActionResult UpdateTabla(string CodTab, [FromBody] Tablas entity)
+        [HttpPut("{IdTab}")]
+        public IActionResult UpdateTabla(int IdTab, [FromBody] Tablas entity)
         {
             try
             {
-                BusinessTab.Update(CodTab, entity);
+                BusinessTab.Update(IdTab, entity);
                 return Ok("Ok");
             }
             catch (Exception ex)

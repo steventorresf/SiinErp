@@ -11,7 +11,10 @@ namespace SiinErp.Models.General.Entities
     public class Tablas
     {
         [Key]
-        [StringLength(10)]
+        public int IdTabla { get; set; }
+
+        [Required]
+        [StringLength(15)]
         public string CodTabla { get; set; }
 
         [Required]
