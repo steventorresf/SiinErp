@@ -37,6 +37,10 @@ namespace SiinErp.Models._DAL
         public virtual DbSet<Ciudades> Ciudades { get; set; }
 
         public virtual DbSet<TiposDocumento> TiposDocumentos { get; set; }
+
+        public virtual DbSet<Periodos> Periodos { get; set; }
+
+        public virtual DbSet<Parametros> Parametros { get; set; }
         #endregion
     }
 }

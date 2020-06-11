@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SiinErp.Models.General.Business;
 using SiinErp.Models.General.Entities;
+using SiinErp.Utiles;
 
 namespace SiinErp.Areas.General.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[area]/api/[controller]")]
     [ApiController]
+    [Area(Constantes.Area_General)]
     public class PaisesController : ControllerBase
     {
         private PaisesBusiness BusinessPais = new PaisesBusiness();

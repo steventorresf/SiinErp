@@ -8,7 +8,7 @@
     GenDepartamentosService.$inject = ['$http', '$q'];
 
     function GenDepartamentosService($http, $q) {
-        var nameSpace = '/api/Departamentos/';
+        var nameSpace = '/General/api/Departamentos/';
 
         var service = {
             getAll: getAll,

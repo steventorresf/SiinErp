@@ -29,5 +29,9 @@ namespace SiinErp.Areas.General.Controllers
         {
             return View();
         }
+        public IActionResult Periodos()
+        {
+            return View();
+        }
     }
 }

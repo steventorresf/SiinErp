@@ -8,7 +8,7 @@
     GenTablasDetService.$inject = ['$http', '$q'];
 
     function GenTablasDetService($http, $q) {
-        var nameSpace = '/api/TablasDetalle/';
+        var nameSpace = '/General/api/TablasDetalle/';
 
         var service = {
             getAll: getAll,

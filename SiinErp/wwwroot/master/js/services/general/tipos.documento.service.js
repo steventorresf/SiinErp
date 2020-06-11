@@ -8,7 +8,7 @@
     GenTiposDocService.$inject = ['$http', '$q'];
 
     function GenTiposDocService($http, $q) {
-        var nameSpace = '/api/TiposDocumento/';
+        var nameSpace = '/General/api/TiposDocumento/';
 
         var service = {
             getAll: getAll,

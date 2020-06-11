@@ -13,16 +13,16 @@ namespace SiinErp.Areas.General.Controllers
     [Route("[area]/api/[controller]")]
     [ApiController]
     [Area(Constantes.Area_General)]
-    public class TiposDocumentoController : ControllerBase
+    public class PeriodosController : ControllerBase
     {
-        private TiposDocumentoBusiness BusinessDoc = new TiposDocumentoBusiness();
+        private PeriodosBusiness BusinessPer = new PeriodosBusiness();
 
         [HttpGet("{IdEmp}")]
-        public IActionResult GetTiposDocumento(int IdEmp)
+        public IActionResult GetPeriodos(int IdEmp)
         {
             try
             {
-                var lista = BusinessDoc.GetTiposDocumentos(IdEmp);
+                var lista = BusinessPer.GetPeriodos(IdEmp);
                 return Ok(lista);
             }
             catch (Exception ex)
@@ -32,26 +32,12 @@ namespace SiinErp.Areas.General.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateTipoDocumento([FromBody] TiposDocumento entity)
+        public IActionResult Create([FromBody] Periodos entity)
         {
             try
             {
-                BusinessDoc.Create(entity);
-                return Ok("Ok");
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-        }
-
-        [HttpPut("{IdTipoDoc}")]
-        public IActionResult UpdateTipoDocumento(int IdTipoDoc, [FromBody] TiposDocumento entity)
-        {
-            try
-            {
-                BusinessDoc.Update(IdTipoDoc, entity);
-                return Ok("Ok");
+                BusinessPer.Create(entity);
+                return Ok(true);
             }
             catch (Exception ex)
             {

@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SiinErp.Models.General.Business;
+using SiinErp.Utiles;
 
 namespace SiinErp.Areas.General.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[area]/api/[controller]")]
     [ApiController]
+    [Area(Constantes.Area_General)]
     public class ModulosController : ControllerBase
     {
         private ModulosBusiness BusinessMod = new ModulosBusiness();

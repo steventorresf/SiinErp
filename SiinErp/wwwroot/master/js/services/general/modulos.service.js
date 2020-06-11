@@ -8,7 +8,7 @@
     GenModulosService.$inject = ['$http', '$q'];
 
     function GenModulosService($http, $q) {
-        var nameSpace = '/api/Modulos/';
+        var nameSpace = '/General/api/Modulos/';
 
         var service = {
             getAll: getAll,

@@ -24,6 +24,7 @@ namespace SiinErp.Models.General.Business
                 throw;
             }
         }
+
         public void Update(int IdTabla, Tablas entity)
         {
             try
@@ -58,7 +59,7 @@ namespace SiinErp.Models.General.Business
                                           FechaCreacion = ta.FechaCreacion,
                                           IdUsuario = ta.IdUsuario,
                                           NombreModulo = mo.Descripcion,
-                                      }).ToList().OrderBy(x => x.Descripcion).OrderBy(x => x.CodModulo).ToList();
+                                      }).OrderBy(x => x.Descripcion).OrderBy(x => x.CodModulo).ToList();
                 return Lista;
             }
             catch (Exception ex)

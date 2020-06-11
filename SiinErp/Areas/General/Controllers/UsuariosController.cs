@@ -11,8 +11,9 @@ using SiinErp.Utiles;
 
 namespace SiinErp.Areas.General.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[area]/api/[controller]")]
     [ApiController]
+    [Area(Constantes.Area_General)]
     public class UsuariosController : ControllerBase
     {
         private UsuariosBusiness BusinessUsu = new UsuariosBusiness();

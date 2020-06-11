@@ -8,7 +8,7 @@
     GenEmpresasService.$inject = ['$http', '$q'];
 
     function GenEmpresasService($http, $q) {
-        var nameSpace = '/api/Empresas/';
+        var nameSpace = '/General/api/Empresas/';
 
         var service = {
             getAll: getAll,

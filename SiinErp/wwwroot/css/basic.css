@@ -1802,3 +1802,11 @@ body > .ui-select-bootstrap.open {
 .ui-select-bootstrap .form-control {
     background-color: transparent !important;
 }
+
+.btn{
+    border-radius:5px;
+}
+
+.bg-header{
+    text-align:center;
+}

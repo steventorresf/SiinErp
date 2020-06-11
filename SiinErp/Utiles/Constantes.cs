@@ -7,6 +7,16 @@ namespace SiinErp.Utiles
 {
     public class Constantes
     {
+        // Areas del sistema
+        public const string Area_Cartera = "Cartera";
+        public const string Area_Compras = "Compras";
+        public const string Area_Contabilidad = "Contabilidad";
+        public const string Area_General = "General";
+        public const string Area_Inventario = "Inventario";
+        public const string Area_Nomina = "Nomina";
+        public const string Area_Tesoreria = "Tesoreria";
+        public const string Area_Ventas = "Ventas";
+
         // Estados
         public const string EstadoActivo = "A";
         public const string EstadoInactivo = "I";

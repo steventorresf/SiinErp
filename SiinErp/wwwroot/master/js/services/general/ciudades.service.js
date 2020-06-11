@@ -8,7 +8,7 @@
     GenCiudadesService.$inject = ['$http', '$q'];
 
     function GenCiudadesService($http, $q) {
-        var nameSpace = '/api/Ciudades/';
+        var nameSpace = '/General/api/Ciudades/';
 
         var service = {
             getAll: getAll,
