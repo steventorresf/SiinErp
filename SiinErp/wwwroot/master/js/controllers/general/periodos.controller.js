@@ -46,8 +46,10 @@
             var response = perService.getSig(vm.userApp.idEmpresa, vm.entity.codModulo);
             response.then(
                 function (response) {
+                    var data = response.data;
+                    vm.entity.periodoAnterior = data[0];
                     vm.entity.periodoActual = null;
-                    vm.entity.periodoActual = response.data;
+                    vm.entity.periodoActual = data[1];
                 },
                 function (response) {
                     console.log(response);
@@ -130,6 +132,12 @@
                     name: 'periodoActual',
                     field: 'periodoActual',
                     displayName: 'PeriodoActual',
+                    headerCellClass: 'bg-header',
+                },
+                {
+                    name: 'periodoAnterior',
+                    field: 'periodoAnterior',
+                    displayName: 'PeriodoAnterior',
                     headerCellClass: 'bg-header',
                 },
                 {

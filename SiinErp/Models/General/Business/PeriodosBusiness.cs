@@ -15,11 +15,12 @@ namespace SiinErp.Models.General.Business
             try
             {
                 BaseContext context = new BaseContext();
-                Periodos Anterior = context.Periodos.FirstOrDefault(x => x.CodModulo.Equals(entity.CodModulo) &&
-                                                                         x.Situacion.Equals(Constantes.CodSituacion_Abierto) &&
-                                                                         x.IdEmpresa == entity.IdEmpresa);
-                if (Anterior != null)
+
+                if (!string.IsNullOrEmpty(entity.PeriodoAnterior))
                 {
+                    Periodos Anterior = context.Periodos.FirstOrDefault(x => x.CodModulo.Equals(entity.CodModulo) &&
+                                                                             x.PeriodoActual.Equals(entity.PeriodoAnterior) &&
+                                                                             x.IdEmpresa == entity.IdEmpresa);
                     Anterior.Situacion = Constantes.CodSituacion_Cerrado;
                     context.SaveChanges();
                 }
@@ -64,6 +65,7 @@ namespace SiinErp.Models.General.Business
                                             IdPeriodo = pe.IdPeriodo,
                                             IdEmpresa = pe.IdEmpresa,
                                             CodModulo = pe.CodModulo,
+                                            PeriodoAnterior = pe.PeriodoAnterior,
                                             PeriodoActual = pe.PeriodoActual,
                                             FechaInicio = pe.FechaInicio,
                                             FechaFin = pe.FechaFin,
@@ -81,18 +83,24 @@ namespace SiinErp.Models.General.Business
             }
         }
 
-        public string GetSiguientePeriodo(int IdEmpresa, string CodModulo)
+        public string[] GetSiguientePeriodo(int IdEmpresa, string CodModulo)
         {
             try
             {
-                string periodoSiguiente = "";
+                string[] periodos = new string[2];
                 BaseContext context = new BaseContext();
                 Periodos entity = context.Periodos.Where(x => x.CodModulo.Equals(CodModulo) && x.Situacion.Equals(Constantes.CodSituacion_Abierto) && x.IdEmpresa == IdEmpresa).OrderByDescending(x => x.PeriodoActual).FirstOrDefault();
                 if (entity != null)
                 {
-                    periodoSiguiente = entity.FechaFin.AddDays(1).ToString("yyyyMM");
+                    periodos[0] = entity.PeriodoActual;
+                    periodos[1] = entity.FechaFin.AddDays(1).ToString("yyyyMM");
                 }
-                return periodoSiguiente;
+                else
+                {
+                    periodos[0] = "";
+                    periodos[1] = "";
+                }
+                return periodos;
             }
             catch (Exception ex)
             {

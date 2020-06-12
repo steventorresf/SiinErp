@@ -20,6 +20,9 @@ namespace SiinErp.Models.General.Entities
         [StringLength(3)]
         public string CodModulo { get; set; }
 
+        [StringLength(6)]
+        public string PeriodoAnterior { get; set; }
+
         [Required]
         [StringLength(6)]
         public string PeriodoActual { get; set; }
