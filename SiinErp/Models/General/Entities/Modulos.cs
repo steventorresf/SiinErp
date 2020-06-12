@@ -19,6 +19,9 @@ namespace SiinErp.Models.General.Entities
         public string Descripcion { get; set; }
 
         [Required]
+        public bool Periodo { get; set; }
+
+        [Required]
         public DateTimeOffset FechaCreacion { get; set; }
     }
 }

@@ -3,16 +3,15 @@
 
     angular
         .module('app')
-        .factory('GenModulosService', GenModulosService);
+        .factory('GenParametrosService', GenParametrosService);
 
-    GenModulosService.$inject = ['$http', '$q'];
+    GenParametrosService.$inject = ['$http', '$q'];
 
-    function GenModulosService($http, $q) {
-        var nameSpace = '/General/api/Modulos/';
+    function GenParametrosService($http, $q) {
+        var nameSpace = '/General/api/Parametros/';
 
         var service = {
             getAll: getAll,
-            getAllPer: getAllPer,
             create: create,
             update: update,
         };
@@ -21,19 +20,6 @@
 
         function getAll() {
             return $http.get(nameSpace)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-
-        function getAllPer() {
-            return $http.get(nameSpace + 'Per/')
                 .then(
                     function (response) {
                         return response;
@@ -58,8 +44,8 @@
                 );
         }
 
-        function update(cod, data) {
-            return $http.put(nameSpace + cod, data)
+        function update(id, data) {
+            return $http.put(nameSpace + id, data)
                 .then(
                     function (response) {
                         return response;
@@ -70,6 +56,5 @@
                     }
                 );
         }
-
     }
 })();

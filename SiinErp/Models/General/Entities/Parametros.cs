@@ -21,8 +21,7 @@ namespace SiinErp.Models.General.Entities
         [StringLength(60)]
         public string Descripcion { get; set; }
 
-        public decimal? ValorParam { get; set; }
-
-        public DateTimeOffset? FechaInicial { get; set; }
+        [Required]
+        public decimal ValorParam { get; set; }
     }
 }

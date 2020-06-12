@@ -23,5 +23,9 @@ namespace SiinErp.Utiles
 
         // ClavePredeterminada
         public const string ClavePredeterminada = "12345";
+
+        // Situacion
+        public const string CodSituacion_Abierto = "A";
+        public const string CodSituacion_Cerrado = "C";
     }
 }

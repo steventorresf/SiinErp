@@ -23,5 +23,20 @@ namespace SiinErp.Models.General.Business
                 throw;
             }
         }
+
+        public List<Modulos> GetModulosPer()
+        {
+            try
+            {
+                BaseContext context = new BaseContext();
+                List<Modulos> Lista = context.Modulos.Where(x => x.Periodo == true).OrderBy(x => x.Descripcion).ToList();
+                return Lista;
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("GetModulosPer", ex.Message, null);
+                throw;
+            }
+        }
     }
 }

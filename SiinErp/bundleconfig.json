@@ -10,6 +10,7 @@
       "wwwroot/vendor/node_modules/angular-cookies/angular-cookies.js",
       "wwwroot/vendor/node_modules/angular-ui-grid/ui-grid.js",
       "wwwroot/vendor/node_modules/ui-select/dist/select.js",
+      "wwwroot/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js",
       "wwwroot/master/js/app.js",
       "wwwroot/js/grasp_mobile_progress_circle-1.0.0.min.js",
       "wwwroot/vendor/jquery.cookie/jquery.cookie.js",
@@ -27,6 +28,7 @@
     "inputFiles": [
       "wwwroot/vendor/node_modules/angular-ui-grid/ui-grid.css",
       "wwwroot/vendor/node_modules/ui-select/dist/select.css",
+      "wwwroot/vendor/bootstrap-datepicker/css/bootstrap-datepicker.css",
       "wwwroot/master/css/general.css"
     ]
   }

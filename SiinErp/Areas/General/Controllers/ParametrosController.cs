@@ -13,16 +13,16 @@ namespace SiinErp.Areas.General.Controllers
     [Route("[area]/api/[controller]")]
     [ApiController]
     [Area(Constantes.Area_General)]
-    public class PeriodosController : ControllerBase
+    public class ParametrosController : ControllerBase
     {
-        private PeriodosBusiness BusinessPer = new PeriodosBusiness();
+        private ParametrosBusiness BusinessPar = new ParametrosBusiness();
 
-        [HttpGet("{IdEmp}")]
-        public IActionResult GetPeriodos(int IdEmp)
+        [HttpGet]
+        public IActionResult GetParametros()
         {
             try
             {
-                var lista = BusinessPer.GetPeriodos(IdEmp);
+                var lista = BusinessPar.GetParametros();
                 return Ok(lista);
             }
             catch (Exception ex)
@@ -31,26 +31,12 @@ namespace SiinErp.Areas.General.Controllers
             }
         }
 
-        [HttpGet("GetSig/{IdEmp}/{CodMod}")]
-        public IActionResult GetSiguientePeriodo(int IdEmp, string CodMod)
-        {
-            try
-            {
-                var periodo = BusinessPer.GetSiguientePeriodo(IdEmp, CodMod);
-                return Ok(periodo);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-        }
-
         [HttpPost]
-        public IActionResult Create([FromBody] Periodos entity)
+        public IActionResult Create([FromBody] Parametros entity)
         {
             try
             {
-                BusinessPer.Create(entity);
+                BusinessPar.Create(entity);
                 return Ok(true);
             }
             catch (Exception ex)
@@ -59,12 +45,12 @@ namespace SiinErp.Areas.General.Controllers
             }
         }
 
-        [HttpPut("{IdPer}")]
-        public IActionResult Update(int IdPer, [FromBody] Periodos entity)
+        [HttpPut("{IdPar}")]
+        public IActionResult Update(int IdPar, [FromBody] Parametros entity)
         {
             try
             {
-                BusinessPer.Update(IdPer, entity);
+                BusinessPar.Update(IdPar, entity);
                 return Ok(true);
             }
             catch (Exception ex)

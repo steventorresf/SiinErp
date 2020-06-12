@@ -29,5 +29,19 @@ namespace SiinErp.Areas.General.Controllers
                 throw;
             }
         }
+
+        [HttpGet("Per")]
+        public IActionResult GetModulosPer()
+        {
+            try
+            {
+                var lista = BusinessMod.GetModulosPer();
+                return Ok(lista);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

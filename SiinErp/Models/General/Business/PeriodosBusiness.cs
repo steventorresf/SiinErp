@@ -1,5 +1,6 @@
 ﻿using SiinErp.Models._DAL;
 using SiinErp.Models.General.Entities;
+using SiinErp.Utiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,47 +14,89 @@ namespace SiinErp.Models.General.Business
         {
             try
             {
-                entity.FechaCreacion = DateTimeOffset.Now;
                 BaseContext context = new BaseContext();
+                Periodos Anterior = context.Periodos.FirstOrDefault(x => x.CodModulo.Equals(entity.CodModulo) &&
+                                                                         x.Situacion.Equals(Constantes.CodSituacion_Abierto) &&
+                                                                         x.IdEmpresa == entity.IdEmpresa);
+                if (Anterior != null)
+                {
+                    Anterior.Situacion = Constantes.CodSituacion_Cerrado;
+                    context.SaveChanges();
+                }
+
+                entity.FechaFin = entity.FechaInicio.AddMonths(1).AddDays(-1);
+                entity.FechaCreacion = DateTimeOffset.Now;
                 context.Periodos.Add(entity);
                 context.SaveChanges();
             }
             catch (Exception ex)
             {
-                ErroresBusiness.Create("CreateTabla", ex.Message, null);
+                ErroresBusiness.Create("CreatePeriodo", ex.Message, null);
                 throw;
             }
         }
 
-        //public void Update(int IdTabla, Periodos entity)
-        //{
-        //    try
-        //    {
-        //        BaseContext context = new BaseContext();
-        //        Periodos ob = context.Tablas.Find(IdTabla);
-        //        ob.CodTabla = entity.CodTabla;
-        //        ob.Descripcion = entity.Descripcion;
-        //        ob.CodModulo = entity.CodModulo;
-        //        context.SaveChanges();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ErroresBusiness.Create("UpdateTabla", ex.Message, null);
-        //        throw;
-        //    }
-        //}
+        public void Update(int IdPeriodo, Periodos entity)
+        {
+            try
+            {
+                BaseContext context = new BaseContext();
+                Periodos ob = context.Periodos.Find(IdPeriodo);
+                ob.Situacion = entity.Situacion;
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("UpdatePeriodo", ex.Message, null);
+                throw;
+            }
+        }
 
         public List<Periodos> GetPeriodos(int IdEmpresa)
         {
             try
             {
                 BaseContext context = new BaseContext();
-                List<Periodos> Lista = context.Periodos.Where(x => x.IdEmpresa == IdEmpresa).ToList();
+                List<Periodos> Lista = (from pe in context.Periodos.Where(x => x.IdEmpresa == IdEmpresa)
+                                        join mo in context.Modulos on pe.CodModulo equals mo.CodModulo
+                                        select new Periodos()
+                                        {
+                                            IdPeriodo = pe.IdPeriodo,
+                                            IdEmpresa = pe.IdEmpresa,
+                                            CodModulo = pe.CodModulo,
+                                            PeriodoActual = pe.PeriodoActual,
+                                            FechaInicio = pe.FechaInicio,
+                                            FechaFin = pe.FechaFin,
+                                            FechaCreacion = pe.FechaCreacion,
+                                            Situacion = pe.Situacion,
+                                            IdUsuario = pe.IdUsuario,
+                                            NombreModulo = mo.Descripcion,
+                                        }).OrderBy(x => x.CodModulo).OrderByDescending(x => x.PeriodoActual).ToList();
                 return Lista;
             }
             catch (Exception ex)
             {
                 ErroresBusiness.Create("GetPeriodos", ex.Message, null);
+                throw;
+            }
+        }
+
+        public string GetSiguientePeriodo(int IdEmpresa, string CodModulo)
+        {
+            try
+            {
+                string periodoSiguiente = "";
+                BaseContext context = new BaseContext();
+                Periodos entity = context.Periodos.Where(x => x.CodModulo.Equals(CodModulo) && x.Situacion.Equals(Constantes.CodSituacion_Abierto) && x.IdEmpresa == IdEmpresa).OrderByDescending(x => x.PeriodoActual).FirstOrDefault();
+                if (entity != null)
+                {
+                    periodoSiguiente = entity.FechaFin.AddDays(1).ToString("yyyyMM");
+                }
+                return periodoSiguiente;
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("GetUltimoPeriodo", ex.Message, null);
                 throw;
             }
         }

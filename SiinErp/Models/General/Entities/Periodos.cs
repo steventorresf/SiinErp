@@ -17,8 +17,8 @@ namespace SiinErp.Models.General.Entities
         public int IdEmpresa { get; set; }
 
         [Required]
-        [StringLength(1)]
-        public string CodSist { get; set; }
+        [StringLength(3)]
+        public string CodModulo { get; set; }
 
         [Required]
         [StringLength(6)]
@@ -31,14 +31,6 @@ namespace SiinErp.Models.General.Entities
         public DateTimeOffset FechaFin { get; set; }
 
         [Required]
-        [StringLength(6)]
-        public string PeriodoAnterior { get; set; }
-
-        [Required]
-        [StringLength(6)]
-        public string PeriodoSiguiente { get; set; }
-
-        [Required]
         [StringLength(1)]
         public string Situacion { get; set; }
 
@@ -47,5 +39,9 @@ namespace SiinErp.Models.General.Entities
 
         [Required]
         public int IdUsuario { get; set; }
+
+
+        [NotMapped]
+        public string NombreModulo { get; set; }
     }
 }

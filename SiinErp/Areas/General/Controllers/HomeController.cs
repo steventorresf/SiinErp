@@ -33,5 +33,9 @@ namespace SiinErp.Areas.General.Controllers
         {
             return View();
         }
+        public IActionResult Parametros()
+        {
+            return View();
+        }
     }
 }
