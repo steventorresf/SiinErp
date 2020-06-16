@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SiinErp.Models._DAL;
+using SiinErp.Models;
 
 namespace SiinErp
 {
@@ -39,7 +39,7 @@ namespace SiinErp
                 options.Cookie.IsEssential = true;
             });
 
-            services.AddDbContext<BaseContext>();
+            services.AddDbContext<SiinErpContext>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDistributedMemoryCache();
             //services.AddWebOptimizer();

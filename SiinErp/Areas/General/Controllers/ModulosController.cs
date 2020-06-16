@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SiinErp.Models.General.Business;
+using SiinErp.Areas.General.Business;
 using SiinErp.Utiles;
 
 namespace SiinErp.Areas.General.Controllers

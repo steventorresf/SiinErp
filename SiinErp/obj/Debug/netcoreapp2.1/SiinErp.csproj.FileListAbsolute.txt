@@ -53,10 +53,7 @@ C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.csproj.CopyCompl
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.csproj.CoreCompileInputs.cache
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\General\Views\Home\Empresas.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\General\Views\Home\Usuarios.g.cshtml.cs
-C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Views\Home\About.g.cshtml.cs
-C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Views\Home\Contact.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Views\Home\Index.g.cshtml.cs
-C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Views\Home\Privacy.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Views\Login\Index.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Error.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_CookieConsentPartial.g.cshtml.cs
@@ -69,4 +66,9 @@ C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\General\View
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\General\Views\Home\TiposDocumento.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\General\Views\Home\Periodos.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\General\Views\Home\Parametros.g.cshtml.cs
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Cartera\Views\Home\PlazosPago.g.cshtml.cs
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Compras\Views\Home\Proveedores.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.csprojAssemblyReference.cache
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Inventario\Views\Home\Articulos.g.cshtml.cs
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Ventas\Views\Home\Vendedores.g.cshtml.cs
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Ventas\Views\Home\Clientes.g.cshtml.cs

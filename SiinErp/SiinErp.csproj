@@ -542,22 +542,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\General\Data\" />
-    <Folder Include="Areas\General\Models\" />
-    <Folder Include="Models\Cartera\Business\" />
-    <Folder Include="Models\Cartera\Entities\" />
-    <Folder Include="Models\Compras\Business\" />
-    <Folder Include="Models\Compras\Entities\" />
-    <Folder Include="Models\Contabilidad\Business\" />
-    <Folder Include="Models\Contabilidad\Entities\" />
-    <Folder Include="Models\Inventario\Business\" />
-    <Folder Include="Models\Inventario\Entities\" />
-    <Folder Include="Models\Nomina\Business\" />
-    <Folder Include="Models\Nomina\Entities\" />
-    <Folder Include="Models\Tesoreria\Business\" />
-    <Folder Include="Models\Tesoreria\Entities\" />
-    <Folder Include="Models\Ventas\Business\" />
-    <Folder Include="Models\Ventas\Entities\" />
     <Folder Include="wwwroot\vendor\font-awesome\less\" />
     <Folder Include="wwwroot\vendor\font-awesome\scss\" />
     <Folder Include="wwwroot\vendor\google-maps-infobox\types\" />

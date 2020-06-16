@@ -5,9 +5,9 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$scope', 'GenTablasService', 'GenTablasDetService', 'GenModulosService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'GenTablasService', 'GenTablasDetService', 'GenModulosService'];
 
-    function AppController($location, $scope, tabService, tabdetService, modService) {
+    function AppController($location, $cookies, $scope, tabService, tabdetService, modService) {
         var vm = this;
 
         vm.title = 'Home Page';
@@ -18,6 +18,7 @@
         vm.entity = {};
 
         vm.init = init;
+        vm.userApp = angular.copy($cookies.getObject('UsuApp'));
         vm.getModulos = getModulos;
         vm.getTablas = getTablas;
         vm.nuevo = nuevo;

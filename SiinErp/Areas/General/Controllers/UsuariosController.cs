@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
-using SiinErp.Models.General.Business;
-using SiinErp.Models.General.Entities;
+using SiinErp.Areas.General.Business;
+using SiinErp.Areas.General.Entities;
 using SiinErp.Utiles;
 
 namespace SiinErp.Areas.General.Controllers

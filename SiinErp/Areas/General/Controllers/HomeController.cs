@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SiinErp.Utiles;
 
 namespace SiinErp.Areas.General.Controllers
 {
-    [Area("General")]
+    [Area(Constantes.Area_General)]
     public class HomeController : Controller
     {
         public IActionResult Empresas()

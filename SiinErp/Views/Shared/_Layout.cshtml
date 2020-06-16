@@ -68,27 +68,26 @@
                     <li>
                         <a href="#MenuCompras" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-shopping-cart"></i>Compras </a>
                         <ul id="MenuCompras" class="collapse list-unstyled ">
-                            <li><a href="charts.html">Proveedores</a></li>
-                            <li><a href="charts-gauge-sparkline.html">Ordenes</a></li>
-                            <li><a href="charts-gauge-sparkline.html">Facturas</a></li>
+                            <li><a href="@Url.Content("~/Compras/Home/Proveedores")">Proveedores</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#MenuInventario" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-bookmark"></i>Inventario </a>
+                        <ul id="MenuInventario" class="collapse list-unstyled ">
+                            <li><a href="@Url.Content("~/Inventario/Home/Articulos")">Articulos</a></li>
                         </ul>
                     </li>
                     <li>
                         <a href="#MenuVentas" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-money"></i>Ventas </a>
                         <ul id="MenuVentas" class="collapse list-unstyled ">
-                            <li><a href="tables.html">Clientes</a></li>
-                            <li><a href="tables-datatable.html">Cotizaciones</a></li>
-                            <li><a href="tables.html">Pedidos</a></li>
-                            <li><a href="tables-datatable.html">Facturas</a></li>
+                            <li><a href="@Url.Content("~/Ventas/Home/Vendedores")">Vendedores</a></li>
+                            <li><a href="@Url.Content("~/Ventas/Home/Clientes")">Clientes</a></li>
                         </ul>
                     </li>
                     <li>
                         <a href="#MenuCartera" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-shopping-bag"></i>Cartera </a>
                         <ul id="MenuCartera" class="collapse list-unstyled ">
-                            <li><a href="components-cards.html">Conceptos</a></li>
-                            <li><a href="components-calendar.html">Cruces</a></li>
-                            <li><a href="components-loading-buttons.html">Plazos de Pago</a></li>
-                            <li><a href="components-gallery.html">Movimientos</a></li>
+                            <li><a href="@Url.Content("~/Cartera/Home/PlazosPago")">PlazosPago</a></li>
                         </ul>
                     </li>
                     <li>
