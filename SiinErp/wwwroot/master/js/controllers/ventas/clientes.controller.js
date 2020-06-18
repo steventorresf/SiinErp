@@ -5,9 +5,9 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'InvArticulosService', 'GenTablasDetService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'VenClientesService', 'CarPlazosPagoService', 'VenVendedoresService', 'VenListaPreciosService', 'GenTablasDetService', 'GenDepartamentosService', 'GenCiudadesService'];
 
-    function AppController($location, $cookies, $scope, artService, tabdetService) {
+    function AppController($location, $cookies, $scope, cliService, ppaService, venService, lisService, tabdetService, depService, ciuService) {
         var vm = this;
 
         vm.title = 'Home Page';
@@ -21,15 +21,20 @@
         $scope.editar = editar;
         vm.listBool = [{ codigo: 'true', descripcion: 'Si' }, { codigo: 'false', descripcion: 'No' }];
         vm.listEstados = [{ codigo: 'A', descripcion: 'Activo' }, { codigo: 'I', descripcion: 'Inactivo' }];
+        vm.getCiudades = getCiudades;
 
         function init() {
             getAll();
-            getTiposArt();
-            getUnidadMed();
+            getPlazosPago();
+            getVendedores();
+            getListaPrecios();
+            getZonas();
+            getTiposCliente();
+            getDepartamentos();
         }
 
         function getAll() {
-            var response = artService.getAll(vm.userApp.idEmpresa);
+            var response = cliService.getAll(vm.userApp.idEmpresa);
             response.then(
                 function (response) {
                     vm.gridOptions.data = response.data;
@@ -40,11 +45,11 @@
             );
         }
 
-        function getTiposArt() {
-            var response = tabdetService.getAll(Tab.TiposArt);
+        function getPlazosPago() {
+            var response = ppaService.getAll(vm.userApp.idEmpresa);
             response.then(
                 function (response) {
-                    vm.listTiposArt = response.data;
+                    vm.listPlazosPago = response.data;
                 },
                 function (response) {
                     console.log(response);
@@ -52,11 +57,71 @@
             );
         }
 
-        function getUnidadMed() {
-            var response = tabdetService.getAll(Tab.UnidadMed);
+        function getVendedores() {
+            var response = venService.getAll(vm.userApp.idEmpresa);
             response.then(
                 function (response) {
-                    vm.listUnidadMed = response.data;
+                    vm.listVendedores = response.data;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        function getListaPrecios() {
+            var response = lisService.getAll(vm.userApp.idEmpresa);
+            response.then(
+                function (response) {
+                    vm.listListaPrecios = response.data;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        function getZonas() {
+            var response = tabdetService.getAll(Tab.Zonas);
+            response.then(
+                function (response) {
+                    vm.listZonas = response.data;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        function getTiposCliente() {
+            var response = tabdetService.getAll(Tab.TiposCli);
+            response.then(
+                function (response) {
+                    vm.listTiposCli = response.data;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        function getDepartamentos() {
+            var response = depService.getAll();
+            response.then(
+                function (response) {
+                    vm.listDepartamentos = response.data;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        function getCiudades() {
+            var response = ciuService.getAll(vm.entity.idDepartamento);
+            response.then(
+                function (response) {
+                    vm.listCiudades = response.data;
                 },
                 function (response) {
                     console.log(response);
@@ -76,17 +141,23 @@
 
         function editar(entity) {
             vm.entity = angular.copy(entity);
-            vm.entity.idDetTipoArticulo = angular.copy(entity.idDetTipoArticulo).toString();
-            vm.entity.idDetUnidadMed = angular.copy(entity.idDetUnidadMed).toString();
-            vm.entity.esLinea = angular.copy(entity.esLinea).toString();
+            vm.entity.idDetTipoCliente = angular.copy(entity.idDetTipoCliente).toString();
+            vm.entity.idPlazoPago = angular.copy(entity.idPlazoPago).toString();
+            vm.entity.idDetZona = angular.copy(entity.idDetZona).toString();
+            vm.entity.credito = angular.copy(entity.credito).toString();
+            vm.entity.retencion = angular.copy(entity.retencion).toString();
+            vm.entity.baseRetencion = angular.copy(entity.baseRetencion).toString();
+            vm.entity.iva = angular.copy(entity.iva).toString();
+            vm.entity.esCadena = angular.copy(entity.esCadena).toString();
+            getCiudades();
             vm.formModify = true;
             vm.formVisible = true;
         }
 
         function guardar() {
             var response = null;
-            if (vm.formModify) { response = artService.update(vm.entity.idArticulo, vm.entity); }
-            else { response = artService.create(vm.entity); }
+            if (vm.formModify) { response = cliService.update(vm.entity.idCliente, vm.entity); }
+            else { response = cliService.create(vm.entity); }
 
             response.then(
                 function (response) {
@@ -114,147 +185,101 @@
             enableFiltering: true,
             columnDefs: [
                 {
-                    name: 'codArticulo',
-                    field: 'codArticulo',
+                    name: 'codCliente',
+                    field: 'codCliente',
                     displayName: 'Código',
+                    headerCellClass: 'text-center',
+                    width: 100,
+                },
+                {
+                    name: 'nitCedula',
+                    field: 'nitCedula',
+                    displayName: 'NitCedula',
                     headerCellClass: 'text-center',
                     width: 120,
                 },
                 {
-                    name: 'referencia',
-                    field: 'referencia',
-                    displayName: 'Referencia',
+                    name: 'dgVerificacion',
+                    field: 'dgVerificacion',
+                    displayName: 'DgVerif',
                     headerCellClass: 'text-center',
                     cellClass: 'text-center',
-                    width: 100,
+                    width: 80,
                 },
                 {
-                    name: 'nombreArticulo',
-                    field: 'nombreArticulo',
-                    displayName: 'Nombre Articulo',
+                    name: 'nombreCliente',
+                    field: 'nombreCliente',
+                    displayName: 'Nombre Cliente',
                     headerCellClass: 'text-center',
                     width: 350,
                 },
                 {
-                    name: 'nombreTipoArticulo',
-                    field: 'nombreTipoArticulo',
-                    displayName: 'Tipo Articulo',
+                    name: 'nombreComercial',
+                    field: 'nombreComercial',
+                    displayName: 'Nombre Comercial',
                     headerCellClass: 'text-center',
                     width: 250,
                 },
                 {
-                    name: 'nombreUnidadMed',
-                    field: 'nombreUnidadMed',
-                    displayName: 'UnidadMed',
+                    name: 'representanteLegal',
+                    field: 'representanteLegal',
+                    displayName: 'Representante Legal',
                     headerCellClass: 'text-center',
-                    width: 150,
+                    width: 250,
                 },
                 {
-                    name: 'descEsLinea',
-                    field: 'descEsLinea',
-                    displayName: '¿EsLinea?',
+                    name: 'nombreTipoCliente',
+                    field: 'nombreTipoCliente',
+                    displayName: 'TipoCliente',
                     headerCellClass: 'text-center',
-                    cellClass: 'text-center',
-                    width: 100,
+                    width: 200,
                 },
                 {
-                    name: 'peso',
-                    field: 'peso',
-                    displayName: 'Peso',
+                    name: 'direccion',
+                    field: 'direccion',
+                    displayName: 'Dirección',
                     headerCellClass: 'text-center',
-                    cellClass: 'text-right',
-                    width: 100,
+                    width: 300,
                 },
                 {
-                    name: 'pcIva',
-                    field: 'pcIva',
-                    displayName: 'PcIva',
+                    name: 'telefono',
+                    field: 'telefono',
+                    displayName: 'telefono',
                     headerCellClass: 'text-center',
-                    cellClass: 'text-right',
-                    width: 100,
+                    width: 250,
                 },
                 {
-                    name: 'stkMin',
-                    field: 'stkMin',
-                    displayName: 'StockMin',
+                    name: 'nombreCiudad',
+                    field: 'nombreCiudad',
+                    displayName: 'Ciudad',
                     headerCellClass: 'text-center',
-                    cellClass: 'text-right',
-                    width: 100,
+                    width: 300,
                 },
                 {
-                    name: 'stkMax',
-                    field: 'stkMax',
-                    displayName: 'StockMax',
-                    headerCellClass: 'text-center',
-                    cellClass: 'text-right',
-                    width: 100,
-                },
-                {
-                    name: 'vrVenta',
-                    field: 'vrVenta',
-                    displayName: 'VrVenta',
-                    headerCellClass: 'text-center',
-                    cellClass: 'text-right',
-                    width: 100,
-                },
-                {
-                    name: 'vrCosto',
-                    field: 'vrCosto',
-                    displayName: 'VrCosto',
-                    headerCellClass: 'text-center',
-                    cellClass: 'text-right',
-                    width: 100,
-                },
-                {
-                    name: 'existencia',
-                    field: 'existencia',
-                    displayName: 'Existencia',
-                    headerCellClass: 'text-center',
-                    cellClass: 'text-right',
-                    width: 100,
-                },
-                {
-                    name: 'indCosto',
-                    field: 'indCosto',
-                    displayName: 'IndCosto',
-                    headerCellClass: 'text-center',
-                    cellClass: 'text-center',
-                    width: 100,
-                },
-                {
-                    name: 'indConsumo',
-                    field: 'indConsumo',
-                    displayName: 'IndConsumo',
-                    headerCellClass: 'text-center',
-                    cellClass: 'text-center',
-                    width: 100,
-                },
-                {
-                    name: 'fechaUEntrada',
-                    field: 'fechaUEntrada',
-                    displayName: 'FechaUEntrada',
+                    name: 'fechaUltCompra',
+                    field: 'fechaUltCompra',
+                    displayName: 'FechaUltCompra',
                     headerCellClass: 'text-center',
                     cellClass: 'text-center',
                     cellFilter: 'date:\'yyyy-MM-dd\'',
                     width: 200,
                 },
                 {
-                    name: 'fechaUSalida',
-                    field: 'fechaUSalida',
-                    displayName: 'FechaUSalida',
+                    name: 'fechaUltPago',
+                    field: 'fechaUltPago',
+                    displayName: 'FechaUltPago',
                     headerCellClass: 'text-center',
                     cellClass: 'text-center',
                     cellFilter: 'date:\'yyyy-MM-dd\'',
                     width: 200,
                 },
                 {
-                    name: 'fechaUPedida',
-                    field: 'fechaUPedida',
-                    displayName: 'FechaUPedida',
+                    name: 'puntosAcumulados',
+                    field: 'puntosAcumulados',
+                    displayName: 'PuntosAcumulados',
                     headerCellClass: 'text-center',
-                    cellClass: 'text-center',
-                    cellFilter: 'date:\'yyyy-MM-dd\'',
-                    width: 200,
+                    cellClass: 'text-right',
+                    width: 100,
                 },
                 {
                     name: 'estado',

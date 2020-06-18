@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewData["Title"] = "ListaPrecios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row mt-4" ng-show="!vm.modoDet  && !vm.formVisible">
+    <div class="col-12 offset-md-1 col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <button class="btn btn-primary" ng-click="vm.nuevo()">Nuevo</button>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="fontsize-10" ui-grid="vm.gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4" ng-show="!vm.modoDet && vm.formVisible">
+    <div class="col-12 offset-md-2 col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 ng-show="!vm.formModify">Nueva Lista</h4>
+                <h4 ng-show="vm.formModify">Editar Lista</h4>
+            </div>
+            <div class="card-body">
+                <form id="formApp" name="formApp" novalidate="" class="form-horizontal">
+                    <div class="form-group row">
+                        <div class="col-12 col-md-8">
+                            <label>Nombre Lista:</label>
+                            <input type="text" form="formApp" ng-model="vm.entity.nombreLista" class="form-control" required />
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label>Estado:</label>
+                            <select ng-model="vm.entity.estado" form="formApp" class="form-control" required>
+                                <option ng-repeat="item in vm.listEstados" value="{{ item.codigo }}">{{ item.descripcion }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <button class="btn btn-primary" ng-click="vm.guardar()" ng-disabled="formApp.$invalid">Guardar</button>
+                            <button class="btn btn-default" ng-click="vm.cancelar()">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row mt-4" ng-show="vm.modoDet && !vm.formVisibleDet">
+    <div class="col-12 offset-md-1 col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <button class="btn btn-default" ng-click="vm.regresarDet()">Regresar</button>
+            </div>
+            <div class="card-body">
+                <form id="formAppDet" name="formAppDet" novalidate="novalidate" class="form-horizontal">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <h4>{{ vm.entity.nombreLista }}</h4>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <label>Articulo:</label>
+                            <ui-select ng-model="vm.entityDet.idArticulo"
+                                       form="formAppDet"
+                                       theme="bootstrap"
+                                       tabindex="7"
+                                       required>
+                                <ui-select-match placeholder="Seleccione un articulo...">{{$select.selected.nombreArticulo}}</ui-select-match>
+                                <ui-select-choices repeat="item.idArticulo as item in vm.listArticulos track by $index"
+                                                   refresh="vm.refreshArticulo($select.search)"
+                                                   refresh-delay="0">
+                                    <div ng-bind-html="item.nombreArticulo | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12 col-md-4">
+                            <label>Vr. Unitario:</label>
+                            <input type="number" class="form-control" form="formAppDet" ng-model="vm.entityDet.vrUnitario" required />
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label>% Descuento:</label>
+                            <input type="number" class="form-control" form="formAppDet" ng-model="vm.entityDet.pcDscto" required />
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label>&nbsp;</label><br />
+                            <button class="btn btn-primary" ng-click="vm.agregarArticulo()" ng-disabled="formAppDet.$invalid">Agregar</button>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="fontsize-10" ui-grid="vm.gridOptionsDet" ui-grid-edit ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/master/js/services/inventario/articulos.service.js"></script>
+<script src="~/master/js/services/ventas/lista.precios.service.js"></script>
+<script src="~/master/js/services/ventas/lista.precios.detalle.service.js"></script>
+<script src="~/master/js/controllers/ventas/lista.precios.controller.js"></script>

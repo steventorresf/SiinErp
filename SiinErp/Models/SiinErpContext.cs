@@ -66,6 +66,10 @@ namespace SiinErp.Models
         #region
         public virtual DbSet<Vendedores> Vendedores { get; set; }
 
+        public virtual DbSet<ListaPrecios> ListaPrecios { get; set; }
+
+        public virtual DbSet<ListaPreciosDetalle> ListaPreciosDetalles { get; set; }
+
         public virtual DbSet<Clientes> Clientes { get; set; }
         #endregion
     }

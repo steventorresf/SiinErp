@@ -56,6 +56,27 @@ namespace SiinErp.Areas.Inventario.Business
             }
         }
 
+        public List<Articulos> GetArticulosByPrefix(int IdEmp, string Prefix)
+        {
+            try
+            {
+                string[] ListPrefix = Prefix.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+
+                SiinErpContext context = new SiinErpContext();
+                List<Articulos> Lista = context.Articulos.Where(x => x.IdEmpresa == IdEmp && x.NombreArticulo.Contains(ListPrefix[0])).ToList();
+                for(int i = 1; i < ListPrefix.Length; i++)
+                {
+                    Lista = Lista.Where(x => x.NombreArticulo.Contains(ListPrefix[i])).ToList();
+                }
+                return Lista.OrderBy(x => x.NombreArticulo).ToList();
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("GetArticulosByPrefix", ex.Message, null);
+                throw;
+            }
+        }
+
         public void Create(Articulos entity)
         {
             try

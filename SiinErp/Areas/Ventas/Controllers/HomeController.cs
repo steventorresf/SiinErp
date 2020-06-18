@@ -14,6 +14,10 @@ namespace SiinErp.Areas.Ventas.Controllers
         {
             return View();
         }
+        public IActionResult ListaPrecios()
+        {
+            return View();
+        }
         public IActionResult Vendedores()
         {
             return View();

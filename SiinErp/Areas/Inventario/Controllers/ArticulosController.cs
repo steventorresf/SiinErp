@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using SiinErp.Areas.Inventario.Business;
 using SiinErp.Areas.Inventario.Entities;
 using SiinErp.Utiles;
@@ -23,6 +24,23 @@ namespace SiinErp.Areas.Inventario.Controllers
             try
             {
                 var lista = BusinessArt.GetArticulos(IdEmp);
+                return Ok(lista);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost("Prefix")]
+        public IActionResult GetArticulosByPrefix([FromBody] JObject data)
+        {
+            try
+            {
+                int IdEmp = data["IdEmp"].ToObject<int>();
+                string Prefix = data["Prefix"].ToObject<string>();
+
+                var lista = BusinessArt.GetArticulosByPrefix(IdEmp, Prefix);
                 return Ok(lista);
             }
             catch (Exception ex)

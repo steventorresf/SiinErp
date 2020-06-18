@@ -32,6 +32,10 @@
                 <form id="formApp" name="formApp" novalidate="" class="form-horizontal">
                     <div class="form-group row">
                         <div class="col-12 col-md-4">
+                            <label>C&oacute;digo:</label>
+                            <input type="text" class="form-control" form="formApp" ng-model="vm.entity.codCliente" required />
+                        </div>
+                        <div class="col-12 col-md-4">
                             <label>Nit/C&eacute;dula:</label>
                             <input type="text" class="form-control" form="formApp" ng-model="vm.entity.nitCedula" required />
                         </div>
@@ -39,22 +43,26 @@
                             <label>Dg. Verificaci&oacute;n:</label>
                             <input type="text" class="form-control" form="formApp" ng-model="vm.entity.dgVerificacion" minlength="0" maxlength="1" />
                         </div>
-                        <div class="col-12 col-md-5">
-                            <label>Tipo Proveedor:</label>
-                            <select ng-model="vm.entity.idDetTipoProv" form="formApp" class="form-control" required>
-                                <option ng-repeat="item in vm.listTiposProv" value="{{ item.idDetalle }}">{{ item.descripcion }}</option>
-                            </select>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12 col-md-6">
+                            <label>Nombre Cliente:</label>
+                            <input type="text" class="form-control" form="formApp" ng-model="vm.entity.nombreCliente" required />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label>Nombre Comercial:</label>
+                            <input type="text" class="form-control" form="formApp" ng-model="vm.entity.nombreComercial" />
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-12 col-md-8">
-                            <label>Nombre Proveedor:</label>
-                            <input type="text" class="form-control" form="formApp" ng-model="vm.entity.nombreProveedor" required />
+                        <div class="col-12 col-md-6">
+                            <label>Representante Legal:</label>
+                            <input type="text" class="form-control" form="formApp" ng-model="vm.entity.representanteLegal" required />
                         </div>
-                        <div class="col-12 col-md-4">
-                            <label>Plazo Pago:</label>
-                            <select ng-model="vm.entity.idPlazoPago" form="formApp" class="form-control" required>
-                                <option ng-repeat="item in vm.listPlazosPago" value="{{ item.idPlazoPago }}">{{ item.descripcion }}</option>
+                        <div class="col-12 col-md-6">
+                            <label>Tipo Cliente:</label>
+                            <select ng-model="vm.entity.idDetTipoCliente" form="formApp" class="form-control" required>
+                                <option ng-repeat="item in vm.listTiposCli" value="{{ item.idDetalle }}">{{ item.descripcion }}</option>
                             </select>
                         </div>
                     </div>
@@ -66,7 +74,7 @@
                                        theme="bootstrap"
                                        tabindex="7"
                                        required
-                                       on-select="vm.onChangeDepartamento()">
+                                       on-select="vm.getCiudades()">
                                 <ui-select-match placeholder="Seleccione un departamento...">{{$select.selected.nombreDepartamento}}</ui-select-match>
                                 <ui-select-choices repeat="item.idDepartamento as item in vm.listDepartamentos | filter: $select.search">
                                     <div ng-bind-html="item.nombreDepartamento | highlight: $select.search"></div>
@@ -98,13 +106,85 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <div class="col-12 col-md-4">
+                            <label>Correo:</label>
+                            <input type="text" class="form-control" form="formApp" ng-model="vm.entity.correo" required />
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label>Plazo Pago:</label>
+                            <select ng-model="vm.entity.idPlazoPago" form="formApp" class="form-control" required>
+                                <option ng-repeat="item in vm.listPlazosPago" value="{{ item.idPlazoPago }}">{{ item.descripcion }}</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label>Zona:</label>
+                            <select ng-model="vm.entity.idDetZona" form="formApp" class="form-control" required>
+                                <option ng-repeat="item in vm.listZonas" value="{{ item.idDetalle }}">{{ item.descripcion }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <div class="col-12 col-md-6">
-                            <label>EMail:</label>
-                            <input type="text" class="form-control" form="formApp" ng-model="vm.entity.eMail" required />
+                            <label>Vendedor:</label>
+                            <ui-select ng-model="vm.entity.idVendedor"
+                                       form="formApp"
+                                       theme="bootstrap"
+                                       tabindex="7"
+                                       required>
+                                <ui-select-match placeholder="Seleccione un vendedor...">{{$select.selected.nombreVendedor}}</ui-select-match>
+                                <ui-select-choices repeat="item.idVendedor as item in vm.listVendedores | filter: $select.search">
+                                    <div ng-bind-html="item.nombreVendedor | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
                         </div>
                         <div class="col-12 col-md-6">
-                            <label>Representante Legal:</label>
-                            <input type="text" class="form-control" form="formApp" ng-model="vm.entity.representanteLegal" required />
+                            <label>Lista de Precio:</label>
+                            <ui-select ng-model="vm.entity.idListaPrecio"
+                                       form="formApp"
+                                       theme="bootstrap"
+                                       tabindex="7"
+                                       required>
+                                <ui-select-match placeholder="Seleccione una lista de precio...">{{$select.selected.nombreLista}}</ui-select-match>
+                                <ui-select-choices repeat="item.idListaPrecio as item in vm.listListaPrecios | filter: $select.search">
+                                    <div ng-bind-html="item.nombreLista | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label>¿Credito?:</label>
+                            <select ng-model="vm.entity.credito" form="formApp" class="form-control" required>
+                                <option ng-repeat="item in vm.listBool" value="{{ item.codigo }}">{{ item.descripcion }}</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label>Limite Credito:</label>
+                            <input type="number" form="formApp" class="form-control" ng-model="vm.limiteCredito" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12 col-md-3">
+                            <label>Retenci&oacute;n:</label>
+                            <select ng-model="vm.entity.retencion" form="formApp" class="form-control" required>
+                                <option ng-repeat="item in vm.listBool" value="{{ item.codigo }}">{{ item.descripcion }}</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label>Base Retenci&oacute;n:</label>
+                            <select ng-model="vm.entity.baseRetencion" form="formApp" class="form-control" required>
+                                <option ng-repeat="item in vm.listBool" value="{{ item.codigo }}">{{ item.descripcion }}</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label>¿IVA?:</label>
+                            <select ng-model="vm.entity.iva" form="formApp" class="form-control" required>
+                                <option ng-repeat="item in vm.listBool" value="{{ item.codigo }}">{{ item.descripcion }}</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label>¿Es Cadena?:</label>
+                            <select ng-model="vm.entity.esCadena" form="formApp" class="form-control" required>
+                                <option ng-repeat="item in vm.listBool" value="{{ item.codigo }}">{{ item.descripcion }}</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -135,5 +215,7 @@
 <script src="~/master/js/services/general/tablas.detalles.service.js"></script>
 <script src="~/master/js/services/general/departamentos.service.js"></script>
 <script src="~/master/js/services/general/ciudades.service.js"></script>
+<script src="~/master/js/services/ventas/vendedores.service.js"></script>
+<script src="~/master/js/services/ventas/lista.precios.service.js"></script>
 <script src="~/master/js/services/ventas/clientes.service.js"></script>
 <script src="~/master/js/controllers/ventas/clientes.controller.js"></script>

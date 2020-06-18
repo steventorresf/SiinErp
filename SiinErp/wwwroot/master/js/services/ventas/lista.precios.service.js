@@ -3,16 +3,15 @@
 
     angular
         .module('app')
-        .factory('InvArticulosService', InvArticulosService);
+        .factory('VenListaPreciosService', VenListaPreciosService);
 
-    InvArticulosService.$inject = ['$http', '$q'];
+    VenListaPreciosService.$inject = ['$http', '$q'];
 
-    function InvArticulosService($http, $q) {
-        var nameSpace = '/Inventario/api/Articulos/';
+    function VenListaPreciosService($http, $q) {
+        var nameSpace = '/Ventas/api/ListaPrecios/';
 
         var service = {
             getAll: getAll,
-            getAllByPrefix: getAllByPrefix,
             create: create,
             update: update,
         };
@@ -21,19 +20,6 @@
 
         function getAll(idEmp) {
             return $http.get(nameSpace + idEmp)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-
-        function getAllByPrefix(data) {
-            return $http.post(nameSpace + 'Prefix/', data)
                 .then(
                     function (response) {
                         return response;

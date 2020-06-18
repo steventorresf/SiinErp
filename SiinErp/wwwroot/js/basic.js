@@ -88163,4 +88163,5 @@ const Tab = {
     TiposProv: 'ComTiposProv',
     TiposArt: 'InvTiposArt',
     UnidadMed: 'InvUnidadMed',
+    TiposCli: 'VenTiposCli',
 }
