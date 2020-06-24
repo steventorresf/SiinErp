@@ -60,6 +60,10 @@ namespace SiinErp.Models
 
         #region Inventario
         public virtual DbSet<Articulos> Articulos { get; set; }
+
+        public virtual DbSet<TiposDoc> TiposDoc { get; set; }
+
+
         #endregion
 
 

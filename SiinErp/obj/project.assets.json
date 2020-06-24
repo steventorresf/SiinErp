@@ -13734,8 +13734,8 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Steven Torres\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Carlos.Gomez\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -13743,15 +13743,16 @@
       "projectUniqueName": "C:\\Repositorios\\SiinErp\\SiinErp\\SiinErp.csproj",
       "projectName": "SiinErp",
       "projectPath": "C:\\Repositorios\\SiinErp\\SiinErp\\SiinErp.csproj",
-      "packagesPath": "C:\\Users\\Steven Torres\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\Carlos.Gomez\\.nuget\\packages\\",
       "outputPath": "C:\\Repositorios\\SiinErp\\SiinErp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "C:\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\Steven Torres\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Carlos.Gomez\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.1"
@@ -13798,6 +13799,7 @@
             "version": "[1.1.6, )"
           },
           "Microsoft.NETCore.App": {
+            "suppressParent": "All",
             "target": "Package",
             "version": "[2.1.0, )",
             "autoReferenced": true
@@ -13812,10 +13814,16 @@
           }
         },
         "imports": [
-          "net461"
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
         ],
         "assetTargetFallback": true,
-        "warn": true
+        "warn": true,
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
       }
     }
   }
