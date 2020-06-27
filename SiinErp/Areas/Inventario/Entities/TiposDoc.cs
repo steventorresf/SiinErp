@@ -32,7 +32,7 @@ namespace SiinErp.Areas.Inventario.Entities
         public string Descripcion { get; set; }
 
         [Required]
-        public int IdDetTransaccion { get; set; }
+        public int Transaccion { get; set; }
 
        
         [Required]
@@ -43,10 +43,10 @@ namespace SiinErp.Areas.Inventario.Entities
 
 
         [NotMapped]
-        public string NomTransaccion { get; set; }
+        public string NomAlmacen { get; set; }
 
         [NotMapped]
-        public string NomAlmacen { get; set; }
+        public string NomTransaccion { get; set; }
 
 
 

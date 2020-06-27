@@ -17,22 +17,21 @@ namespace SiinErp.Areas.Inventario.Business
             {
                 SiinErpContext context = new SiinErpContext();
                 List<TiposDoc> Lista = (from td in context.TiposDoc.Where(x => x.IdEmpresa == IdEmpresa)
-                                              join tr in context.TablasDetalles on td.IdDetTransaccion equals tr.IdDetalle
-                                              join ti in context.TablasDetalles on td.IdDetAlmacen equals ti.IdDetalle
+                                        join ti in context.TablasDetalles on td.IdDetAlmacen equals ti.IdDetalle
                                         select new TiposDoc()
-                                              {
-                                                  IdTipoDoc = td.IdTipoDoc,
-                                                  IdEmpresa = td.IdEmpresa,
-                                                  TipoDoc = td.TipoDoc,
-                                                  NumDoc = td.NumDoc,
-                                                  Descripcion = td.Descripcion,
-                                                  IdDetTransaccion = td.IdDetTransaccion,
-                                                  IdDetAlmacen = td.IdDetAlmacen,
-                                                  FechaCreacion = td.FechaCreacion,
-                                                  IdUsuario = td.IdUsuario,
-                                                  NomTransaccion = tr.Descripcion,
-                                                  NomAlmacen = ti.Descripcion
-                                              }).OrderBy(x => x.Descripcion).OrderBy(x => x.TipoDoc).ToList();
+                                        {
+                                            IdTipoDoc = td.IdTipoDoc,
+                                            IdEmpresa = td.IdEmpresa,
+                                            TipoDoc = td.TipoDoc,
+                                            NumDoc = td.NumDoc,
+                                            Descripcion = td.Descripcion,
+                                            Transaccion = td.Transaccion,
+                                            IdDetAlmacen = td.IdDetAlmacen,
+                                            FechaCreacion = td.FechaCreacion,
+                                            IdUsuario = td.IdUsuario,
+                                            NomAlmacen = ti.Descripcion,
+                                            NomTransaccion = td.Transaccion > 0 ? Constantes.TransEntrada : Constantes.TransSalida,
+                                        }).OrderBy(x => x.Descripcion).OrderBy(x => x.TipoDoc).ToList();
                 return Lista;
             }
             catch (Exception ex)
@@ -67,7 +66,7 @@ namespace SiinErp.Areas.Inventario.Business
                 ob.TipoDoc = entity.TipoDoc;
                 ob.NumDoc = entity.NumDoc;
                 ob.Descripcion = entity.Descripcion;
-                ob.IdDetTransaccion = entity.IdDetTransaccion;
+                ob.Transaccion = entity.Transaccion;
                 ob.IdDetAlmacen = entity.IdDetAlmacen;
                 context.SaveChanges();
             }

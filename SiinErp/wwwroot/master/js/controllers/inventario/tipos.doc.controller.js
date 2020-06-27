@@ -20,9 +20,14 @@
         vm.cancelar = cancelar;
         $scope.editar = editar;
 
+        vm.listTransaccions = [
+            { idDetalle: '1', descripcion: "Entrada" },
+            { idDetalle: '-1', descripcion: "Salida" }
+        ];
+
         function init() {
             getTiposDoc();
-            getTransaccionInv();
+        //  getTransaccionInv();
             getAlmInv();
            
         }
@@ -40,7 +45,6 @@
         }
 
         function getTransaccionInv() {
-            console.log("paso " + Tab.Transac);
             var response = tabdetService.getAll("InvTrans");//Tab.InvTrans
             response.then(
                 function (response) {
@@ -53,7 +57,7 @@
         }
 
         function getAlmInv() {
-            console.log("paso22 " + Tab.InvAlm);
+            
             var response = tabdetService.getAll("InvAlmacen"); //Tab.InvAlm);
             response.then(
                 function (response) {
@@ -69,13 +73,14 @@
 
         function nuevo() {
             vm.entity = {};
+            vm.entity.idUsuario = vm.userApp.idUsuario;
             vm.formModify = false;
             vm.formVisible = true;
         }
 
         function editar(entity) {
             vm.entity = angular.copy(entity);
-            vm.entity.idDetTransaccion = angular.copy(entity.idDetTransaccion).toString();
+            vm.entity.transaccion = angular.copy(entity.transaccion).toString();
             vm.entity.idDetAlmacen = angular.copy(entity.idDetAlmacen).toString();
             vm.formModify = true;
             vm.formVisible = true;

@@ -27,5 +27,9 @@ namespace SiinErp.Utiles
         // Situacion
         public const string CodSituacion_Abierto = "A";
         public const string CodSituacion_Cerrado = "C";
+
+        // Transacciones
+        public const string TransEntrada = "Entrada";
+        public const string TransSalida = "Salida";
     }
 }
