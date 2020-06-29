@@ -88164,4 +88164,6 @@ const Tab = {
     TiposArt: 'InvTiposArt',
     UnidadMed: 'InvUnidadMed',
     TiposCli: 'VenTiposCli',
+    InvAlm: 'InvAlmacen',
+    InvTrans: 'InvTrans',
 }

@@ -18,5 +18,9 @@ namespace SiinErp.Areas.Compras.Controllers
         {
             return View();
         }
+        public IActionResult Ordenes()
+        {
+            return View();
+        }
     }
 }

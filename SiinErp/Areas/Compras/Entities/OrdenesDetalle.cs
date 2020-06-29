@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SiinErp.Areas.Compras.Entities
 {
-    [Table("Ordenes", Schema = "Compras")]
+    [Table("OrdenesDetalle", Schema = "Compras")]
     public class OrdenesDetalle
     {
         [Key]

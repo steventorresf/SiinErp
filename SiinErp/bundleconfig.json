@@ -29,7 +29,7 @@
       "wwwroot/vendor/node_modules/angular-ui-grid/ui-grid.css",
       "wwwroot/vendor/node_modules/ui-select/dist/select.css",
       "wwwroot/vendor/bootstrap-datepicker/css/bootstrap-datepicker.css",
-      "wwwroot/master/css/general.css"
+      "wwwroot/css/custom.css"
     ]
   }
 ]

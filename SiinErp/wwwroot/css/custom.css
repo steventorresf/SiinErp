@@ -1,1 +1,54 @@
-/* your styles go here */
+#TextoTitulo span {
+    font-size: 1.5em;
+    text-transform: capitalize;
+}
+
+.fontsize-10 {
+    font-size: 0.7em;
+    font-family: Calibri;
+}
+
+    .fontsize-10 .fa {
+        font-size: 1.5em;
+    }
+
+.ui-select-choices.ui-select-choices-content.ui-select-dropdown.dropdown-menu {
+    display: block;
+    font-size:0.9em;
+}
+
+.ui-select-bootstrap .ui-select-choices-row.active > span {
+    color: #fff;
+    text-decoration: none;
+    outline: 0;
+    background-color: #33b35a;
+}
+
+.ui-select-bootstrap .form-control {
+    background-color: transparent !important;
+    font-size: 0.9em;
+    padding: 5px 7.5px;
+}
+
+.ui-select-multiple.ui-select-bootstrap > div > input.ui-select-search {
+    font-size: 2em;
+}
+
+.btn {
+    border-radius: 5px;
+}
+
+.bg-header {
+    text-align: center;
+}
+
+
+.form-control {
+    height: calc(2rem + 1px);
+    padding: 5px 7.5px;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    border-radius: 0;
+    font-size:0.9em;
+}

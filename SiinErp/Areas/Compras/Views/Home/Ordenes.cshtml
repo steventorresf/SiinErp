@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewData["Title"] = "Ordenes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row mt-md-3">
+    <div class="col-12 offset-md-1 col-md-10">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Encabezado Orden</h4>
+                    </div>
+                    <div class="card-body">
+                        <form id="formApp" name="formApp" novalidate="novalidate" class="form-horizontal">
+                            <div class="form-group row">
+                                <div class="col-12 col-md-7">
+                                    <label>Proveedor:</label>
+                                    <ui-select ng-model="vm.entity.idProveedor"
+                                               form="formApp"
+                                               theme="bootstrap"
+                                               tabindex="7"
+                                               required
+                                               on-select="vm.onChangeProveedor($item, $model)">
+                                        <ui-select-match placeholder="Seleccione un proveedor...">{{$select.selected.nombreProveedor}}</ui-select-match>
+                                        <ui-select-choices repeat="item.idProveedor as item in vm.listProveedores track by $index">
+                                            <div ng-bind-html="item.nombreProveedor | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <div class="col-12 col-md-5">
+                                    <label>Fecha Orden:</label>
+                                    <input type="text"
+                                           form="formApp"
+                                           datepicker=""
+                                           dp-format="yyyy-mm-dd"
+                                           ng-model="vm.entity.fechaDoc"
+                                           class="form-control"
+                                           required />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-12 col-md-7">
+                                    <label>Direcci&oacute;n Despacho:</label>
+                                    <input type="text" ng-model="vm.entity.direccionDesp" form="formApp" class="form-control" />
+                                </div>
+                                <div class="col-12 col-md-5">
+                                    <label>Plazo de Pago:</label>
+                                    <ui-select ng-model="vm.entity.idPlazoPago"
+                                               form="formApp"
+                                               theme="bootstrap"
+                                               tabindex="7"
+                                               required>
+                                        <ui-select-match placeholder="Seleccione un plazo de pago...">{{$select.selected.descripcion}}</ui-select-match>
+                                        <ui-select-choices repeat="item.idPlazoPago as item in vm.listPlazosPago track by $index">
+                                            <div ng-bind-html="item.descripcion | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Detalle Orden</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="col-12">
+                            <ui-select ng-model="vm.entity.idArticulo"
+                                       form="formAppDet"
+                                       theme="bootstrap"
+                                       tabindex="7"
+                                       required
+                                       on-select="vm.onChangeArticulo($item, $model)">
+                                <ui-select-match placeholder="Seleccione un articulo...">{{$select.selected.nombreArticulo}}</ui-select-match>
+                                <ui-select-choices repeat="item.idArticulo as item in vm.listArticulos track by $index"
+                                                   refresh="vm.refreshArticulo($select.search)"
+                                                   refresh-delay="0">
+                                    <div ng-bind-html="item.nombreArticulo | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <div class="col-12 mt-sm-3">
+                            <div class="fontsize-10" ui-grid="vm.gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns ui-grid-auto-resize></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-right">
+                <div class="card">
+                    <div class="card-body text-right">
+                        <button class="btn btn-primary" ng-click="vm.guardar()" ng-disabled="formApp.$invalid || vm.gridApi.selection.getSelectedRows().length === 0">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="~/master/js/services/cartera/plazos.pago.service.js"></script>
+<script src="~/master/js/services/compras/proveedores.service.js"></script>
+<script src="~/master/js/services/general/tablas.detalles.service.js"></script>
+<script src="~/master/js/services/inventario/articulos.service.js"></script>
+<script src="~/master/js/services/compras/ordenes.service.js"></script>
+<script src="~/master/js/controllers/compras/ordenes.controller.js"></script>

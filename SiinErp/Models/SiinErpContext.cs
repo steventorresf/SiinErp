@@ -55,6 +55,10 @@ namespace SiinErp.Models
 
         #region Compras
         public virtual DbSet<Proveedores> Proveedores { get; set; }
+
+        public virtual DbSet<Ordenes> Ordenes { get; set; }
+
+        public virtual DbSet<OrdenesDetalle> OrdenesDetalles { get; set; }
         #endregion
 
 
@@ -67,7 +71,7 @@ namespace SiinErp.Models
         #endregion
 
 
-        #region
+        #region Ventas
         public virtual DbSet<Vendedores> Vendedores { get; set; }
 
         public virtual DbSet<ListaPrecios> ListaPrecios { get; set; }

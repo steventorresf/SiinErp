@@ -2259,7 +2259,7 @@ body > .ui-select-bootstrap.open {
 
 .fontsize-10 {
     font-size: 0.7em;
-    font-family:sans-serif;
+    font-family: Calibri;
 }
 
     .fontsize-10 .fa {
@@ -2268,6 +2268,7 @@ body > .ui-select-bootstrap.open {
 
 .ui-select-choices.ui-select-choices-content.ui-select-dropdown.dropdown-menu {
     display: block;
+    font-size:0.9em;
 }
 
 .ui-select-bootstrap .ui-select-choices-row.active > span {
@@ -2279,12 +2280,29 @@ body > .ui-select-bootstrap.open {
 
 .ui-select-bootstrap .form-control {
     background-color: transparent !important;
+    font-size: 0.9em;
+    padding: 5px 7.5px;
 }
 
-.btn{
-    border-radius:5px;
+.ui-select-multiple.ui-select-bootstrap > div > input.ui-select-search {
+    font-size: 2em;
 }
 
-.bg-header{
-    text-align:center;
+.btn {
+    border-radius: 5px;
+}
+
+.bg-header {
+    text-align: center;
+}
+
+
+.form-control {
+    height: calc(2rem + 1px);
+    padding: 5px 7.5px;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    border-radius: 0;
+    font-size:0.9em;
 }
