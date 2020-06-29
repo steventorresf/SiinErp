@@ -4,19 +4,32 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row mt-md-3">
+<div class="row mt-3" ng-show="!vm.form">
+    <div class="col-12 offset-md-1 col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <button class="btn btn-primary" ng-click="vm.nuevo()">Nueva Orden</button>
+            </div>
+            <div class="card-body">
+                <div class="fontsize-10" ui-grid="vm.gridOptionsPro" ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-md-3" ng-show="vm.form">
     <div class="col-12 offset-md-1 col-md-10">
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h4>Encabezado Orden</h4>
+                    <div class="card-header text-center">
+                        <h4>{{vm.entity.tipoDoc}} #{{vm.entity.numDoc}}</h4>
                     </div>
                     <div class="card-body">
                         <form id="formApp" name="formApp" novalidate="novalidate" class="form-horizontal">
                             <div class="form-group row">
-                                <div class="col-12 col-md-7">
-                                    <label>Proveedor:</label>
+                                <div class="col-12 col-md-6">
+                                    <label class="required">Proveedor:</label>
                                     <ui-select ng-model="vm.entity.idProveedor"
                                                form="formApp"
                                                theme="bootstrap"
@@ -29,8 +42,42 @@
                                         </ui-select-choices>
                                     </ui-select>
                                 </div>
-                                <div class="col-12 col-md-5">
-                                    <label>Fecha Orden:</label>
+                                <div class="col-12 col-md-6">
+                                    <label class="required">Almacen</label>
+                                    <ui-select ng-model="vm.entity.idDetAlmacen"
+                                               form="formApp"
+                                               theme="bootstrap"
+                                               tabindex="7"
+                                               required>
+                                        <ui-select-match placeholder="Seleccione un almacen...">{{$select.selected.descripcion}}</ui-select-match>
+                                        <ui-select-choices repeat="item.idDetalle as item in vm.listAlmacens track by $index">
+                                            <div ng-bind-html="item.descripcion | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-12 col-md-6">
+                                    <label class="required">Direcci&oacute;n Despacho:</label>
+                                    <input type="text" ng-model="vm.entity.direccionDesp" form="formApp" class="form-control" />
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label class="required">Centro Costo:</label>
+                                    <ui-select ng-model="vm.entity.idDetCenCosto"
+                                               form="formApp"
+                                               theme="bootstrap"
+                                               tabindex="7"
+                                               required>
+                                        <ui-select-match placeholder="Seleccione un plazo de pago...">{{$select.selected.descripcion}}</ui-select-match>
+                                        <ui-select-choices repeat="item.idDetalle as item in vm.listCentrosCosto track by $index">
+                                            <div ng-bind-html="item.descripcion | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-12 col-md-4">
+                                    <label class="required">Fecha Orden:</label>
                                     <input type="text"
                                            form="formApp"
                                            datepicker=""
@@ -39,14 +86,8 @@
                                            class="form-control"
                                            required />
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-12 col-md-7">
-                                    <label>Direcci&oacute;n Despacho:</label>
-                                    <input type="text" ng-model="vm.entity.direccionDesp" form="formApp" class="form-control" />
-                                </div>
-                                <div class="col-12 col-md-5">
-                                    <label>Plazo de Pago:</label>
+                                <div class="col-12 col-md-4">
+                                    <label class="required">Plazo de Pago:</label>
                                     <ui-select ng-model="vm.entity.idPlazoPago"
                                                form="formApp"
                                                theme="bootstrap"
@@ -67,8 +108,8 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h4>Detalle Orden</h4>
+                    <div class="card-header text-center">
+                        <h6>Articulos Detallados</h6>
                     </div>
                     <div class="card-body">
                         <div class="col-12">
@@ -89,15 +130,44 @@
                         <div class="col-12 mt-sm-3">
                             <div class="fontsize-10" ui-grid="vm.gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns ui-grid-auto-resize></div>
                         </div>
+                        <div class="col-12 mt-sm-3">
+                            <label>Comentarios:</label><br />
+                            <textarea ng-model="vm.entity.comentarios" class="form-control"></textarea>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-12 text-right">
+            <div class="col-12">
                 <div class="card">
-                    <div class="card-body text-right">
-                        <button class="btn btn-primary" ng-click="vm.guardar()" ng-disabled="formApp.$invalid || vm.gridApi.selection.getSelectedRows().length === 0">Guardar</button>
+                    <div class="card-body">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-12 col-md-3">
+                                    <label>Vr. Bruto:</label>
+                                    <input type="text" ng-model="vm.entity.valorBruto | number : 0" class="form-control" onkeydown="return false" />
+                                </div>
+                                <div class="col-12 col-md-3">
+                                    <label>Vr. Descuento:</label>
+                                    <input type="text" ng-model="vm.entity.valorDscto | number : 0" class="form-control" onkeydown="return false" />
+                                </div>
+                                <div class="col-12 col-md-3">
+                                    <label>Vr. Iva:</label>
+                                    <input type="text" ng-model="vm.entity.valorIva | number : 0" class="form-control" onkeydown="return false" />
+                                </div>
+                                <div class="col-12 col-md-3">
+                                    <label>Vr. Neto:</label>
+                                    <input type="text" ng-model="vm.entity.valorNeto | number : 0" class="form-control" onkeydown="return false" />
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-12 text-right">
+                                    <button class="btn btn-default" ng-click="vm.regresar()">Regresar</button>
+                                    <button class="btn btn-primary" ng-click="vm.guardar()" ng-disabled="formApp.$invalid || vm.gridOptions.data.length === 0">Guardar</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -111,6 +181,8 @@
 <script src="~/master/js/services/cartera/plazos.pago.service.js"></script>
 <script src="~/master/js/services/compras/proveedores.service.js"></script>
 <script src="~/master/js/services/general/tablas.detalles.service.js"></script>
+<script src="~/master/js/services/general/tipos.documento.service.js"></script>
 <script src="~/master/js/services/inventario/articulos.service.js"></script>
 <script src="~/master/js/services/compras/ordenes.service.js"></script>
+<script src="~/master/js/services/compras/ordenes.detalle.service.js"></script>
 <script src="~/master/js/controllers/compras/ordenes.controller.js"></script>

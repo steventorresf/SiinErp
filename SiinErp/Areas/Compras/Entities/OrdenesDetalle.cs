@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SiinErp.Areas.Inventario.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -45,5 +46,15 @@ namespace SiinErp.Areas.Compras.Entities
 
         [StringLength(500)]
         public string Servicio { get; set; }
+
+
+        [NotMapped]
+        public decimal VrBruto { get; set; }
+
+        [NotMapped]
+        public decimal VrNeto { get; set; }
+
+        [NotMapped]
+        public Articulos Articulo { get; set; }
     }
 }

@@ -18,12 +18,26 @@ namespace SiinErp.Areas.General.Controllers
         private TiposDocumentoBusiness BusinessDoc = new TiposDocumentoBusiness();
 
         [HttpGet("{IdEmp}")]
-        public IActionResult GetTiposDocumento(int IdEmp)
+        public IActionResult GetTiposDocumentos(int IdEmp)
         {
             try
             {
                 var lista = BusinessDoc.GetTiposDocumentos(IdEmp);
                 return Ok(lista);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet("ByCod/{Cod}")]
+        public IActionResult GetTipoDocumento(string Cod)
+        {
+            try
+            {
+                var entity = BusinessDoc.GetTipoDocumento(Cod);
+                return Ok(entity);
             }
             catch (Exception ex)
             {

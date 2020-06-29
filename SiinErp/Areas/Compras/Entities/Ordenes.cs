@@ -89,5 +89,12 @@ namespace SiinErp.Areas.Compras.Entities
 
         [Required]
         public int IdDetCenCosto { get; set; }
+
+
+        [NotMapped]
+        public Proveedores Proveedor { get; set; }
+
+        [NotMapped]
+        public List<OrdenesDetalle> ListDetalle { get; set; }
     }
 }

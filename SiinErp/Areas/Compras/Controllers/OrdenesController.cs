@@ -17,12 +17,26 @@ namespace SiinErp.Areas.Compras.Controllers
     {
         private OrdenesBusiness BusinessOrd = new OrdenesBusiness();
 
+        [HttpGet("{IdEmp}")]
+        public IActionResult Get(int IdEmp)
+        {
+            try
+            {
+                var lista = BusinessOrd.GetOrdenes(IdEmp);
+                return Ok(lista);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         [HttpPost]
         public IActionResult Create([FromBody] Ordenes entity)
         {
             try
             {
-                BusinessOrd.Create(entity, null);
+                BusinessOrd.Create(entity);
                 return Ok(true);
             }
             catch (Exception ex)

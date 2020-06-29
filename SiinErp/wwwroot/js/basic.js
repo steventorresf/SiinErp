@@ -88163,7 +88163,17 @@ const Tab = {
     TiposProv: 'ComTiposProv',
     TiposArt: 'InvTiposArt',
     UnidadMed: 'InvUnidadMed',
-    TiposCli: 'VenTiposCli',
     InvAlm: 'InvAlmacen',
+    InvCenCos: 'InvCenCos',
     InvTrans: 'InvTrans',
+    TiposCli: 'VenTiposCli',
 }
+
+const GenTiposDoc = {
+    OrdenCompra: 'OC',
+    OrdenVenta: 'OV',
+};
+
+const Estados = {
+    Pendiente: 'P',
+};

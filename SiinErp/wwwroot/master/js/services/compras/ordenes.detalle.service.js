@@ -3,37 +3,23 @@
 
     angular
         .module('app')
-        .factory('GenTiposDocService', GenTiposDocService);
+        .factory('ComOrdenesDetService', ComOrdenesDetService);
 
-    GenTiposDocService.$inject = ['$http', '$q'];
+    ComOrdenesDetService.$inject = ['$http', '$q'];
 
-    function GenTiposDocService($http, $q) {
-        var nameSpace = '/General/api/TiposDocumento/';
+    function ComOrdenesDetService($http, $q) {
+        var nameSpace = '/Compras/api/OrdenesDetalle/';
 
         var service = {
             getAll: getAll,
-            getByCod: getByCod,
             create: create,
             update: update,
         };
 
         return service;
 
-        function getAll(idEmp) {
-            return $http.get(nameSpace + idEmp)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-
-        function getByCod(cod) {
-            return $http.get(nameSpace + 'ByCod/' + cod)
+        function getAll(idOrd) {
+            return $http.get(nameSpace + idOrd)
                 .then(
                     function (response) {
                         return response;
