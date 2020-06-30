@@ -27,6 +27,9 @@ namespace SiinErp.Areas.Compras.Entities
         public decimal Cantidad { get; set; }
 
         [Required]
+        public decimal Margen { get; set; }
+
+        [Required]
         public decimal CantidadEje { get; set; }
 
         [Required]

@@ -23,6 +23,8 @@
         vm.onChangeProveedor = onChangeProveedor;
         vm.refreshArticulo = refreshArticulo;
         vm.onChangeArticulo = onChangeArticulo;
+        vm.removeArt = removeArt;
+        $scope.removeArt = removeArt;
         vm.entity = {
             idEmpresa: vm.userApp.idEmpresa,
             estado: Estados.Pendiente,
@@ -84,7 +86,7 @@
                     displayName: 'Tipo Doc',
                     headerCellClass: 'text-center',
                     cellClass: 'text-center',
-                    width: 100,
+                    width: 80,
                 },
                 {
                     name: 'numDoc',
@@ -92,13 +94,23 @@
                     displayName: '# Orden',
                     headerCellClass: 'text-center',
                     cellClass: 'text-center',
-                    width: 100,
+                    width: 80,
                 },
                 {
                     name: 'proveedor.nombreProveedor',
                     field: 'proveedor.nombreProveedor',
                     displayName: 'NombreProveedor',
                     headerCellClass: 'text-center',
+                },
+                {
+                    name: 'fechaDoc',
+                    field: 'fechaDoc',
+                    displayName: 'FechaDoc',
+                    headerCellClass: 'text-center',
+                    cellClass: 'text-center',
+                    width: 100,
+                    type: 'date',
+                    cellFilter: 'date: \'yyyy-MM-dd\'',
                 },
                 {
                     name: 'estado',
@@ -150,6 +162,8 @@
 
             vm.modify = false;
             vm.form = true;
+
+            vm.i = 0;
         }
 
         function editar(entity) {
@@ -204,17 +218,36 @@
         }
 
         function onChangeArticulo($item, $model) {
-            vm.gridOptions.data.push({
+            vm.i++;
+            var entity = {
+                idDetalleOrden: vm.i,
                 idArticulo: $item.idArticulo,
                 articulo: $item,
                 cantidad: 0,
+                margen: 0,
+                cantidadEje: 0,
                 vrUnitario: $item.vrCosto,
                 pcDscto: 0,
                 pcIva: $item.pcIva,
                 vrBruto: 0,
                 vrNeto: 0,
                 estado: Estados.Pendiente,
-            });
+            };
+
+            if (vm.modify) {
+                entity.idDetalleOrden = 0;
+                entity.idOrden = vm.entity.idOrden;
+                var response = orddetService.create(entity);
+                response.then(
+                    function (response) {
+                        getDetalle();
+                    },
+                    function (response) {
+                        console.log(response);
+                    }
+                );
+            }
+            else { vm.gridOptions.data.push(entity); }
             vm.entity.idArticulo = null;
         }
 
@@ -261,10 +294,13 @@
 
         function guardar() {
             vm.entity.listDetalle = angular.copy(vm.gridOptions.data);
-            var response = ordService.create(vm.entity);
+            var response = null;
+            if (!vm.modify) { response = ordService.create(vm.entity); }
+            else { response = ordService.update(vm.entity.idOrden, vm.entity); }
             response.then(
                 function (response) {
-                    window.location.href = url + 'Compras/Home/Ordenes';
+                    vm.form = false;
+                    getAll();
                 },
                 function (response) {
                     console.log(response);
@@ -274,6 +310,7 @@
 
         function regresar() {
             vm.form = false;
+            getAll();
         }
 
         vm.gridOptions = {
@@ -311,6 +348,27 @@
                     width: 80,
                     type: 'number',
                     cellFilter: 'number: 0',
+                },
+                {
+                    name: 'margen',
+                    field: 'margen',
+                    displayName: 'Margen',
+                    headerCellClass: 'text-center',
+                    cellClass: 'text-center',
+                    width: 80,
+                    type: 'number',
+                    cellFilter: 'number: 0',
+                },
+                {
+                    name: 'cantidadEje',
+                    field: 'cantidadEje',
+                    displayName: 'Cant. Entre',
+                    headerCellClass: 'text-center',
+                    cellClass: 'text-center',
+                    width: 80,
+                    type: 'number',
+                    cellFilter: 'number: 0',
+                    enableCellEdit: false,
                 },
                 {
                     name: 'vrUnitario',
@@ -374,8 +432,8 @@
                     enableSorting: false,
                     cellClass: 'text-center',
                     cellTemplate:
-                        "<span><a href='' ng-click='grid.appScope.editar(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
-                        "<i class='fa fa-edit'></i></a></span>",
+                        "<span ng-if='row.entity.cantidadEje === 0'><a href='' ng-click='grid.appScope.removeArt(row.entity)' tooltip='Eliminar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<i class='fa fa-remove text-danger'></i></a></span>",
                     width: 80,
                     enableCellEdit: false,
                 }
@@ -385,11 +443,45 @@
                 gridApi.edit.on.afterCellEdit($scope, function (rowEntity, colDef, newValue, oldValue) {
                     rowEntity.vrBruto = (rowEntity.vrUnitario * rowEntity.cantidad);
                     rowEntity.vrNeto = rowEntity.vrBruto - (rowEntity.vrBruto * rowEntity.pcDscto / 100) + (rowEntity.vrBruto * rowEntity.pcIva / 100);
+                    if (vm.modify) {
+                        updateArt(rowEntity);
+                    }
                     CalcularTotales();
                 });
             },
         };
 
+        function updateArt(entity) {
+            var response = orddetService.update(entity.idDetalleOrden, entity);
+            response.then(
+                function (response) {
+                    
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        function removeArt(entity) {
+            if (vm.modify) {
+                var response = orddetService.remove(entity.idDetalleOrden);
+                response.then(
+                    function (response) {
+                        getDetalle();
+                        CalcularTotales();
+                    },
+                    function (response) {
+                        console.log(response);
+                    }
+                );
+            }
+            else {
+                vm.gridOptions.data = vm.gridOptions.data.filter(function (ob) {
+                    return ob.idDetalleOrden != entity.idDetalleOrden;
+                });
+            }
+        }
 
         function CalcularTotales() {
             vm.entity.valorBruto = 0;

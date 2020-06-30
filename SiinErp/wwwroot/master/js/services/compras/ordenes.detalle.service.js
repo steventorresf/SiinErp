@@ -14,6 +14,7 @@
             getAll: getAll,
             create: create,
             update: update,
+            remove: remove,
         };
 
         return service;
@@ -46,6 +47,19 @@
 
         function update(id, data) {
             return $http.put(nameSpace + id, data)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function remove(id) {
+            return $http.delete(nameSpace + id)
                 .then(
                     function (response) {
                         return response;

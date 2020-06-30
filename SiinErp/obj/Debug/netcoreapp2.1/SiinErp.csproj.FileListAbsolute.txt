@@ -75,3 +75,4 @@ C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Vali
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Views\_ViewImports.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Views\_ViewStart.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Compras\Views\Home\Ordenes.g.cshtml.cs
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Views\Home\CerrarSesion.g.cshtml.cs

@@ -44,5 +44,19 @@ namespace SiinErp.Areas.Compras.Controllers
                 throw;
             }
         }
+
+        [HttpPut("{IdOrd}")]
+        public IActionResult Update(int IdOrd, [FromBody] Ordenes entity)
+        {
+            try
+            {
+                BusinessOrd.Update(IdOrd, entity);
+                return Ok(true);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

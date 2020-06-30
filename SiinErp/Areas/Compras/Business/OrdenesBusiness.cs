@@ -37,7 +37,8 @@ namespace SiinErp.Areas.Compras.Business
                                            IdEmpresa = ord.IdEmpresa,
                                            Periodo = ord.Periodo,
                                            IdDetAlmacen = ord.IdDetAlmacen,
-                                           IdDetCenCosto = ord.IdDetCenCosto
+                                           IdDetCenCosto = ord.IdDetCenCosto,
+                                           Comentarios = ord.Comentarios,
                                        }).OrderByDescending(x => x.FechaDoc).ToList();
                 return Lista;
             }
@@ -76,6 +77,28 @@ namespace SiinErp.Areas.Compras.Business
             catch (Exception ex)
             {
                 ErroresBusiness.Create("CreateOrdenCompra", ex.Message, null);
+                throw;
+            }
+        }
+
+        public void Update(int IdOrd, Ordenes entity)
+        {
+            try
+            {
+                SiinErpContext context = new SiinErpContext();
+                Ordenes obOrd = context.Ordenes.Find(IdOrd);
+                obOrd.IdProveedor = entity.IdProveedor;
+                obOrd.IdDetAlmacen = entity.IdDetAlmacen;
+                obOrd.DireccionDesp = entity.DireccionDesp;
+                obOrd.IdDetCenCosto = entity.IdDetCenCosto;
+                obOrd.FechaDoc = entity.FechaDoc;
+                obOrd.IdPlazoPago = entity.IdPlazoPago;
+                obOrd.Comentarios = entity.Comentarios;
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("UpdateOrdenCompra", ex.Message, null);
                 throw;
             }
         }
