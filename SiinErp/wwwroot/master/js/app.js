@@ -1,7 +1,7 @@
 ﻿(function () {
     'use-strict';
 
-    angular.module('app', [
+    var app = angular.module('app', [
         //'ui.highlight',
         'ui.grid',
         'ui.grid.selection',
@@ -10,7 +10,11 @@
         'ngSanitize',
         'ui.select',
         'ngCookies',
-    ]).directive('datepicker', function () {
+        'angular-growl',
+        'ngAnimate'
+    ]);
+
+    app.directive('datepicker', function () {
         return {
             restrict: 'A',
             require: 'ngModel',
@@ -52,5 +56,10 @@
             }
         }
     });
+
+    app.config(['growlProvider', function (growlProvider) {
+        growlProvider.globalTimeToLive(5000);
+        growlProvider.globalPosition('bottom-center');
+    }]);
         
 })();

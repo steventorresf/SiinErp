@@ -18,6 +18,7 @@ namespace SiinErp.Areas.Compras.Business
                 SiinErpContext context = new SiinErpContext();
                 List<Ordenes> Lista = (from ord in context.Ordenes.Where(x => x.IdEmpresa == IdEmp)
                                        join pro in context.Proveedores on ord.IdProveedor equals pro.IdProveedor
+                                       join ppa in context.PlazosPagos on ord.IdPlazoPago equals ppa.IdPlazoPago
                                        select new Ordenes()
                                        {
                                            IdOrden = ord.IdOrden,
@@ -39,6 +40,7 @@ namespace SiinErp.Areas.Compras.Business
                                            IdDetAlmacen = ord.IdDetAlmacen,
                                            IdDetCenCosto = ord.IdDetCenCosto,
                                            Comentarios = ord.Comentarios,
+                                           PlazoPago = ppa,
                                        }).OrderByDescending(x => x.FechaDoc).ToList();
                 return Lista;
             }

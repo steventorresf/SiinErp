@@ -26,7 +26,7 @@
     <!-- Custom Scrollbar-->
     <link rel="stylesheet" href="~/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
     <!-- theme stylesheet-->
-    <link rel="stylesheet" href="~/css/style.default.premium.css" id="theme-stylesheet">
+    <link rel="stylesheet" href="~/css/style.blue.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="~/css/custom.css">
     <!-- Favicon-->
@@ -45,40 +45,83 @@
 </head>
 <body ng-controller="AppController as vm" ng-init="vm.init()">
     <div class="page login-page">
+        <div class="container d-flex align-items-center">
+            <div class="form-holder has-shadow">
+                <div class="row">
+                    <!-- Logo & Information Panel-->
+                    <div class="col-12 col-md-6">
+                        <div class="d-flex align-items-center">
+                            <img src="~/img/LogoSiinErp.png" style="width:100%" />
+                            <div class="content">
+                                @*<div class="logo">
+                                    <h1>SiinErp</h1>
+                                </div>
+                                <p>Sistema Integral de Informaci&oacute;n</p>*@
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Form Panel    -->
+                    <div class="col-12 col-md-6 bg-white">
+                        <div class="form d-flex align-items-center">
+                            <div class="content">
+                                <form id="formApp" name="formApp" class="form-horizontal">
+                                    <div class="form-group row">
+                                        <div class="col-12 col-md-10">
+                                            <label>Empresa:<label class="">*</label></label>
+                                            <select ng-model="vm.entity.idEmp" form="formApp" ng-change="vm.onChangeEmp(item)" class="form-control" required data-msg="Por favor selecciona una empresa">
+                                                <option ng-repeat="item in vm.listEmpresas" value="{{ item.idEmpresa }}">{{ item.razonSocial }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-12 col-md-10">
+                                            <label>Nombre de Usuario:<label class="">*</label></label>
+                                            <input type="text" form="formApp" class="form-control" ng-model="vm.entity.nomUsu" required data-msg="Por favor ingresa tu nombre de usuario" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-12 col-md-10">
+                                            <label>Contraseña:<label class="">*</label></label>
+                                            <input type="password" form="formApp" class="form-control" ng-model="vm.entity.clave" required data-msg="Por favor ingresa tu contraseña" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-12 col-md-10">
+                                            <button id="login" class="btn btn-primary" ng-click="vm.loginUsu()" ng-disabled="formApp.$invalid">Entrar</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <a href="#" class="forgot-pass">Forgot Password?</a><br><small>Do not have an account? </small><a href="register.html" class="signup">Signup</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyrights text-center">
+            <p>
+                Design by <a href="https://bootstrapious.com/p/admin-template" class="external">Bootstrapious</a>
+                <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+            </p>
+        </div>
+    </div>
+
+
+    @*<div class="page login-page">
         <div class="container">
             <div class="form-outer text-center d-flex align-items-center">
                 <div class="form-inner">
                     <div class="logo text-capitalize"><span></span><strong class="text-primary">Sistema Integral de Informaci&oacute;n</strong></div>
                     <p></p>
                     <form id="formApp" name="formApp" class="text-left form-validate">
-                        <div class="form-group row">
-                            <div class="col-12">
-                                <label>Empresa:<label class="">*</label></label>
-                                <select ng-model="vm.entity.idEmp" form="formApp" ng-change="vm.onChangeEmp(item)" class="form-control" required data-msg="Por favor selecciona una empresa">
-                                    <option ng-repeat="item in vm.listEmpresas" value="{{ item.idEmpresa }}">{{ item.razonSocial }}</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-12">
-                                <label>Nombre de Usuario:<label class="">*</label></label>
-                                <input type="text" form="formApp" class="form-control" ng-model="vm.entity.nomUsu" required data-msg="Por favor ingresa tu nombre de usuario" />
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-12">
-                                <label>Contraseña:<label class="">*</label></label>
-                                <input type="password" form="formApp" class="form-control" ng-model="vm.entity.clave" required data-msg="Por favor ingresa tu contraseña" />
-                            </div>
-                        </div>
-                        @*<div class="form-group-material">
+                        <div class="form-group-material">
                                 <input form="formApp" id="login-username" ng-model="vm.entity.nomUsu" type="text" name="loginUsername" required data-msg="Por favor ingresa tu nombre de usuario" class="input-material">
                                 <label for="login-username" class="label-material">Nombre de Usuario</label>
                             </div>
                             <div class="form-group-material">
                                 <input form="formApp" id="login-password" ng-model="vm.entity.clave" type="password" name="loginPassword" required data-msg="Por favor ingresa tu contraseña" class="input-material">
                                 <label for="login-password" class="label-material">Contraseña</label>
-                            </div>*@
+                            </div>
                         <div class="form-group text-center">
                             <button id="login" class="btn btn-primary" ng-click="vm.loginUsu()" ng-disabled="formApp.$invalid">Ingresar al sistema</button>
                         </div>
@@ -90,7 +133,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
 
     <script src="~/master/js/services/general/empresas.service.js"></script>
     <script src="~/master/js/services/general/usuarios.service.js"></script>

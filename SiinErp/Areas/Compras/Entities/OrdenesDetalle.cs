@@ -59,5 +59,8 @@ namespace SiinErp.Areas.Compras.Entities
 
         [NotMapped]
         public Articulos Articulo { get; set; }
+
+        [NotMapped]
+        public int CantidadRecibida { get; set; }
     }
 }

@@ -50,6 +50,7 @@ namespace SiinErp.Areas.Compras.Business
                                                   FechaPactada = det.FechaPactada,
                                                   Servicio = det.Servicio,
                                                   Articulo = art,
+                                                  CantidadRecibida = 0
                                               }).ToList();
                 return Lista;
             }

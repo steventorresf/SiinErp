@@ -288,7 +288,7 @@
 .datepicker table tr td.active:hover,
 .datepicker table tr td.active.disabled,
 .datepicker table tr td.active.disabled:hover {
-  background-color: #006dcc;
+  background-color: red !important;
   background-image: -moz-linear-gradient(to bottom, #08c, #0044cc);
   background-image: -ms-linear-gradient(to bottom, #08c, #0044cc);
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#08c), to(#0044cc));

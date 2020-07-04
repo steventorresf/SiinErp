@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SiinErp.Areas.Cartera.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -93,6 +94,9 @@ namespace SiinErp.Areas.Compras.Entities
 
         [NotMapped]
         public Proveedores Proveedor { get; set; }
+
+        [NotMapped]
+        public PlazosPago PlazoPago { get; set; }
 
         [NotMapped]
         public List<OrdenesDetalle> ListDetalle { get; set; }

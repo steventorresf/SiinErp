@@ -1,3 +1,44 @@
+.red {
+    color: #dc3545;
+}
+
+.blue {
+    color: #007bff;
+}
+
+.green {
+    color: #28a745;
+}
+
+.bg-header {
+    background-color: #b5e0f3;
+    text-align: center;
+}
+
+.ui-state-active {
+    background-color: #6f42c1 !important;
+    color: white !important;
+    border-color: #6f42c1 !important;
+}
+
+.form-group label.required {
+    font-weight: bold;
+}
+
+#menu-opciones i {
+}
+
+#aLogout {
+    cursor: pointer;
+}
+
+i.btn-link {
+    cursor: pointer;
+}
+
+
+
+
 #TextoTitulo span {
     font-size: 1.5em;
     text-transform: capitalize;
@@ -5,7 +46,6 @@
 
 .fontsize-10 {
     font-size: 0.8em;
-    font-family: Calibri;
 }
 
     .fontsize-10 .fa {
@@ -14,32 +54,25 @@
 
 .ui-select-choices.ui-select-choices-content.ui-select-dropdown.dropdown-menu {
     display: block;
-    font-size:0.9em;
 }
 
 .ui-select-bootstrap .ui-select-choices-row.active > span {
-    color: #fff;
+    color: #000;
     text-decoration: none;
     outline: 0;
-    background-color: #33b35a;
+    background-color: #b5e0f3;
 }
 
 .ui-select-bootstrap .form-control {
     background-color: transparent !important;
-    font-size: 0.9em;
-    padding: 5px 7.5px;
 }
 
-.ui-select-multiple.ui-select-bootstrap > div > input.ui-select-search {
-    font-size: 2em;
+.ui-select-multiple.ui-select-bootstrap .ui-select-match-item {
+    display: block;
 }
 
-.btn {
-    border-radius: 5px;
-}
-
-.bg-header {
-    text-align: center;
+.p-5 {
+    padding-top: 0 !important;
 }
 
 
@@ -50,6 +83,11 @@
     line-height: 1.5;
     color: #495057;
     border-radius: 0;
-    font-size:0.9em;
+    font-size: 0.9em;
+}
+
+.card .card-header.bg-blue {
+    background-color: #b5e0f3 !important;
+    color:black;
 }
 

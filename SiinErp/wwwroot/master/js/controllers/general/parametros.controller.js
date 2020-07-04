@@ -79,7 +79,7 @@
             enableRowSelection: true,
             enableFullRowSelection: true,
             multiSelect: false,
-            enableRowHeaderSelection: true,
+            enableRowHeaderSelection: false,
             enableColumnMenus: false,
             enableFiltering: true,
             columnDefs: [

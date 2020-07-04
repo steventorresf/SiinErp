@@ -37,6 +37,7 @@ C:\Repositorios\SiinErp\SiinErp\bin\Debug\netcoreapp2.1\SiinErp.dll
 C:\Repositorios\SiinErp\SiinErp\bin\Debug\netcoreapp2.1\SiinErp.pdb
 C:\Repositorios\SiinErp\SiinErp\bin\Debug\netcoreapp2.1\SiinErp.Views.dll
 C:\Repositorios\SiinErp\SiinErp\bin\Debug\netcoreapp2.1\SiinErp.Views.pdb
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.csproj.CoreCompileInputs.cache
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.RazorAssemblyInfo.cache
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.RazorAssemblyInfo.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.AssemblyInfoInputs.cache
@@ -44,15 +45,8 @@ C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.AssemblyInfo.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.TagHelpers.input.cache
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.TagHelpers.output.cache
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.RazorCoreGenerate.cache
-C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.RazorTargetAssemblyInfo.cache
-C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.RazorTargetAssemblyInfo.cs
-C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.Views.pdb
-C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.dll
-C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.pdb
-C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.csproj.CopyComplete
-C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.csprojAssemblyReference.cache
-C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.csproj.CoreCompileInputs.cache
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Cartera\Views\Home\PlazosPago.g.cshtml.cs
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Compras\Views\Home\Ordenes.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Compras\Views\Home\Proveedores.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\General\Views\Home\DptosCiudads.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\General\Views\Home\Empresas.g.cshtml.cs
@@ -66,6 +60,7 @@ C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Inventario\V
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Ventas\Views\Home\Clientes.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Ventas\Views\Home\ListaPrecios.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Ventas\Views\Home\Vendedores.g.cshtml.cs
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Views\Home\CerrarSesion.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Views\Home\Index.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Views\Login\Index.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Error.g.cshtml.cs
@@ -74,5 +69,11 @@ C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Layo
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_ValidationScriptsPartial.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Views\_ViewImports.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Views\_ViewStart.g.cshtml.cs
-C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Compras\Views\Home\Ordenes.g.cshtml.cs
-C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Views\Home\CerrarSesion.g.cshtml.cs
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.RazorTargetAssemblyInfo.cache
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.RazorTargetAssemblyInfo.cs
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.Views.pdb
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.dll
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.pdb
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.csproj.CopyComplete
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Inventario\Views\Home\EntradasPorCompra.g.cshtml.cs
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.csprojAssemblyReference.cache

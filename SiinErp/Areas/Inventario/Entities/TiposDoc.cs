@@ -32,7 +32,7 @@ namespace SiinErp.Areas.Inventario.Entities
         public string Descripcion { get; set; }
 
         [Required]
-        public int Transaccion { get; set; }
+        public short Transaccion { get; set; }
 
        
         [Required]

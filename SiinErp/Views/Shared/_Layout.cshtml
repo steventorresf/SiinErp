@@ -1,26 +1,23 @@
 ﻿<!DOCTYPE html>
 <html ng-app="app">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bootstrap Material Admin by Bootstrapious.com</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
 
-    
     <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="~/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="~/vendor/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome CSS-->
-    <link rel="stylesheet" href="~/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/vendor/font-awesome/css/font-awesome.css">
     <!-- Fontastic Custom icon font-->
     <link rel="stylesheet" href="~/css/fontastic.css">
-    <!-- Google fonts - Roboto -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-    <!-- jQuery Circle-->
-    <link rel="stylesheet" href="~/css/grasp_mobile_progress_circle-1.0.0.min.css">
-    <!-- Custom Scrollbar-->
-    <link rel="stylesheet" href="~/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
+    <!-- Google fonts - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
     <!-- theme stylesheet-->
-    <link rel="stylesheet" href="~/css/style.default.premium.css" id="theme-stylesheet">
-    
+    <link rel="stylesheet" href="~/css/style.blue.css" id="theme-stylesheet">
     <!-- Favicon-->
     <link rel="shortcut icon" href="~/img/favicon.ico">
     <!-- Tweaks for older IEs-->
@@ -33,74 +30,132 @@
     </script>
 </head>
 <body ng-controller="AppController as vm" ng-init="vm.init()">
-    <!-- Side Navbar -->
-    <nav class="side-navbar">
-        <div class="side-navbar-wrapper">
-            <!-- Sidebar Header    -->
-            <div class="sidenav-header d-flex align-items-center justify-content-center">
-                <!-- User Info-->
-                <div class="sidenav-header-inner text-center">
-                    <a href="pages-profile.html"><img src="~/img/avatar-7.jpg" alt="person" class="img-fluid rounded-circle"></a>
-                    <h2 class="h5">{{vm.userApp.nombreCompleto}}</h2><span>Web Developer</span>
+    <div id="ModalGeneral" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="TxtModalEnca" class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <!-- Small Brand information, appears on minimized sidebar-->
-                <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>B</strong><strong class="text-primary">D</strong></a></div>
+                <div class="modal-body">
+                    <p id="TxtModalDetalle"></p>
+                    <h4 class="text-center red" id="TxtMensajeModalGen"></h4>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnModalGenCan" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button id="btnModalGenSi" type="button" class="btn btn-primary">Si</button>
+                </div>
             </div>
-            <!-- Sidebar Navigation Menus-->
-            <div class="main-menu">
-                <h5 class="sidenav-heading">Main</h5>
-                <ul id="side-main-menu" class="side-menu list-unstyled">
-                    <li><a href="@Url.Content("~/Home")"><i class="icon-home"></i>Home</a></li>
+        </div>
+    </div>
+
+
+
+    <div class="page">
+        <!-- Main Navbar-->
+        <header class="header">
+            <nav class="navbar">
+                <!-- Search Box-->
+                <div class="search-box">
+                    <button class="dismiss"><i class="icon-close"></i></button>
+                    <form id="searchForm" action="#" role="search">
+                        <input type="search" placeholder="What are you looking for..." class="form-control">
+                    </form>
+                </div>
+                <div class="container-fluid">
+                    <div class="navbar-holder d-flex align-items-center justify-content-between">
+                        <!-- Navbar Header-->
+                        <div class="navbar-header">
+                            <!-- Navbar Brand -->
+                            <a href="@Url.Content("~/")Home" class="navbar-brand d-none d-sm-inline-block">
+                                <div class="brand-text d-none d-lg-inline-block"><span>Siin </span><strong>Erp</strong></div>
+                                <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>BD</strong></div>
+                            </a>
+                            <!-- Toggle Button--><a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
+                        </div>
+                        <!-- Navbar Menu -->
+                        <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                            <!-- Languages dropdown    -->
+                            <li id="menu-opciones" class="nav-item dropdown">
+                                <a id="opciones" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link language dropdown-toggle"><img src="~/img/flags/16/CO.png" alt="Choices"><span class="d-none d-sm-inline-block">Opciones</span></a>
+                                <ul aria-labelledby="opciones" class="dropdown-menu">
+                                    <li><a rel="nofollow" href="@Url.Content("~/")Home/CambioClave" class="dropdown-item"> <i class="fa fa-lock bg-yellow"></i>Cambiar contraseña</a></li>
+                                </ul>
+                            </li>
+                            <!-- Logout    -->
+                            <li class="nav-item"><a id="aLogout" onclick="fnCerrarSesion()" class="nav-link logout"> <span class="d-none d-sm-inline">Salir</span><i class="fa fa-sign-out"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="page-content d-flex align-items-stretch">
+            <!-- Side Navbar -->
+            <nav class="side-navbar">
+                <!-- Sidebar Header-->
+                <div class="sidebar-header d-flex align-items-center">
+                    <div class="avatar"><img id="ImgDelUsuario" src="~/img/LogoSiinErp.png" alt="..." class="img-fluid rounded-circle"></div>
+                    <div class="title">
+                        <h1 id="TxtNombreDelUsuario" class="h4">{{ vm.userApp.nombreCompleto }}</h1>
+                        @*<p>Ing. Sistemas</p>*@
+                    </div>
+                </div>
+                <!-- Sidebar Navidation Menus--><span class="heading">Principal</span>
+                <ul class="list-unstyled">
+                    <li><a href="@Url.Content("~/")Home"> <i class="icon-home"></i>Home </a></li>
                     <li>
-                        <a href="#MenuGeneral" aria-expanded="false" data-toggle="collapse"> <i class="icon-form"></i>General</a>
-                        <ul id="MenuGeneral" class="collapse list-unstyled ">
-                            <li><a href="@Url.Content("~/General/Home/Empresas")">Empresas</a></li>
-                            <li><a href="@Url.Content("~/General/Home/Tablas")">Tablas</a></li>
-                            <li><a href="@Url.Content("~/General/Home/TiposDocumento")">Tipos Documento</a></li>
-                            <li><a href="@Url.Content("~/General/Home/Parametros")">Parametros</a></li>
-                            <li><a href="@Url.Content("~/General/Home/Terceros")">Terceros</a></li>
-                            <li><a href="@Url.Content("~/General/Home/Periodos")">Periodos</a></li>
-                            <li><a href="@Url.Content("~/General/Home/DptosCiudads")">Ciudades</a></li>
-                            <li><a href="@Url.Content("~/General/Home/Usuarios")">Usuarios</a></li>
+                        <a href="#Gen" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-calendar-o"></i>General </a>
+                        <ul id="Gen" class="collapse list-unstyled ">
+                            <li><a href="@Url.Content("~/")General/Home/Empresas">Empresas</a></li>
+                            <li><a href="@Url.Content("~/")General/Home/Tablas">Tablas</a></li>
+                            <li><a href="@Url.Content("~/")General/Home/TiposDocumento">TiposDocumento</a></li>
+                            <li><a href="@Url.Content("~/")General/Home/Parametros">Parametros</a></li>
+                            <li><a href="@Url.Content("~/")General/Home/Terceros">Terceros</a></li>
+                            <li><a href="@Url.Content("~/")General/Home/Periodos">Periodos</a></li>
+                            <li><a href="@Url.Content("~/")General/Home/DptosCiudads">Ciudades</a></li>
+                            <li><a href="@Url.Content("~/")General/Home/Usuarios">Usuarios</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#MenuCompras" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-shopping-cart"></i>Compras </a>
-                        <ul id="MenuCompras" class="collapse list-unstyled ">
-                            <li><a href="@Url.Content("~/Compras/Home/Proveedores")">Proveedores</a></li>
-                            <li><a href="@Url.Content("~/Compras/Home/Ordenes")">Ordenes</a></li>
+                        <a href="#Comp" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-shopping-cart"></i>Compras </a>
+                        <ul id="Comp" class="collapse list-unstyled ">
+                            <li><a href="@Url.Content("~/")Compras/Home/Proveedores">Proveedores</a></li>
+                            <li><a href="@Url.Content("~/")Compras/Home/Ordenes">Ordenes</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#MenuInventario" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-bookmark"></i>Inventario </a>
-                        <ul id="MenuInventario" class="collapse list-unstyled ">
-                            <li><a href="@Url.Content("~/Inventario/Home/Articulos")">Articulos</a></li>
-                            <li><a href="@Url.Content("~/Inventario/Home/TiposDoc")">TiposDoc</a></li>
+                        <a href="#Inv" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-bookmark"></i>Inventario </a>
+                        <ul id="Inv" class="collapse list-unstyled ">
+                            <li><a href="@Url.Content("~/")Inventario/Home/Articulos">Articulos</a></li>
+                            <li><a href="@Url.Content("~/")Inventario/Home/TiposDoc">TiposDoc</a></li>
+                            <li><a href="@Url.Content("~/")Inventario/Home/EntradasPorCompra">Entradas Por Compra</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#MenuVentas" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-money"></i>Ventas </a>
-                        <ul id="MenuVentas" class="collapse list-unstyled ">
-                            <li><a href="@Url.Content("~/Ventas/Home/ListaPrecios")">Lista Precios</a></li>
-                            <li><a href="@Url.Content("~/Ventas/Home/Vendedores")">Vendedores</a></li>
-                            <li><a href="@Url.Content("~/Ventas/Home/Clientes")">Clientes</a></li>
+                        <a href="#Ven" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-money"></i>Ventas </a>
+                        <ul id="Ven" class="collapse list-unstyled ">
+                            <li><a href="@Url.Content("~/")Ventas/Home/ListaPrecios">ListaPrecios</a></li>
+                            <li><a href="@Url.Content("~/")Ventas/Home/Vendedores">Vendedores</a></li>
+                            <li><a href="@Url.Content("~/")Ventas/Home/Convenios">Clientes</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#MenuCartera" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-shopping-bag"></i>Cartera </a>
-                        <ul id="MenuCartera" class="collapse list-unstyled ">
-                            <li><a href="@Url.Content("~/Cartera/Home/PlazosPago")">PlazosPago</a></li>
+                        <a href="#Car" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-shopping-bag"></i>Cartera </a>
+                        <ul id="Car" class="collapse list-unstyled ">
+                            <li><a href="@Url.Content("~/")Cartera/Home/PlazosPago">PlazosPago</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#MenuTesoreria" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Tesoreria </a>
-                        <ul id="MenuTesoreria" class="collapse list-unstyled ">
+                        <a href="#Tes" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Tesoreria </a>
+                        <ul id="Tes" class="collapse list-unstyled ">
                             <li><a href="pages-contacts.html">Pagos</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#MenuContabilidad" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-dollar"></i>Contabilidad </a>
-                        <ul id="MenuContabilidad" class="collapse list-unstyled ">
+                        <a href="#Con" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-dollar"></i>Contabilidad </a>
+                        <ul id="Con" class="collapse list-unstyled ">
                             <li><a href="pages-contacts.html">Tipos Documento</a></li>
                             <li><a href="pages-invoice.html">Conceptos</a></li>
                             <li><a href="login.html">Plan de Cuentas</a></li>
@@ -110,130 +165,52 @@
                         </ul>
                     </li>
                 </ul>
+            </nav>
+            <div class="content-inner">
+                <!-- Page Header-->
+                <header class="page-header mb-3">
+                    <div class="container-fluid">
+                        <h2 id="TextHeader" class="no-margin-bottom">@Html.Raw(ViewData["Title"])</h2>
+                    </div>
+                </header>
+
+                <script src="~/js/basic.js"></script>
+                <link rel="stylesheet" href="~/css/basic.css" />
+
+
+
+                <style>
+                    button.ui-datepicker-current {
+                        background-color: white !important;
+                    }
+
+
+
+                    .ui-datepicker div.ui-datepicker-buttonpane button.ui-datepicker-current {
+                        font-weight: bold;
+                        opacity: 1;
+                        background: yellow;
+                        filter: Alpha(Opacity=100);
+                    }
+                </style>
+
+                @RenderBody()
+                <!-- Page Footer-->
+                <footer class="main-footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p>&copy; @DateTime.Now.Year</p>
+                            </div>
+                            <div class="col-sm-6 text-right">
+                                <p>Design by <a href="https://bootstrapious.com/p/admin-template" class="external">Ingeniero Steven Torres Fern&aacute;ndez</a></p>
+                                <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+                            </div>
+                        </div>
+                    </div>
+                </footer>
             </div>
         </div>
-    </nav>
-    <div class="page">
-        <!-- navbar-->
-        <header class="header">
-            <nav class="navbar">
-                <div class="container-fluid">
-                    <div class="navbar-holder d-flex align-items-center justify-content-between">
-                        <div class="navbar-header">
-                            <a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="index.html" class="navbar-brand">
-                                <div id="TextoTitulo" class="brand-text d-none d-md-inline-block"><span>Siin </span><span class="text-primary">Erp</span></div>
-                            </a>
-                        </div>
-                        <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-                            <!-- Notifications dropdown-->
-                            <li class="nav-item dropdown">
-                                <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell"></i><span class="badge badge-warning">12</span></a>
-                                <ul aria-labelledby="notifications" class="dropdown-menu">
-                                    <li>
-                                        <a rel="nofollow" href="#" class="dropdown-item">
-                                            <div class="notification d-flex justify-content-between">
-                                                <div class="notification-content"><i class="fa fa-envelope"></i>You have 6 new messages </div>
-                                                <div class="notification-time"><small>4 minutes ago</small></div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a rel="nofollow" href="#" class="dropdown-item">
-                                            <div class="notification d-flex justify-content-between">
-                                                <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
-                                                <div class="notification-time"><small>4 minutes ago</small></div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a rel="nofollow" href="#" class="dropdown-item">
-                                            <div class="notification d-flex justify-content-between">
-                                                <div class="notification-content"><i class="fa fa-upload"></i>Server Rebooted</div>
-                                                <div class="notification-time"><small>4 minutes ago</small></div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a rel="nofollow" href="#" class="dropdown-item">
-                                            <div class="notification d-flex justify-content-between">
-                                                <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
-                                                <div class="notification-time"><small>10 minutes ago</small></div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-bell"></i>view all notifications                                            </strong></a></li>
-                                </ul>
-                            </li>
-                            <!-- Messages dropdown-->
-                            <li class="nav-item dropdown">
-                                <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-envelope"></i><span class="badge badge-info">10</span></a>
-                                <ul aria-labelledby="notifications" class="dropdown-menu">
-                                    <li>
-                                        <a rel="nofollow" href="#" class="dropdown-item d-flex">
-                                            <div class="msg-profile"> <img src="~/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                                            <div class="msg-body">
-                                                <h3 class="h5">Jason Doe</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a rel="nofollow" href="#" class="dropdown-item d-flex">
-                                            <div class="msg-profile"> <img src="~/img/avatar-2.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                                            <div class="msg-body">
-                                                <h3 class="h5">Frank Williams</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a rel="nofollow" href="#" class="dropdown-item d-flex">
-                                            <div class="msg-profile"> <img src="~/img/avatar-3.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                                            <div class="msg-body">
-                                                <h3 class="h5">Ashley Wood</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-envelope"></i>Read all messages    </strong></a></li>
-                                </ul>
-                            </li>
-                            <!-- Languages dropdown    -->
-                            <li class="nav-item dropdown">
-                                <a id="languages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link language dropdown-toggle"><img src="~/img/flags/16/GB.png" alt="English"><span class="d-none d-sm-inline-block">English</span></a>
-                                <ul aria-labelledby="languages" class="dropdown-menu">
-                                    <li><a rel="nofollow" href="#" class="dropdown-item"> <img src="~/img/flags/16/DE.png" alt="English" class="mr-2"><span>German</span></a></li>
-                                    <li><a rel="nofollow" href="#" class="dropdown-item"> <img src="~/img/flags/16/FR.png" alt="English" class="mr-2"><span>French                                                         </span></a></li>
-                                </ul>
-                            </li>
-                            <!-- Log out-->
-                            <li class="nav-item"><a href="@Url.Content("~/")Home/CerrarSesion" class="nav-link logout"> <span class="d-none d-sm-inline-block">Logout</span><i class="fa fa-sign-out"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </header>
-
-        <script src="~/js/basic.js"></script>
-        <link rel="stylesheet" href="~/css/basic.css" />
-
-        @RenderBody()
-
-        <footer class="main-footer">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p>Your company &copy; @DateTimeOffset.Now.Year</p>
-                    </div>
-                    <div class="col-sm-6 text-right">
-                        <p>Version 1.4.7</p>
-                    </div>
-                </div>
-            </div>
-        </footer>
     </div>
-
-    <script>
-        $("label.required").append('<label style="color:red;">*</label>');
-    </script>
-
-    @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -18,7 +18,7 @@ namespace SiinErp.Areas.Cartera.Entities
         public string Descripcion { get; set; }
 
         [Required]
-        public int Cuotas { get; set; }
+        public short Cuotas { get; set; }
 
         [Required]
         public decimal PcInicial { get; set; }

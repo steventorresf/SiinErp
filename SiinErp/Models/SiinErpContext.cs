@@ -59,6 +59,8 @@ namespace SiinErp.Models
         public virtual DbSet<Ordenes> Ordenes { get; set; }
 
         public virtual DbSet<OrdenesDetalle> OrdenesDetalles { get; set; }
+
+        public virtual DbSet<Facturas> Facturas { get; set; }
         #endregion
 
 
@@ -66,6 +68,10 @@ namespace SiinErp.Models
         public virtual DbSet<Articulos> Articulos { get; set; }
 
         public virtual DbSet<TiposDoc> TiposDoc { get; set; }
+
+        public virtual DbSet<Movimientos> Movimientos { get; set; }
+
+        public virtual DbSet<MovimientosDetalle> MovimientosDetalles { get; set; }
 
 
         #endregion
