@@ -26,8 +26,7 @@ namespace SiinErp.Areas.Inventario.Entities
         [Required]
         public int IdDetAlmacen { get; set; }
 
-        [Required]
-        public int IdDetCenCosto { get; set; }
+        public int? IdDetCenCosto { get; set; }
 
         [Required]
         public short Transaccion { get; set; }

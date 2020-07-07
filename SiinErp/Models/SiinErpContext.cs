@@ -85,6 +85,8 @@ namespace SiinErp.Models
         public virtual DbSet<ListaPreciosDetalle> ListaPreciosDetalles { get; set; }
 
         public virtual DbSet<Clientes> Clientes { get; set; }
+
+        public virtual DbSet<FacturasVen> FacturasVen { get; set; }
         #endregion
     }
 }

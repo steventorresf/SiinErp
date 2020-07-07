@@ -37,5 +37,22 @@ namespace SiinErp.Areas.Inventario.Controllers
                 throw;
             }
         }
+
+        [HttpPost("ByPuntoDeVenta")]
+        public IActionResult CreateByPuntoDeVenta([FromBody] JObject data)
+        {
+            try
+            {
+                Movimientos entityMov = data["entityMov"].ToObject<Movimientos>();
+                List<MovimientosDetalle> listDetalleMov = data["listDetalleMov"].ToObject<List<MovimientosDetalle>>();
+
+                BusinessMov.CreateByPuntoDeVenta(entityMov, listDetalleMov);
+                return Ok(true);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

@@ -16,12 +16,13 @@
         vm.getAll = getAll;
         vm.verDetalle = verDetalle;
         vm.guardar = guardar;
-        vm.cancelar = cancelar;
+        vm.regresar = regresar;
         $scope.verDetalle = verDetalle;
 
         vm.listBool = [{ codigo: 'true', descripcion: 'Si' }, { codigo: 'false', descripcion: 'No' }];
         vm.listEstados = [{ codigo: 'A', descripcion: 'Activo' }, { codigo: 'I', descripcion: 'Inactivo' }];
 
+        
         function init() {
             getAll();
         }
@@ -121,10 +122,13 @@
 
 
         function verDetalle(entity) {
+            vm.entityMov = {};
+            vm.entityMov.fechaDoc = '2020-01-30';
+            vm.entity = {};
             vm.entityOrd = angular.copy(entity);
             getDetalle();
             vm.form = true;
-            var config = { referenceId:1, title: 'gdgd', ttl: 6000 };
+            var config = { referenceId:2, title: 'gdgd', ttl: 6000 };
             console.log(growl);
             growl.success("steven", config);
             console.log(growl.error("torres", config));
@@ -270,7 +274,7 @@
             onRegisterApi: function (gridApi) {
                 vm.gridApi = gridApi;
                 gridApi.edit.on.afterCellEdit($scope, function (rowEntity, colDef, newValue, oldValue) {
-                    if (rowEntity.cantidad + rowEntity.cantidadEje >= newValue) {
+                    if (rowEntity.cantidad - rowEntity.cantidadEje >= newValue) {
                         rowEntity.vrBruto = (rowEntity.vrUnitario * rowEntity.cantidad);
                         rowEntity.vrNeto = rowEntity.vrBruto - (rowEntity.vrBruto * rowEntity.pcDscto / 100) + (rowEntity.vrBruto * rowEntity.pcIva / 100);
                         if (vm.modify) {
@@ -312,7 +316,7 @@
                 var response = movService.createByEntradaCompra(data);
                 response.then(
                     function (response) {
-                        cancelar();
+                        regresar();
                         getAll();
                     },
                     function (response) {
@@ -322,7 +326,7 @@
             }
         }
 
-        function cancelar() {
+        function regresar() {
             vm.form = false;
         }
 

@@ -71,6 +71,7 @@ namespace SiinErp.Areas.Compras.Business
                 Ordenes orden = context.Ordenes.FirstOrDefault(x => x.NumDoc == entity.NumDoc && x.TipoDoc.Equals(entity.TipoDoc));
                 foreach (OrdenesDetalle det in listDet)
                 {
+                    det.IdDetalleOrden = 0;
                     det.IdOrden = orden.IdOrden;
                 }
                 context.OrdenesDetalles.AddRange(listDet);

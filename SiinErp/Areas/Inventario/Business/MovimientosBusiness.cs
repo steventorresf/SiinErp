@@ -1,6 +1,7 @@
 ﻿using SiinErp.Areas.Compras.Entities;
 using SiinErp.Areas.General.Business;
 using SiinErp.Areas.Inventario.Entities;
+using SiinErp.Areas.Ventas.Entities;
 using SiinErp.Models;
 using SiinErp.Utiles;
 using System;
@@ -44,8 +45,6 @@ namespace SiinErp.Areas.Inventario.Business
                     vrDscto += m.VrUnitario * m.Cantidad * m.PcDscto / 100;
                     vrIva += m.VrUnitario * m.Cantidad * m.PcIva / 100;
                 }
-                context.MovimientosDetalles.AddRange(listaDetalleMov);
-                context.SaveChanges();
 
                 Facturas factura = new Facturas();
                 factura.TipoDoc = entityMov.TipoDoc;
@@ -54,7 +53,7 @@ namespace SiinErp.Areas.Inventario.Business
                 factura.FechaDoc = entityMov.FechaDoc;
                 factura.Periodo = entityMov.Periodo;
                 factura.IdDetAlmacen = entityMov.IdDetAlmacen;
-                factura.IdDetCenCosto = entityMov.IdDetCenCosto;
+                factura.IdDetCenCosto = Convert.ToInt32(entityMov.IdDetCenCosto);
                 factura.IdUsuario = entityMov.IdUsuario;
                 factura.IdEmpresa = entityMov.IdEmpresa;
                 factura.IdMovimiento = obMov.IdMovimiento;
@@ -103,13 +102,102 @@ namespace SiinErp.Areas.Inventario.Business
                 {
                     MovimientosDetalle movdet = listaDetalleMov.FirstOrDefault(x => x.IdArticulo == art.IdArticulo);
                     art.VrCosto = movdet.VrCosto;
+                    art.Existencia += (movdet.Cantidad * entityMov.Transaccion);
                     art.FechaUEntrada = entityMov.FechaDoc;
                 }
+                context.SaveChanges();
+
+                context.MovimientosDetalles.AddRange(listaDetalleMov);
                 context.SaveChanges();
             }
             catch (Exception ex)
             {
                 ErroresBusiness.Create("CreateMovimientoByEntradaCompra", ex.Message, null);
+                throw;
+            }
+        }
+
+        public void CreateByPuntoDeVenta(Movimientos entityMov, List<MovimientosDetalle> listaDetalleMov)
+        {
+            try
+            {
+                SiinErpContext context = new SiinErpContext();
+                TiposDoc tiposdocmov = context.TiposDoc.FirstOrDefault(x => x.TipoDoc.Equals(Constantes.InvDocFacturaVenta) && x.IdDetAlmacen == entityMov.IdDetAlmacen && x.IdEmpresa == entityMov.IdEmpresa);
+                tiposdocmov.NumDoc++;
+                context.SaveChanges();
+
+                entityMov.TipoDoc = tiposdocmov.TipoDoc;
+                entityMov.NumDoc = tiposdocmov.NumDoc;
+                entityMov.Transaccion = tiposdocmov.Transaccion;
+                entityMov.Periodo = entityMov.FechaDoc.ToString("yyyyMM");
+                entityMov.IdDetCenCosto = null;
+                entityMov.IdTercero = null;
+                entityMov.Estado = Constantes.EstadoActivo;
+                entityMov.FechaCreacion = DateTimeOffset.Now;
+                context.Movimientos.Add(entityMov);
+                context.SaveChanges();
+
+                decimal vrBruto = 0, vrDscto = 0, vrIva = 0;
+
+                Movimientos obMov = context.Movimientos.FirstOrDefault(x => x.NumDoc == entityMov.NumDoc && x.TipoDoc.Equals(entityMov.TipoDoc));
+                foreach (MovimientosDetalle m in listaDetalleMov)
+                {
+                    m.IdMovimiento = obMov.IdMovimiento;
+                    vrBruto += m.VrUnitario * m.Cantidad;
+                    vrDscto += m.VrUnitario * m.Cantidad * m.PcDscto / 100;
+                    vrIva += m.VrUnitario * m.Cantidad * m.PcIva / 100;
+                }
+
+                FacturasVen factura = new FacturasVen();
+                factura.TipoDoc = entityMov.TipoDoc;
+                factura.NumDoc = entityMov.NumDoc;
+                factura.Comentario = entityMov.Comentario;
+                factura.FechaDoc = entityMov.FechaDoc;
+                factura.Periodo = entityMov.Periodo;
+                factura.IdDetAlmacen = entityMov.IdDetAlmacen;
+                factura.IdUsuario = entityMov.IdUsuario;
+                factura.IdEmpresa = entityMov.IdEmpresa;
+                factura.IdMovimiento = obMov.IdMovimiento;
+                factura.NumCuotas = 0;
+                factura.PcDscto = 0;
+                factura.PcDsctoProntoPago = 0;
+                factura.PcInteres = 0;
+                factura.PcSeguro = 0;
+                factura.ValorBruto = vrBruto;
+                factura.ValorDscto = vrDscto;
+                factura.ValorFletes = 0;
+                factura.ValorIva = vrIva;
+                factura.ValorNeto = vrBruto - vrDscto + vrIva;
+                factura.ValorNotaCr = 0;
+                factura.ValorNotaDb = 0;
+                factura.ValorOtros = 0;
+                factura.ValorPagado = 0;
+                factura.ValorSeguro = 0;
+                factura.FechaPago = factura.FechaDoc;
+                factura.FechaVencimiento = factura.FechaDoc;
+                factura.Estado = Constantes.EstadoActivo;
+                factura.FechaCreacion = DateTimeOffset.Now;
+                context.FacturasVen.Add(factura);
+                context.SaveChanges();
+
+                int[] idsArticulos = listaDetalleMov.Select(x => x.IdArticulo).ToArray();
+
+                List<Articulos> listArticulos = context.Articulos.Where(x => idsArticulos.Contains(x.IdArticulo)).ToList();
+                foreach (Articulos art in listArticulos)
+                {
+                    MovimientosDetalle movdet = listaDetalleMov.FirstOrDefault(x => x.IdArticulo == art.IdArticulo);
+                    art.VrVenta = movdet.VrUnitario;
+                    art.Existencia += (movdet.Cantidad * entityMov.Transaccion);
+                    art.FechaUSalida = entityMov.FechaDoc;
+                }
+                context.SaveChanges();
+
+                context.MovimientosDetalles.AddRange(listaDetalleMov);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("CreateMovimientoByPuntoVenta", ex.Message, null);
                 throw;
             }
         }

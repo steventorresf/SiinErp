@@ -29,6 +29,10 @@ namespace SiinErp.Areas.Inventario.Entities
         public string NombreArticulo { get; set; }
 
         [Required]
+        [StringLength(260)]
+        public string NombreBusqueda { get; set; }
+
+        [Required]
         public int IdDetTipoArticulo { get; set; }
 
         [Required]

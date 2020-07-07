@@ -3,24 +3,23 @@
 
     angular
         .module('app')
-        .factory('InvMovimientosService', InvMovimientosService);
+        .factory('VenFacturasService', VenFacturasService);
 
-    InvMovimientosService.$inject = ['$http', '$q'];
+    VenFacturasService.$inject = ['$http', '$q'];
 
-    function InvMovimientosService($http, $q) {
-        var nameSpace = '/Inventario/api/Movimientos/';
+    function VenFacturasService($http, $q) {
+        var nameSpace = '/Ventas/api/FacturasVen/';
 
         var service = {
-            getAll: getAll,
-            createByEntradaCompra: createByEntradaCompra,
-            createByPuntoDeVenta: createByPuntoDeVenta,
+            getLastAlm: getLastAlm,
+            create: create,
             update: update,
         };
 
         return service;
 
-        function getAll(idEmp) {
-            return $http.get(nameSpace + idEmp)
+        function getLastAlm(idUsu) {
+            return $http.get(nameSpace + 'LastAlm/' + idUsu)
                 .then(
                     function (response) {
                         return response;
@@ -32,21 +31,8 @@
                 );
         }
 
-        function createByEntradaCompra(data) {
-            return $http.post(nameSpace + 'ByEntradaCompra/', data)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-
-        function createByPuntoDeVenta(data) {
-            return $http.post(nameSpace + 'ByPuntoDeVenta/', data)
+        function create(data) {
+            return $http.post(nameSpace, data)
                 .then(
                     function (response) {
                         return response;
