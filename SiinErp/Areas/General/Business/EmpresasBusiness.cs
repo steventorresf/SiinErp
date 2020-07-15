@@ -17,7 +17,7 @@ namespace SiinErp.Areas.General.Business
                 List<Empresas> Lista = (from em in context.Empresas
                                         join ci in context.Ciudades on em.IdCiudad equals ci.IdCiudad
                                         join de in context.Departamentos on ci.IdDepartamento equals de.IdDepartamento
-                                        join re in context.TablasDetalles on em.IdDetRegimen equals re.IdDetalle
+                                        join re in context.TablasEmpresaDetalles on em.IdDetRegimen equals re.IdDetalle
                                         select new Empresas()
                                         {
                                             IdEmpresa = em.IdEmpresa,
@@ -32,6 +32,37 @@ namespace SiinErp.Areas.General.Business
                                             IdDepartamento = de.IdDepartamento,
                                             NombreCiudad = ci.NombreCiudad + " - " + de.NombreDepartamento,
                                             NombreRegimen = re.Descripcion,
+                                        }).OrderBy(x => x.RazonSocial).ToList();
+                return Lista;
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("GetEmpresas", ex.Message, null);
+                throw;
+            }
+        }
+
+        public List<Empresas> GetEmpresasAct()
+        {
+            try
+            {
+                SiinErpContext context = new SiinErpContext();
+                List<Empresas> Lista = (from em in context.Empresas
+                                        join ci in context.Ciudades on em.IdCiudad equals ci.IdCiudad
+                                        join de in context.Departamentos on ci.IdDepartamento equals de.IdDepartamento
+                                        select new Empresas()
+                                        {
+                                            IdEmpresa = em.IdEmpresa,
+                                            NitEmpresa = em.NitEmpresa,
+                                            RazonSocial = em.RazonSocial,
+                                            IdCiudad = em.IdCiudad,
+                                            Direccion = em.Direccion,
+                                            Telefono = em.Telefono,
+                                            CodEan = em.CodEan,
+                                            Representante = em.Representante,
+                                            IdDetRegimen = em.IdDetRegimen,
+                                            IdDepartamento = de.IdDepartamento,
+                                            NombreCiudad = ci.NombreCiudad + " - " + de.NombreDepartamento,
                                         }).OrderBy(x => x.RazonSocial).ToList();
                 return Lista;
             }

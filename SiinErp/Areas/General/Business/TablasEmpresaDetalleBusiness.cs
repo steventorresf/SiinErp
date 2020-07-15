@@ -8,31 +8,30 @@ using System.Threading.Tasks;
 
 namespace SiinErp.Areas.General.Business
 {
-    public class TablasDetalleBusiness
+    public class TablasEmpresaDetalleBusiness
     {
-        public void Create(TablasDetalle entity)
+        public void Create(TablasEmpresaDetalle entity)
         {
             try
             {
                 entity.FechaCreacion = DateTimeOffset.Now;
                 SiinErpContext context = new SiinErpContext();
-                context.TablasDetalles.Add(entity);
+                context.TablasEmpresaDetalles.Add(entity);
                 context.SaveChanges();
             }
             catch (Exception ex)
             {
-                ErroresBusiness.Create("CreateTablaDetalle", ex.Message, null);
+                ErroresBusiness.Create("CreateTablaEmpresaDetalle", ex.Message, null);
                 throw;
             }
         }
 
-        public void Update(int IdDetalle, TablasDetalle entity)
+        public void Update(int IdDetalle, TablasEmpresaDetalle entity)
         {
             try
             {
                 SiinErpContext context = new SiinErpContext();
-                TablasDetalle ob = context.TablasDetalles.Find(IdDetalle);
-                ob.CodValor = entity.CodValor;
+                TablasEmpresaDetalle ob = context.TablasEmpresaDetalles.Find(IdDetalle);
                 ob.Descripcion = entity.Descripcion;
                 ob.Estado = entity.Estado;
                 context.SaveChanges();
@@ -49,7 +48,7 @@ namespace SiinErp.Areas.General.Business
             try
             {
                 SiinErpContext context = new SiinErpContext();
-                TablasDetalle entity = context.TablasDetalles.Find(IdDetalle);
+                TablasEmpresaDetalle entity = context.TablasEmpresaDetalles.Find(IdDetalle);
                 entity.Orden = Orden;
                 context.SaveChanges();
             }
@@ -60,35 +59,36 @@ namespace SiinErp.Areas.General.Business
             }
         }
 
-        public List<TablasDetalle> GetAllTablaDetalleByIdTab(int IdTabla)
+        public List<TablasEmpresaDetalle> GetAllTablaDetalleByIdTabEmp(int IdTablaEmpresa)
         {
             try
             {
                 SiinErpContext context = new SiinErpContext();
-                List<TablasDetalle> Lista = context.TablasDetalles.Where(x => x.IdTabla == IdTabla).OrderBy(x => x.Descripcion).OrderBy(x => x.Orden).ToList();
+                List<TablasEmpresaDetalle> Lista = context.TablasEmpresaDetalles.Where(x => x.IdTablaEmpresa == IdTablaEmpresa).OrderBy(x => x.Descripcion).OrderBy(x => x.Orden).ToList();
                 return Lista;
             }
             catch (Exception ex)
             {
-                ErroresBusiness.Create("GetTablaDetalle", ex.Message, null);
+                ErroresBusiness.Create("GetAllTablaDetalleByIdTabEmp", ex.Message, null);
                 throw;
             }
         }
 
-        public List<TablasDetalle> GetTablaDetalleByCod(string CodTabla)
+        public List<TablasEmpresaDetalle> GetTablaEmpresaDetalleByCod(string CodTabla, int IdEmpresa)
         {
             try
             {
                 SiinErpContext context = new SiinErpContext();
-                List<TablasDetalle> Lista = (from ta in context.Tablas.Where(x => x.CodTabla.Equals(CodTabla))
-                                             join td in context.TablasDetalles on ta.IdTabla equals td.IdTabla
-                                             where td.Estado.Equals(Constantes.EstadoActivo)
-                                             select td).OrderBy(x => x.Descripcion).OrderBy(x => x.Orden).ToList();
+                List<TablasEmpresaDetalle> Lista = (from ta in context.Tablas.Where(x => x.CodTabla.Equals(CodTabla))
+                                                    join te in context.TablasEmpresas.Where(x => x.IdEmpresa == IdEmpresa) on ta.IdTabla equals te.IdTabla
+                                                    join td in context.TablasEmpresaDetalles on te.IdTablaEmpresa equals td.IdTablaEmpresa
+                                                    where td.Estado.Equals(Constantes.EstadoActivo)
+                                                    select td).OrderBy(x => x.Descripcion).OrderBy(x => x.Orden).ToList();
                 return Lista;
             }
             catch (Exception ex)
             {
-                ErroresBusiness.Create("GetTablaDetalleActivos", ex.Message, null);
+                ErroresBusiness.Create("GetTablaEmpresaDetalleByCod", ex.Message, null);
                 throw;
             }
         }

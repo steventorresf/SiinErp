@@ -16,8 +16,8 @@ namespace SiinErp.Areas.Inventario.Business
             {
                 SiinErpContext context = new SiinErpContext();
                 List<Articulos> Lista = (from ar in context.Articulos.Where(x => x.IdEmpresa == IdEmp)
-                                         join ta in context.TablasDetalles on ar.IdDetTipoArticulo equals ta.IdDetalle
-                                         join um in context.TablasDetalles on ar.IdDetUnidadMed equals um.IdDetalle
+                                         join ta in context.TablasEmpresaDetalles on ar.IdDetTipoArticulo equals ta.IdDetalle
+                                         join um in context.TablasEmpresaDetalles on ar.IdDetUnidadMed equals um.IdDetalle
                                          select new Articulos()
                                          {
                                              IdArticulo = ar.IdArticulo,
@@ -52,6 +52,53 @@ namespace SiinErp.Areas.Inventario.Business
             catch (Exception ex)
             {
                 ErroresBusiness.Create("GetArticulos", ex.Message, null);
+                throw;
+            }
+        }
+
+        public List<Articulos> GetArticulosByIdListaPrecio(int IdListaPrecio)
+        {
+            try
+            {
+                SiinErpContext context = new SiinErpContext();
+                List<Articulos> Lista = (from lp in context.ListaPreciosDetalles.Where(x => x.IdListaPrecio == IdListaPrecio)
+                                         join ar in context.Articulos on lp.IdArticulo equals ar.IdArticulo
+                                         join ta in context.TablasEmpresaDetalles on ar.IdDetTipoArticulo equals ta.IdDetalle
+                                         join um in context.TablasEmpresaDetalles on ar.IdDetUnidadMed equals um.IdDetalle
+                                         select new Articulos()
+                                         {
+                                             IdArticulo = ar.IdArticulo,
+                                             IdEmpresa = ar.IdEmpresa,
+                                             CodArticulo = ar.CodArticulo,
+                                             Referencia = ar.Referencia,
+                                             NombreArticulo = ar.NombreArticulo,
+                                             IdDetTipoArticulo = ar.IdDetTipoArticulo,
+                                             IdDetUnidadMed = ar.IdDetUnidadMed,
+                                             EsLinea = ar.EsLinea,
+                                             Peso = ar.Peso,
+                                             PcIva = ar.PcIva,
+                                             StkMin = ar.StkMin,
+                                             StkMax = ar.StkMax,
+                                             VrVenta = ar.VrVenta,
+                                             VrCosto = ar.VrCosto,
+                                             Existencia = ar.Existencia,
+                                             IndCosto = ar.IndCosto,
+                                             IndConsumo = ar.IndConsumo,
+                                             FechaCreacion = ar.FechaCreacion,
+                                             FechaUEntrada = ar.FechaUEntrada,
+                                             FechaUPedida = ar.FechaUPedida,
+                                             FechaUSalida = ar.FechaUSalida,
+                                             IdUsuario = ar.IdUsuario,
+                                             Estado = ar.Estado,
+                                             NombreTipoArticulo = ta.Descripcion,
+                                             NombreUnidadMed = um.Descripcion,
+                                             DescEsLinea = ar.EsLinea ? "Si" : "No",
+                                         }).OrderBy(x => x.NombreArticulo).ToList();
+                return Lista;
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("GetArticulosByIdListaPrecio", ex.Message, null);
                 throw;
             }
         }

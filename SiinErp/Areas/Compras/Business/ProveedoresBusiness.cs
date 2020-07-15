@@ -16,7 +16,7 @@ namespace SiinErp.Areas.Compras.Business
             {
                 SiinErpContext context = new SiinErpContext();
                 List<Proveedores> Lista = (from pro in context.Proveedores.Where(x => x.IdEmpresa == IdEmp)
-                                           join tip in context.TablasDetalles on pro.IdDetTipoProv equals tip.IdDetalle
+                                           join tip in context.TablasEmpresaDetalles on pro.IdDetTipoProv equals tip.IdDetalle
                                            join pla in context.PlazosPagos on pro.IdPlazoPago equals pla.IdPlazoPago
                                            join ciu in context.Ciudades on pro.IdCiudad equals ciu.IdCiudad
                                            join dep in context.Departamentos on ciu.IdDepartamento equals dep.IdDepartamento

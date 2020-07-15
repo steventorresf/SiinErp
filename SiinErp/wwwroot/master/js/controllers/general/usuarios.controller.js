@@ -170,6 +170,7 @@
                     enableColumnMenu: false,
                     enableFiltering: false,
                     enableSorting: false,
+                    headerCellClass: 'bg-header',
                     cellClass: 'text-center',
                     cellTemplate:
                         "<span class='mr-1'><a href='' ng-click='grid.appScope.editar(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +

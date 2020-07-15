@@ -7,18 +7,14 @@ using System.Threading.Tasks;
 
 namespace SiinErp.Areas.General.Entities
 {
-    [Table("TablasDetalle", Schema = "General")]
-    public class TablasDetalle
+    [Table("TablasEmpresaDetalle", Schema = "General")]
+    public class TablasEmpresaDetalle
     {
         [Key]
         public int IdDetalle { get; set; }
 
         [Required]
-        public int IdTabla { get; set; }
-
-        [Required]
-        [StringLength(10)]
-        public string CodValor { get; set; }
+        public int IdTablaEmpresa { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -28,10 +24,17 @@ namespace SiinErp.Areas.General.Entities
         public short Orden { get; set; }
 
         [Required]
+        [StringLength(1)]
+        public string Estado { get; set; }
+
+        [Required]
         public DateTimeOffset FechaCreacion { get; set; }
 
         [Required]
-        [StringLength(1)]
-        public string Estado { get; set; }
+        public int CreadoPor { get; set; }
+
+        public DateTimeOffset? FechaModificado { get; set; }
+
+        public int? ModificadoPor { get; set; }
     }
 }

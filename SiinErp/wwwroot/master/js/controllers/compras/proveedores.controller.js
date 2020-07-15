@@ -5,7 +5,7 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'ComProveedoresService', 'CarPlazosPagoService', 'GenTablasDetService', 'GenDepartamentosService', 'GenCiudadesService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'ComProveedoresService', 'CarPlazosPagoService', 'GenTablasEmpresaDetService', 'GenDepartamentosService', 'GenCiudadesService'];
 
     function AppController($location, $cookies, $scope, proService, ppaService, tabdetService, depService, ciuService) {
         var vm = this;
@@ -42,7 +42,7 @@
         }
 
         function getTiposProv() {
-            var response = tabdetService.getAll(Tab.TiposProv);
+            var response = tabdetService.getAll(Tab.TiposProv, vm.userApp.idEmpresa);
             response.then(
                 function (response) {
                     vm.listTiposProv = response.data;
@@ -258,6 +258,7 @@
                     enableColumnMenu: false,
                     enableFiltering: false,
                     enableSorting: false,
+                    headerCellClass: 'bg-header',
                     cellClass: 'text-center',
                     cellTemplate:
                         "<span><a href='' ng-click='grid.appScope.editar(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +

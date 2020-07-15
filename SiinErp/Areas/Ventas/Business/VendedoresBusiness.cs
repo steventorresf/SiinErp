@@ -1,6 +1,7 @@
 ﻿using SiinErp.Areas.General.Business;
 using SiinErp.Areas.Ventas.Entities;
 using SiinErp.Models;
+using SiinErp.Utiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace SiinErp.Areas.Ventas.Business
             {
                 SiinErpContext context = new SiinErpContext();
                 List<Vendedores> Lista = (from ven in context.Vendedores.Where(x => x.IdEmpresa == IdEmp)
-                                          join zon in context.TablasDetalles on ven.IdDetZona equals zon.IdDetalle
+                                          join zon in context.TablasEmpresaDetalles on ven.IdDetZona equals zon.IdDetalle
                                           select new Vendedores()
                                           {
                                               IdVendedor = ven.IdVendedor,
@@ -35,6 +36,21 @@ namespace SiinErp.Areas.Ventas.Business
             catch (Exception ex)
             {
                 ErroresBusiness.Create("GetVendedores", ex.Message, null);
+                throw;
+            }
+        }
+
+        public List<Vendedores> GetVendedoresAct(int IdEmp)
+        {
+            try
+            {
+                SiinErpContext context = new SiinErpContext();
+                List<Vendedores> Lista = context.Vendedores.Where(x => x.IdEmpresa == IdEmp && x.Estado.Equals(Constantes.EstadoActivo)).OrderBy(x => x.NombreVendedor).ToList();
+                return Lista;
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("GetVendedoresAct", ex.Message, null);
                 throw;
             }
         }

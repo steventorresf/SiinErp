@@ -17,7 +17,7 @@ namespace SiinErp.Areas.Inventario.Business
             {
                 SiinErpContext context = new SiinErpContext();
                 List<TiposDoc> Lista = (from td in context.TiposDoc.Where(x => x.IdEmpresa == IdEmpresa)
-                                        join ti in context.TablasDetalles on td.IdDetAlmacen equals ti.IdDetalle
+                                        join ti in context.TablasEmpresaDetalles on td.IdDetAlmacen equals ti.IdDetalle
                                         select new TiposDoc()
                                         {
                                             IdTipoDoc = td.IdTipoDoc,
@@ -37,6 +37,21 @@ namespace SiinErp.Areas.Inventario.Business
             catch (Exception ex)
             {
                 ErroresBusiness.Create("GetTiposDocInv", ex.Message, null);
+                throw;
+            }
+        }
+
+        public TiposDoc GetTipoDoc(int IdEmpresa, string TipoDoc)
+        {
+            try
+            {
+                SiinErpContext context = new SiinErpContext();
+                TiposDoc entity = context.TiposDoc.FirstOrDefault(x => x.IdEmpresa == IdEmpresa && x.TipoDoc.Equals(TipoDoc));
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("GetTipoDocInv", ex.Message, null);
                 throw;
             }
         }

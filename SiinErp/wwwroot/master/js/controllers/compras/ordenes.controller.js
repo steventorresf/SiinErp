@@ -5,7 +5,7 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'ComOrdenesService', 'ComOrdenesDetService', 'ComProveedoresService', 'CarPlazosPagoService', 'GenTablasDetService', 'InvArticulosService', 'GenTiposDocService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'ComOrdenesService', 'ComOrdenesDetService', 'ComProveedoresService', 'CarPlazosPagoService', 'GenTablasEmpresaDetService', 'InvArticulosService', 'GenTiposDocService'];
 
     function AppController($location, $cookies, $scope, ordService, orddetService, proService, ppaService, tabdetService, artService, tipdocService) {
         var vm = this;
@@ -137,6 +137,7 @@
                     enableColumnMenu: false,
                     enableFiltering: false,
                     enableSorting: false,
+                    headerCellClass: 'bg-header',
                     cellClass: 'text-center',
                     cellTemplate:
                         "<span><a href='' ng-click='grid.appScope.editar(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
@@ -257,7 +258,7 @@
                 function (response) {
                     var data = response.data;
                     vm.entity.tipoDoc = data.tipoDoc;
-                    vm.entity.numDoc = data.numDoc;
+                    vm.entity.numDoc = data.numDoc + 1;
                 },
                 function (response) {
                     console.log(response);
@@ -266,7 +267,7 @@
         }
 
         function getAlmacens() {
-            var response = tabdetService.getAll(Tab.InvAlm);
+            var response = tabdetService.getAll(Tab.InvAlm, vm.userApp.idEmpresa);
             response.then(
                 function (response) {
                     vm.listAlmacens = response.data;
@@ -278,7 +279,7 @@
         }
 
         function getCentrosCosto() {
-            var response = tabdetService.getAll(Tab.InvCenCos);
+            var response = tabdetService.getAll(Tab.InvCenCos, vm.userApp.idEmpresa);
             response.then(
                 function (response) {
                     vm.listCentrosCosto = response.data;

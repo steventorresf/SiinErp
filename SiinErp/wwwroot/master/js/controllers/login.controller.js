@@ -21,7 +21,7 @@
         }
 
         function getEmpresas() {
-            var response = empService.getAll();
+            var response = empService.getAct();
             response.then(
                 function (response) {
                     vm.listEmpresas = response.data;

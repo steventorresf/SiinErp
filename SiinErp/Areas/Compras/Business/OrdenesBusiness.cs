@@ -59,12 +59,13 @@ namespace SiinErp.Areas.Compras.Business
 
                 SiinErpContext context = new SiinErpContext();
                 TiposDocumento tipoDocumento = context.TiposDocumentos.FirstOrDefault(x => x.TipoDoc.Equals("OC") && x.IdEmpresa == entity.IdEmpresa);
+                tipoDocumento.NumDoc++;
+                context.SaveChanges();
 
                 entity.TipoDoc = tipoDocumento.TipoDoc;
                 entity.NumDoc = tipoDocumento.NumDoc;
                 entity.Periodo = DateTimeOffset.Now.ToString("yyyyMM");
                 entity.FechaCreacion = DateTimeOffset.Now;
-                tipoDocumento.NumDoc++;
                 context.Ordenes.Add(entity);
                 context.SaveChanges();
 

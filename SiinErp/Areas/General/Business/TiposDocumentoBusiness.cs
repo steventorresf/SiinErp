@@ -30,8 +30,8 @@ namespace SiinErp.Areas.General.Business
             {
                 SiinErpContext context = new SiinErpContext();
                 List<TiposDocumento> Lista = (from td in context.TiposDocumentos.Where(x => x.IdEmpresa == IdEmpresa)
-                                              join tr in context.TablasDetalles on td.IdDetTransaccion equals tr.IdDetalle
-                                              join cd in context.TablasDetalles on td.IdDetClaseDoc equals cd.IdDetalle
+                                              join tr in context.TablasEmpresaDetalles on td.IdDetTransaccion equals tr.IdDetalle
+                                              join cd in context.TablasEmpresaDetalles on td.IdDetClaseDoc equals cd.IdDetalle
                                               select new TiposDocumento()
                                               {
                                                   IdTipoDoc = td.IdTipoDoc,

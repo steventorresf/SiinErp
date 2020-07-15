@@ -37,6 +37,7 @@ namespace SiinErp.Utiles
 
         // Tipos de documento inventario
         public const string InvDocEntradaOc = "CO";
-        public const string InvDocFacturaVenta = "FA";
+        public const string InvDocFacturaPuntoVenta = "FA";
+        public const string InvDocFacturaVenta = "FC";
     }
 }

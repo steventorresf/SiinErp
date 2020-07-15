@@ -24,15 +24,5 @@ namespace SiinErp.Areas.General.Entities
         [Required]
         [StringLength(50)]
         public string Descripcion { get; set; }
-
-        [Required]
-        public DateTimeOffset FechaCreacion { get; set; }
-
-        [Required]
-        public int IdUsuario { get; set; }
-
-
-        [NotMapped]
-        public string NombreModulo { get; set; }
     }
 }

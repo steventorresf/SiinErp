@@ -10,6 +10,7 @@
     InvCenCos: 'InvCenCos',
     InvTrans: 'InvTrans',
     TiposCli: 'VenTiposCli',
+    FormPago: 'VenFormPago',
 }
 
 const GenTiposDoc = {
@@ -17,6 +18,13 @@ const GenTiposDoc = {
     OrdenVenta: 'OV',
 };
 
+const InvTiposDoc = {
+    FacturaVenta: 'FC',
+    FacturaPuntoVenta: 'FA',
+};
+
 const Estados = {
     Pendiente: 'P',
+    Activo: 'A',
+    Inactivo: 'I',
 };

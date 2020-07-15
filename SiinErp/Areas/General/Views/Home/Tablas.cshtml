@@ -4,61 +4,34 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row mt-4" ng-show="!vm.modoDet  && !vm.formVisible">
+<div class="row mt-4" ng-show="!vm.modoDet">
     <div class="col-12 offset-md-1 col-md-10">
         <div class="card">
             <div class="card-header">
-                <button class="btn btn-primary" ng-click="vm.nuevo()">Nuevo</button>
+                <h4>Registros</h4>
             </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="fontsize-10" ui-grid="vm.gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row mt-4" ng-show="!vm.modoDet && vm.formVisible">
-    <div class="col-12 offset-md-2 col-md-8">
-        <div class="card">
-            <div class="card-header">
-                <h4 ng-show="!vm.formModify">Nueva Tabla</h4>
-                <h4 ng-show="vm.formModify">Editar Tabla</h4>
-            </div>
-            <div class="card-body">
-                <form id="formApp" name="formApp" novalidate="" class="form-horizontal">
+                <form id="formApp" name="formApp" novalidate="novalidate" class="form-horizontal">
                     <div class="form-group row">
                         <div class="col-12 col-md-6">
-                            <label>C&oacute;digo:</label>
-                            <input type="text" form="formApp" ng-model="vm.entity.codTabla" class="form-control" required />
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <label>M&oacute;dulo:</label>
-                            <ui-select ng-model="vm.entity.codModulo"
+                            <ui-select ng-model="vm.entityTab.idTabla"
                                        form="formApp"
                                        theme="bootstrap"
                                        tabindex="7"
                                        required>
-                                <ui-select-match placeholder="Seleccione un modulo...">{{$select.selected.descripcion}}</ui-select-match>
-                                <ui-select-choices repeat="item.codModulo as item in vm.listModulos | filter: $select.search">
+                                <ui-select-match placeholder="Seleccione una tabla...">{{$select.selected.descripcion}}</ui-select-match>
+                                <ui-select-choices repeat="item.idTabla as item in vm.listTablas | filter: $select.search">
                                     <div ng-bind-html="item.descripcion | highlight: $select.search"></div>
                                 </ui-select-choices>
                             </ui-select>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-12">
-                            <label>Descripci&oacute;n:</label>
-                            <input type="text" form="formApp" ng-model="vm.entity.descripcion" class="form-control" required />
+                        <div class="col-12 col-md-6">
+                            <button class="btn btn-primary" ng-click="vm.agregarTab()" ng-disabled="formApp.$invalid">Agregar</button>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <button class="btn btn-primary" ng-click="vm.guardar()" ng-disabled="formApp.$invalid">Guardar</button>
-                            <button class="btn btn-default" ng-click="vm.cancelar()">Cancelar</button>
+                            <div class="fontsize-10" ui-grid="vm.gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize></div>
                         </div>
                     </div>
                 </form>
@@ -71,17 +44,17 @@
 <div class="row mt-4" ng-show="vm.modoDet && !vm.formVisibleDet">
     <div class="col-12 offset-md-1 col-md-10">
         <div class="card">
-            <div class="card-header">
-                <button class="btn btn-default" ng-click="vm.regresarDet()">Regresar</button>
-                <button class="btn btn-primary" ng-click="vm.nuevoDet()">Nuevo</button>
+            <div class="card-header text-center">
+                <h4>{{ vm.entity.tabla.descripcion }}</h4>
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-12 text-center">
-                        <h4>{{ vm.entity.descripcion }}</h4>
+                    <div class="col-12">
+                        <div class="fontsize-10" ui-grid="vm.gridOptionsDet" ui-grid-edit ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize></div>
                     </div>
                     <div class="col-12 mt-3">
-                        <div class="fontsize-10" ui-grid="vm.gridOptionsDet" ui-grid-edit ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize></div>
+                        <button class="btn btn-default" ng-click="vm.regresarDet()">Regresar</button>
+                        <button class="btn btn-primary" ng-click="vm.nuevoDet()">Nuevo</button>
                     </div>
                 </div>
             </div>
@@ -101,25 +74,19 @@
                     <div class="form-group row">
                         <div class="col-12">
                             <label>Descripci&oacute;n Tabla:</label>
-                            <input type="text" form="formAppDet" ng-model="vm.entity.descripcion" class="form-control" disabled="disabled" required />
+                            <input type="text" form="formAppDet" ng-model="vm.entity.tabla.descripcion" class="form-control" disabled="disabled" required />
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-12 col-md-6">
-                            <label>C&oacute;digo:</label>
-                            <input type="text" form="formAppDet" ng-model="vm.entityDet.codValor" class="form-control" required />
+                        <div class="col-12 col-md-8">
+                            <label>Descripci&oacute;n:</label>
+                            <input type="text" form="formAppDet" ng-model="vm.entityDet.descripcion" class="form-control" required />
                         </div>
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 col-md-4">
                             <label>Estado:</label>
                             <select ng-model="vm.entityDet.estado" form="formAppDet" class="form-control" required>
                                 <option ng-repeat="item in vm.listEstados" value="{{ item.codigo }}">{{ item.descripcion }}</option>
                             </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-12">
-                            <label>Descripci&oacute;n:</label>
-                            <input type="text" form="formAppDet" ng-model="vm.entityDet.descripcion" class="form-control" required />
                         </div>
                     </div>
                     <div class="form-group row">
@@ -136,5 +103,6 @@
 
 <script src="~/master/js/services/general/modulos.service.js"></script>
 <script src="~/master/js/services/general/tablas.service.js"></script>
-<script src="~/master/js/services/general/tablas.detalles.service.js"></script>
-<script src="~/master/js/controllers/general/tablas.controller.js"></script>
+<script src="~/master/js/services/general/tablas.empresa.service.js"></script>
+<script src="~/master/js/services/general/tablas.empresas.detalles.service.js"></script>
+<script src="~/master/js/controllers/general/tablas.empresa.controller.js"></script>

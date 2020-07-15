@@ -13,16 +13,16 @@ namespace SiinErp.Areas.General.Controllers
     [Route("[area]/api/[controller]")]
     [ApiController]
     [Area(Constantes.Area_General)]
-    public class TablasDetalleController : ControllerBase
+    public class TablasEmpresaDetalleController : ControllerBase
     {
-        private TablasDetalleBusiness BusinessTabDet = new TablasDetalleBusiness();
+        private TablasEmpresaDetalleBusiness BusinessTabDet = new TablasEmpresaDetalleBusiness();
 
-        [HttpGet("ByIdTab/{IdTab}")]
-        public IActionResult GetTablaDetalles(int IdTab)
+        [HttpGet("ByIdTabEmp/{IdTabEmp}")]
+        public IActionResult GetTablaDetalles(int IdTabEmp)
         {
             try
             {
-                var lista = BusinessTabDet.GetAllTablaDetalleByIdTab(IdTab);
+                var lista = BusinessTabDet.GetAllTablaDetalleByIdTabEmp(IdTabEmp);
                 return Ok(lista);
             }
             catch (Exception ex)
@@ -31,12 +31,12 @@ namespace SiinErp.Areas.General.Controllers
             }
         }
 
-        [HttpGet("{CodTab}")]
-        public IActionResult GetTablaDetalles(string CodTab)
+        [HttpGet("ByCod/{CodTab}/{IdEmp}")]
+        public IActionResult GetTablaEmpresaDetalles(string CodTab, int IdEmp)
         {
             try
             {
-                var lista = BusinessTabDet.GetTablaDetalleByCod(CodTab);
+                var lista = BusinessTabDet.GetTablaEmpresaDetalleByCod(CodTab, IdEmp);
                 return Ok(lista);
             }
             catch (Exception ex)
@@ -46,7 +46,7 @@ namespace SiinErp.Areas.General.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateTablaDetalle([FromBody] TablasDetalle entity)
+        public IActionResult CreateTablaEmpresaDetalle([FromBody] TablasEmpresaDetalle entity)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace SiinErp.Areas.General.Controllers
         }
 
         [HttpPut("{idDet}")]
-        public IActionResult UpdateTablaDetalle(int idDet, [FromBody] TablasDetalle entity)
+        public IActionResult UpdateTablaEmpresaDetalle(int idDet, [FromBody] TablasEmpresaDetalle entity)
         {
             try
             {

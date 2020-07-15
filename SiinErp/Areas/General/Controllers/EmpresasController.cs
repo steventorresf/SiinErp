@@ -31,6 +31,20 @@ namespace SiinErp.Areas.General.Controllers
             }
         }
 
+        [HttpGet("Act")]
+        public IActionResult GetEmpresasAct()
+        {
+            try
+            {
+                var lista = BusinessEmp.GetEmpresasAct();
+                return Ok(lista);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         [HttpPost]
         public IActionResult CreateEmpresa([FromBody] Empresas entity)
         {

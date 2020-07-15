@@ -13,7 +13,6 @@ namespace SiinErp.Areas.General.Business
         {
             try
             {
-                entity.FechaCreacion = DateTimeOffset.Now;
                 SiinErpContext context = new SiinErpContext();
                 context.Tablas.Add(entity);
                 context.SaveChanges();
@@ -56,15 +55,37 @@ namespace SiinErp.Areas.General.Business
                                           CodModulo = ta.CodModulo,
                                           CodTabla = ta.CodTabla,
                                           Descripcion = ta.Descripcion,
-                                          FechaCreacion = ta.FechaCreacion,
-                                          IdUsuario = ta.IdUsuario,
-                                          NombreModulo = mo.Descripcion,
                                       }).OrderBy(x => x.Descripcion).OrderBy(x => x.CodModulo).ToList();
                 return Lista;
             }
             catch (Exception ex)
             {
                 ErroresBusiness.Create("GetTablas", ex.Message, null);
+                throw;
+            }
+        }
+
+        public List<Tablas> GetNoTablasEmpresa(int IdEmpresa)
+        {
+            try
+            {
+                SiinErpContext context = new SiinErpContext();
+                List<Tablas> Lista = (from ta in context.Tablas
+                                      join te in context.TablasEmpresas.Where(x => x.IdEmpresa == IdEmpresa) on ta.IdTabla equals te.IdTabla into joined
+                                      from j in joined.DefaultIfEmpty()
+                                      where j == null
+                                      select new Tablas()
+                                      {
+                                          IdTabla = ta.IdTabla,
+                                          CodTabla = ta.CodTabla,
+                                          Descripcion = ta.Descripcion,
+                                          CodModulo = ta.CodModulo
+                                      }).OrderBy(x => x.Descripcion).ToList();
+                return Lista;
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("GetNoTablasEmpresa", ex.Message, null);
                 throw;
             }
         }

@@ -30,5 +30,9 @@ namespace SiinErp.Areas.Ventas.Controllers
         {
             return View();
         }
+        public IActionResult Facturar()
+        {
+            return View();
+        }
     }
 }

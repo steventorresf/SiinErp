@@ -32,7 +32,9 @@ namespace SiinErp.Models
 
         public virtual DbSet<Tablas> Tablas { get; set; }
 
-        public virtual DbSet<TablasDetalle> TablasDetalles { get; set; }
+        public virtual DbSet<TablasEmpresa> TablasEmpresas { get; set; }
+
+        public virtual DbSet<TablasEmpresaDetalle> TablasEmpresaDetalles { get; set; }
 
         public virtual DbSet<Paises> Paises { get; set; }
 
@@ -87,6 +89,8 @@ namespace SiinErp.Models
         public virtual DbSet<Clientes> Clientes { get; set; }
 
         public virtual DbSet<FacturasVen> FacturasVen { get; set; }
+
+        public virtual DbSet<FacturasFormasDePago> FacturasFormasDePagos { get; set; }
         #endregion
     }
 }

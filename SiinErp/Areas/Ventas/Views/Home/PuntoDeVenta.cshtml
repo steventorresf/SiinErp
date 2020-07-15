@@ -6,7 +6,7 @@
 
 <style>
     .fontsize-10{
-        max-height:250px !important;
+        max-height:200px !important;
     }
 </style>
 
@@ -70,34 +70,51 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-12 col-md-3">
-                        <label>Vr. Bruto:</label>
-                        <input type="text" ng-model="vm.entity.valorBruto | number : 0" class="form-control" onkeydown="return false" />
+                    <div class="col-12 col-md-8">
+                        <div class="row">
+                            <div class="col-12 col-md-3">
+                                <label>Vr. Bruto:</label>
+                                <input type="text" ng-model="vm.entity.valorBruto | number : 0" class="form-control" onkeydown="return false" />
+                            </div>
+                            <div class="col-12 col-md-3">
+                                <label>Vr. Descuento:</label>
+                                <input type="text" ng-model="vm.entity.valorDscto | number : 0" class="form-control" onkeydown="return false" />
+                            </div>
+                            <div class="col-12 col-md-3">
+                                <label>Vr. Iva:</label>
+                                <input type="text" ng-model="vm.entity.valorIva | number : 0" class="form-control" onkeydown="return false" />
+                            </div>
+                            <div class="col-12 col-md-3">
+                                <label>Vr. Neto:</label>
+                                <input type="text" ng-model="vm.entity.valorNeto | number : 0" class="form-control" onkeydown="return false" />
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-12 col-md-3">
-                        <label>Vr. Descuento:</label>
-                        <input type="text" ng-model="vm.entity.valorDscto | number : 0" class="form-control" onkeydown="return false" />
-                    </div>
-                    <div class="col-12 col-md-3">
-                        <label>Vr. Iva:</label>
-                        <input type="text" ng-model="vm.entity.valorIva | number : 0" class="form-control" onkeydown="return false" />
-                    </div>
-                    <div class="col-12 col-md-3">
-                        <label>Vr. Neto:</label>
-                        <input type="text" ng-model="vm.entity.valorNeto | number : 0" class="form-control" onkeydown="return false" />
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-12 text-right">
-                        <button class="btn btn-primary" ng-click="vm.guardar()" ng-disabled="formApp.$invalid || vm.gridOptions.data.length === 0">Guardar</button>
+                    <div class="col-12 col-md-4">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="fontsize-10" ui-grid="vm.gridOptionsPag" ui-grid-selection ui-grid-cellNav ui-grid-edit ui-grid-resize-columns ui-grid-auto-resize></div>
+                            </div>
+                        </div>
+                        <div class="row mt-1">
+                            <div class="col-12 col-md-6">
+                                <h4>{{vm.entity.vrRestante | number : 0}}</h4>
+                            </div>
+                            <div class="col-12 col-md-6 text-right">
+                                <button class="btn btn-primary" ng-click="vm.guardar()" ng-disabled="formApp.$invalid || vm.gridOptions.data.length === 0">Guardar</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div class="row mt-0">
+    
+</div>
 
-<script src="~/master/js/services/general/tablas.detalles.service.js"></script>
+<script src="~/master/js/services/general/tablas.empresas.detalles.service.js"></script>
 <script src="~/master/js/services/inventario/articulos.service.js"></script>
 <script src="~/master/js/services/inventario/movimientos.service.js"></script>
 <script src="~/master/js/services/ventas/factutas.service.js"></script>

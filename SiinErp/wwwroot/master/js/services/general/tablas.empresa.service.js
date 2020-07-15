@@ -3,16 +3,15 @@
 
     angular
         .module('app')
-        .factory('VenVendedoresService', VenVendedoresService);
+        .factory('GenTablasEmpresaService', GenTablasEmpresaService);
 
-    VenVendedoresService.$inject = ['$http', '$q'];
+    GenTablasEmpresaService.$inject = ['$http', '$q'];
 
-    function VenVendedoresService($http, $q) {
-        var nameSpace = '/Ventas/api/Vendedores/';
+    function GenTablasEmpresaService($http, $q) {
+        var nameSpace = '/General/api/TablasEmpresa/';
 
         var service = {
             getAll: getAll,
-            getAct: getAct,
             create: create,
             update: update,
         };
@@ -21,19 +20,6 @@
 
         function getAll(idEmp) {
             return $http.get(nameSpace + idEmp)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-
-        function getAct(idEmp) {
-            return $http.get(nameSpace + 'Act/' + idEmp)
                 .then(
                     function (response) {
                         return response;

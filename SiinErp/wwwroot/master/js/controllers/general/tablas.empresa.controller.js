@@ -5,28 +5,23 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'GenTablasService', 'GenTablasDetService', 'GenModulosService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'GenTablasService', 'GenTablasEmpresaService', 'GenTablasEmpresaDetService'];
 
-    function AppController($location, $cookies, $scope, tabService, tabdetService, modService) {
+    function AppController($location, $cookies, $scope, tabService, tabempService, tabdetService) {
         var vm = this;
 
         vm.title = 'Home Page';
-        vm.formVisible = false;
-        vm.formModify = false;
+        vm.userApp = angular.copy($cookies.getObject('UsuApp'));
         vm.formVisibleDet = false;
         vm.formModifyDet = false;
-        vm.entity = {};
+        vm.entityTab = {
+            idEmpresa: vm.userApp.idEmpresa,
+            creadoPor: vm.userApp.idUsu,
+        };
 
         vm.init = init;
-        vm.userApp = angular.copy($cookies.getObject('UsuApp'));
-        vm.getModulos = getModulos;
-        vm.getTablas = getTablas;
-        vm.nuevo = nuevo;
-        vm.editar = editar;
-        vm.guardar = guardar;
-        vm.cancelar = cancelar;
+        vm.agregarTab = agregarTab;
         vm.getDetalle = getDetalle;
-        $scope.editar = editar;
 
         $scope.getDetalle = getDetalle;
         vm.nuevoDet = nuevoDet;
@@ -40,16 +35,16 @@
         vm.modoDet = false;
 
         function init() {
-            getTablas();
-            getModulos();
+            getTablasNo();
+            getTablasEmpresa();
         }
 
 
-        function getModulos() {
-            var response = modService.getAll();
+        function getTablasNo() {
+            var response = tabService.getAllNo(vm.userApp.idEmpresa);
             response.then(
                 function (response) {
-                    vm.listModulos = response.data;
+                    vm.listTablas = response.data;
                 },
                 function (response) {
                     console.log(response);
@@ -57,8 +52,8 @@
             );
         }
 
-        function getTablas() {
-            var response = tabService.getAll();
+        function getTablasEmpresa() {
+            var response = tabempService.getAll(vm.userApp.idEmpresa);
             response.then(
                 function (response) {
                     vm.gridOptions.data = response.data;
@@ -69,27 +64,13 @@
             );
         }
 
-        function nuevo() {
-            vm.entity = {};
-            vm.formModify = false;
-            vm.formVisible = true;
-        }
-
-        function editar (entity) {
-            vm.entity = angular.copy(entity);
-            vm.formModify = true;
-            vm.formVisible = true;
-        }
-
-        function guardar() {
-            var response = null;
-            if (vm.formModify) { response = tabService.update(vm.entity.idTabla, vm.entity); }
-            else { response = tabService.create(vm.entity); }
-
+        function agregarTab() {
+            var response = tabempService.create(vm.entityTab);
             response.then(
                 function (response) {
-                    cancelar();
-                    getTablas();
+                    vm.entityTab.idTabla = null;
+                    getTablasNo();
+                    getTablasEmpresa();
                 },
                 function (response) {
                     console.log(response);
@@ -97,10 +78,7 @@
             );
         }
 
-        function cancelar() {
-            vm.formVisible = false;
-        }
-
+        
         vm.gridOptions = {
             data: [],
             enableSorting: true,
@@ -113,20 +91,20 @@
             columnDefs: [
                 {
                     name: 'codTabla',
-                    field: 'codTabla',
+                    field: 'tabla.codTabla',
                     displayName: 'Código',
                     headerCellClass: 'bg-header',
                     width: 150,
                 },
                 {
                     name: 'descripcion',
-                    field: 'descripcion',
+                    field: 'tabla.descripcion',
                     displayName: 'Descripción',
                     headerCellClass: 'bg-header',
                 },
                 {
                     name: 'nombreModulo',
-                    field: 'nombreModulo',
+                    field: 'modulo.descripcion',
                     displayName: 'Modulo',
                     headerCellClass: 'bg-header',
                     cellClass: 'text-center',
@@ -139,10 +117,9 @@
                     enableColumnMenu: false,
                     enableFiltering: false,
                     enableSorting: false,
+                    headerCellClass: 'bg-header',
                     cellClass:'text-center',
                     cellTemplate:
-                        "<span><a href='' ng-click='grid.appScope.editar(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
-                        "<i class='fa fa-edit'></i></a></span>" +
                         "<span><a href='' ng-click='grid.appScope.getDetalle(row.entity)' tooltip='Detalles' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
                         "<i class='fa fa-book text-info'></i></a></span>",
                     width: 100,
@@ -163,14 +140,6 @@
             enableColumnMenus: false,
             enableFiltering: true,
             columnDefs: [
-                {
-                    name: 'codValor',
-                    field: 'codValor',
-                    displayName: 'Código',
-                    headerCellClass: 'bg-header',
-                    width: 100,
-                    enableCellEdit: false,
-                },
                 {
                     name: 'descripcion',
                     field: 'descripcion',
@@ -205,6 +174,7 @@
                     enableColumnMenu: false,
                     enableFiltering: false,
                     enableSorting: false,
+                    headerCellClass: 'bg-header',
                     cellClass: 'text-center',
                     cellTemplate:
                         "<span><a href='' ng-click='grid.appScope.editarDet(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
@@ -234,7 +204,7 @@
         }
 
         function getAllDet() {
-            var response = tabdetService.getAllById(vm.entity.idTabla);
+            var response = tabdetService.getAllById(vm.entity.idTablaEmpresa);
             response.then(
                 function (response) {
                     vm.gridOptionsDet.data = response.data;
@@ -259,8 +229,9 @@
 
         function nuevoDet() {
             vm.entityDet = {};
+            vm.entityDet.idTablaEmpresa = vm.entity.idTablaEmpresa;
             vm.entityDet.estado = 'A';
-            vm.entityDet.idUsuario = vm.userApp.idUsuario;
+            vm.entityDet.creadoPor = vm.userApp.idUsu;
             vm.formModifyDet = false;
             vm.formVisibleDet = true;
         }

@@ -13,30 +13,16 @@ namespace SiinErp.Areas.General.Controllers
     [Route("[area]/api/[controller]")]
     [ApiController]
     [Area(Constantes.Area_General)]
-    public class TablasController : ControllerBase
+    public class TablasEmpresaController : ControllerBase
     {
-        private TablasBusiness BusinessTab = new TablasBusiness();
+        private TablasEmpresaBusiness BusinessTab = new TablasEmpresaBusiness();
 
-        [HttpGet]
-        public IActionResult GetTablas(string CodTab)
+        [HttpGet("{IdEmp}")]
+        public IActionResult GetTablasEmpresa(int IdEmp)
         {
             try
             {
-                var lista = BusinessTab.GetTablas();
-                return Ok(lista);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-        }
-
-        [HttpGet("GetNo/{IdEmp}")]
-        public IActionResult GetNoTablasEmpresa(int IdEmp)
-        {
-            try
-            {
-                var lista = BusinessTab.GetNoTablasEmpresa(IdEmp);
+                var lista = BusinessTab.GetTablasEmpresa(IdEmp);
                 return Ok(lista);
             }
             catch (Exception ex)
@@ -46,7 +32,7 @@ namespace SiinErp.Areas.General.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateTabla([FromBody] Tablas entity)
+        public IActionResult CreateTablaEmpresa([FromBody] TablasEmpresa entity)
         {
             try
             {
@@ -59,12 +45,12 @@ namespace SiinErp.Areas.General.Controllers
             }
         }
 
-        [HttpPut("{IdTab}")]
-        public IActionResult UpdateTabla(int IdTab, [FromBody] Tablas entity)
+        [HttpPut("{IdTabEmp}")]
+        public IActionResult UpdateTablaEmpresa(int IdTabEmp, [FromBody] TablasEmpresa entity)
         {
             try
             {
-                BusinessTab.Update(IdTab, entity);
+                BusinessTab.Update(IdTabEmp, entity);
                 return Ok("Ok");
             }
             catch (Exception ex)
@@ -72,6 +58,5 @@ namespace SiinErp.Areas.General.Controllers
                 throw;
             }
         }
-
     }
 }

@@ -14,6 +14,7 @@
             getAll: getAll,
             createByEntradaCompra: createByEntradaCompra,
             createByPuntoDeVenta: createByPuntoDeVenta,
+            createByFacturaDeVenta: createByFacturaDeVenta,
             update: update,
         };
 
@@ -47,6 +48,19 @@
 
         function createByPuntoDeVenta(data) {
             return $http.post(nameSpace + 'ByPuntoDeVenta/', data)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function createByFacturaDeVenta(data) {
+            return $http.post(nameSpace + 'ByFacturaDeVenta/', data)
                 .then(
                     function (response) {
                         return response;

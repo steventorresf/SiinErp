@@ -5,7 +5,7 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'VenVendedoresService', 'GenTablasDetService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'VenVendedoresService', 'GenTablasEmpresaDetService'];
 
     function AppController($location, $cookies, $scope, venService, tabdetService) {
         var vm = this;
@@ -40,7 +40,7 @@
         }
 
         function getZonas() {
-            var response = tabdetService.getAll(Tab.Zonas);
+            var response = tabdetService.getAll(Tab.Zonas, vm.userApp.idEmpresa);
             response.then(
                 function (response) {
                     vm.listZonas = response.data;
@@ -142,6 +142,7 @@
                     enableColumnMenu: false,
                     enableFiltering: false,
                     enableSorting: false,
+                    headerCellClass: 'bg-header',
                     cellClass: 'text-center',
                     cellTemplate:
                         "<span><a href='' ng-click='grid.appScope.editar(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +

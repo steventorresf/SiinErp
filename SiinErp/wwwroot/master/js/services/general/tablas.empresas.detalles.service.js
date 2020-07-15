@@ -3,12 +3,12 @@
 
     angular
         .module('app')
-        .factory('GenTablasDetService', GenTablasDetService);
+        .factory('GenTablasEmpresaDetService', GenTablasEmpresaDetService);
 
-    GenTablasDetService.$inject = ['$http', '$q'];
+    GenTablasEmpresaDetService.$inject = ['$http', '$q'];
 
-    function GenTablasDetService($http, $q) {
-        var nameSpace = '/General/api/TablasDetalle/';
+    function GenTablasEmpresaDetService($http, $q) {
+        var nameSpace = '/General/api/TablasEmpresaDetalle/';
 
         var service = {
             getAll: getAll,
@@ -20,8 +20,8 @@
 
         return service;
 
-        function getAll(cod) {
-            return $http.get(nameSpace + cod)
+        function getAll(cod, idEmp) {
+            return $http.get(nameSpace + 'ByCod/' + cod + '/' + idEmp)
                 .then(
                     function (response) {
                         return response;
@@ -34,7 +34,7 @@
         }
 
         function getAllById(id) {
-            return $http.get(nameSpace + 'ByIdTab/' + id)
+            return $http.get(nameSpace + 'ByIdTabEmp/' + id)
                 .then(
                     function (response) {
                         return response;

@@ -5,7 +5,7 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'InvArticulosService', 'GenTablasDetService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'InvArticulosService', 'GenTablasEmpresaDetService'];
 
     function AppController($location, $cookies, $scope, artService, tabdetService) {
         var vm = this;
@@ -41,7 +41,7 @@
         }
 
         function getTiposArt() {
-            var response = tabdetService.getAll(Tab.TiposArt);
+            var response = tabdetService.getAll(Tab.TiposArt, vm.userApp.idEmpresa);
             response.then(
                 function (response) {
                     vm.listTiposArt = response.data;
@@ -53,7 +53,7 @@
         }
 
         function getUnidadMed() {
-            var response = tabdetService.getAll(Tab.UnidadMed);
+            var response = tabdetService.getAll(Tab.UnidadMed, vm.userApp.idEmpresa);
             response.then(
                 function (response) {
                     vm.listUnidadMed = response.data;
@@ -271,6 +271,7 @@
                     enableColumnMenu: false,
                     enableFiltering: false,
                     enableSorting: false,
+                    headerCellClass: 'bg-header',
                     cellClass: 'text-center',
                     cellTemplate:
                         "<span><a href='' ng-click='grid.appScope.editar(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +

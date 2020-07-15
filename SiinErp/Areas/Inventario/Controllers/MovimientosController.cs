@@ -8,6 +8,7 @@ using Newtonsoft.Json.Linq;
 using SiinErp.Areas.Compras.Entities;
 using SiinErp.Areas.Inventario.Business;
 using SiinErp.Areas.Inventario.Entities;
+using SiinErp.Areas.Ventas.Entities;
 using SiinErp.Utiles;
 
 namespace SiinErp.Areas.Inventario.Controllers
@@ -45,8 +46,27 @@ namespace SiinErp.Areas.Inventario.Controllers
             {
                 Movimientos entityMov = data["entityMov"].ToObject<Movimientos>();
                 List<MovimientosDetalle> listDetalleMov = data["listDetalleMov"].ToObject<List<MovimientosDetalle>>();
+                List<FacturasFormasDePago> listDetallePag = data["listDetallePag"].ToObject<List<FacturasFormasDePago>>();
 
-                BusinessMov.CreateByPuntoDeVenta(entityMov, listDetalleMov);
+                BusinessMov.CreateByPuntoDeVenta(entityMov, listDetalleMov, listDetallePag);
+                return Ok(true);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost("ByFacturaDeVenta")]
+        public IActionResult CreateByFacturaDeVenta([FromBody] JObject data)
+        {
+            try
+            {
+                Movimientos entityMov = data["entityMov"].ToObject<Movimientos>();
+                List<MovimientosDetalle> listDetalleMov = data["listDetalleMov"].ToObject<List<MovimientosDetalle>>();
+                FacturasVen entityFac = data["entityFac"].ToObject<FacturasVen>();
+
+                BusinessMov.CreateByFacturaDeVenta(entityMov, listDetalleMov, entityFac);
                 return Ok(true);
             }
             catch (Exception ex)

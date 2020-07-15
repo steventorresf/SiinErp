@@ -5,7 +5,7 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'VenClientesService', 'CarPlazosPagoService', 'VenVendedoresService', 'VenListaPreciosService', 'GenTablasDetService', 'GenDepartamentosService', 'GenCiudadesService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'VenClientesService', 'CarPlazosPagoService', 'VenVendedoresService', 'VenListaPreciosService', 'GenTablasEmpresaDetService', 'GenDepartamentosService', 'GenCiudadesService'];
 
     function AppController($location, $cookies, $scope, cliService, ppaService, venService, lisService, tabdetService, depService, ciuService) {
         var vm = this;
@@ -82,7 +82,7 @@
         }
 
         function getZonas() {
-            var response = tabdetService.getAll(Tab.Zonas);
+            var response = tabdetService.getAll(Tab.Zonas, vm.userApp.idEmpresa);
             response.then(
                 function (response) {
                     vm.listZonas = response.data;
@@ -94,7 +94,7 @@
         }
 
         function getTiposCliente() {
-            var response = tabdetService.getAll(Tab.TiposCli);
+            var response = tabdetService.getAll(Tab.TiposCli, vm.userApp.idEmpresa);
             response.then(
                 function (response) {
                     vm.listTiposCli = response.data;
@@ -296,6 +296,7 @@
                     enableColumnMenu: false,
                     enableFiltering: false,
                     enableSorting: false,
+                    headerCellClass: 'bg-header',
                     cellClass: 'text-center',
                     cellTemplate:
                         "<span><a href='' ng-click='grid.appScope.editar(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +

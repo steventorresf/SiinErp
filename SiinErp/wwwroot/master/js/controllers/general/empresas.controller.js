@@ -5,12 +5,13 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$scope', 'GenEmpresasService', 'GenDepartamentosService', 'GenCiudadesService', 'GenTablasDetService'];
+    AppController.$inject = ['$location', '$scope', '$cookies', 'GenEmpresasService', 'GenDepartamentosService', 'GenCiudadesService', 'GenTablasEmpresaDetService'];
 
-    function AppController($location, $scope, empService, depService, ciuService, tabdetService) {
+    function AppController($location, $scope, $cookies, empService, depService, ciuService, tabdetService) {
         var vm = this;
 
         vm.title = 'Home Page';
+        vm.userApp = angular.copy($cookies.getObject('UsuApp'));
         vm.init = init;
         vm.getEmpresas = getEmpresas;
         vm.onChangeDepartamento = onChangeDepartamento;
@@ -69,7 +70,7 @@
         }
 
         function getRegimens() {
-            var response = tabdetService.getAll(Tab.Regimen);
+            var response = tabdetService.getAll(Tab.Regimen, vm.userApp.idEmpresa);
             response.then(
                 function (response) {
                     vm.listRegimens = response.data;
@@ -194,6 +195,7 @@
                     enableColumnMenu: false,
                     enableFiltering: false,
                     enableSorting: false,
+                    headerCellClass: 'bg-header',
                     cellClass: 'text-center',
                     cellTemplate:
                         "<span><a href='' ng-click='grid.appScope.editar(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +

@@ -1,100 +1,75 @@
 ﻿
 @{
-    ViewData["Title"] = "Ordenes";
+    ViewData["Title"] = "Facturar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row mt-3" ng-show="!vm.form">
-    <div class="col-12 offset-md-1 col-md-10">
-        <div class="card">
-            <div class="card-header">
-                <button class="btn btn-primary" ng-click="vm.nuevo()">Nueva Orden</button>
-            </div>
-            <div class="card-body">
-                <div class="fontsize-10" ui-grid="vm.gridOptionsPro" ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row mt-md-3" ng-show="vm.form">
+<div class="row">
     <div class="col-12 pl-5 pr-5">
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header text-center">
-                        <h4>{{vm.entity.tipoDoc}} #{{vm.entity.numDoc}}</h4>
+                        <h4>{{vm.entityFac.tipoDoc}} #{{vm.entityFac.numDoc}}</h4>
                     </div>
                     <div class="card-body">
                         <form id="formApp" name="formApp" novalidate="novalidate" class="form-horizontal">
                             <div class="form-group row">
                                 <div class="col-12 col-md-6">
-                                    <label class="required">Proveedor:</label>
-                                    <ui-select ng-model="vm.entity.idProveedor"
+                                    <label class="required">Cliente:</label>
+                                    <ui-select ng-model="vm.entityFac.idCliente"
                                                form="formApp"
                                                theme="bootstrap"
                                                tabindex="7"
                                                required
-                                               on-select="vm.onChangeProveedor($item, $model)">
-                                        <ui-select-match placeholder="Seleccione un proveedor...">{{$select.selected.nombreProveedor}}</ui-select-match>
-                                        <ui-select-choices repeat="item.idProveedor as item in vm.listProveedores track by $index">
-                                            <div ng-bind-html="item.nombreProveedor | highlight: $select.search"></div>
+                                               on-select="vm.onChangeCliente($item, $model)">
+                                        <ui-select-match placeholder="Seleccione un cliente...">{{$select.selected.nombreCliente}}</ui-select-match>
+                                        <ui-select-choices repeat="item.idCliente as item in vm.listClientes track by $index">
+                                            <div ng-bind-html="item.nombreCliente | highlight: $select.search"></div>
                                         </ui-select-choices>
                                     </ui-select>
                                 </div>
-                                <div class="col-12 col-md-6">
-                                    <label class="required">Almacen</label>
-                                    <ui-select ng-model="vm.entity.idDetAlmacen"
-                                               form="formApp"
-                                               theme="bootstrap"
-                                               tabindex="7"
-                                               required>
-                                        <ui-select-match placeholder="Seleccione un almacen...">{{$select.selected.descripcion}}</ui-select-match>
-                                        <ui-select-choices repeat="item.idDetalle as item in vm.listAlmacens track by $index">
-                                            <div ng-bind-html="item.descripcion | highlight: $select.search"></div>
-                                        </ui-select-choices>
-                                    </ui-select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-12 col-md-6">
-                                    <label class="required">Direcci&oacute;n Despacho:</label>
-                                    <input type="text" ng-model="vm.entity.direccionDesp" form="formApp" class="form-control" />
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <label class="required">Centro Costo:</label>
-                                    <ui-select ng-model="vm.entity.idDetCenCosto"
-                                               form="formApp"
-                                               theme="bootstrap"
-                                               tabindex="7"
-                                               required>
-                                        <ui-select-match placeholder="Seleccione un plazo de pago...">{{$select.selected.descripcion}}</ui-select-match>
-                                        <ui-select-choices repeat="item.idDetalle as item in vm.listCentrosCosto track by $index">
-                                            <div ng-bind-html="item.descripcion | highlight: $select.search"></div>
-                                        </ui-select-choices>
-                                    </ui-select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-12 col-md-4">
-                                    <label class="required">Fecha Orden:</label>
-                                    <input type="text"
-                                           form="formApp"
-                                           datepicker=""
-                                           dp-format="yyyy-mm-dd"
-                                           ng-model="vm.entity.fechaDoc"
-                                           class="form-control"
-                                           required />
-                                </div>
-                                <div class="col-12 col-md-4">
+                                <div class="col-12 col-md-3">
                                     <label class="required">Plazo de Pago:</label>
-                                    <ui-select ng-model="vm.entity.idPlazoPago"
+                                    <ui-select ng-model="vm.entityFac.idPlazoPago"
                                                form="formApp"
                                                theme="bootstrap"
                                                tabindex="7"
                                                required>
                                         <ui-select-match placeholder="Seleccione un plazo de pago...">{{$select.selected.descripcion}}</ui-select-match>
                                         <ui-select-choices repeat="item.idPlazoPago as item in vm.listPlazosPago track by $index">
+                                            <div ng-bind-html="item.descripcion | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <div class="col-12 col-md-3">
+                                    <label class="required">Fecha Venta:</label>
+                                    <input type="date" form="formApp" ng-model="vm.entityMov.fechaDoc" class="form-control" required />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-12 col-md-6">
+                                    <label class="required">Vendedor:</label>
+                                    <ui-select ng-model="vm.entityFac.idVendedor"
+                                               form="formApp"
+                                               theme="bootstrap"
+                                               tabindex="7"
+                                               required>
+                                        <ui-select-match placeholder="Seleccione un vendedor...">{{$select.selected.nombreVendedor}}</ui-select-match>
+                                        <ui-select-choices repeat="item.idVendedor as item in vm.listVendedores track by $index">
+                                            <div ng-bind-html="item.nombreVendedor | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label class="required">Almacen:</label>
+                                    <ui-select ng-model="vm.entityMov.idDetAlmacen"
+                                               form="formApp"
+                                               theme="bootstrap"
+                                               tabindex="7"
+                                               required>
+                                        <ui-select-match placeholder="Seleccione un almacen...">{{$select.selected.descripcion}}</ui-select-match>
+                                        <ui-select-choices repeat="item.idDetalle as item in vm.listAlmacens track by $index">
                                             <div ng-bind-html="item.descripcion | highlight: $select.search"></div>
                                         </ui-select-choices>
                                     </ui-select>
@@ -132,7 +107,7 @@
                         </div>
                         <div class="col-12 mt-sm-3">
                             <label>Comentarios:</label><br />
-                            <textarea ng-model="vm.entity.comentarios" class="form-control"></textarea>
+                            <textarea ng-model="vm.entityMov.comentario" class="form-control"></textarea>
                         </div>
                     </div>
                 </div>
@@ -162,8 +137,7 @@
                                 </div>
                             </div>
                             <div class="row mt-2">
-                                <div class="col-12 text-right">
-                                    <button class="btn btn-default" ng-click="vm.regresar()">Regresar</button>
+                                <div class="col-12">
                                     <button class="btn btn-primary" ng-click="vm.guardar()" ng-disabled="formApp.$invalid || vm.gridOptions.data.length === 0">Guardar</button>
                                 </div>
                             </div>
@@ -176,13 +150,11 @@
 </div>
 
 
-
-
 <script src="~/master/js/services/cartera/plazos.pago.service.js"></script>
-<script src="~/master/js/services/compras/proveedores.service.js"></script>
+<script src="~/master/js/services/ventas/clientes.service.js"></script>
 <script src="~/master/js/services/general/tablas.empresas.detalles.service.js"></script>
-<script src="~/master/js/services/general/tipos.documento.service.js"></script>
+<script src="~/master/js/services/inventario/tipos.doc.service.js"></script>
 <script src="~/master/js/services/inventario/articulos.service.js"></script>
-<script src="~/master/js/services/compras/ordenes.service.js"></script>
-<script src="~/master/js/services/compras/ordenes.detalle.service.js"></script>
-<script src="~/master/js/controllers/compras/ordenes.controller.js"></script>
+<script src="~/master/js/services/inventario/movimientos.service.js"></script>
+<script src="~/master/js/services/ventas/vendedores.service.js"></script>
+<script src="~/master/js/controllers/ventas/facturar.controller.js"></script>

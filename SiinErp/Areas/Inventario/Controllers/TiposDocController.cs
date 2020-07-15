@@ -32,7 +32,19 @@ namespace SiinErp.Areas.Inventario.Controllers
             }
         }
 
-        
+        [HttpGet("Get/{IdEmp}/{TipoDoc}")]
+        public IActionResult GetTipoDoc(int IdEmp, string TipoDoc)
+        {
+            try
+            {
+                var entity = BusinessTiposDoc.GetTipoDoc(IdEmp, TipoDoc);
+                return Ok(entity);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
 
         [HttpPost]
         public IActionResult Create([FromBody] TiposDoc entity)

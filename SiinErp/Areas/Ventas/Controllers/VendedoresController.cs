@@ -31,6 +31,20 @@ namespace SiinErp.Areas.Ventas.Controllers
             }
         }
 
+        [HttpGet("Act/{IdEmp}")]
+        public IActionResult GetActivos(int IdEmp)
+        {
+            try
+            {
+                var lista = BusinessVen.GetVendedoresAct(IdEmp);
+                return Ok(lista);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         [HttpPost]
         public IActionResult Create([FromBody] Vendedores entity)
         {
