@@ -71,7 +71,7 @@
         }
 
         function getPlazosPago() {
-            var response = ppaService.getAll();
+            var response = ppaService.getAll(vm.userApp.idEmpresa);
             response.then(
                 function (response) {
                     vm.listPlazosPago = response.data;

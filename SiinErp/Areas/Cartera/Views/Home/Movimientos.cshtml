@@ -1,0 +1,104 @@
+﻿
+@{
+    ViewData["Title"] = "Movimientos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .fontsize-10{
+        max-height:250px;
+    }
+</style>
+
+<div class="row" ng-show="!vm.gridVisible">
+    <div class="col-12 offset-md-2 col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <form id="formApp" name="formApp" novalidate="novalidate" class="form-horizontal">
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <label>Cliente:</label>
+                            <ui-select ng-model="vm.entity.idCliente"
+                                       form="formApp"
+                                       theme="bootstrap"
+                                       tabindex="7"
+                                       required
+                                       on-select="vm.onChangeCliente($item, $model)">
+                                <ui-select-match placeholder="Seleccione un cliente...">{{$select.selected.nombreCliente}}</ui-select-match>
+                                <ui-select-choices repeat="item.idCliente as item in vm.listClientes track by $index">
+                                    <div ng-bind-html="item.nombreCliente | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12 col-md-6">
+                            <label>Concepto:</label>
+                            <ui-select ng-model="vm.entity.idConcepto"
+                                       form="formApp"
+                                       theme="bootstrap"
+                                       tabindex="7"
+                                       required
+                                       on-select="vm.onChangeConcepto($item, $model)">
+                                <ui-select-match placeholder="Seleccione un concepto...">{{$select.selected.descripcion}}</ui-select-match>
+                                <ui-select-choices repeat="item.idConcepto as item in vm.listConceptos track by $index">
+                                    <div ng-bind-html="item.descripcion | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label>Fecha Concepto:</label>
+                            <input type="date" class="form-control" form="formApp" ng-model="vm.entity.fechaDoc" required />
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label>Valor Concepto:</label>
+                            <input type="number" class="form-control text-right" form="formApp" ng-model="vm.entity.valorConcepto" required />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <button class="btn btn-primary" ng-click="vm.buscarPendientesCli()" ng-disabled="formApp.$invalid">Buscar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-show="vm.gridVisible">
+    <div class="col-12 offset-md-1 col-md-10">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="fontsize-10" ui-grid="vm.gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns ui-grid-auto-resize></div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <label>Comentarios:</label>
+                        <textarea form="formApp" class="form-control" ng-model="vm.entity.comentarios"></textarea>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12 col-md-6">
+                        <br />
+                        <button class="btn btn-default" ng-click="vm.regresar()">Regresar</button>
+                        <button class="btn btn-primary" ng-click="vm.guardar()" ng-disabled="vm.entity.valorRestante != 0">Guardar</button>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <label>Valor a Pagar:</label>
+                        <input type="number" class="form-control" ng-model="vm.entity.valorConcepto" disabled="disabled" />
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <label>Valor Restante:</label>
+                        <input type="number" class="form-control" ng-model="vm.entity.valorRestante" disabled="disabled" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/master/js/controllers/cartera/movimientos.controller.js"></script>

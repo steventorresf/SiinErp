@@ -17668,6 +17668,7 @@ const Tab = {
 const GenTiposDoc = {
     OrdenCompra: 'OC',
     OrdenVenta: 'OV',
+    ReciboCaja: 'RC',
 };
 
 const InvTiposDoc = {
@@ -17680,3 +17681,15 @@ const Estados = {
     Activo: 'A',
     Inactivo: 'I',
 };
+
+
+function FormatNumber(number, element) {
+    var numberText = number.toString();
+    var index = numberText.length - 3;
+    var insert = ",";
+    while (index > 0) {
+        numberText = numberText.replace(new RegExp(`^(.{${index}})(.)`), `$1${insert}$2`);
+        index -= 3;
+    }
+    element.value = numberText;
+}

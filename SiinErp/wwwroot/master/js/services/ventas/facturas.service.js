@@ -12,6 +12,7 @@
 
         var service = {
             getLastAlm: getLastAlm,
+            getPendientesCli: getPendientesCli,
             create: create,
             update: update,
         };
@@ -20,6 +21,19 @@
 
         function getLastAlm(idUsu) {
             return $http.get(nameSpace + 'LastAlm/' + idUsu)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getPendientesCli(idCli) {
+            return $http.get(nameSpace + 'PenCli/' + idCli)
                 .then(
                     function (response) {
                         return response;

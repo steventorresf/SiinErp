@@ -52,6 +52,12 @@ namespace SiinErp.Models
 
         #region Cartera
         public virtual DbSet<PlazosPago> PlazosPagos { get; set; }
+
+        public virtual DbSet<Conceptos> Conceptos { get; set; }
+
+        public virtual DbSet<Areas.Cartera.Entities.Movimientos> MovimientosCar { get; set; }
+
+        public virtual DbSet<Areas.Cartera.Entities.MovimientosDetalle> MovimientosCarDetalles { get; set; }
         #endregion
 
 
@@ -71,9 +77,9 @@ namespace SiinErp.Models
 
         public virtual DbSet<TiposDoc> TiposDoc { get; set; }
 
-        public virtual DbSet<Movimientos> Movimientos { get; set; }
+        public virtual DbSet<Areas.Inventario.Entities.Movimientos> Movimientos { get; set; }
 
-        public virtual DbSet<MovimientosDetalle> MovimientosDetalles { get; set; }
+        public virtual DbSet<Areas.Inventario.Entities.MovimientosDetalle> MovimientosDetalles { get; set; }
 
 
         #endregion

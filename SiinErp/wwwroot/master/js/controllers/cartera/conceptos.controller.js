@@ -5,9 +5,9 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'CarPlazosPagoService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'CarConceptosService'];
 
-    function AppController($location, $cookies, $scope, ppaService) {
+    function AppController($location, $cookies, $scope, conService) {
         var vm = this;
 
         vm.title = 'Home Page';
@@ -19,14 +19,14 @@
         vm.guardar = guardar;
         vm.cancelar = cancelar;
         $scope.editar = editar;
-        vm.listEstados = [{ codigo: 'A', descripcion: 'Activo' }, { codigo: 'I', descripcion: 'Inactivo' }];
+        vm.listBool = [{ codigo: 'false', descripcion: 'NO' }, { codigo: 'true', descripcion: 'SI' }];
 
         function init() {
             getAll();
         }
 
         function getAll() {
-            var response = ppaService.getAll(vm.userApp.idEmpresa);
+            var response = conService.getAll(vm.userApp.idEmpresa);
             response.then(
                 function (response) {
                     vm.gridOptions.data = response.data;
@@ -49,14 +49,16 @@
 
         function editar(entity) {
             vm.entity = angular.copy(entity);
+            vm.entity.aplicaCartera = angular.copy(entity.aplicaCartera).toString();
+            vm.entity.aplicaVenta = angular.copy(entity.aplicaVenta).toString();
             vm.formModify = true;
             vm.formVisible = true;
         }
 
         function guardar() {
             var response = null;
-            if (vm.formModify) { response = ppaService.update(vm.entity.idPlazoPago, vm.entity); }
-            else { response = ppaService.create(vm.entity); }
+            if (vm.formModify) { response = conService.update(vm.entity.idConcepto, vm.entity); }
+            else { response = conService.create(vm.entity); }
 
             response.then(
                 function (response) {
@@ -84,39 +86,31 @@
             enableFiltering: true,
             columnDefs: [
                 {
+                    name: 'codConcepto',
+                    field: 'codConcepto',
+                    displayName: 'Código',
+                    headerCellClass: 'bg-header',
+                    cellClass: 'text-center',
+                    width: 100,
+                },
+                {
                     name: 'descripcion',
                     field: 'descripcion',
                     displayName: 'Descripción',
                     headerCellClass: 'bg-header',
                 },
                 {
-                    name: 'plazoDias',
-                    field: 'plazoDias',
-                    displayName: 'PlazoDias',
+                    name: 'sAplicaCartera',
+                    field: 'sAplicaCartera',
+                    displayName: 'Aplica Cartera',
                     headerCellClass: 'bg-header',
                     cellClass: 'text-center',
                     width: 100,
                 },
                 {
-                    name: 'cuotas',
-                    field: 'cuotas',
-                    displayName: 'Cuotas',
-                    headerCellClass: 'bg-header',
-                    cellClass: 'text-center',
-                    width: 100,
-                },
-                {
-                    name: 'pcInicial',
-                    field: 'pcInicial',
-                    displayName: 'Pc. Inicial',
-                    headerCellClass: 'bg-header',
-                    cellClass: 'text-center',
-                    width: 100,
-                },
-                {
-                    name: 'estado',
-                    field: 'estado',
-                    displayName: 'Estado',
+                    name: 'sAplicaVenta',
+                    field: 'sAplicaVenta',
+                    displayName: 'Aplica Venta',
                     headerCellClass: 'bg-header',
                     cellClass: 'text-center',
                     width: 100,

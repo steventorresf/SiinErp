@@ -29,5 +29,19 @@ namespace SiinErp.Areas.Ventas.Controllers
                 throw;
             }
         }
+
+        [HttpGet("PenCli/{IdCli}")]
+        public IActionResult GetPendientesByCli(int IdCli)
+        {
+            try
+            {
+                var lista = BusinessFact.GetPendientesByCli(IdCli);
+                return Ok(lista);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

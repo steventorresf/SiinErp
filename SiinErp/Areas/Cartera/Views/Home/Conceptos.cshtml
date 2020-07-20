@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "Periodos";
+    ViewData["Title"] = "Conceptos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -21,39 +21,36 @@
     </div>
 </div>
 
-
 <div class="row mt-4" ng-show="vm.formVisible">
     <div class="col-12 offset-md-2 col-md-8">
         <div class="card">
             <div class="card-header">
-                <h4 ng-show="!vm.formModify">Nuevo Periodo</h4>
-                <h4 ng-show="vm.formModify">Editar Periodo</h4>
+                <h4 ng-show="!vm.formModify">Nuevo</h4>
+                <h4 ng-show="vm.formModify">Editar</h4>
             </div>
             <div class="card-body">
                 <form id="formApp" name="formApp" novalidate="" class="form-horizontal">
                     <div class="form-group row">
+                        <div class="col-12">
+                            <label>Descripci&oacute;n:</label>
+                            <input type="text" class="form-control" form="formApp" ng-model="vm.entity.descripcion" required />
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <div class="col-12 col-md-4">
-                            <label>M&oacute;dulo:</label>
-                            <select ng-model="vm.entity.codModulo" form="formApp" class="form-control" ng-disabled="vm.formModify" ng-change="vm.getSig()" required>
-                                <option ng-repeat="item in vm.listModulos" value="{{ item.codModulo }}">{{ item.descripcion }}</option>
+                            <label>C&oacute;digo:</label>
+                            <input type="text" class="form-control" form="formApp" ng-model="vm.entity.codConcepto" required />
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label>Aplica Cartera:</label>
+                            <select ng-model="vm.entity.aplicaCartera" form="formApp" class="form-control" required>
+                                <option ng-repeat="item in vm.listBool" value="{{ item.codigo }}">{{ item.descripcion }}</option>
                             </select>
                         </div>
                         <div class="col-12 col-md-4">
-                            <label>Periodo Actual:</label>
-                            <input type="text"
-                                   form="formApp"
-                                   datepicker=""
-                                   BsDatepickerViewMode='months'
-                                   dp-format="yyyymm"
-                                   ng-disabled="vm.formModify"
-                                   ng-model="vm.entity.periodoActual"
-                                   class="form-control"
-                                   required />
-                        </div>
-                        <div class="col-12 col-md-4">
-                            <label>M&oacute;dulo:</label>
-                            <select ng-model="vm.entity.situacion" form="formApp" class="form-control" required>
-                                <option ng-repeat="item in vm.listSituacion" value="{{ item.codigo }}">{{ item.descripcion }}</option>
+                            <label>Aplica Venta:</label>
+                            <select ng-model="vm.entity.aplicaVenta" form="formApp" class="form-control" required>
+                                <option ng-repeat="item in vm.listBool" value="{{ item.codigo }}">{{ item.descripcion }}</option>
                             </select>
                         </div>
                     </div>
@@ -69,4 +66,4 @@
     </div>
 </div>
 
-<script src="~/master/js/controllers/general/periodos.controller.js"></script>
+<script src="~/master/js/controllers/cartera/conceptos.controller.js"></script>

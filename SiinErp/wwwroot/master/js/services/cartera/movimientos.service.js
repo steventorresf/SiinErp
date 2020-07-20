@@ -3,12 +3,12 @@
 
     angular
         .module('app')
-        .factory('CarPlazosPagoService', CarPlazosPagoService);
+        .factory('CarMovimientosService', CarMovimientosService);
 
-    CarPlazosPagoService.$inject = ['$http', '$q'];
+    CarMovimientosService.$inject = ['$http', '$q'];
 
-    function CarPlazosPagoService($http, $q) {
-        var nameSpace = '/Cartera/api/PlazosPago/';
+    function CarMovimientosService($http, $q) {
+        var nameSpace = '/Cartera/api/Movimientos/';
 
         var service = {
             getAll: getAll,

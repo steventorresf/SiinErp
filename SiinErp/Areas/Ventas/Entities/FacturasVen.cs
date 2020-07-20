@@ -125,5 +125,9 @@ namespace SiinErp.Areas.Ventas.Entities
         [Required]
         [StringLength(1)]
         public string Estado { get; set; }
+
+
+        [NotMapped]
+        public decimal ValorRestante { get; set; }
     }
 }

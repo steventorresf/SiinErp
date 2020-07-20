@@ -13,16 +13,16 @@ namespace SiinErp.Areas.Cartera.Controllers
     [Route("[area]/api/[controller]")]
     [ApiController]
     [Area(Constantes.Area_Cartera)]
-    public class PlazosPagoController : ControllerBase
+    public class ConceptosController : ControllerBase
     {
-        private PlazosPagoBusiness BusinessPlazo = new PlazosPagoBusiness();
+        private ConceptosBusiness BusinessCon = new ConceptosBusiness();
 
         [HttpGet("{IdEmp}")]
         public IActionResult Get(int IdEmp)
         {
             try
             {
-                var lista = BusinessPlazo.GetPlazosPagos(IdEmp);
+                var lista = BusinessCon.GetConceptos(IdEmp);
                 return Ok(lista);
             }
             catch (Exception ex)
@@ -32,12 +32,12 @@ namespace SiinErp.Areas.Cartera.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] PlazosPago entity)
+        public IActionResult Create([FromBody] Conceptos entity)
         {
             try
             {
-                BusinessPlazo.Create(entity);
-                return Ok("Ok");
+                BusinessCon.Create(entity);
+                return Ok(true);
             }
             catch (Exception ex)
             {
@@ -45,13 +45,13 @@ namespace SiinErp.Areas.Cartera.Controllers
             }
         }
 
-        [HttpPut("{IdPlazo}")]
-        public IActionResult Update(int IdPlazo, [FromBody] PlazosPago entity)
+        [HttpPut("{IdCon}")]
+        public IActionResult Update(int IdCon, [FromBody] Conceptos entity)
         {
             try
             {
-                BusinessPlazo.Update(IdPlazo, entity);
-                return Ok("Ok");
+                BusinessCon.Update(IdCon, entity);
+                return Ok(true);
             }
             catch (Exception ex)
             {

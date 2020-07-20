@@ -18,5 +18,13 @@ namespace SiinErp.Areas.Cartera.Controllers
         {
             return View();
         }
+        public IActionResult Conceptos()
+        {
+            return View();
+        }
+        public IActionResult Movimientos()
+        {
+            return View();
+        }
     }
 }

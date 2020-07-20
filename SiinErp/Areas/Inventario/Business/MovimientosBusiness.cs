@@ -159,7 +159,7 @@ namespace SiinErp.Areas.Inventario.Business
                 entityFac.ValorNotaCr = 0;
                 entityFac.ValorNotaDb = 0;
                 entityFac.ValorOtros = 0;
-                entityFac.ValorPagado = 0;
+                entityFac.ValorPagado = entityFac.ValorNeto;
                 entityFac.ValorSeguro = 0;
                 entityFac.FechaPago = entityFac.FechaDoc;
                 entityFac.FechaVencimiento = entityFac.FechaDoc;
@@ -225,6 +225,7 @@ namespace SiinErp.Areas.Inventario.Business
                 entityFac.ValorDscto = vrDscto;
                 entityFac.ValorIva = vrIva;
                 entityFac.ValorNeto = vrBruto - vrDscto + vrIva;
+                entityFac.ValorPagado = entityFac.PlazoDias > 0 ? 0 : entityFac.ValorNeto;
                 entityFac.FechaVencimiento = entityFac.FechaDoc.AddDays(entityFac.PlazoDias);
                 entityFac.FechaCreacion = DateTimeOffset.Now;
                 context.FacturasVen.Add(entityFac);

@@ -10,7 +10,7 @@ namespace SiinErp.Areas.Cartera.Business
 {
     public class PlazosPagoBusiness
     {
-        public List<PlazosPago> GetPlazosPagos()
+        public List<PlazosPago> GetPlazosPagos(int IdEmpresa)
         {
             try
             {
