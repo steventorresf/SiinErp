@@ -36,7 +36,7 @@ namespace SiinErp.Areas.Cartera.Business
                     movdet.IdMovimiento = ob.IdMovimiento;
                     movdet.TipoDocAfectado = f.TipoDoc;
                     movdet.NumDocAfectado = f.NumDoc;
-                    movdet.ValorBase = f.ValorPagado;
+                    movdet.ValorBase = f.VrPagar;
                     listDetalleMov.Add(movdet);
                 }
                 context.MovimientosCarDetalles.AddRange(listDetalleMov);

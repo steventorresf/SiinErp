@@ -17682,6 +17682,14 @@ const Estados = {
     Inactivo: 'I',
 };
 
+const Modulo = {
+    Cartera: 'CAR',
+    Compras: 'COM',
+    General: 'GEN',
+    Inventario: 'INV',
+    Ventas: 'VEN',
+}
+
 
 function FormatNumber(number, element) {
     var numberText = number.toString();

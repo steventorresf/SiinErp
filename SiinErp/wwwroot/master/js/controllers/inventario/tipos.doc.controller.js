@@ -27,9 +27,7 @@
 
         function init() {
             getTiposDoc();
-            //getTransaccionInv();
-            getAlmInv();
-           
+            getAlmInv();           
         }
 
         function getTiposDoc() {
@@ -37,18 +35,6 @@
             response.then(
                 function (response) {
                     vm.gridOptions.data = response.data;
-                },
-                function (response) {
-                    console.log(response);
-                }
-            );
-        }
-
-        function getTransaccionInv() {
-            var response = tabdetService.getAll(Tab.InvTrans, vm.userApp.idEmpresa);
-            response.then(
-                function (response) {
-                    vm.listTransaccions = response.data;
                 },
                 function (response) {
                     console.log(response);

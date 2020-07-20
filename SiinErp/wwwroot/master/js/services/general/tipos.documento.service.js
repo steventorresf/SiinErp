@@ -13,6 +13,7 @@
         var service = {
             getAll: getAll,
             getByCod: getByCod,
+            getByModulo: getByModulo,
             create: create,
             update: update,
         };
@@ -34,6 +35,19 @@
 
         function getByCod(cod) {
             return $http.get(nameSpace + 'ByCod/' + cod)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getByModulo(idEmp, codMod) {
+            return $http.get(nameSpace + 'ByCodMod/' + idEmp + '/' + codMod)
                 .then(
                     function (response) {
                         return response;

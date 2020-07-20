@@ -46,8 +46,8 @@ namespace SiinErp.Areas.Ventas.Business
                                                NumDoc = f.NumDoc,
                                                FechaDoc = f.FechaDoc,
                                                FechaVencimiento = f.FechaVencimiento,
-                                               ValorRestante = f.ValorNeto - f.ValorPagado,
-                                               ValorPagado = 0,
+                                               ValorSaldo = f.ValorSaldo,
+                                               VrPagar = 0,
                                                ValorDscto = 0,
                                                ValorNeto = 0
                                            }).ToList();

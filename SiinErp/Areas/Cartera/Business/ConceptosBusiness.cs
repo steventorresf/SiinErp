@@ -16,10 +16,12 @@ namespace SiinErp.Areas.Cartera.Business
             {
                 SiinErpContext context = new SiinErpContext();
                 List<Conceptos> Lista = (from c in context.Conceptos.Where(x => x.IdEmpresa == IdEmpresa)
+                                         join t in context.TiposDocumentos on c.IdTipoDoc equals t.IdTipoDoc
                                          select new Conceptos()
                                          {
                                              IdConcepto = c.IdConcepto,
                                              IdEmpresa = c.IdEmpresa,
+                                             IdTipoDoc = c.IdTipoDoc,
                                              CodConcepto = c.CodConcepto,
                                              Descripcion = c.Descripcion,
                                              AplicaVenta = c.AplicaVenta,
@@ -28,12 +30,28 @@ namespace SiinErp.Areas.Cartera.Business
                                              SAplicaVenta = c.AplicaVenta ? "SI" : "NO",
                                              FechaCreacion = c.FechaCreacion,
                                              CreadoPor = c.CreadoPor,
+                                             TipoDoc = t.TipoDoc
                                          }).OrderBy(x => x.Descripcion).ToList();
                 return Lista;
             }
             catch (Exception ex)
             {
                 ErroresBusiness.Create("GetConceptos", ex.Message, null);
+                throw;
+            }
+        }
+
+        public List<Conceptos> GetConceptosByTipoDoc(int IdTipoDoc)
+        {
+            try
+            {
+                SiinErpContext context = new SiinErpContext();
+                List<Conceptos> Lista = context.Conceptos.Where(x => x.IdTipoDoc == IdTipoDoc).OrderBy(x => x.Descripcion).ToList();
+                return Lista;
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("GetConceptosByTipoDoc", ex.Message, null);
                 throw;
             }
         }

@@ -33,6 +33,20 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-12 col-md-6">
+                            <label>Tipo Documento:</label>
+                            <ui-select ng-model="vm.entity.tipoDoc"
+                                       form="formApp"
+                                       theme="bootstrap"
+                                       tabindex="7"
+                                       required
+                                       on-select="vm.onChangeTipoDoc($item, $model)">
+                                <ui-select-match placeholder="Seleccione un tipo documento...">{{$select.selected.descripcion}}</ui-select-match>
+                                <ui-select-choices repeat="item.tipoDoc as item in vm.listTiposDoc track by $index">
+                                    <div ng-bind-html="item.descripcion | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <div class="col-12 col-md-6">
                             <label>Concepto:</label>
                             <ui-select ng-model="vm.entity.idConcepto"
                                        form="formApp"
@@ -46,11 +60,13 @@
                                 </ui-select-choices>
                             </ui-select>
                         </div>
-                        <div class="col-12 col-md-3">
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12 col-md-4">
                             <label>Fecha Concepto:</label>
                             <input type="date" class="form-control" form="formApp" ng-model="vm.entity.fechaDoc" required />
                         </div>
-                        <div class="col-12 col-md-3">
+                        <div class="col-12 col-md-4">
                             <label>Valor Concepto:</label>
                             <input type="number" class="form-control text-right" form="formApp" ng-model="vm.entity.valorConcepto" required />
                         </div>

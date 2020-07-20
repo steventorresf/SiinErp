@@ -5,20 +5,20 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'VenClientesService', 'CarConceptosService', 'VenFacturasService', 'CarMovimientosService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'VenClientesService', 'CarConceptosService', 'VenFacturasService', 'CarMovimientosService', 'GenTiposDocService'];
 
-    function AppController($location, $cookies, $scope, cliService, conService, facService, movService) {
+    function AppController($location, $cookies, $scope, cliService, conService, facService, movService, tipdocService) {
         var vm = this;
 
         vm.title = 'Home Page';
         vm.init = init;
         vm.userApp = angular.copy($cookies.getObject('UsuApp'));
+        vm.onChangeTipoDoc = onChangeTipoDoc;
         vm.guardar = guardar;
         vm.regresar = regresar;
         vm.buscarPendientesCli = buscarPendientesCli;
         vm.entity = {
             idEmpresa: vm.userApp.idEmpresa,
-            tipoDoc: GenTiposDoc.ReciboCaja,
             afectaCartera: true,
             creadoPor: vm.userApp.idUsu,
             estado: Estados.Activo,
@@ -27,7 +27,7 @@
 
         function init() {
             getClientes();
-            getConceptos();
+            getTiposDoc();
         }
 
         function getClientes() {
@@ -42,8 +42,20 @@
             );
         }
 
-        function getConceptos() {
-            var response = conService.getAll(vm.userApp.idEmpresa);
+        function getTiposDoc() {
+            var response = tipdocService.getByModulo(vm.userApp.idEmpresa, Modulo.Cartera);
+            response.then(
+                function (response) {
+                    vm.listTiposDoc = response.data;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        function onChangeTipoDoc($item, $model) {
+            var response = conService.getByTipDoc($item.idTipoDoc);
             response.then(
                 function (response) {
                     vm.listConceptos = response.data;
@@ -71,7 +83,7 @@
 
         function guardar() {
             var listDetalleFac = vm.gridOptions.data.filter(function (ob) {
-                return ob.valorPagado > 0;
+                return ob.vrPagar > 0;
             });
 
             if (listDetalleFac.length > 0) {
@@ -145,8 +157,8 @@
                     enableCellEdit: false,
                 },
                 {
-                    name: 'valorRestante',
-                    field: 'valorRestante',
+                    name: 'valorSaldo',
+                    field: 'valorSaldo',
                     displayName: 'Saldo',
                     headerCellClass: 'bg-header',
                     cellClass: 'text-center',
@@ -156,8 +168,8 @@
                     enableCellEdit: false,
                 },
                 {
-                    name: 'valorPagado',
-                    field: 'valorPagado',
+                    name: 'vrPagar',
+                    field: 'vrPagar',
                     displayName: 'Vr. Pag',
                     headerCellClass: 'bg-header',
                     cellClass: 'text-center',
@@ -195,10 +207,10 @@
 
                 gridApi.edit.on.afterCellEdit($scope, function (rowEntity, colDef, newValue, oldValue) {
                     if (newValue < 0) {
-                        rowEntity.valorPagado = oldValue;
+                        rowEntity.vrPagar = oldValue;
                     }
 
-                    rowEntity.valorNeto = rowEntity.valorPagado - rowEntity.valorDscto;
+                    rowEntity.valorNeto = rowEntity.vrPagar - rowEntity.valorDscto;
 
                     var vrTotal = 0;
                     for (var i = 0; i < vm.gridOptions.data.length; i++) {

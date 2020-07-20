@@ -31,6 +31,10 @@ namespace SiinErp.Areas.General.Entities
         public int IdDetTransaccion { get; set; }
 
         [Required]
+        [StringLength(10)]
+        public string CodModulo { get; set; }
+
+        [Required]
         public int IdDetClaseDoc { get; set; }
 
         public int? IdCuentaDoc { get; set; }
@@ -50,6 +54,9 @@ namespace SiinErp.Areas.General.Entities
 
         [NotMapped]
         public string NomTransaccion { get; set; }
+
+        [NotMapped]
+        public string NombreModulo { get; set; }
 
         [NotMapped]
         public string NomClaseDoc { get; set; }

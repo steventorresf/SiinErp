@@ -31,6 +31,20 @@ namespace SiinErp.Areas.Cartera.Controllers
             }
         }
 
+        [HttpGet("ByTipDoc/{IdTipoDoc}")]
+        public IActionResult GetByTipoDoc(int IdTipoDoc)
+        {
+            try
+            {
+                var lista = BusinessCon.GetConceptosByTipoDoc(IdTipoDoc);
+                return Ok(lista);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         [HttpPost]
         public IActionResult Create([FromBody] Conceptos entity)
         {

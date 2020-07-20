@@ -30,12 +30,13 @@ namespace SiinErp.Areas.General.Business
             {
                 SiinErpContext context = new SiinErpContext();
                 List<TiposDocumento> Lista = (from td in context.TiposDocumentos.Where(x => x.IdEmpresa == IdEmpresa)
-                                              join tr in context.TablasEmpresaDetalles on td.IdDetTransaccion equals tr.IdDetalle
+                                              join mo in context.Modulos on td.CodModulo equals mo.CodModulo
                                               join cd in context.TablasEmpresaDetalles on td.IdDetClaseDoc equals cd.IdDetalle
                                               select new TiposDocumento()
                                               {
                                                   IdTipoDoc = td.IdTipoDoc,
                                                   IdEmpresa = td.IdEmpresa,
+                                                  CodModulo = td.CodModulo,
                                                   TipoDoc = td.TipoDoc,
                                                   NumDoc = td.NumDoc,
                                                   Descripcion = td.Descripcion,
@@ -47,7 +48,8 @@ namespace SiinErp.Areas.General.Business
                                                   IdCuentaReteFuente = td.IdCuentaReteFuente,
                                                   FechaCreacion = td.FechaCreacion,
                                                   IdUsuario = td.IdUsuario,
-                                                  NomTransaccion = tr.Descripcion,
+                                                  NomTransaccion = td.IdDetTransaccion > 0 ? "Suma" : td.IdDetTransaccion < 0 ? "Resta" : "*No Aplica*",
+                                                  NombreModulo = mo.Descripcion,
                                                   NomClaseDoc = cd.Descripcion,
                                               }).OrderBy(x => x.Descripcion).OrderBy(x => x.TipoDoc).ToList();
                 return Lista;
@@ -55,6 +57,21 @@ namespace SiinErp.Areas.General.Business
             catch (Exception ex)
             {
                 ErroresBusiness.Create("GetTiposDocumentosGen", ex.Message, null);
+                throw;
+            }
+        }
+
+        public List<TiposDocumento> GetTiposDocumentosByModulo(int IdEmpresa, string CodModulo)
+        {
+            try
+            {
+                SiinErpContext context = new SiinErpContext();
+                List<TiposDocumento> Lista = context.TiposDocumentos.Where(x => x.IdEmpresa == IdEmpresa && x.CodModulo.Equals(CodModulo)).OrderBy(x => x.Descripcion).ToList();
+                return Lista;
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("GetTiposDocumentosByModulo", ex.Message, null);
                 throw;
             }
         }
@@ -81,6 +98,7 @@ namespace SiinErp.Areas.General.Business
             {
                 SiinErpContext context = new SiinErpContext();
                 TiposDocumento ob = context.TiposDocumentos.Find(IdTipoDoc);
+                ob.CodModulo = entity.CodModulo;
                 ob.TipoDoc = entity.TipoDoc;
                 ob.NumDoc = entity.NumDoc;
                 ob.Descripcion = entity.Descripcion;

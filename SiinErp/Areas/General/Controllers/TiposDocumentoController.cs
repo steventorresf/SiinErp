@@ -45,6 +45,20 @@ namespace SiinErp.Areas.General.Controllers
             }
         }
 
+        [HttpGet("ByCodMod/{IdEmp}/{CodMod}")]
+        public IActionResult GetTipoDocumento(int IdEmp, string CodMod)
+        {
+            try
+            {
+                var entity = BusinessDoc.GetTiposDocumentosByModulo(IdEmp, CodMod);
+                return Ok(entity);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         [HttpPost]
         public IActionResult CreateTipoDocumento([FromBody] TiposDocumento entity)
         {

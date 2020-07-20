@@ -31,9 +31,15 @@
             <div class="card-body">
                 <form id="formApp" name="formApp" novalidate="" class="form-horizontal">
                     <div class="form-group row">
-                        <div class="col-12">
+                        <div class="col-12 col-md-8">
                             <label>Descripci&oacute;n:</label>
                             <input type="text" class="form-control" form="formApp" ng-model="vm.entity.descripcion" required />
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label>TipoDocumento:</label>
+                            <select ng-model="vm.entity.idTipoDoc" form="formApp" class="form-control" required>
+                                <option ng-repeat="item in vm.listTiposDoc" value="{{ item.idTipoDoc }}">{{ item.tipoDoc }}</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">

@@ -17,6 +17,9 @@ namespace SiinErp.Areas.Cartera.Entities
         public int IdEmpresa { get; set; }
 
         [Required]
+        public int IdTipoDoc { get; set; }
+
+        [Required]
         [StringLength(5)]
         public string CodConcepto { get; set; }
 
@@ -42,5 +45,8 @@ namespace SiinErp.Areas.Cartera.Entities
 
         [NotMapped]
         public string SAplicaVenta { get; set; }
+
+        [NotMapped]
+        public string TipoDoc { get; set; }
     }
 }

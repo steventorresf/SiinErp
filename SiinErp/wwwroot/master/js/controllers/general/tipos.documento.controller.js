@@ -5,9 +5,9 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$scope', '$cookies', 'GenTiposDocService', 'GenTablasEmpresaDetService'];
+    AppController.$inject = ['$location', '$scope', '$cookies', 'GenTiposDocService', 'GenTablasEmpresaDetService', 'GenModulosService'];
 
-    function AppController($location, $scope, $cookies, tipdocService, tabdetService) {
+    function AppController($location, $scope, $cookies, tipdocService, tabdetService, modService) {
         var vm = this;
 
         vm.title = 'Home Page';
@@ -20,9 +20,15 @@
         vm.cancelar = cancelar;
         $scope.editar = editar;
 
+        vm.listTransaccions = [
+            { idDetalle: '0', descripcion: "*No Aplica*" },
+            { idDetalle: '1', descripcion: "Suma" },
+            { idDetalle: '-1', descripcion: "Resta" }
+        ];
+
         function init() {
             getTiposDoc();
-            getTransaccionGen();
+            getModulos();
             getClasesDoc();
         }
 
@@ -38,11 +44,11 @@
             );
         }
 
-        function getTransaccionGen() {
-            var response = tabdetService.getAll(Tab.Transac, vm.userApp.idEmpresa);
+        function getModulos() {
+            var response = modService.getAll();
             response.then(
                 function (response) {
-                    vm.listTransaccions = response.data;
+                    vm.listModulos = response.data;
                 },
                 function (response) {
                     console.log(response);
@@ -110,6 +116,14 @@
             enableColumnMenus: false,
             enableFiltering: true,
             columnDefs: [
+                {
+                    name: 'nombreModulo',
+                    field: 'nombreModulo',
+                    displayName: 'Modulo',
+                    headerCellClass: 'bg-header',
+                    cellClass: 'text-center',
+                    width: 150,
+                },
                 {
                     name: 'tipoDoc',
                     field: 'tipoDoc',

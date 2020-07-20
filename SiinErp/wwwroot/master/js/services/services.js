@@ -14,12 +14,26 @@
             getAll: getAll,
             create: create,
             update: update,
+            getByTipDoc: getByTipDoc,
         };
 
         return service;
 
         function getAll(idEmp) {
             return $http.get(nameSpace + idEmp)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getByTipDoc(idTipDoc) {
+            return $http.get(nameSpace + 'ByTipDoc/' + idTipDoc)
                 .then(
                     function (response) {
                         return response;
@@ -1073,6 +1087,7 @@
         var service = {
             getAll: getAll,
             getByCod: getByCod,
+            getByModulo: getByModulo,
             create: create,
             update: update,
         };
@@ -1094,6 +1109,19 @@
 
         function getByCod(cod) {
             return $http.get(nameSpace + 'ByCod/' + cod)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getByModulo(idEmp, codMod) {
+            return $http.get(nameSpace + 'ByCodMod/' + idEmp + '/' + codMod)
                 .then(
                     function (response) {
                         return response;

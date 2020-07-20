@@ -97,7 +97,7 @@ namespace SiinErp.Areas.Ventas.Entities
         public int? IdListaPrecio { get; set; }
 
         [Required]
-        public decimal ValorPagado { get; set; }
+        public decimal ValorSaldo { get; set; }
 
         [Required]
         public decimal ValorNotaCr { get; set; }
@@ -128,6 +128,6 @@ namespace SiinErp.Areas.Ventas.Entities
 
 
         [NotMapped]
-        public decimal ValorRestante { get; set; }
+        public decimal VrPagar { get; set; }
     }
 }

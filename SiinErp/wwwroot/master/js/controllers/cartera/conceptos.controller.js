@@ -5,9 +5,9 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'CarConceptosService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'CarConceptosService', 'GenTiposDocService'];
 
-    function AppController($location, $cookies, $scope, conService) {
+    function AppController($location, $cookies, $scope, conService, tipdocService) {
         var vm = this;
 
         vm.title = 'Home Page';
@@ -23,6 +23,7 @@
 
         function init() {
             getAll();
+            getTiposDocCar();
         }
 
         function getAll() {
@@ -30,6 +31,18 @@
             response.then(
                 function (response) {
                     vm.gridOptions.data = response.data;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        function getTiposDocCar() {
+            var response = tipdocService.getByModulo(vm.userApp.idEmpresa, Modulo.Cartera);
+            response.then(
+                function (response) {
+                    vm.listTiposDoc = response.data;
                 },
                 function (response) {
                     console.log(response);
@@ -49,6 +62,7 @@
 
         function editar(entity) {
             vm.entity = angular.copy(entity);
+            vm.entity.idTipoDoc = angular.copy(entity.idTipoDoc).toString();
             vm.entity.aplicaCartera = angular.copy(entity.aplicaCartera).toString();
             vm.entity.aplicaVenta = angular.copy(entity.aplicaVenta).toString();
             vm.formModify = true;
@@ -98,6 +112,14 @@
                     field: 'descripcion',
                     displayName: 'Descripción',
                     headerCellClass: 'bg-header',
+                },
+                {
+                    name: 'tipoDoc',
+                    field: 'tipoDoc',
+                    displayName: 'TipoDoc',
+                    headerCellClass: 'bg-header',
+                    cellClass: 'text-center',
+                    width: 100,
                 },
                 {
                     name: 'sAplicaCartera',
