@@ -19,7 +19,7 @@
             estado: 'A',
         };
 
-
+        vm.userApp = angular.copy($cookies.getObject('UsuApp'));
         vm.init = init;
         vm.getAll = getAll;
         vm.nuevo = nuevo;
@@ -34,7 +34,6 @@
 
         function init() {
             getAll();
-            console.log($cookies.getAll());
         }
 
 

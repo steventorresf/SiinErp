@@ -1077,6 +1077,80 @@
 
     angular
         .module('app')
+        .factory('GenTercerosService', GenTercerosService);
+
+    GenTercerosService.$inject = ['$http', '$q'];
+
+    function GenTercerosService($http, $q) {
+        var nameSpace = '/General/api/Terceros/';
+
+        var service = {
+            getAll: getAll,
+            getAct: getAct,
+            create: create,
+            update: update,
+        };
+
+        return service;
+
+        function getAll(idEmp) {
+            return $http.get(nameSpace + idEmp)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getAct(idEmp) {
+            return $http.get(nameSpace + 'ByAct/' + idEmp)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function create(data) {
+            return $http.post(nameSpace, data)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function update(id, data) {
+            return $http.put(nameSpace + id, data)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+    }
+})();
+(function () {
+    'use strict';
+
+    angular
+        .module('app')
         .factory('GenTiposDocService', GenTiposDocService);
 
     GenTiposDocService.$inject = ['$http', '$q'];
@@ -1277,6 +1351,7 @@
         var service = {
             getAll: getAll,
             getAllByPrefix: getAllByPrefix,
+            getAllByAlmPrefix: getAllByAlmPrefix,
             create: create,
             update: update,
         };
@@ -1298,6 +1373,19 @@
 
         function getAllByPrefix(data) {
             return $http.post(nameSpace + 'Prefix/', data)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getAllByAlmPrefix(data) {
+            return $http.post(nameSpace + 'ByAlmPrefix/', data)
                 .then(
                     function (response) {
                         return response;
@@ -1350,6 +1438,7 @@
 
         var service = {
             getAll: getAll,
+            create: create,
             createByEntradaCompra: createByEntradaCompra,
             createByPuntoDeVenta: createByPuntoDeVenta,
             createByFacturaDeVenta: createByFacturaDeVenta,
@@ -1360,6 +1449,19 @@
 
         function getAll(idEmp) {
             return $http.get(nameSpace + idEmp)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function create(data) {
+            return $http.post(nameSpace, data)
                 .then(
                     function (response) {
                         return response;
@@ -1438,6 +1540,7 @@
 
         var service = {
             getAll: getAll,
+            getByAlmacen: getByAlmacen,
             getTipoDoc: getTipoDoc,
             create: create,
             update: update,
@@ -1447,6 +1550,19 @@
 
         function getAll(idEmp) {
             return $http.get(nameSpace + idEmp)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getByAlmacen(idDetAlm, idEmp) {
+            return $http.get(nameSpace + 'GetByAlm/' + idDetAlm + '/' + idEmp)
                 .then(
                     function (response) {
                         return response;

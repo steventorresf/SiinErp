@@ -32,6 +32,20 @@ namespace SiinErp.Areas.Inventario.Controllers
             }
         }
 
+        [HttpGet("GetByAlm/{IdDetAlm}/{IdEmp}")]
+        public IActionResult GetTiposDocByAlmacen(int IdDetAlm, int IdEmp)
+        {
+            try
+            {
+                var lista = BusinessTiposDoc.GetTiposDocByAlmacen(IdDetAlm, IdEmp);
+                return Ok(lista);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         [HttpGet("Get/{IdEmp}/{TipoDoc}")]
         public IActionResult GetTipoDoc(int IdEmp, string TipoDoc)
         {

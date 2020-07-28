@@ -1,0 +1,183 @@
+﻿
+@{
+    ViewData["Title"] = "Movimientos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .fontsize-10 {
+        max-height: 250px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-12 offset-md-1 col-md-10">
+        <div class="card">
+            <div class="card-header">
+
+            </div>
+            <div class="card-body">
+                <form id="formApp" name="formApp" novalidate="novalidate" class="form-horizontal">
+                    <div class="form-group row">
+                        <div class="col-12 col-md-6">
+                            <label>Almacen Origen:</label>
+                            <ui-select ng-model="vm.entityMov.idDetAlmacen"
+                                       form="formApp"
+                                       theme="bootstrap"
+                                       tabindex="7"
+                                       required
+                                       on-select="vm.onChangeAlmacen($item, $model)">
+                                <ui-select-match placeholder="Seleccione un almacen origen...">{{$select.selected.descripcion}}</ui-select-match>
+                                <ui-select-choices repeat="item.idDetalle as item in vm.listAlmacens track by $index">
+                                    <div ng-bind-html="item.descripcion | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label>Tercero:</label>
+                            <ui-select ng-model="vm.entityMov.idTercero"
+                                       form="formApp"
+                                       theme="bootstrap"
+                                       tabindex="7">
+                                <ui-select-match placeholder="Seleccione un tercero...">{{$select.selected.nombreTercero}}</ui-select-match>
+                                <ui-select-choices repeat="item.idTercero as item in vm.listTerceros track by $index">
+                                    <div ng-bind-html="item.nombreTercero | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12 col-md-6">
+                            <label>Tipo Documento:</label>
+                            <ui-select ng-model="vm.entityMov.tipoDoc"
+                                       form="formApp"
+                                       theme="bootstrap"
+                                       tabindex="7"
+                                       required
+                                       on-select="vm.onChangeTipoDoc($item, $model)">
+                                <ui-select-match placeholder="Seleccione un tipo documento...">{{$select.selected.descripcion}}</ui-select-match>
+                                <ui-select-choices repeat="item.tipoDoc as item in vm.listTiposDoc track by $index">
+                                    <div ng-bind-html="item.descripcion | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label>No. Documento:</label>
+                            <input type="number" class="form-control" form="formApp" ng-model="vm.entityMov.numDoc" required disabled="disabled" />
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label>Fecha Documento:</label>
+                            <input type="date" class="form-control" form="formApp" ng-model="vm.entityMov.fechaDoc" required />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12 col-md-6">
+                            <label>Concepto:</label>
+                            <ui-select ng-model="vm.entityMov.idDetConcepto"
+                                       form="formApp"
+                                       theme="bootstrap"
+                                       tabindex="7"
+                                       required>
+                                <ui-select-match placeholder="Seleccione un almacen...">{{$select.selected.descripcion}}</ui-select-match>
+                                <ui-select-choices repeat="item.idDetalle as item in vm.listConceptos track by $index">
+                                    <div ng-bind-html="item.descripcion | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label>Centro de Costo:</label>
+                            <ui-select ng-model="vm.entityMov.idDetCenCosto"
+                                       form="formApp"
+                                       theme="bootstrap"
+                                       tabindex="7"
+                                       required>
+                                <ui-select-match placeholder="Seleccione un centro de costo...">{{$select.selected.descripcion}}</ui-select-match>
+                                <ui-select-choices repeat="item.idDetalle as item in vm.listCenCostos track by $index">
+                                    <div ng-bind-html="item.descripcion | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12 col-md-6">
+                            <label>Almacen Destino:</label>
+                            <ui-select ng-model="vm.entityMov.idDetAlmDestino"
+                                       form="formApp"
+                                       theme="bootstrap"
+                                       tabindex="7"
+                                       ng-disabled="!vm.almDestino"
+                                       required>
+                                <ui-select-match placeholder="Seleccione un almacen destino...">{{$select.selected.descripcion}}</ui-select-match>
+                                <ui-select-choices repeat="item.idDetalle as item in vm.listAlmacens track by $index">
+                                    <div ng-bind-html="item.descripcion | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 offset-md-1 col-md-10">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <ui-select ng-model="vm.idArticulo"
+                                   form="formAppDet"
+                                   theme="bootstrap"
+                                   tabindex="7"
+                                   required
+                                   on-select="vm.onChangeArticulo($item, $model)">
+                            <ui-select-match placeholder="Seleccione un articulo...">{{$select.selected.nombreBusqueda}}</ui-select-match>
+                            <ui-select-choices repeat="item.idArticulo as item in vm.listArticulos track by $index"
+                                               refresh="vm.refreshArticulo($select.search)"
+                                               refresh-delay="0">
+                                <div ng-bind-html="item.nombreBusqueda | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <div class="fontsize-10" ui-grid="vm.gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns ui-grid-auto-resize></div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <label>Comentarios:</label>
+                        <textarea form="formApp" class="form-control" ng-model="vm.entityMov.comentario"></textarea>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12 col-md-3">
+                        <label>Vr. Bruto:</label>
+                        <input type="number" class="form-control text-right" ng-model="vm.entityMov.valorBruto" disabled="disabled" />
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <label>Vr. Dscto:</label>
+                        <input type="number" class="form-control text-right" ng-model="vm.entityMov.valorDscto" disabled="disabled" />
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <label>Vr IVA:</label>
+                        <input type="number" class="form-control text-right" ng-model="vm.entityMov.valorIva" disabled="disabled" />
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <label>Vr Neto:</label>
+                        <input type="number" class="form-control text-right" ng-model="vm.entityMov.valorNeto" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <button class="btn btn-primary" ng-click="vm.guardar()" ng-disabled="formApp.$invalid">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/master/js/controllers/inventario/movimientos.controller.js"></script>

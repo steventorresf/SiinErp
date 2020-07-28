@@ -3,17 +3,16 @@
 
     angular
         .module('app')
-        .factory('InvArticulosService', InvArticulosService);
+        .factory('GenTercerosService', GenTercerosService);
 
-    InvArticulosService.$inject = ['$http', '$q'];
+    GenTercerosService.$inject = ['$http', '$q'];
 
-    function InvArticulosService($http, $q) {
-        var nameSpace = '/Inventario/api/Articulos/';
+    function GenTercerosService($http, $q) {
+        var nameSpace = '/General/api/Terceros/';
 
         var service = {
             getAll: getAll,
-            getAllByPrefix: getAllByPrefix,
-            getAllByAlmPrefix: getAllByAlmPrefix,
+            getAct: getAct,
             create: create,
             update: update,
         };
@@ -33,21 +32,8 @@
                 );
         }
 
-        function getAllByPrefix(data) {
-            return $http.post(nameSpace + 'Prefix/', data)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-
-        function getAllByAlmPrefix(data) {
-            return $http.post(nameSpace + 'ByAlmPrefix/', data)
+        function getAct(idEmp) {
+            return $http.get(nameSpace + 'ByAct/' + idEmp)
                 .then(
                     function (response) {
                         return response;

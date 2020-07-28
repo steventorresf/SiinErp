@@ -124,6 +124,31 @@ namespace SiinErp.Areas.Inventario.Business
             }
         }
 
+        public List<Articulos> GetArticulosByAlmacenPrefix(int IdDetAlm, int IdEmp, string Prefix)
+        {
+            try
+            {
+                string[] ListPrefix = Prefix.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+
+                SiinErpContext context = new SiinErpContext();
+                List<Articulos> Lista = (from ex in context.Existencias.Where(x => x.IdDetAlmacen == IdDetAlm)
+                                         join ar in context.Articulos on ex.IdArticulo equals ar.IdArticulo
+                                         where ar.NombreBusqueda.Contains(ListPrefix[0])
+                                         select ar).ToList();
+
+                for (int i = 1; i < ListPrefix.Length; i++)
+                {
+                    Lista = Lista.Where(x => x.NombreBusqueda.Contains(ListPrefix[i])).ToList();
+                }
+                return Lista.OrderBy(x => x.NombreArticulo).ToList();
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("GetArticulosByAlmacenPrefix", ex.Message, null);
+                throw;
+            }
+        }
+
         public void Create(Articulos entity)
         {
             try

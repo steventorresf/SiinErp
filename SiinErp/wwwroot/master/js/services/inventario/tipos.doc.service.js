@@ -12,6 +12,7 @@
 
         var service = {
             getAll: getAll,
+            getByAlmacen: getByAlmacen,
             getTipoDoc: getTipoDoc,
             create: create,
             update: update,
@@ -21,6 +22,19 @@
 
         function getAll(idEmp) {
             return $http.get(nameSpace + idEmp)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getByAlmacen(idDetAlm, idEmp) {
+            return $http.get(nameSpace + 'GetByAlm/' + idDetAlm + '/' + idEmp)
                 .then(
                     function (response) {
                         return response;

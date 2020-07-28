@@ -41,6 +41,32 @@ namespace SiinErp.Areas.Inventario.Business
             }
         }
 
+        public List<TiposDoc> GetTiposDocByAlmacen(int IdDetAlmacen, int IdEmpresa)
+        {
+            try
+            {
+                SiinErpContext context = new SiinErpContext();
+                List<TiposDoc> Lista = (from td in context.TiposDoc.Where(x => x.IdDetAlmacen == IdDetAlmacen && x.IdEmpresa == IdEmpresa)
+                                        select new TiposDoc()
+                                        {
+                                            IdTipoDoc = td.IdTipoDoc,
+                                            IdEmpresa = td.IdEmpresa,
+                                            TipoDoc = td.TipoDoc,
+                                            NumDoc = td.NumDoc + 1,
+                                            Descripcion = td.Descripcion,
+                                            Transaccion = td.Transaccion,
+                                            IdDetAlmacen = td.IdDetAlmacen,
+                                            NomTransaccion = td.Transaccion > 0 ? Constantes.TransEntrada : Constantes.TransSalida,
+                                        }).OrderBy(x => x.Descripcion).OrderBy(x => x.TipoDoc).ToList();
+                return Lista;
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("GetTiposDocInv", ex.Message, null);
+                throw;
+            }
+        }
+
         public TiposDoc GetTipoDoc(int IdEmpresa, string TipoDoc)
         {
             try

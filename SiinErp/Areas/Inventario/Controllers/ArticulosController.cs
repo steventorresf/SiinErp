@@ -49,6 +49,24 @@ namespace SiinErp.Areas.Inventario.Controllers
             }
         }
 
+        [HttpPost("ByAlmPrefix")]
+        public IActionResult GetArticulosByAlmacenPrefix([FromBody] JObject data)
+        {
+            try
+            {
+                int IdDetAlm = data["IdDetAlm"].ToObject<int>();
+                int IdEmp = data["IdEmp"].ToObject<int>();
+                string Prefix = data["Prefix"].ToObject<string>();
+
+                var lista = BusinessArt.GetArticulosByAlmacenPrefix(IdDetAlm, IdEmp, Prefix);
+                return Ok(lista);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         [HttpPost]
         public IActionResult Create([FromBody] Articulos entity)
         {

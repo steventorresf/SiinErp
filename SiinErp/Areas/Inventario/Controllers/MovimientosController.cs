@@ -20,6 +20,23 @@ namespace SiinErp.Areas.Inventario.Controllers
     {
         private MovimientosBusiness BusinessMov = new MovimientosBusiness();
 
+        [HttpPost]
+        public IActionResult Create([FromBody] JObject data)
+        {
+            try
+            {
+                Movimientos entityMov = data["entityMov"].ToObject<Movimientos>();
+                List<MovimientosDetalle> listDetalleMov = data["listDetalleMov"].ToObject<List<MovimientosDetalle>>();
+
+                BusinessMov.Create(entityMov, listDetalleMov);
+                return Ok(true);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         [HttpPost("ByEntradaCompra")]
         public IActionResult CreateByEntradaCompra([FromBody] JObject data)
         {

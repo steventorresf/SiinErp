@@ -26,5 +26,9 @@ namespace SiinErp.Areas.Inventario.Controllers
         {
             return View();
         }
+        public IActionResult Movimientos()
+        {
+            return View();
+        }
     }
 }

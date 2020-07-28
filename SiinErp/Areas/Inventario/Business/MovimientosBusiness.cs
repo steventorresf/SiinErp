@@ -1,4 +1,5 @@
-﻿using SiinErp.Areas.Compras.Entities;
+﻿using Microsoft.EntityFrameworkCore.Storage;
+using SiinErp.Areas.Compras.Entities;
 using SiinErp.Areas.General.Business;
 using SiinErp.Areas.Inventario.Entities;
 using SiinErp.Areas.Ventas.Entities;
@@ -13,11 +14,94 @@ namespace SiinErp.Areas.Inventario.Business
 {
     public class MovimientosBusiness
     {
+        public void Create(Movimientos entityMov, List<MovimientosDetalle> listDetalleMov)
+        {
+            try
+            {
+                SiinErpContext context = new SiinErpContext();
+                //IDbContextTransaction Transaccion = context.Database.BeginTransaction();
+
+                TiposDoc tiposdocmov = context.TiposDoc.FirstOrDefault(x => x.TipoDoc.Equals(entityMov.TipoDoc) && x.IdDetAlmacen == entityMov.IdDetAlmacen);
+                tiposdocmov.NumDoc++;
+                context.SaveChanges();
+
+                entityMov.NumDoc = tiposdocmov.NumDoc;
+                entityMov.Periodo = entityMov.FechaDoc.ToString("yyyyMM");
+                entityMov.Estado = Constantes.EstadoActivo;
+                entityMov.FechaCreacion = DateTimeOffset.Now;
+                context.Movimientos.Add(entityMov);
+                context.SaveChanges();
+
+                Movimientos obMov = context.Movimientos.FirstOrDefault(x => x.NumDoc == entityMov.NumDoc && x.TipoDoc.Equals(entityMov.TipoDoc) && x.IdDetAlmacen == entityMov.IdDetAlmacen);
+                foreach (MovimientosDetalle m in listDetalleMov)
+                {
+                    m.IdMovimiento = obMov.IdMovimiento;
+                }
+
+                context.MovimientosDetalles.AddRange(listDetalleMov);
+                context.SaveChanges();
+
+
+                if (entityMov.TipoDoc.Equals(Constantes.InvDocTraslados) && entityMov.IdDetAlmDestino != null)
+                {
+                    TiposDoc tipodoc2 = context.TiposDoc.FirstOrDefault(x => x.TipoDoc.Equals(Constantes.InvDocEntradaTraslado) && x.IdDetAlmacen == entityMov.IdDetAlmDestino);
+                    tipodoc2.NumDoc++;
+                    context.SaveChanges();
+
+                    Movimientos entityEt = new Movimientos();
+                    entityEt.TipoDoc = Constantes.InvDocEntradaTraslado;
+                    entityEt.NumDoc = tipodoc2.NumDoc;
+                    entityEt.IdDetAlmacen = Convert.ToInt32(entityMov.IdDetAlmDestino);
+                    entityEt.IdDetAlmDestino = entityMov.IdDetAlmacen;
+                    entityEt.IdEmpresa = entityMov.IdEmpresa;
+                    entityEt.IdUsuario = entityMov.IdUsuario;
+                    entityEt.Estado = entityMov.Estado;
+                    entityEt.FechaDoc = entityMov.FechaDoc;
+                    entityEt.Periodo = entityMov.Periodo;
+                    entityEt.IdTercero = entityMov.IdTercero;
+                    entityEt.Comentario = entityMov.Comentario;
+                    entityEt.IdDetCenCosto = entityMov.IdDetCenCosto;
+                    entityEt.IdDetConcepto = entityMov.IdDetConcepto;
+                    entityEt.Transaccion = 1;
+                    entityEt.FechaCreacion = DateTimeOffset.Now;
+                    context.Movimientos.Add(entityEt);
+                    context.SaveChanges();
+
+                    Movimientos ob = context.Movimientos.FirstOrDefault(x => x.NumDoc == entityEt.NumDoc && x.TipoDoc.Equals(entityEt.TipoDoc) && x.IdDetAlmacen == entityEt.IdDetAlmacen);
+                    List<MovimientosDetalle> listDetalleMov2 = new List<MovimientosDetalle>();
+                    foreach (MovimientosDetalle m in listDetalleMov)
+                    {
+                        MovimientosDetalle det = new MovimientosDetalle();
+                        det.IdMovimiento = ob.IdMovimiento;
+                        det.IdArticulo = m.IdArticulo;
+                        det.Cantidad = m.Cantidad;
+                        det.VrCosto = m.VrCosto;
+                        det.VrUnitario = m.VrUnitario;
+                        det.PcDscto = m.PcDscto;
+                        det.PcIva = m.PcIva;
+                        listDetalleMov2.Add(det);
+                    }
+
+                    context.MovimientosDetalles.AddRange(listDetalleMov2);
+                    context.SaveChanges();
+                }
+
+                //Transaccion.Commit();
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("CreateMovimiento", ex.Message, null);
+                throw;
+            }
+        }
+
         public void CreateByEntradaCompra(string numFactura, Ordenes entityOrd, Movimientos entityMov, List<MovimientosDetalle> listaDetalleMov)
         {
             try
             {
                 SiinErpContext context = new SiinErpContext();
+                IDbContextTransaction Transaccion = context.Database.BeginTransaction();
+
                 TiposDoc tiposdocmov = context.TiposDoc.FirstOrDefault(x => x.TipoDoc.Equals(Constantes.InvDocEntradaOc));
                 tiposdocmov.NumDoc++;
                 context.SaveChanges();
@@ -97,6 +181,8 @@ namespace SiinErp.Areas.Inventario.Business
 
                 context.MovimientosDetalles.AddRange(listaDetalleMov);
                 context.SaveChanges();
+
+                Transaccion.Commit();
             }
             catch (Exception ex)
             {
@@ -110,6 +196,8 @@ namespace SiinErp.Areas.Inventario.Business
             try
             {
                 SiinErpContext context = new SiinErpContext();
+                IDbContextTransaction Transaccion = context.Database.BeginTransaction();
+
                 TiposDoc tiposdocmov = context.TiposDoc.FirstOrDefault(x => x.TipoDoc.Equals(Constantes.InvDocFacturaPuntoVenta) && x.IdDetAlmacen == entityMov.IdDetAlmacen && x.IdEmpresa == entityMov.IdEmpresa);
                 tiposdocmov.NumDoc++;
                 context.SaveChanges();
@@ -178,6 +266,8 @@ namespace SiinErp.Areas.Inventario.Business
 
                 context.MovimientosDetalles.AddRange(listaDetalleMov);
                 context.SaveChanges();
+
+                Transaccion.Commit();
             }
             catch (Exception ex)
             {
@@ -191,6 +281,8 @@ namespace SiinErp.Areas.Inventario.Business
             try
             {
                 SiinErpContext context = new SiinErpContext();
+                IDbContextTransaction Transaccion = context.Database.BeginTransaction();
+
                 TiposDoc tiposdocmov = context.TiposDoc.FirstOrDefault(x => x.TipoDoc.Equals(Constantes.InvDocFacturaVenta) && x.IdDetAlmacen == entityMov.IdDetAlmacen && x.IdEmpresa == entityMov.IdEmpresa);
                 tiposdocmov.NumDoc++;
                 context.SaveChanges();
@@ -233,6 +325,8 @@ namespace SiinErp.Areas.Inventario.Business
 
                 context.MovimientosDetalles.AddRange(listaDetalleMov);
                 context.SaveChanges();
+
+                Transaccion.Commit();
             }
             catch (Exception ex)
             {

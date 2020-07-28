@@ -39,5 +39,7 @@ namespace SiinErp.Utiles
         public const string InvDocEntradaOc = "CO";
         public const string InvDocFacturaPuntoVenta = "FA";
         public const string InvDocFacturaVenta = "FC";
+        public const string InvDocTraslados = "TB";
+        public const string InvDocEntradaTraslado = "ET";
     }
 }

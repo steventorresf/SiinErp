@@ -38,5 +38,9 @@ namespace SiinErp.Areas.General.Controllers
         {
             return View();
         }
+        public IActionResult Terceros()
+        {
+            return View();
+        }
     }
 }

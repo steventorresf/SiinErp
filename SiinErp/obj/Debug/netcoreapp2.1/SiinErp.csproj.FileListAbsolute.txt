@@ -80,4 +80,6 @@ C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Ventas\Views
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Ventas\Views\Home\Facturar.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Cartera\Views\Home\Movimientos.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Cartera\Views\Home\Conceptos.g.cshtml.cs
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Inventario\Views\Home\Movimientos.g.cshtml.cs
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\General\Views\Home\Terceros.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.csprojAssemblyReference.cache

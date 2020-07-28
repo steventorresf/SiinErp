@@ -55,6 +55,7 @@
       "wwwroot/master/js/services/general/tablas.empresas.service.js",
       "wwwroot/master/js/services/general/tablas.empresas.detalles.service.js",
       "wwwroot/master/js/services/general/tablas.service.js",
+      "wwwroot/master/js/services/general/terceros.service.js",
       "wwwroot/master/js/services/general/tipos.documento.service.js",
       "wwwroot/master/js/services/general/usuarios.service.js",
       "wwwroot/master/js/services/inventario/articulos.service.js",

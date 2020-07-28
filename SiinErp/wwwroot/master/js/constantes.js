@@ -11,6 +11,7 @@
     InvTrans: 'InvTrans',
     TiposCli: 'VenTiposCli',
     FormPago: 'VenFormPago',
+    InvConceptos: 'InvConceptos',
 }
 
 const GenTiposDoc = {
@@ -22,6 +23,7 @@ const GenTiposDoc = {
 const InvTiposDoc = {
     FacturaVenta: 'FC',
     FacturaPuntoVenta: 'FA',
+    Traslados: 'TB',
 };
 
 const Estados = {

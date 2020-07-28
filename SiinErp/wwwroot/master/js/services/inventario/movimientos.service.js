@@ -12,6 +12,7 @@
 
         var service = {
             getAll: getAll,
+            create: create,
             createByEntradaCompra: createByEntradaCompra,
             createByPuntoDeVenta: createByPuntoDeVenta,
             createByFacturaDeVenta: createByFacturaDeVenta,
@@ -22,6 +23,19 @@
 
         function getAll(idEmp) {
             return $http.get(nameSpace + idEmp)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function create(data) {
+            return $http.post(nameSpace, data)
                 .then(
                     function (response) {
                         return response;

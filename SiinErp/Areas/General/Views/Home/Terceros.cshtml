@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewData["Title"] = "Terceros";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row mt-4" ng-show="!vm.formVisible">
+    <div class="col-12 offset-md-1 col-md-10">
+        <div class="card">
+            <div class="card-header">
+                
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="fontsize-10" ui-grid="vm.gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary" ng-click="vm.nuevo()">Nuevo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4" ng-if="vm.formVisible">
+    <div class="col-12 offset-md-2 col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 ng-show="!vm.formModify">Nuevo</h4>
+                <h4 ng-show="vm.formModify">Editar</h4>
+            </div>
+            <div class="card-body">
+                <form id="formApp" name="formApp" novalidate="" class="form-horizontal">
+                    <div class="form-group row">
+                        <div class="col-12 col-md-3">
+                            <label>Nit/C&eacute;dula:</label>
+                            <input type="text" form="formApp" ng-model="vm.entity.nitCedula" class="form-control" required />
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label>Dg. Verificaci&oacute;n:</label>
+                            <input type="text" form="formApp" ng-model="vm.entity.dgVerificacion" class="form-control" />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label>Tipo Persona:</label>
+                            <input type="number" class="form-control" form="formApp" ng-model="vm.entity.idDetTipoPersona" required />
+                            @*<select ng-model="vm.entity.idDetTipoPersona" form="formApp" class="form-control" required>
+                    <option ng-repeat="item in vm.listTipoPersona" value="{{ item.idDetalle }}">{{ item.descripcion }}</option>
+                </select>*@
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <label>Nombre Tercero:</label>
+                            <input type="text" form="formApp" ng-model="vm.entity.nombreTercero" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12 col-md-6">
+                            <label>Departamento:</label>
+                            <ui-select ng-model="vm.entity.idDepartamento"
+                                       form="formApp"
+                                       theme="bootstrap"
+                                       tabindex="7"
+                                       required
+                                       on-select="vm.onChangeDepartamento()">
+                                <ui-select-match placeholder="Seleccione un departamento...">{{$select.selected.nombreDepartamento}}</ui-select-match>
+                                <ui-select-choices repeat="item.idDepartamento as item in vm.listDepartamentos | filter: $select.search">
+                                    <div ng-bind-html="item.nombreDepartamento | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label>Ciudad:</label>
+                            <ui-select ng-model="vm.entity.idCiudad"
+                                       form="formApp"
+                                       theme="bootstrap"
+                                       tabindex="7"
+                                       required>
+                                <ui-select-match placeholder="Seleccione una ciudad...">{{$select.selected.nombreCiudad}}</ui-select-match>
+                                <ui-select-choices repeat="item.idCiudad as item in vm.listCiudades | filter: $select.search">
+                                    <div ng-bind-html="item.nombreCiudad | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12 col-md-6">
+                            <label>Direcci&oacute;n:</label>
+                            <input type="text" form="formApp" ng-model="vm.entity.direccion" class="form-control" required />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label>Tel&eacute;fono:</label>
+                            <input type="text" form="formApp" ng-model="vm.entity.telefono" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12 col-md-4">
+                            <label>Estado:</label>
+                            <select ng-model="vm.entity.estado" form="formApp" class="form-control" required>
+                                <option ng-repeat="item in vm.listEstados" value="{{ item.codigo }}">{{ item.descripcion }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <button class="btn btn-primary" ng-click="vm.guardar()" ng-disabled="formApp.$invalid">Guardar</button>
+                            <button class="btn btn-default" ng-click="vm.cancelar()">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/master/js/controllers/general/terceros.controller.js"></script>
