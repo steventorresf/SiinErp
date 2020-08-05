@@ -17,7 +17,6 @@ namespace SiinErp.Controllers
         public IActionResult CerrarSesion()
         {
             HttpContext.Session.Clear();
-            Response.Redirect("~/Login");
             return View();
         }
 

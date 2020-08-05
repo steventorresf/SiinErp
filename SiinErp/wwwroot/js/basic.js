@@ -17703,3 +17703,28 @@ function FormatNumber(number, element) {
     }
     element.value = numberText;
 }
+
+Date.prototype.DateSiin = function (sep) {
+    var date = new Date(this.valueOf());
+
+    var year = date.getFullYear();
+    var month = (date.getMonth() < 9 ? '0' : '') + (date.getMonth() + 1);
+    var day = (date.getDate() >= 10 ? '' : '0') + date.getDate();
+    var dateFormatted = '';
+
+    if (sep) { dateFormatted = year + '-' + month + '-' + day; }
+    else { dateFormatted = year + '' + month + '' + day; }
+    return dateFormatted;
+}
+
+Date.prototype.addDays = function (days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+}
+
+Date.prototype.addMonths = function (months) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getMonth() + months);
+    return date;
+}

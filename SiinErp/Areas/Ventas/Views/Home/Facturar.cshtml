@@ -4,7 +4,38 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row">
+<style>
+    .fontsize-10 {
+        max-height: 250px;
+    }
+</style>
+
+<div class="row" ng-show="!vm.formFact">
+    <div class="col-12 offset-md-1 col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <h4></h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <input type="date" ng-model="vm.entity.fecha" class="form-control" ng-change="vm.onChangeFecha()" />
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <div class="fontsize-10" ui-grid="vm.gridOptionsFac" ui-grid-selection ui-grid-cellNav ui-grid-edit ui-grid-resize-columns ui-grid-auto-resize></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary" ng-click="vm.nuevo()">Nuevo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-show="vm.formFact">
     <div class="col-12 pl-5 pr-5">
         <div class="row">
             <div class="col-12">
@@ -15,13 +46,14 @@
                     <div class="card-body">
                         <form id="formApp" name="formApp" novalidate="novalidate" class="form-horizontal">
                             <div class="form-group row">
-                                <div class="col-12 col-md-6">
+                                <div class="col-12 col-md-6" ng-show="vm.entityFac.tipoDoc === 'FC'">
                                     <label class="required">Cliente:</label>
                                     <ui-select ng-model="vm.entityFac.idCliente"
                                                form="formApp"
                                                theme="bootstrap"
                                                tabindex="7"
                                                required
+                                               ng-disabled="vm.modify"
                                                on-select="vm.onChangeCliente($item, $model)">
                                         <ui-select-match placeholder="Seleccione un cliente...">{{$select.selected.nombreCliente}}</ui-select-match>
                                         <ui-select-choices repeat="item.idCliente as item in vm.listClientes track by $index">
@@ -29,7 +61,7 @@
                                         </ui-select-choices>
                                     </ui-select>
                                 </div>
-                                <div class="col-12 col-md-3">
+                                <div class="col-12 col-md-3" ng-show="vm.entityFac.tipoDoc === 'FC'">
                                     <label class="required">Plazo de Pago:</label>
                                     <ui-select ng-model="vm.entityFac.idPlazoPago"
                                                form="formApp"
@@ -48,7 +80,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <div class="col-12 col-md-6">
+                                <div class="col-12 col-md-6" ng-show="vm.entityFac.tipoDoc === 'FC'">
                                     <label class="required">Vendedor:</label>
                                     <ui-select ng-model="vm.entityFac.idVendedor"
                                                form="formApp"
@@ -67,7 +99,8 @@
                                                form="formApp"
                                                theme="bootstrap"
                                                tabindex="7"
-                                               required>
+                                               required
+                                               ng-disabled="vm.modify">
                                         <ui-select-match placeholder="Seleccione un almacen...">{{$select.selected.descripcion}}</ui-select-match>
                                         <ui-select-choices repeat="item.idDetalle as item in vm.listAlmacens track by $index">
                                             <div ng-bind-html="item.descripcion | highlight: $select.search"></div>
@@ -87,7 +120,7 @@
                         <h6>Articulos Detallados</h6>
                     </div>
                     <div class="card-body">
-                        <div class="col-12">
+                        <div class="col-12" ng-show="!vm.modify">
                             <ui-select ng-model="vm.entity.idArticulo"
                                        form="formAppDet"
                                        theme="bootstrap"
@@ -139,6 +172,8 @@
                             <div class="row mt-2">
                                 <div class="col-12">
                                     <button class="btn btn-primary" ng-click="vm.guardar()" ng-disabled="formApp.$invalid || vm.gridOptions.data.length === 0">Guardar</button>
+                                    <button class="btn btn-default" ng-click="vm.cancelar()">Cancelar</button>
+                                    <button class="btn btn-danger ml-5" ng-click="vm.anular()" ng-if="vm.modify">Anular</button>
                                 </div>
                             </div>
                         </div>

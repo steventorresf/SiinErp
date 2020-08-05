@@ -59,6 +59,7 @@
       "wwwroot/master/js/services/general/tipos.documento.service.js",
       "wwwroot/master/js/services/general/usuarios.service.js",
       "wwwroot/master/js/services/inventario/articulos.service.js",
+      "wwwroot/master/js/services/inventario/movimientos.detalle.service.js",
       "wwwroot/master/js/services/inventario/movimientos.service.js",
       "wwwroot/master/js/services/inventario/tipos.doc.service.js",
       "wwwroot/master/js/services/ventas/clientes.service.js",

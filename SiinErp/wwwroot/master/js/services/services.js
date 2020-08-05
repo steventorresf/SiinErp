@@ -1429,6 +1429,66 @@
 
     angular
         .module('app')
+        .factory('InvMovimientosDetalleService', InvMovimientosDetalleService);
+
+    InvMovimientosDetalleService.$inject = ['$http', '$q'];
+
+    function InvMovimientosDetalleService($http, $q) {
+        var nameSpace = '/Inventario/api/MovimientosDetalle/';
+
+        var service = {
+            getAll: getAll,
+            create: create,
+            update: update,
+        };
+
+        return service;
+
+        function getAll(idMov) {
+            return $http.get(nameSpace + idMov)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function create(data) {
+            return $http.post(nameSpace, data)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function update(id, data) {
+            return $http.put(nameSpace + id, data)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+    }
+})();
+(function () {
+    'use strict';
+
+    angular
+        .module('app')
         .factory('InvMovimientosService', InvMovimientosService);
 
     InvMovimientosService.$inject = ['$http', '$q'];
@@ -1689,8 +1749,10 @@
         var service = {
             getLastAlm: getLastAlm,
             getPendientesCli: getPendientesCli,
+            getByFecha: getByFecha,
             create: create,
             update: update,
+            remove: remove,
         };
 
         return service;
@@ -1721,6 +1783,19 @@
                 );
         }
 
+        function getByFecha(idEmp, fecha) {
+            return $http.get(nameSpace + 'ByFecha/' + idEmp + '/' + fecha)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
         function create(data) {
             return $http.post(nameSpace, data)
                 .then(
@@ -1739,6 +1814,20 @@
                 .then(
                     function (response) {
                         return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function remove(id) {
+            return $http.delete(nameSpace + id)
+                .then(
+                    function (response) {
+                        return response;
+                        window.location.reload();
                     },
                     function (errResponse) {
                         console.log(errResponse);

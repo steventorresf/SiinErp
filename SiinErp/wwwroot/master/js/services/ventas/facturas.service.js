@@ -13,8 +13,10 @@
         var service = {
             getLastAlm: getLastAlm,
             getPendientesCli: getPendientesCli,
+            getByFecha: getByFecha,
             create: create,
             update: update,
+            remove: remove,
         };
 
         return service;
@@ -45,6 +47,19 @@
                 );
         }
 
+        function getByFecha(idEmp, fecha) {
+            return $http.get(nameSpace + 'ByFecha/' + idEmp + '/' + fecha)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
         function create(data) {
             return $http.post(nameSpace, data)
                 .then(
@@ -63,6 +78,20 @@
                 .then(
                     function (response) {
                         return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function remove(id) {
+            return $http.delete(nameSpace + id)
+                .then(
+                    function (response) {
+                        return response;
+                        window.location.reload();
                     },
                     function (errResponse) {
                         console.log(errResponse);

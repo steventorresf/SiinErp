@@ -129,5 +129,11 @@ namespace SiinErp.Areas.Ventas.Entities
 
         [NotMapped]
         public decimal VrPagar { get; set; }
+
+        [NotMapped]
+        public string NombreCliente { get; set; }
+
+        [NotMapped]
+        public string SFechaFormatted { get; set; }
     }
 }

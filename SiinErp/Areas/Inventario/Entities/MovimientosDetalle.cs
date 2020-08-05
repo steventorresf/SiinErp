@@ -33,5 +33,15 @@ namespace SiinErp.Areas.Inventario.Entities
 
         [Required]
         public decimal VrCosto { get; set; }
+
+        [Required]
+        public decimal VrBruto { get; set; }
+
+        [Required]
+        public decimal VrNeto { get; set; }
+
+
+        [NotMapped]
+        public Articulos Articulo { get; set; }
     }
 }
