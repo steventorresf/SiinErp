@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SiinErp.Areas.Cartera.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,13 +9,17 @@ using System.Threading.Tasks;
 namespace SiinErp.Areas.General.Entities
 {
     [Table("Terceros", Schema = "General")]
-    public class Terceros
+    public class Terceros : Utiles.Auditoria
     {
         [Key]
         public int IdTercero { get; set; }
 
         [Required]
         public int IdEmpresa { get; set; }
+
+        [Required]
+        [StringLength(2)]
+        public string TipoTercero { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -33,21 +38,39 @@ namespace SiinErp.Areas.General.Entities
         [Required]
         public int IdCiudad { get; set; }
 
+        [Required]
         [StringLength(100)]
         public string Direccion { get; set; }
 
+        [Required]
         [StringLength(100)]
         public string Telefono { get; set; }
 
-        [Required]
-        public DateTimeOffset FechaCreacion { get; set; }
+        [StringLength(100)]
+        public string EMail { get; set; }
+
+        public int? IdCuentaContable { get; set; }
+
+        public int? IdPlazoPago { get; set; }
+
+        public int? IdDetZona { get; set; }
+
+        public int? IdVendedor { get; set; }
 
         [Required]
-        public int CreadoPor { get; set; }
+        public decimal LimiteCredito { get; set; }
+
+        public int? IdPadre { get; set; }
+
+        public int? IdListaPrecio { get; set; }
+
+        [Required]
+        public bool Iva { get; set; }
 
         [Required]
         [StringLength(1)]
         public string Estado { get; set; }
+
 
 
         [NotMapped]
@@ -55,5 +78,11 @@ namespace SiinErp.Areas.General.Entities
 
         [NotMapped]
         public int IdDepartamento { get; set; }
+
+        [NotMapped]
+        public string NombreTipoPersona { get; set; }
+
+        [NotMapped]
+        public PlazosPago PlazoPago { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace SiinErp.Areas.General.Controllers
                 var lista = BusinessPer.GetPeriodos(IdEmp);
                 return Ok(lista);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -39,7 +39,7 @@ namespace SiinErp.Areas.General.Controllers
                 var periodo = BusinessPer.GetSiguientePeriodo(IdEmp, CodMod);
                 return Ok(periodo);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -53,7 +53,7 @@ namespace SiinErp.Areas.General.Controllers
                 BusinessPer.Create(entity);
                 return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -67,7 +67,7 @@ namespace SiinErp.Areas.General.Controllers
                 BusinessPer.Update(IdPer, entity);
                 return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

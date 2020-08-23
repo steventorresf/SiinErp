@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using SiinErp.Areas.Cartera.Business;
 using SiinErp.Areas.Cartera.Entities;
+using SiinErp.Areas.Inventario.Entities;
 using SiinErp.Areas.Ventas.Entities;
 using SiinErp.Utiles;
 
@@ -17,20 +18,20 @@ namespace SiinErp.Areas.Cartera.Controllers
     [Area(Constantes.Area_Cartera)]
     public class MovimientosController : ControllerBase
     {
-        private MovimientosBusiness BusinessMov = new MovimientosBusiness();
+        private MovimientosCarBusiness BusinessMov = new MovimientosCarBusiness();
 
         [HttpPost]
         public IActionResult Create([FromBody] JObject data)
         {
             try
             {
-                Movimientos entity = data["entity"].ToObject<Movimientos>();
-                List<FacturasVen> listDetalleFac = data["listDetalleFac"].ToObject<List<FacturasVen>>();
+                MovimientosCar entity = data["entity"].ToObject<MovimientosCar>();
+                List<Movimientos> listDetalleFac = data["listDetalleFac"].ToObject<List<Movimientos>>();
 
                 BusinessMov.Create(entity, listDetalleFac);
                 return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

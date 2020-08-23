@@ -114,5 +114,21 @@ namespace SiinErp.Areas.General.Business
             }
         }
 
+
+        public int? GetUltimoIdAlmacenPuntoVenta(int IdUsuario)
+        {
+            try
+            {
+                SiinErpContext context = new SiinErpContext();
+                Usuarios entity = context.Usuarios.Find(IdUsuario);
+                return entity.UltimoAlmacen;
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("GetUltimoIdAlmacenPuntoVenta", ex.Message, null);
+                throw;
+            }
+        }
+
     }
 }

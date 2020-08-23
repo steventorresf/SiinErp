@@ -25,7 +25,7 @@ namespace SiinErp.Areas.General.Controllers
                 var lista = BusinessTer.GetTerceros(IdEmp);
                 return Ok(lista);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -39,21 +39,21 @@ namespace SiinErp.Areas.General.Controllers
                 var lista = BusinessTer.GetTercerosActivos(IdEmp);
                 return Ok(lista);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
         }
 
         [HttpPost]
-        public IActionResult CreateTercero([FromBody] Terceros entity)
+        public IActionResult Create([FromBody] Terceros entity)
         {
             try
             {
                 BusinessTer.Create(entity);
                 return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -67,10 +67,98 @@ namespace SiinErp.Areas.General.Controllers
                 BusinessTer.Update(IdTer, entity);
                 return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
         }
+
+        #region Proveedores
+        [HttpGet("Prov/{IdEmp}")]
+        public IActionResult GetProveedores(int IdEmp)
+        {
+            try
+            {
+                var lista = BusinessTer.GetProveedores(IdEmp);
+                return Ok(lista);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet("Prov/Act/{IdEmp}")]
+        public IActionResult GetProveedoresActivos(int IdEmp)
+        {
+            try
+            {
+                var lista = BusinessTer.GetProveedoresActivos(IdEmp);
+                return Ok(lista);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPut("Prov/{IdProv}")]
+        public IActionResult UpdateProveedor(int IdProv, [FromBody] Terceros entity)
+        {
+            try
+            {
+                BusinessTer.UpdateProveedor(IdProv, entity);
+                return Ok(true);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        #endregion
+
+        #region Clientes
+        [HttpGet("Cli/{IdEmp}")]
+        public IActionResult GetClientes(int IdEmp)
+        {
+            try
+            {
+                var lista = BusinessTer.GetClientes(IdEmp);
+                return Ok(lista);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet("Cli/Act/{IdEmp}")]
+        public IActionResult GetClientesActivos(int IdEmp)
+        {
+            try
+            {
+                var lista = BusinessTer.GetClientesActivos(IdEmp);
+                return Ok(lista);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPut("Cli/{IdCli}")]
+        public IActionResult UpdateCliente(int IdCli, [FromBody] Terceros entity)
+        {
+            try
+            {
+                BusinessTer.UpdateCliente(IdCli, entity);
+                return Ok(true);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        #endregion
     }
 }

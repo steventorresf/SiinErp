@@ -25,7 +25,7 @@ namespace SiinErp.Areas.General.Controllers
                 var lista = BusinessDep.GetDepartamentos();
                 return Ok(lista);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -37,9 +37,9 @@ namespace SiinErp.Areas.General.Controllers
             try
             {
                 BusinessDep.Create(entity);
-                return Ok("Ok");
+                return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -51,9 +51,9 @@ namespace SiinErp.Areas.General.Controllers
             try
             {
                 BusinessDep.Update(IdDep, entity);
-                return Ok("Ok");
+                return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

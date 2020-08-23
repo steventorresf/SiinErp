@@ -54,7 +54,7 @@ namespace SiinErp.Areas.Inventario.Controllers
                 var entity = BusinessTiposDoc.GetTipoDoc(IdEmp, TipoDoc);
                 return Ok(entity);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -66,9 +66,9 @@ namespace SiinErp.Areas.Inventario.Controllers
             try
             {
                 BusinessTiposDoc.Create(entity);
-                return Ok("Ok");
+                return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -80,9 +80,9 @@ namespace SiinErp.Areas.Inventario.Controllers
             try
             {
                 BusinessTiposDoc.Update(IdTipoDoc, entity);
-                return Ok("Ok");
+                return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

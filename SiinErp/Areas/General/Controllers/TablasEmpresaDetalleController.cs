@@ -25,7 +25,7 @@ namespace SiinErp.Areas.General.Controllers
                 var lista = BusinessTabDet.GetAllTablaDetalleByIdTabEmp(IdTabEmp);
                 return Ok(lista);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -39,7 +39,7 @@ namespace SiinErp.Areas.General.Controllers
                 var lista = BusinessTabDet.GetTablaEmpresaDetalleByCod(CodTab, IdEmp);
                 return Ok(lista);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -51,9 +51,9 @@ namespace SiinErp.Areas.General.Controllers
             try
             {
                 BusinessTabDet.Create(entity);
-                return Ok("Ok");
+                return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -65,9 +65,9 @@ namespace SiinErp.Areas.General.Controllers
             try
             {
                 BusinessTabDet.Update(idDet, entity);
-                return Ok("Ok");
+                return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -79,9 +79,9 @@ namespace SiinErp.Areas.General.Controllers
             try
             {
                 BusinessTabDet.UpdateOrden(IdDet, Orden);
-                return Ok("Ok");
+                return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

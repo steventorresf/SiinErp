@@ -17,7 +17,7 @@ namespace SiinErp.Areas.Compras.Business
             {
                 SiinErpContext context = new SiinErpContext();
                 List<Ordenes> Lista = (from ord in context.Ordenes.Where(x => x.IdEmpresa == IdEmp)
-                                       join pro in context.Proveedores on ord.IdProveedor equals pro.IdProveedor
+                                       join pro in context.Terceros on ord.IdProveedor equals pro.IdTercero
                                        join ppa in context.PlazosPagos on ord.IdPlazoPago equals ppa.IdPlazoPago
                                        select new Ordenes()
                                        {

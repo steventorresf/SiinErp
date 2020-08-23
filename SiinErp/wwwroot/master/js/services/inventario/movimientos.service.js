@@ -16,6 +16,7 @@
             createByEntradaCompra: createByEntradaCompra,
             createByPuntoDeVenta: createByPuntoDeVenta,
             createByFacturaDeVenta: createByFacturaDeVenta,
+            getByModificable: getByModificable,
             update: update,
         };
 
@@ -75,6 +76,19 @@
 
         function createByFacturaDeVenta(data) {
             return $http.post(nameSpace + 'ByFacturaDeVenta/', data)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getByModificable(fecha) {
+            return $http.get(nameSpace + 'ByModificable/' + fecha)
                 .then(
                     function (response) {
                         return response;

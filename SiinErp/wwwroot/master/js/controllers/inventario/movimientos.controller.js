@@ -9,23 +9,148 @@
 
     function AppController($location, $cookies, $scope, growl, movService, tabdetService, tipdocService, artService, terService) {
         var vm = this;
+        var fecha = new Date();
 
         vm.title = 'Home Page';
         vm.init = init;
         vm.userApp = angular.copy($cookies.getObject('UsuApp'));
+        vm.nuevo = nuevo;
         vm.guardar = guardar;
+        vm.cancelar = cancelar;
+        vm.anular = anular;
         vm.onChangeAlmacen = onChangeAlmacen;
         vm.onChangeTipoDoc = onChangeTipoDoc;
         vm.refreshArticulo = refreshArticulo;
         vm.onChangeArticulo = onChangeArticulo;
+        vm.onChangeFecha = getAll;
         vm.almDestino = false;
+        vm.formMov = false;
+        vm.entity = {
+            fecha: fecha.addDays(fecha.getDate() > 1 ? (fecha.getDate() - 1) * -1 : 0),
+        };
         vm.entityMov = {};
+
+        $scope.editar = editar;
         
         function init() {
+            getAll();
             getAlmacens();
             getTerceros();
             getConceptos();
             getCenCostos();
+        }
+
+        function getAll() {
+            var response = movService.getByModificable(vm.entity.fecha.DateSiin(true));
+            response.then(
+                function (response) {
+                    vm.gridOptionsMov = response.data;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        vm.gridOptionsMov = {
+            data: [],
+            enableSorting: true,
+            enableRowSelection: false,
+            enableFullRowSelection: false,
+            multiSelect: false,
+            enableRowHeaderSelection: false,
+            enableColumnMenus: false,
+            enableFiltering: true,
+            columnDefs: [
+                {
+                    name: 'tipoDoc',
+                    field: 'tipoDoc',
+                    displayName: 'TipoDoc',
+                    headerCellClass: 'bg-header',
+                    width: 100,
+                    enableCellEdit: false,
+                },
+                {
+                    name: 'numDoc',
+                    field: 'numDoc',
+                    displayName: 'NumDoc',
+                    headerCellClass: 'bg-header',
+                    width: 100,
+                    enableCellEdit: false,
+                },
+                {
+                    name: 'fechaDoc',
+                    field: 'fechaDoc',
+                    displayName: 'FechaDoc',
+                    headerCellClass: 'bg-header',
+                    cellClass: 'text-center',
+                    width: 100,
+                    type: 'date',
+                    cellFilter: 'date: \'dd/MM/yyyy\'',
+                },
+                {
+                    name: 'nombreAlmacen',
+                    field: 'nombreAlmacen',
+                    displayName: 'NombreAlmacen',
+                    headerCellClass: 'bg-header',
+                },
+                {
+                    name: 'tool',
+                    field: '',
+                    displayName: '',
+                    enableColumnMenu: false,
+                    enableFiltering: false,
+                    enableSorting: false,
+                    headerCellClass: 'bg-header',
+                    cellClass: 'text-center',
+                    cellTemplate:
+                        "<span><a href='' ng-click='grid.appScope.editar(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<i class='fa fa-edit'></i></a></span>",
+                    width: 80,
+                    enableCellEdit: false,
+                }
+            ],
+            onRegisterApi: function (gridApi) {
+                vm.gridApiMov = gridApi;
+                gridApi.edit.on.afterCellEdit($scope, function (rowEntity, colDef, newValue, oldValue) {
+                    rowEntity.valorBruto = (rowEntity.vrUnitario * rowEntity.cantidad);
+                    rowEntity.valorNeto = rowEntity.valorBruto - (rowEntity.valorBruto * rowEntity.pcDscto / 100) + (rowEntity.valorBruto * rowEntity.pcIva / 100);
+                    CalcularTotales();
+                });
+            },
+        };
+
+        function editar(entity) {
+            vm.entityMov = angular.copy(entity);
+            vm.entityMov.fechaDoc = new Date(angular.copy(entity.sFechaFormatted).toString());
+            vm.entityMov.idDetAlmacen = angular.copy(entity.idDetAlmacen);
+
+            getDetalleMov();
+
+            vm.modify = true;
+            $scope.modify = true;
+            vm.formMov = true;
+        }
+
+        function getDetalleMov() {
+            var response = movdetService.getAll(vm.entityMov.idMovimiento);
+            response.then(
+                function (response) {
+                    vm.gridOptions.data = response.data;
+                    CalcularTotales();
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        function nuevo() {
+            vm.entityMov = {};
+            vm.idArticulo = null;
+            vm.modify = false;
+            $scope.modify = false;
+            vm.formMov = true;
         }
 
         function getAlmacens() {
@@ -294,6 +419,22 @@
                     }
                 );
             }
+        }
+
+        function cancelar() {
+            vm.formMov = false;
+        }
+
+        function anular() {
+            var response = movService.remove(vm.entityMov.idMovimiento);
+            response.then(
+                function (response) {
+                    window.location.reload();
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
         }
 
     }

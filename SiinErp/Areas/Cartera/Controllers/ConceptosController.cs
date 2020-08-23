@@ -25,7 +25,7 @@ namespace SiinErp.Areas.Cartera.Controllers
                 var lista = BusinessCon.GetConceptos(IdEmp);
                 return Ok(lista);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -39,7 +39,7 @@ namespace SiinErp.Areas.Cartera.Controllers
                 var lista = BusinessCon.GetConceptosByTipoDoc(IdTipoDoc);
                 return Ok(lista);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -53,7 +53,7 @@ namespace SiinErp.Areas.Cartera.Controllers
                 BusinessCon.Create(entity);
                 return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -67,7 +67,7 @@ namespace SiinErp.Areas.Cartera.Controllers
                 BusinessCon.Update(IdCon, entity);
                 return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

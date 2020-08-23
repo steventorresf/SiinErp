@@ -31,7 +31,7 @@ namespace SiinErp.Areas.Inventario.Controllers
                 BusinessMov.Create(entityMov, listDetalleMov);
                 return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -50,7 +50,7 @@ namespace SiinErp.Areas.Inventario.Controllers
                 BusinessMov.CreateByEntradaCompra(numFactura, entityOrd, entityMov, listDetalleMov);
                 return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -63,12 +63,12 @@ namespace SiinErp.Areas.Inventario.Controllers
             {
                 Movimientos entityMov = data["entityMov"].ToObject<Movimientos>();
                 List<MovimientosDetalle> listDetalleMov = data["listDetalleMov"].ToObject<List<MovimientosDetalle>>();
-                List<FacturasFormasDePago> listDetallePag = data["listDetallePag"].ToObject<List<FacturasFormasDePago>>();
+                List<MovimientosFormasPago> listDetallePag = data["listDetallePag"].ToObject<List<MovimientosFormasPago>>();
 
                 BusinessMov.CreateByPuntoDeVenta(entityMov, listDetalleMov, listDetallePag);
                 return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -81,15 +81,86 @@ namespace SiinErp.Areas.Inventario.Controllers
             {
                 Movimientos entityMov = data["entityMov"].ToObject<Movimientos>();
                 List<MovimientosDetalle> listDetalleMov = data["listDetalleMov"].ToObject<List<MovimientosDetalle>>();
-                FacturasVen entityFac = data["entityFac"].ToObject<FacturasVen>();
 
-                BusinessMov.CreateByFacturaDeVenta(entityMov, listDetalleMov, entityFac);
+                BusinessMov.CreateByFacturaDeVenta(entityMov, listDetalleMov);
                 return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
         }
+
+        [HttpGet("ByModificable/{Fecha}")]
+        public IActionResult GetByModificable(DateTime Fecha)
+        {
+            try
+            {
+                var lista = BusinessMov.GetMovimientosByModificable(Fecha);
+                return Ok(lista);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        #region Facturas
+        [HttpGet("PenCli/{IdCli}")]
+        public IActionResult GetPendientesByCli(int IdCli)
+        {
+            try
+            {
+                var lista = BusinessMov.GetPendientesByCli(IdCli);
+                return Ok(lista);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet("ByFecha/{IdEmp}/{Fecha}")]
+        public IActionResult GetFacturasByFecha(int IdEmp, string Fecha)
+        {
+            try
+            {
+                var lista = BusinessMov.GetFacturasByFecha(IdEmp, DateTimeOffset.Parse(Fecha));
+                return Ok(lista);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPut("{IdFac}")]
+        public IActionResult UpdateFactura(int IdFac, [FromBody] Movimientos entity)
+        {
+            try
+            {
+                BusinessMov.UpdateFactura(entity);
+                return Ok(true);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpDelete("{IdFac}")]
+        public IActionResult AnularFactura(int IdFac)
+        {
+            try
+            {
+                BusinessMov.AnularFactura(IdFac);
+                return Ok(true);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        #endregion
     }
 }

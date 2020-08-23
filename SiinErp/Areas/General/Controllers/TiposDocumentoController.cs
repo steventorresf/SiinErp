@@ -25,7 +25,7 @@ namespace SiinErp.Areas.General.Controllers
                 var lista = BusinessDoc.GetTiposDocumentos(IdEmp);
                 return Ok(lista);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -39,7 +39,7 @@ namespace SiinErp.Areas.General.Controllers
                 var entity = BusinessDoc.GetTipoDocumento(Cod);
                 return Ok(entity);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -53,7 +53,7 @@ namespace SiinErp.Areas.General.Controllers
                 var entity = BusinessDoc.GetTiposDocumentosByModulo(IdEmp, CodMod);
                 return Ok(entity);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -65,9 +65,9 @@ namespace SiinErp.Areas.General.Controllers
             try
             {
                 BusinessDoc.Create(entity);
-                return Ok("Ok");
+                return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -79,9 +79,9 @@ namespace SiinErp.Areas.General.Controllers
             try
             {
                 BusinessDoc.Update(IdTipoDoc, entity);
-                return Ok("Ok");
+                return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

@@ -25,7 +25,7 @@ namespace SiinErp.Areas.Cartera.Controllers
                 var lista = BusinessPlazo.GetPlazosPagos(IdEmp);
                 return Ok(lista);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -39,7 +39,7 @@ namespace SiinErp.Areas.Cartera.Controllers
                 BusinessPlazo.Create(entity);
                 return Ok("Ok");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -53,7 +53,7 @@ namespace SiinErp.Areas.Cartera.Controllers
                 BusinessPlazo.Update(IdPlazo, entity);
                 return Ok("Ok");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

@@ -55,22 +55,18 @@ namespace SiinErp.Models
         #region Cartera
         public virtual DbSet<Conceptos> Conceptos { get; set; }
 
-        public virtual DbSet<Areas.Cartera.Entities.Movimientos> MovimientosCar { get; set; }
+        public virtual DbSet<MovimientosCar> MovimientosCar { get; set; }
 
-        public virtual DbSet<Areas.Cartera.Entities.MovimientosDetalle> MovimientosCarDetalles { get; set; }
+        public virtual DbSet<MovimientosCarDetalle> MovimientosCarDetalles { get; set; }
 
         public virtual DbSet<PlazosPago> PlazosPagos { get; set; }
         #endregion
 
 
         #region Compras
-        public virtual DbSet<Facturas> Facturas { get; set; }
-
         public virtual DbSet<Ordenes> Ordenes { get; set; }
 
         public virtual DbSet<OrdenesDetalle> OrdenesDetalles { get; set; }
-
-        public virtual DbSet<Proveedores> Proveedores { get; set; }
         #endregion
 
 
@@ -79,21 +75,17 @@ namespace SiinErp.Models
 
         public virtual DbSet<Existencias> Existencias { get; set; }
 
-        public virtual DbSet<Areas.Inventario.Entities.Movimientos> Movimientos { get; set; }
+        public virtual DbSet<Movimientos> Movimientos { get; set; }
 
-        public virtual DbSet<Areas.Inventario.Entities.MovimientosDetalle> MovimientosDetalles { get; set; }
+        public virtual DbSet<MovimientosDetalle> MovimientosDetalles { get; set; }
+
+        public virtual DbSet<MovimientosFormasPago> MovimientosFormasPagos { get; set; }
 
         public virtual DbSet<TiposDoc> TiposDoc { get; set; }
         #endregion
 
 
         #region Ventas
-        public virtual DbSet<Clientes> Clientes { get; set; }
-
-        public virtual DbSet<FacturasFormasDePago> FacturasFormasDePagos { get; set; }
-
-        public virtual DbSet<FacturasVen> FacturasVen { get; set; }
-
         public virtual DbSet<ListaPrecios> ListaPrecios { get; set; }
 
         public virtual DbSet<ListaPreciosDetalle> ListaPreciosDetalles { get; set; }

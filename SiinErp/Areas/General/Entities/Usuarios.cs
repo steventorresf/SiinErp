@@ -29,6 +29,8 @@ namespace SiinErp.Areas.General.Entities
         [StringLength(1)]
         public string Estado { get; set; }
 
+        public int? UltimoAlmacen { get; set; }
+
 
         [NotMapped]
         public string NombreEstado { get; set; }

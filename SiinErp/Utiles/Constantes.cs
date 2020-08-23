@@ -17,6 +17,16 @@ namespace SiinErp.Utiles
         public const string Area_Tesoreria = "Tesoreria";
         public const string Area_Ventas = "Ventas";
 
+        // Modulos
+        public const string ModuloVentas = "VEN";
+        public const string ModuloCompras = "COM";
+        public const string ModuloInventario = "INV";
+
+        // Tipos de terceros
+        public const string Cliente = "CL";
+        public const string Proveedor = "PR";
+        public const string Otros = "OT";
+
         // Estados
         public const string EstadoActivo = "A";
         public const string EstadoInactivo = "I";

@@ -152,19 +152,19 @@
                     <div class="card-body">
                         <div class="col-12">
                             <div class="row">
-                                <div class="col-12 col-md-3">
+                                <div class="col-12 col-md-3" ng-if="vm.entity.valorBruto > 0">
                                     <label>Vr. Bruto:</label>
                                     <input type="text" ng-model="vm.entity.valorBruto | number : 0" class="form-control" onkeydown="return false" />
                                 </div>
-                                <div class="col-12 col-md-3">
+                                <div class="col-12 col-md-3" ng-if="vm.entity.valorDscto > 0">
                                     <label>Vr. Descuento:</label>
                                     <input type="text" ng-model="vm.entity.valorDscto | number : 0" class="form-control" onkeydown="return false" />
                                 </div>
-                                <div class="col-12 col-md-3">
+                                <div class="col-12 col-md-3" ng-if="vm.entity.valorIva > 0">
                                     <label>Vr. Iva:</label>
                                     <input type="text" ng-model="vm.entity.valorIva | number : 0" class="form-control" onkeydown="return false" />
                                 </div>
-                                <div class="col-12 col-md-3">
+                                <div class="col-12 col-md-3" ng-if="vm.entity.valorNeto > 0">
                                     <label>Vr. Neto:</label>
                                     <input type="text" ng-model="vm.entity.valorNeto | number : 0" class="form-control" onkeydown="return false" />
                                 </div>

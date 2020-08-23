@@ -26,7 +26,7 @@ namespace SiinErp.Areas.Inventario.Controllers
                 var lista = BusinessArt.GetArticulos(IdEmp);
                 return Ok(lista);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -43,7 +43,7 @@ namespace SiinErp.Areas.Inventario.Controllers
                 var lista = BusinessArt.GetArticulosByPrefix(IdEmp, Prefix);
                 return Ok(lista);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -61,7 +61,7 @@ namespace SiinErp.Areas.Inventario.Controllers
                 var lista = BusinessArt.GetArticulosByAlmacenPrefix(IdDetAlm, IdEmp, Prefix);
                 return Ok(lista);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -73,9 +73,9 @@ namespace SiinErp.Areas.Inventario.Controllers
             try
             {
                 BusinessArt.Create(entity);
-                return Ok("Ok");
+                return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -87,9 +87,9 @@ namespace SiinErp.Areas.Inventario.Controllers
             try
             {
                 BusinessArt.Update(IdArt, entity);
-                return Ok("Ok");
+                return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

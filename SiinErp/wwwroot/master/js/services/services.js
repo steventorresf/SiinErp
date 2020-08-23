@@ -1085,13 +1085,34 @@
         var nameSpace = '/General/api/Terceros/';
 
         var service = {
+            create: create,
             getAll: getAll,
             getAct: getAct,
-            create: create,
             update: update,
+
+            getAllPro: getAllPro,
+            getActPro: getActPro,
+            updatePro: updatePro,
+
+            getAllCli: getAllCli,
+            getActCli: getActCli,
+            updateCli: updateCli,
         };
 
         return service;
+
+        function create(data) {
+            return $http.post(nameSpace, data)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
 
         function getAll(idEmp) {
             return $http.get(nameSpace + idEmp)
@@ -1119,8 +1140,8 @@
                 );
         }
 
-        function create(data) {
-            return $http.post(nameSpace, data)
+        function update(id, data) {
+            return $http.put(nameSpace + id, data)
                 .then(
                     function (response) {
                         return response;
@@ -1132,8 +1153,75 @@
                 );
         }
 
-        function update(id, data) {
-            return $http.put(nameSpace + id, data)
+        // Proveedores
+        function getAllPro(idEmp) {
+            return $http.get(nameSpace + 'Prov/' + idEmp)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getActPro(idEmp) {
+            return $http.get(nameSpace + 'Prov/ByAct/' + idEmp)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function updatePro(id, data) {
+            return $http.put(nameSpace + 'Prov/' + id, data)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        // Clientes
+        function getAllCli(idEmp) {
+            return $http.get(nameSpace + 'Cli/' + idEmp)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getActCli(idEmp) {
+            return $http.get(nameSpace + 'Cli/ByAct/' + idEmp)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function updateCli(id, data) {
+            return $http.put(nameSpace + 'Cli/' + id, data)
                 .then(
                     function (response) {
                         return response;
@@ -1252,6 +1340,7 @@
             update: update,
             upEstado: upEstado,
             resetClave: resetClave,
+            getLastAlm: getLastAlm,
         };
 
         return service;
@@ -1323,6 +1412,19 @@
 
         function resetClave(id) {
             return $http.put(nameSpace + 'Reset/' + id + '/')
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getLastAlm(id) {
+            return $http.get(nameSpace + 'UltAlm/' + id + '/')
                 .then(
                     function (response) {
                         return response;
@@ -1502,6 +1604,7 @@
             createByEntradaCompra: createByEntradaCompra,
             createByPuntoDeVenta: createByPuntoDeVenta,
             createByFacturaDeVenta: createByFacturaDeVenta,
+            getByModificable: getByModificable,
             update: update,
         };
 
@@ -1561,6 +1664,19 @@
 
         function createByFacturaDeVenta(data) {
             return $http.post(nameSpace + 'ByFacturaDeVenta/', data)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getByModificable(fecha) {
+            return $http.get(nameSpace + 'ByModificable/' + fecha)
                 .then(
                     function (response) {
                         return response;

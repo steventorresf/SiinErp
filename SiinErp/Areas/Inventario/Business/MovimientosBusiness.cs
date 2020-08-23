@@ -54,7 +54,7 @@ namespace SiinErp.Areas.Inventario.Business
                         entityEt.IdDetAlmacen = Convert.ToInt32(entityMov.IdDetAlmDestino);
                         entityEt.IdDetAlmDestino = entityMov.IdDetAlmacen;
                         entityEt.IdEmpresa = entityMov.IdEmpresa;
-                        entityEt.IdUsuario = entityMov.IdUsuario;
+                        entityEt.CreadoPor = entityMov.CreadoPor;
                         entityEt.Estado = entityMov.Estado;
                         entityEt.FechaDoc = entityMov.FechaDoc;
                         entityEt.Periodo = entityMov.Periodo;
@@ -131,43 +131,6 @@ namespace SiinErp.Areas.Inventario.Business
                         vrIva += m.VrUnitario * m.Cantidad * m.PcIva / 100;
                     }
 
-                    Facturas factura = new Facturas();
-                    factura.TipoDoc = entityMov.TipoDoc;
-                    factura.NumDoc = entityMov.NumDoc;
-                    factura.Comentario = entityMov.Comentario;
-                    factura.FechaDoc = entityMov.FechaDoc;
-                    factura.Periodo = entityMov.Periodo;
-                    factura.IdDetAlmacen = entityMov.IdDetAlmacen;
-                    factura.IdDetCenCosto = Convert.ToInt32(entityMov.IdDetCenCosto);
-                    factura.IdUsuario = entityMov.IdUsuario;
-                    factura.IdEmpresa = entityMov.IdEmpresa;
-                    factura.IdMovimiento = obMov.IdMovimiento;
-                    factura.IdProveedor = Convert.ToInt32(obMov.IdTercero);
-                    factura.IdOrden = entityOrd.IdOrden;
-                    factura.IdPlazoPago = entityOrd.IdPlazoPago;
-                    factura.NumeroCuotas = entityOrd.PlazoPago.Cuotas;
-                    factura.NumFactura = numFactura;
-                    factura.PcDscto = 0;
-                    factura.PcDsctoProntoPago = 0;
-                    factura.PcInteres = 0;
-                    factura.PcSeguro = 0;
-                    factura.ValorBruto = vrBruto;
-                    factura.ValorDscto = vrDscto;
-                    factura.ValorFlete = 0;
-                    factura.ValorIva = vrIva;
-                    factura.ValorNeto = vrBruto - vrDscto + vrIva;
-                    factura.ValorNotaCredito = 0;
-                    factura.ValorNotaDebito = 0;
-                    factura.ValorOtros = 0;
-                    factura.ValorPagado = 0;
-                    factura.ValorSeguro = 0;
-                    factura.FechaPago = factura.FechaDoc.AddDays(entityOrd.PlazoPago.PlazoDias);
-                    factura.FechaVencimiento = factura.FechaDoc.AddDays(entityOrd.PlazoPago.PlazoDias);
-                    factura.Estado = Constantes.EstadoActivo;
-                    factura.NumRemision = null;
-                    factura.FechaCreacion = DateTimeOffset.Now;
-                    context.Facturas.Add(factura);
-                    context.SaveChanges();
 
                     List<OrdenesDetalle> listDetalleOrd = context.OrdenesDetalles.Where(x => x.IdOrden == entityOrd.IdOrden).ToList();
                     foreach (OrdenesDetalle det in listDetalleOrd)
@@ -193,7 +156,7 @@ namespace SiinErp.Areas.Inventario.Business
             }
         }
 
-        public void CreateByPuntoDeVenta(Movimientos entityMov, List<MovimientosDetalle> listaDetalleMov, List<FacturasFormasDePago> listaDetallePag)
+        public void CreateByPuntoDeVenta(Movimientos entityMov, List<MovimientosDetalle> listaDetalleMov, List<MovimientosFormasPago> listaDetallePag)
         {
             try
             {
@@ -226,44 +189,11 @@ namespace SiinErp.Areas.Inventario.Business
                         vrIva += m.VrUnitario * m.Cantidad * m.PcIva / 100;
                     }
 
-                    FacturasVen entityFac = new FacturasVen();
-                    entityFac.TipoDoc = entityMov.TipoDoc;
-                    entityFac.NumDoc = entityMov.NumDoc;
-                    entityFac.Comentario = entityMov.Comentario;
-                    entityFac.FechaDoc = entityMov.FechaDoc;
-                    entityFac.Periodo = entityMov.Periodo;
-                    entityFac.IdDetAlmacen = entityMov.IdDetAlmacen;
-                    entityFac.IdUsuario = entityMov.IdUsuario;
-                    entityFac.IdEmpresa = entityMov.IdEmpresa;
-                    entityFac.IdMovimiento = obMov.IdMovimiento;
-                    entityFac.NumCuotas = 0;
-                    entityFac.PcDscto = 0;
-                    entityFac.PcDsctoProntoPago = 0;
-                    entityFac.PcInteres = 0;
-                    entityFac.PcSeguro = 0;
-                    entityFac.ValorBruto = vrBruto;
-                    entityFac.ValorDscto = vrDscto;
-                    entityFac.ValorFletes = 0;
-                    entityFac.ValorIva = vrIva;
-                    entityFac.ValorNeto = vrBruto - vrDscto + vrIva;
-                    entityFac.ValorNotaCr = 0;
-                    entityFac.ValorNotaDb = 0;
-                    entityFac.ValorOtros = 0;
-                    entityFac.ValorSaldo = 0;
-                    entityFac.ValorSeguro = 0;
-                    entityFac.FechaPago = entityFac.FechaDoc;
-                    entityFac.FechaVencimiento = entityFac.FechaDoc;
-                    entityFac.Estado = Constantes.EstadoActivo;
-                    entityFac.FechaCreacion = DateTimeOffset.Now;
-                    context.FacturasVen.Add(entityFac);
-                    context.SaveChanges();
-
-                    FacturasVen obFac = context.FacturasVen.FirstOrDefault(x => x.NumDoc == entityFac.NumDoc && x.TipoDoc.Equals(entityFac.TipoDoc));
-                    foreach (FacturasFormasDePago fp in listaDetallePag)
+                    foreach (MovimientosFormasPago mfp in listaDetallePag)
                     {
-                        fp.IdFactura = obFac.IdFactura;
+                        mfp.IdMovimiento = obMov.IdMovimiento;
                     }
-                    context.FacturasFormasDePagos.AddRange(listaDetallePag);
+                    context.MovimientosFormasPagos.AddRange(listaDetallePag);
                     context.SaveChanges();
 
                     context.MovimientosDetalles.AddRange(listaDetalleMov);
@@ -279,7 +209,7 @@ namespace SiinErp.Areas.Inventario.Business
             }
         }
 
-        public void CreateByFacturaDeVenta(Movimientos entityMov, List<MovimientosDetalle> listaDetalleMov, FacturasVen entityFac)
+        public void CreateByFacturaDeVenta(Movimientos entityMov, List<MovimientosDetalle> listaDetalleMov)
         {
             try
             {
@@ -312,20 +242,6 @@ namespace SiinErp.Areas.Inventario.Business
                         vrIva += m.VrUnitario * m.Cantidad * m.PcIva / 100;
                     }
 
-                    entityFac.TipoDoc = entityMov.TipoDoc;
-                    entityFac.NumDoc = entityMov.NumDoc;
-                    entityFac.Periodo = entityMov.Periodo;
-                    entityFac.IdMovimiento = obMov.IdMovimiento;
-                    entityFac.ValorBruto = vrBruto;
-                    entityFac.ValorDscto = vrDscto;
-                    entityFac.ValorIva = vrIva;
-                    entityFac.ValorNeto = vrBruto - vrDscto + vrIva;
-                    entityFac.ValorSaldo = entityFac.PlazoDias > 0 ? entityFac.ValorNeto : 0;
-                    entityFac.FechaVencimiento = entityFac.FechaDoc.AddDays(entityFac.PlazoDias);
-                    entityFac.FechaCreacion = DateTimeOffset.Now;
-                    context.FacturasVen.Add(entityFac);
-                    context.SaveChanges();
-
                     context.MovimientosDetalles.AddRange(listaDetalleMov);
                     context.SaveChanges();
 
@@ -338,5 +254,146 @@ namespace SiinErp.Areas.Inventario.Business
                 throw;
             }
         }
+
+
+        public List<Movimientos> GetMovimientosByModificable(DateTime Fecha)
+        {
+            try
+            {
+                SiinErpContext context = new SiinErpContext();
+                List<Movimientos> Lista = (from tip in context.TiposDoc.Where(x => x.EsModificable)
+                                           join mov in context.Movimientos.Where(x => x.FechaDoc >= Fecha && x.Estado.Equals(Constantes.EstadoActivo)) on tip.TipoDoc equals mov.TipoDoc
+                                           join alm in context.TablasEmpresaDetalles on mov.IdDetAlmacen equals alm.IdDetalle
+                                           select new Movimientos()
+                                           {
+                                               IdMovimiento = mov.IdMovimiento,
+                                               TipoDoc = mov.TipoDoc,
+                                               NumDoc = mov.NumDoc,
+                                               FechaDoc = mov.FechaDoc,
+                                               Comentario = mov.Comentario,
+                                               Estado = mov.Estado,
+                                               IdDetAlmacen = mov.IdDetAlmacen,
+                                               NombreAlmacen = alm.Descripcion,
+                                           }).OrderByDescending(x => x.FechaDoc).ToList();
+                return Lista;
+            }
+            catch(Exception ex)
+            {
+                ErroresBusiness.Create("GetMovimientosByModificable", ex.Message, null);
+                throw;
+            }
+        }
+
+        #region Facturas
+        public List<Movimientos> GetPendientesByCli(int IdCliente)
+        {
+            try
+            {
+                SiinErpContext context = new SiinErpContext();
+                List<Movimientos> Lista = (from f in context.Movimientos.Where(x => x.IdTercero == IdCliente && x.Estado.Equals(Constantes.EstadoActivo))
+                                           select new Movimientos()
+                                           {
+                                               IdMovimiento = f.IdMovimiento,
+                                               TipoDoc = f.TipoDoc,
+                                               NumDoc = f.NumDoc,
+                                               FechaDoc = f.FechaDoc,
+                                               FechaVencimiento = f.FechaVencimiento,
+                                               ValorSaldo = f.ValorNeto - f.ValorPagado,
+                                               VrPagar = 0,
+                                               ValorDscto = 0,
+                                               ValorNeto = 0
+                                           }).ToList();
+                return Lista;
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("GetPendientesByCli", ex.Message, null);
+                throw;
+            }
+        }
+
+        public List<Movimientos> GetFacturasByFecha(int IdEmpresa, DateTimeOffset Fecha)
+        {
+            try
+            {
+                SiinErpContext context = new SiinErpContext();
+                List<Movimientos> Lista = (from f in context.Movimientos.Where(x => x.IdEmpresa == IdEmpresa && x.FechaDoc >= Fecha && x.CodModulo.Equals(Constantes.ModuloVentas) && x.Estado.Equals(Constantes.EstadoActivo))
+                                           join c in context.Terceros on f.IdTercero equals c.IdTercero into LeftJoin
+                                           from LJ in LeftJoin.DefaultIfEmpty()
+                                           select new Movimientos()
+                                           {
+                                               IdMovimiento = f.IdMovimiento,
+                                               TipoDoc = f.TipoDoc,
+                                               NumDoc = f.NumDoc,
+                                               IdTercero = f.IdTercero,
+                                               IdVendedor = f.IdVendedor,
+                                               FechaDoc = f.FechaDoc,
+                                               sFechaFormatted = f.FechaDoc.ToString("MM/dd/yyyy"),
+                                               ValorNeto = f.ValorNeto,
+                                               IdDetAlmacen = f.IdDetAlmacen,
+                                               NombreTercero = LJ != null ? LJ.NombreTercero : "",
+                                           }).ToList();
+                return Lista;
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("GetFacturasByFecha", ex.Message, null);
+                throw;
+            }
+        }
+
+        public void UpdateFactura(Movimientos entity)
+        {
+            try
+            {
+                SiinErpContext context = new SiinErpContext();
+                using (var tran = context.Database.BeginTransaction())
+                {
+                    Movimientos obFac = context.Movimientos.Find(entity.IdMovimiento);
+                    obFac.FechaDoc = entity.FechaDoc;
+                    obFac.IdVendedor = entity.IdVendedor;
+                    obFac.Comentario = entity.Comentario;
+                    context.SaveChanges();
+
+                    tran.Commit();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("UpdateFactura", ex.Message, null);
+                throw;
+            }
+        }
+
+        public void AnularFactura(int IdFac)
+        {
+            try
+            {
+                SiinErpContext context = new SiinErpContext();
+                using (var tran = context.Database.BeginTransaction())
+                {
+                    Movimientos entityMov = context.Movimientos.Find(IdFac);
+                    entityMov.Estado = Constantes.EstadoInactivo;
+                    context.SaveChanges();
+
+                    List<MovimientosDetalle> listDetalle = context.MovimientosDetalles.Where(x => x.IdMovimiento == entityMov.IdMovimiento).ToList();
+                    foreach (MovimientosDetalle md in listDetalle)
+                    {
+                        Existencias existencia = context.Existencias.FirstOrDefault(x => x.IdDetAlmacen == entityMov.IdDetAlmacen && x.IdArticulo == md.IdArticulo);
+                        existencia.Existencia += (md.Cantidad * entityMov.Transaccion * -1);
+                        context.SaveChanges();
+                    }
+                    context.SaveChanges();
+
+                    tran.Commit();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("AnularFactura", ex.Message, null);
+                throw;
+            }
+        }
+        #endregion
     }
 }

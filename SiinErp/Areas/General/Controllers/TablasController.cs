@@ -25,7 +25,7 @@ namespace SiinErp.Areas.General.Controllers
                 var lista = BusinessTab.GetTablas();
                 return Ok(lista);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -39,7 +39,7 @@ namespace SiinErp.Areas.General.Controllers
                 var lista = BusinessTab.GetNoTablasEmpresa(IdEmp);
                 return Ok(lista);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -51,9 +51,9 @@ namespace SiinErp.Areas.General.Controllers
             try
             {
                 BusinessTab.Create(entity);
-                return Ok("Ok");
+                return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -65,9 +65,9 @@ namespace SiinErp.Areas.General.Controllers
             try
             {
                 BusinessTab.Update(IdTab, entity);
-                return Ok("Ok");
+                return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

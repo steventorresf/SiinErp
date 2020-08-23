@@ -24,7 +24,7 @@ namespace SiinErp.Areas.General.Controllers
                 var lista = BusinessMod.GetModulos();
                 return Ok(lista);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -38,7 +38,7 @@ namespace SiinErp.Areas.General.Controllers
                 var lista = BusinessMod.GetModulosPer();
                 return Ok(lista);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

@@ -8,13 +8,17 @@ using System.Threading.Tasks;
 namespace SiinErp.Areas.Inventario.Entities
 {
     [Table("Movimientos", Schema = "Inventario")]
-    public class Movimientos
+    public class Movimientos : Utiles.Auditoria
     {
         [Key]
         public int IdMovimiento { get; set; }
 
         [Required]
         public int IdEmpresa { get; set; }
+
+        [Required]
+        [StringLength(3)]
+        public string CodModulo { get; set; }
 
         [Required]
         [StringLength(5)]
@@ -35,6 +39,9 @@ namespace SiinErp.Areas.Inventario.Entities
         public DateTimeOffset FechaDoc { get; set; }
 
         [Required]
+        public DateTimeOffset FechaVencimiento { get; set; }
+
+        [Required]
         [StringLength(6)]
         public string Periodo { get; set; }
 
@@ -46,16 +53,67 @@ namespace SiinErp.Areas.Inventario.Entities
         [StringLength(500)]
         public string Comentario { get; set; }
 
-        [Required]
-        public DateTimeOffset FechaCreacion { get; set; }
+        public int? IdDetAlmDestino { get; set; }
+
+        public string NumFactura { get; set; }
+
+        public string NumRemision { get; set; }
+
+        public int? IdOrden { get; set; }
+
+        public int? IdPedido { get; set; }
+
+        public int? IdVendedor { get; set; }
 
         [Required]
-        public int IdUsuario { get; set; }
+        public decimal ValorNeto { get; set; }
+
+        [Required]
+        public decimal ValorSeguro { get; set; }
+
+        [Required]
+        public decimal ValorFlete { get; set; }
+
+        [Required]
+        public decimal ValorIva { get; set; }
+
+        [Required]
+        public decimal ValorDscto { get; set; }
+
+        [Required]
+        public decimal ValorOtros { get; set; }
+
+        [Required]
+        public decimal ValorBruto { get; set; }
+
+        [Required]
+        public decimal ValorPagado { get; set; }
+
+        [Required]
+        public decimal ValorNotaCredito { get; set; }
+
+        [Required]
+        public decimal ValorNotaDebito { get; set; }
 
         [Required]
         [StringLength(1)]
         public string Estado { get; set; }
 
-        public int? IdDetAlmDestino { get; set; }
+
+
+        [NotMapped]
+        public string NombreTercero { get; set; }
+
+        [NotMapped]
+        public string NombreAlmacen { get; set; }
+
+        [NotMapped]
+        public decimal VrPagar { get; set; }
+
+        [NotMapped]
+        public string sFechaFormatted { get; set; }
+
+        [NotMapped]
+        public decimal ValorSaldo { get; set; }
     }
 }

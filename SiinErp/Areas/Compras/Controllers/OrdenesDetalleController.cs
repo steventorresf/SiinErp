@@ -25,7 +25,7 @@ namespace SiinErp.Areas.Compras.Controllers
                 var lista = BusinessOrdDet.GetOrdenDetalle(IdOrd);
                 return Ok(lista);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -39,7 +39,7 @@ namespace SiinErp.Areas.Compras.Controllers
                 BusinessOrdDet.Create(entity);
                 return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -53,7 +53,7 @@ namespace SiinErp.Areas.Compras.Controllers
                 BusinessOrdDet.UpdateOrdenDetalle(IdDet, entity);
                 return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -67,7 +67,7 @@ namespace SiinErp.Areas.Compras.Controllers
                 BusinessOrdDet.DeleteOrdenDetalle(IdDet);
                 return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

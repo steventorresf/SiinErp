@@ -16,6 +16,7 @@
             update: update,
             upEstado: upEstado,
             resetClave: resetClave,
+            getLastAlm: getLastAlm,
         };
 
         return service;
@@ -87,6 +88,19 @@
 
         function resetClave(id) {
             return $http.put(nameSpace + 'Reset/' + id + '/')
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getLastAlm(id) {
+            return $http.get(nameSpace + 'UltAlm/' + id + '/')
                 .then(
                     function (response) {
                         return response;

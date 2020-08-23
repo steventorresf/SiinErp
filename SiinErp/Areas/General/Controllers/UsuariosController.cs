@@ -63,6 +63,20 @@ namespace SiinErp.Areas.General.Controllers
             }
         }
 
+        [HttpGet("UltAlm/{IdUsu}")]
+        public IActionResult GetUltimoIdAlmacenPuntoVenta(int IdUsu)
+        {
+            try
+            {
+                int? idDetAlmacen = BusinessUsu.GetUltimoIdAlmacenPuntoVenta(IdUsu);
+                return Ok(idDetAlmacen);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         [HttpGet]
         public IActionResult GetUsuarios()
         {
@@ -71,7 +85,7 @@ namespace SiinErp.Areas.General.Controllers
                 var lista = BusinessUsu.GetUsuarios();
                 return Ok(lista);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -83,9 +97,9 @@ namespace SiinErp.Areas.General.Controllers
             try
             {
                 BusinessUsu.Create(entity);
-                return Ok();
+                return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -97,9 +111,9 @@ namespace SiinErp.Areas.General.Controllers
             try
             {
                 BusinessUsu.Update(IdUsu, entity);
-                return Ok();
+                return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -113,9 +127,9 @@ namespace SiinErp.Areas.General.Controllers
                 int IdUsuario = data["IdUsuario"].ToObject<int>();
                 string Estado = data["Estado"].ToObject<string>();
                 BusinessUsu.UpdateEstado(IdUsuario, Estado);
-                return Ok();
+                return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -127,9 +141,9 @@ namespace SiinErp.Areas.General.Controllers
             try
             {
                 BusinessUsu.ResetearClave(IdUsu);
-                return Ok();
+                return Ok(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

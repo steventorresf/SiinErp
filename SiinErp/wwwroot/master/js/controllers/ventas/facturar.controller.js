@@ -31,6 +31,10 @@
         $scope.removeArt = removeArt;
         vm.entity = {
             fecha: fecha.addDays(fecha.getDate() > 1 ? (fecha.getDate() - 1) * -1 : 0),
+            valorBruto: 0,
+            valorDscto: 0,
+            valorIva: 0,
+            valorNeto: 0,
         };
         vm.entityFac = {};
         vm.formFact = false;
