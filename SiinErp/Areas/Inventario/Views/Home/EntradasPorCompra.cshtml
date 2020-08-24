@@ -32,19 +32,12 @@
                             <div class="col-12">
                                 <div class="form-group row">
                                     <div class="col-12 col-md-4">
-                                        <label>Fecha Documento:</label>
-                                        <input type="date"
-                                               form="formApp"
-                                               date-format="yyyy-mm-dd"
-                                               placeholder="yyyy-mm-dd"
-                                               ng-model="vm.entityMov.fechaDoc"
-                                               class="form-control"
-                                               required />
-                                        @*<input id="TxtFechaDoc" type="text" class="form-control" form="formApp" required ng-model="vm.entityMov.fechaDoc" />*@
+                                        <label>Fecha Documento:<i>*</i></label>
+                                        <input type="date" class="form-control" form="formApp" required ng-model="vm.entityMov.fechaDoc" />
                                     </div>
                                     <div class="col-12 col-md-4">
                                         <label>N&uacute;mero de Factura:</label>
-                                        <input type="text" class="form-control" form="formApp" required ng-model="vm.entity.numFactura" />
+                                        <input type="text" class="form-control" form="formApp" required ng-model="vm.entityMov.numFactura" />
                                     </div>
                                 </div>
                             </div>

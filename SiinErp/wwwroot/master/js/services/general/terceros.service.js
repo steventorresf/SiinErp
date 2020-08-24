@@ -54,7 +54,7 @@
         }
 
         function getAct(idEmp) {
-            return $http.get(nameSpace + 'ByAct/' + idEmp)
+            return $http.get(nameSpace + 'Act/' + idEmp)
                 .then(
                     function (response) {
                         return response;
@@ -94,7 +94,7 @@
         }
 
         function getActPro(idEmp) {
-            return $http.get(nameSpace + 'Prov/ByAct/' + idEmp)
+            return $http.get(nameSpace + 'Prov/Act/' + idEmp)
                 .then(
                     function (response) {
                         return response;
@@ -134,7 +134,7 @@
         }
 
         function getActCli(idEmp) {
-            return $http.get(nameSpace + 'Cli/ByAct/' + idEmp)
+            return $http.get(nameSpace + 'Cli/Act/' + idEmp)
                 .then(
                     function (response) {
                         return response;

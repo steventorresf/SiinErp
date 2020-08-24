@@ -5,9 +5,9 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'ComOrdenesService', 'ComOrdenesDetService', 'ComProveedoresService', 'CarPlazosPagoService', 'GenTablasEmpresaDetService', 'InvArticulosService', 'GenTiposDocService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'ComOrdenesService', 'ComOrdenesDetService', 'GenTercerosService', 'CarPlazosPagoService', 'GenTablasEmpresaDetService', 'InvArticulosService', 'GenTiposDocService'];
 
-    function AppController($location, $cookies, $scope, ordService, orddetService, proService, ppaService, tabdetService, artService, tipdocService) {
+    function AppController($location, $cookies, $scope, ordService, orddetService, terService, ppaService, tabdetService, artService, tipdocService) {
         var vm = this;
 
         vm.title = 'Home Page';
@@ -17,14 +17,14 @@
         vm.guardar = guardar;
         vm.nuevo = nuevo;
         vm.editar = editar;
-        $scope.editar = editar;
+        
         vm.regresar = regresar;
         vm.listEstados = [{ codigo: 'A', descripcion: 'Activo' }, { codigo: 'I', descripcion: 'Inactivo' }];
         vm.onChangeProveedor = onChangeProveedor;
         vm.refreshArticulo = refreshArticulo;
         vm.onChangeArticulo = onChangeArticulo;
         vm.removeArt = removeArt;
-        $scope.removeArt = removeArt;
+        
         vm.entity = {
             idEmpresa: vm.userApp.idEmpresa,
             estado: Estados.Pendiente,
@@ -97,8 +97,8 @@
                     width: 80,
                 },
                 {
-                    name: 'proveedor.nombreProveedor',
-                    field: 'proveedor.nombreProveedor',
+                    name: 'nombreTercero',
+                    field: 'proveedor.nombreTercero',
                     displayName: 'NombreProveedor',
                     headerCellClass: 'bg-header',
                 },
@@ -140,7 +140,7 @@
                     headerCellClass: 'bg-header',
                     cellClass: 'text-center',
                     cellTemplate:
-                        "<span><a href='' ng-click='grid.appScope.editar(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<span><a href='' ng-click='grid.appScope.vm.editar(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
                         "<i class='fa fa-edit'></i></a></span>",
                     width: 80,
                     enableCellEdit: false,
@@ -182,6 +182,7 @@
             response.then(
                 function (response) {
                     vm.gridOptions.data = response.data;
+                    CalcularTotales();
                 },
                 function (response) {
                     console.log(response);
@@ -190,7 +191,7 @@
         }
 
         function getProveedores() {
-            var response = proService.getAll(vm.userApp.idEmpresa);
+            var response = terService.getActPro(vm.userApp.idEmpresa);
             response.then(
                 function (response) {
                     vm.listProveedores = response.data;
@@ -207,7 +208,7 @@
         }
 
         function getPlazosPago() {
-            var response = ppaService.getAll();
+            var response = ppaService.getAll(vm.userApp.idEmpresa);
             response.then(
                 function (response) {
                     vm.listPlazosPago = response.data;
@@ -224,7 +225,7 @@
                 idDetalleOrden: vm.i,
                 idArticulo: $item.idArticulo,
                 articulo: $item,
-                cantidad: 0,
+                cantidad: 1,
                 margen: 0,
                 cantidadEje: 0,
                 vrUnitario: $item.vrCosto,
@@ -235,21 +236,40 @@
                 estado: Estados.Pendiente,
             };
 
-            if (vm.modify) {
-                entity.idDetalleOrden = 0;
-                entity.idOrden = vm.entity.idOrden;
-                var response = orddetService.create(entity);
-                response.then(
-                    function (response) {
-                        getDetalle();
-                    },
-                    function (response) {
-                        console.log(response);
-                    }
-                );
+            var val = ValidarArticulo(entity.idArticulo);
+            if (val) {
+                if (vm.modify) {
+                    entity.idDetalleOrden = 0;
+                    entity.idOrden = vm.entity.idOrden;
+                    var response = orddetService.create(entity);
+                    response.then(
+                        function (response) {
+                            getDetalle();
+                        },
+                        function (response) {
+                            console.log(response);
+                        }
+                    );
+                }
+                else {
+                    vm.gridOptions.data.push(entity);
+                    CalcularTotales();
+                }
             }
-            else { vm.gridOptions.data.push(entity); }
+
             vm.entity.idArticulo = null;
+        }
+
+        function ValidarArticulo(idArt) {
+            var val = true;
+            var data = vm.gridOptions.data;
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].idArticulo === idArt) {
+                    val = false;
+                    break;
+                }
+            }
+            return val;
         }
 
         function getTipoDoc() {
@@ -431,9 +451,10 @@
                     enableColumnMenu: false,
                     enableFiltering: false,
                     enableSorting: false,
+                    headerCellClass: 'bg-header',
                     cellClass: 'text-center',
                     cellTemplate:
-                        "<span ng-if='row.entity.cantidadEje === 0'><a href='' ng-click='grid.appScope.removeArt(row.entity)' tooltip='Eliminar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<span ng-if='row.entity.cantidadEje === 0'><a href='' ng-click='grid.appScope.vm.removeArt(row.entity)' tooltip='Eliminar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
                         "<i class='fa fa-remove text-danger'></i></a></span>",
                     width: 80,
                     enableCellEdit: false,
@@ -470,7 +491,6 @@
                 response.then(
                     function (response) {
                         getDetalle();
-                        CalcularTotales();
                     },
                     function (response) {
                         console.log(response);
@@ -481,6 +501,8 @@
                 vm.gridOptions.data = vm.gridOptions.data.filter(function (ob) {
                     return ob.idDetalleOrden != entity.idDetalleOrden;
                 });
+
+                CalcularTotales();
             }
         }
 

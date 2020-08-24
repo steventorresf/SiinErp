@@ -3,13 +3,12 @@
     Transac: 'GenTrans',
     ClaseDoc: 'GenClaseDoc',
     Zonas: 'GenZonas',
-    TiposProv: 'ComTiposProv',
     TiposArt: 'InvTiposArt',
     UnidadMed: 'InvUnidadMed',
     InvAlm: 'InvAlmacen',
     InvCenCos: 'InvCenCos',
     InvTrans: 'InvTrans',
-    TiposCli: 'VenTiposCli',
+    TiposPer: 'GenTiposPer',
     FormPago: 'VenFormPago',
     InvConceptos: 'InvConceptos',
 }
@@ -39,6 +38,12 @@ const Modulo = {
     Inventario: 'INV',
     Ventas: 'VEN',
 }
+
+const TipoTercero = {
+    Cliente: 'CL',
+    Proveedor: 'PR',
+    Otro: 'OT',
+};
 
 
 function FormatNumber(number, element) {

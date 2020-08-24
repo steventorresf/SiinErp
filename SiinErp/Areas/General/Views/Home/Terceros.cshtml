@@ -34,31 +34,30 @@
             <div class="card-body">
                 <form id="formApp" name="formApp" novalidate="" class="form-horizontal">
                     <div class="form-group row">
-                        <div class="col-12 col-md-3">
-                            <label>Nit/C&eacute;dula:</label>
+                        <div class="col-12 col-md-4">
+                            <label>Nit/C&eacute;dula:<i>*</i></label>
                             <input type="text" form="formApp" ng-model="vm.entity.nitCedula" class="form-control" required />
                         </div>
                         <div class="col-12 col-md-3">
                             <label>Dg. Verificaci&oacute;n:</label>
                             <input type="text" form="formApp" ng-model="vm.entity.dgVerificacion" class="form-control" />
                         </div>
-                        <div class="col-12 col-md-6">
-                            <label>Tipo Persona:</label>
-                            <input type="number" class="form-control" form="formApp" ng-model="vm.entity.idDetTipoPersona" required />
-                            @*<select ng-model="vm.entity.idDetTipoPersona" form="formApp" class="form-control" required>
-                    <option ng-repeat="item in vm.listTipoPersona" value="{{ item.idDetalle }}">{{ item.descripcion }}</option>
-                </select>*@
+                        <div class="col-12 col-md-5">
+                            <label>Tipo Persona:<i>*</i></label>
+                            <select ng-model="vm.entity.idDetTipoPersona" form="formApp" class="form-control" required>
+                                <option ng-repeat="item in vm.listTiposPer" value="{{ item.idDetalle }}">{{ item.descripcion }}</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <label>Nombre Tercero:</label>
+                            <label>Nombre Tercero:<i>*</i></label>
                             <input type="text" form="formApp" ng-model="vm.entity.nombreTercero" class="form-control" required />
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12 col-md-6">
-                            <label>Departamento:</label>
+                            <label>Departamento:<i>*</i></label>
                             <ui-select ng-model="vm.entity.idDepartamento"
                                        form="formApp"
                                        theme="bootstrap"
@@ -72,7 +71,7 @@
                             </ui-select>
                         </div>
                         <div class="col-12 col-md-6">
-                            <label>Ciudad:</label>
+                            <label>Ciudad:<i>*</i></label>
                             <ui-select ng-model="vm.entity.idCiudad"
                                        form="formApp"
                                        theme="bootstrap"
@@ -87,17 +86,17 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-12 col-md-6">
-                            <label>Direcci&oacute;n:</label>
+                            <label>Direcci&oacute;n:<i>*</i></label>
                             <input type="text" form="formApp" ng-model="vm.entity.direccion" class="form-control" required />
                         </div>
                         <div class="col-12 col-md-6">
-                            <label>Tel&eacute;fono:</label>
+                            <label>Tel&eacute;fono:<i>*</i></label>
                             <input type="text" form="formApp" ng-model="vm.entity.telefono" class="form-control" required />
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12 col-md-4">
-                            <label>Estado:</label>
+                            <label>Estado:<i>*</i></label>
                             <select ng-model="vm.entity.estado" form="formApp" class="form-control" required>
                                 <option ng-repeat="item in vm.listEstados" value="{{ item.codigo }}">{{ item.descripcion }}</option>
                             </select>

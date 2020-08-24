@@ -66,8 +66,8 @@
                     width: 80,
                 },
                 {
-                    name: 'proveedor.nombreProveedor',
-                    field: 'proveedor.nombreProveedor',
+                    name: 'nombreTercero',
+                    field: 'proveedor.nombreTercero',
                     displayName: 'NombreProveedor',
                     headerCellClass: 'bg-header',
                 },
@@ -122,16 +122,20 @@
 
 
         function verDetalle(entity) {
-            vm.entityMov = {};
-            vm.entityMov.fechaDoc = '2020-01-30';
-            vm.entity = {};
             vm.entityOrd = angular.copy(entity);
+            vm.entityMov = {
+                tipoDoc: '-',
+                fechaDoc: new Date(),
+                idDetAlmacen: vm.entityOrd.idDetAlmacen,
+                idDetCenCosto: vm.entityOrd.idDetCenCosto,
+                idEmpresa: vm.entityOrd.idEmpresa,
+                idTercero: vm.entityOrd.idProveedor,
+                estado: Estados.Activo,
+                idOrden: vm.entityOrd.idOrden,
+            };
+
             getDetalle();
             vm.form = true;
-            var config = { referenceId:2, title: 'gdgd', ttl: 6000 };
-            console.log(growl);
-            growl.success("steven", config);
-            console.log(growl.error("torres", config));
         }
 
         function getDetalle() {
@@ -307,7 +311,6 @@
                 vm.entityMov.idUsuario = vm.userApp.idUsu;
 
                 var data = {
-                    numFactura: vm.entity.numFactura,
                     entityOrd: vm.entityOrd,
                     entityMov: vm.entityMov,
                     listDetalleMov: vm.listDetalleMov,

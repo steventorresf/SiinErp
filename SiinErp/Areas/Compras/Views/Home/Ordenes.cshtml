@@ -29,21 +29,21 @@
                         <form id="formApp" name="formApp" novalidate="novalidate" class="form-horizontal">
                             <div class="form-group row">
                                 <div class="col-12 col-md-6">
-                                    <label class="required">Proveedor:</label>
+                                    <label>Proveedor:<i>*</i></label>
                                     <ui-select ng-model="vm.entity.idProveedor"
                                                form="formApp"
                                                theme="bootstrap"
                                                tabindex="7"
                                                required
                                                on-select="vm.onChangeProveedor($item, $model)">
-                                        <ui-select-match placeholder="Seleccione un proveedor...">{{$select.selected.nombreProveedor}}</ui-select-match>
-                                        <ui-select-choices repeat="item.idProveedor as item in vm.listProveedores track by $index">
-                                            <div ng-bind-html="item.nombreProveedor | highlight: $select.search"></div>
+                                        <ui-select-match placeholder="Seleccione un proveedor...">{{$select.selected.nombreTercero}}</ui-select-match>
+                                        <ui-select-choices repeat="item.idTercero as item in vm.listProveedores track by $index">
+                                            <div ng-bind-html="item.nombreTercero | highlight: $select.search"></div>
                                         </ui-select-choices>
                                     </ui-select>
                                 </div>
                                 <div class="col-12 col-md-6">
-                                    <label class="required">Almacen</label>
+                                    <label>Almacen:<i>*</i></label>
                                     <ui-select ng-model="vm.entity.idDetAlmacen"
                                                form="formApp"
                                                theme="bootstrap"
@@ -58,11 +58,11 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-12 col-md-6">
-                                    <label class="required">Direcci&oacute;n Despacho:</label>
+                                    <label>Direcci&oacute;n Despacho:<i>*</i></label>
                                     <input type="text" ng-model="vm.entity.direccionDesp" form="formApp" class="form-control" />
                                 </div>
                                 <div class="col-12 col-md-6">
-                                    <label class="required">Centro Costo:</label>
+                                    <label>Centro Costo:<i>*</i></label>
                                     <ui-select ng-model="vm.entity.idDetCenCosto"
                                                form="formApp"
                                                theme="bootstrap"
@@ -77,17 +77,11 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-12 col-md-4">
-                                    <label class="required">Fecha Orden:</label>
-                                    <input type="text"
-                                           form="formApp"
-                                           datepicker=""
-                                           dp-format="yyyy-mm-dd"
-                                           ng-model="vm.entity.fechaDoc"
-                                           class="form-control"
-                                           required />
+                                    <label>Fecha Orden:<i>*</i></label>
+                                    <input type="date" form="formApp" ng-model="vm.entity.fechaDoc" class="form-control" required />
                                 </div>
                                 <div class="col-12 col-md-4">
-                                    <label class="required">Plazo de Pago:</label>
+                                    <label>Plazo de Pago:<i>*</i></label>
                                     <ui-select ng-model="vm.entity.idPlazoPago"
                                                form="formApp"
                                                theme="bootstrap"

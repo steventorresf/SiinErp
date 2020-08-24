@@ -5,9 +5,9 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'ComProveedoresService', 'CarPlazosPagoService', 'GenTablasEmpresaDetService', 'GenDepartamentosService', 'GenCiudadesService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'GenTercerosService', 'CarPlazosPagoService', 'GenTablasEmpresaDetService', 'GenDepartamentosService', 'GenCiudadesService'];
 
-    function AppController($location, $cookies, $scope, proService, ppaService, tabdetService, depService, ciuService) {
+    function AppController($location, $cookies, $scope, terService, ppaService, tabdetService, depService, ciuService) {
         var vm = this;
 
         vm.title = 'Home Page';
@@ -19,18 +19,17 @@
         vm.guardar = guardar;
         vm.cancelar = cancelar;
         vm.onChangeDepartamento = onChangeDepartamento;
-        $scope.editar = editar;
         vm.listEstados = [{ codigo: 'A', descripcion: 'Activo' }, { codigo: 'I', descripcion: 'Inactivo' }];
 
         function init() {
             getAll();
             getDepartamentos();
-            getTiposProv();
+            getTiposPer();
             getPlazosPago();
         }
 
         function getAll() {
-            var response = proService.getAll(vm.userApp.idEmpresa);
+            var response = terService.getAllPro(vm.userApp.idEmpresa);
             response.then(
                 function (response) {
                     vm.gridOptions.data = response.data;
@@ -41,11 +40,11 @@
             );
         }
 
-        function getTiposProv() {
-            var response = tabdetService.getAll(Tab.TiposProv, vm.userApp.idEmpresa);
+        function getTiposPer() {
+            var response = tabdetService.getAll(Tab.TiposPer, vm.userApp.idEmpresa);
             response.then(
                 function (response) {
-                    vm.listTiposProv = response.data;
+                    vm.listTiposPer = response.data;
                 },
                 function (response) {
                     console.log(response);
@@ -54,7 +53,7 @@
         }
 
         function getPlazosPago() {
-            var response = ppaService.getAll();
+            var response = ppaService.getAll(vm.userApp.idEmpresa);
             response.then(
                 function (response) {
                     vm.listPlazosPago = response.data;
@@ -97,9 +96,13 @@
 
 
         function nuevo() {
-            vm.entity = {};
-            vm.entity.idEmpresa = vm.userApp.idEmpresa;
-            vm.entity.idUsuario = vm.userApp.idUsu;
+            vm.entity = {
+                idEmpresa: vm.userApp.idEmpresa,
+                tipoTercero: TipoTercero.Proveedor,
+                creadoPor: vm.userApp.idUsu,
+                estado: Estados.Activo,
+            };
+            
             vm.formModify = false;
             vm.formVisible = true;
         }
@@ -107,16 +110,17 @@
         function editar(entity) {
             vm.entity = angular.copy(entity);
             getCiudades();
-            vm.entity.idDetTipoProv = angular.copy(entity.idDetTipoProv).toString();
+            vm.entity.idDetTipoPersona = angular.copy(entity.idDetTipoPersona).toString();
             vm.entity.idPlazoPago = angular.copy(entity.idPlazoPago).toString();
+
             vm.formModify = true;
             vm.formVisible = true;
         }
 
         function guardar() {
             var response = null;
-            if (vm.formModify) { response = proService.update(vm.entity.idProveedor, vm.entity); }
-            else { response = proService.create(vm.entity); }
+            if (vm.formModify) { response = terService.updatePro(vm.entity.idTercero, vm.entity); }
+            else { response = terService.create(vm.entity); }
 
             response.then(
                 function (response) {
@@ -159,26 +163,19 @@
                     width: 100,
                 },
                 {
-                    name: 'nombreProveedor',
-                    field: 'nombreProveedor',
+                    name: 'nombreTercero',
+                    field: 'nombreTercero',
                     displayName: 'Nombre Proveedor',
                     headerCellClass: 'bg-header',
                     width: 350,
                 },
                 {
-                    name: 'nombreTipoProv',
-                    field: 'nombreTipoProv',
+                    name: 'nombreTipoPersona',
+                    field: 'nombreTipoPersona',
                     displayName: 'TipoProv',
                     headerCellClass: 'bg-header',
                     cellClass: 'text-center',
                     width: 250,
-                },
-                {
-                    name: 'representanteLegal',
-                    field: 'representanteLegal',
-                    displayName: 'RepresentanteLegal',
-                    headerCellClass: 'bg-header',
-                    width: 150,
                 },
                 {
                     name: 'nombreCiudad',
@@ -226,24 +223,6 @@
                     width: 120,
                 },
                 {
-                    name: 'fechaUltCompra',
-                    field: 'fechaUltCompra',
-                    displayName: 'FechaUltCompra',
-                    headerCellClass: 'bg-header',
-                    cellClass: 'text-center',
-                    cellFilter: 'date:\'yyyy-MM-dd\'',
-                    width: 200,
-                },
-                {
-                    name: 'fechaUltPago',
-                    field: 'fechaUltPago',
-                    displayName: 'FechaUltPago',
-                    headerCellClass: 'bg-header',
-                    cellClass: 'text-center',
-                    cellFilter: 'date:\'yyyy-MM-dd\'',
-                    width: 200,
-                },
-                {
                     name: 'estado',
                     field: 'estado',
                     displayName: 'Estado',
@@ -261,7 +240,7 @@
                     headerCellClass: 'bg-header',
                     cellClass: 'text-center',
                     cellTemplate:
-                        "<span><a href='' ng-click='grid.appScope.editar(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<span><a href='' ng-click='grid.appScope.vm.editar(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
                         "<i class='fa fa-edit'></i></a></span>",
                     width: 100,
                 }

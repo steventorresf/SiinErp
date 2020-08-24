@@ -5,9 +5,9 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'VenClientesService', 'CarPlazosPagoService', 'VenVendedoresService', 'VenListaPreciosService', 'GenTablasEmpresaDetService', 'GenDepartamentosService', 'GenCiudadesService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'GenTercerosService', 'CarPlazosPagoService', 'VenVendedoresService', 'VenListaPreciosService', 'GenTablasEmpresaDetService', 'GenDepartamentosService', 'GenCiudadesService'];
 
-    function AppController($location, $cookies, $scope, cliService, ppaService, venService, lisService, tabdetService, depService, ciuService) {
+    function AppController($location, $cookies, $scope, terService, ppaService, venService, lisService, tabdetService, depService, ciuService) {
         var vm = this;
 
         vm.title = 'Home Page';
@@ -18,7 +18,7 @@
         vm.editar = editar;
         vm.guardar = guardar;
         vm.cancelar = cancelar;
-        $scope.editar = editar;
+        
         vm.listBool = [{ codigo: 'true', descripcion: 'Si' }, { codigo: 'false', descripcion: 'No' }];
         vm.listEstados = [{ codigo: 'A', descripcion: 'Activo' }, { codigo: 'I', descripcion: 'Inactivo' }];
         vm.getCiudades = getCiudades;
@@ -29,12 +29,12 @@
             getVendedores();
             getListaPrecios();
             getZonas();
-            getTiposCliente();
+            getTiposPersona();
             getDepartamentos();
         }
 
         function getAll() {
-            var response = cliService.getAll(vm.userApp.idEmpresa);
+            var response = terService.getAllCli(vm.userApp.idEmpresa);
             response.then(
                 function (response) {
                     vm.gridOptions.data = response.data;
@@ -93,11 +93,11 @@
             );
         }
 
-        function getTiposCliente() {
-            var response = tabdetService.getAll(Tab.TiposCli, vm.userApp.idEmpresa);
+        function getTiposPersona() {
+            var response = tabdetService.getAll(Tab.TiposPer, vm.userApp.idEmpresa);
             response.then(
                 function (response) {
-                    vm.listTiposCli = response.data;
+                    vm.listTiposPer = response.data;
                 },
                 function (response) {
                     console.log(response);
@@ -132,23 +132,24 @@
 
 
         function nuevo() {
-            vm.entity = {};
-            vm.entity.idEmpresa = vm.userApp.idEmpresa;
-            vm.entity.idUsuario = vm.userApp.idUsu;
+            vm.entity = {
+                tipoTercero: TipoTercero.Cliente,
+                idEmpresa: vm.userApp.idEmpresa,
+                idUsuario: vm.userApp.idUsu,
+                estado: Estados.Activo,
+            };
+            
             vm.formModify = false;
             vm.formVisible = true;
         }
 
         function editar(entity) {
             vm.entity = angular.copy(entity);
-            vm.entity.idDetTipoCliente = angular.copy(entity.idDetTipoCliente).toString();
+            vm.entity.idDetTipoPersona = angular.copy(entity.idDetTipoPersona).toString();
             vm.entity.idPlazoPago = angular.copy(entity.idPlazoPago).toString();
             vm.entity.idDetZona = angular.copy(entity.idDetZona).toString();
-            vm.entity.credito = angular.copy(entity.credito).toString();
-            vm.entity.retencion = angular.copy(entity.retencion).toString();
-            vm.entity.baseRetencion = angular.copy(entity.baseRetencion).toString();
             vm.entity.iva = angular.copy(entity.iva).toString();
-            vm.entity.esCadena = angular.copy(entity.esCadena).toString();
+            
             getCiudades();
             vm.formModify = true;
             vm.formVisible = true;
@@ -156,8 +157,8 @@
 
         function guardar() {
             var response = null;
-            if (vm.formModify) { response = cliService.update(vm.entity.idCliente, vm.entity); }
-            else { response = cliService.create(vm.entity); }
+            if (vm.formModify) { response = terService.updateCli(vm.entity.idTercero, vm.entity); }
+            else { response = terService.create(vm.entity); }
 
             response.then(
                 function (response) {
@@ -185,13 +186,6 @@
             enableFiltering: true,
             columnDefs: [
                 {
-                    name: 'codCliente',
-                    field: 'codCliente',
-                    displayName: 'Código',
-                    headerCellClass: 'bg-header',
-                    width: 100,
-                },
-                {
                     name: 'nitCedula',
                     field: 'nitCedula',
                     displayName: 'NitCedula',
@@ -207,29 +201,15 @@
                     width: 80,
                 },
                 {
-                    name: 'nombreCliente',
-                    field: 'nombreCliente',
+                    name: 'nombreTercero',
+                    field: 'nombreTercero',
                     displayName: 'Nombre Cliente',
                     headerCellClass: 'bg-header',
                     width: 350,
                 },
                 {
-                    name: 'nombreComercial',
-                    field: 'nombreComercial',
-                    displayName: 'Nombre Comercial',
-                    headerCellClass: 'bg-header',
-                    width: 250,
-                },
-                {
-                    name: 'representanteLegal',
-                    field: 'representanteLegal',
-                    displayName: 'Representante Legal',
-                    headerCellClass: 'bg-header',
-                    width: 250,
-                },
-                {
-                    name: 'nombreTipoCliente',
-                    field: 'nombreTipoCliente',
+                    name: 'nombreTipoPersona',
+                    field: 'nombreTipoPersona',
                     displayName: 'TipoCliente',
                     headerCellClass: 'bg-header',
                     width: 200,
@@ -256,32 +236,6 @@
                     width: 300,
                 },
                 {
-                    name: 'fechaUltCompra',
-                    field: 'fechaUltCompra',
-                    displayName: 'FechaUltCompra',
-                    headerCellClass: 'bg-header',
-                    cellClass: 'text-center',
-                    cellFilter: 'date:\'yyyy-MM-dd\'',
-                    width: 200,
-                },
-                {
-                    name: 'fechaUltPago',
-                    field: 'fechaUltPago',
-                    displayName: 'FechaUltPago',
-                    headerCellClass: 'bg-header',
-                    cellClass: 'text-center',
-                    cellFilter: 'date:\'yyyy-MM-dd\'',
-                    width: 200,
-                },
-                {
-                    name: 'puntosAcumulados',
-                    field: 'puntosAcumulados',
-                    displayName: 'PuntosAcumulados',
-                    headerCellClass: 'bg-header',
-                    cellClass: 'text-right',
-                    width: 100,
-                },
-                {
                     name: 'estado',
                     field: 'estado',
                     displayName: 'Estado',
@@ -299,7 +253,7 @@
                     headerCellClass: 'bg-header',
                     cellClass: 'text-center',
                     cellTemplate:
-                        "<span><a href='' ng-click='grid.appScope.editar(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<span><a href='' ng-click='grid.appScope.vm.editar(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
                         "<i class='fa fa-edit'></i></a></span>",
                     width: 100,
                 }

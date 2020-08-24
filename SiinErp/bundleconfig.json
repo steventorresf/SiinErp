@@ -39,34 +39,7 @@
   {
     "outputFileName": "wwwroot/master/js/services/services.js",
     "inputFiles": [
-      "wwwroot/master/js/services/cartera/conceptos.service.js",
-      "wwwroot/master/js/services/cartera/movimientos.service.js",
-      "wwwroot/master/js/services/cartera/plazos.pago.service.js",
-      "wwwroot/master/js/services/compras/ordenes.detalle.service.js",
-      "wwwroot/master/js/services/compras/ordenes.service.js",
-      "wwwroot/master/js/services/compras/proveedores.service.js",
-      "wwwroot/master/js/services/general/ciudades.service.js",
-      "wwwroot/master/js/services/general/departamentos.service.js",
-      "wwwroot/master/js/services/general/empresas.service.js",
-      "wwwroot/master/js/services/general/modulos.service.js",
-      "wwwroot/master/js/services/general/paises.service.js",
-      "wwwroot/master/js/services/general/parametros.service.js",
-      "wwwroot/master/js/services/general/periodos.service.js",
-      "wwwroot/master/js/services/general/tablas.empresas.service.js",
-      "wwwroot/master/js/services/general/tablas.empresas.detalles.service.js",
-      "wwwroot/master/js/services/general/tablas.service.js",
-      "wwwroot/master/js/services/general/terceros.service.js",
-      "wwwroot/master/js/services/general/tipos.documento.service.js",
-      "wwwroot/master/js/services/general/usuarios.service.js",
-      "wwwroot/master/js/services/inventario/articulos.service.js",
-      "wwwroot/master/js/services/inventario/movimientos.detalle.service.js",
-      "wwwroot/master/js/services/inventario/movimientos.service.js",
-      "wwwroot/master/js/services/inventario/tipos.doc.service.js",
-      "wwwroot/master/js/services/ventas/clientes.service.js",
-      "wwwroot/master/js/services/ventas/facturas.service.js",
-      "wwwroot/master/js/services/ventas/lista.precios.detalle.service.js",
-      "wwwroot/master/js/services/ventas/lista.precios.service.js",
-      "wwwroot/master/js/services/ventas/vendedores.service.js"
+      "wwwroot/master/js/services/**/*.service.js"
     ]
   }
 ]

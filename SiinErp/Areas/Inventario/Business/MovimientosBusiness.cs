@@ -95,14 +95,13 @@ namespace SiinErp.Areas.Inventario.Business
             }
         }
 
-        public void CreateByEntradaCompra(string numFactura, Ordenes entityOrd, Movimientos entityMov, List<MovimientosDetalle> listaDetalleMov)
+        public void CreateByEntradaCompra(Movimientos entityMov, List<MovimientosDetalle> listaDetalleMov)
         {
             try
             {
                 SiinErpContext context = new SiinErpContext();
-                using (var transaccion = context.Database.BeginTransaction())
+                using (var tran = context.Database.BeginTransaction())
                 {
-
                     TiposDoc tiposdocmov = context.TiposDoc.FirstOrDefault(x => x.TipoDoc.Equals(Constantes.InvDocEntradaOc));
                     tiposdocmov.NumDoc++;
                     context.SaveChanges();
@@ -111,11 +110,6 @@ namespace SiinErp.Areas.Inventario.Business
                     entityMov.NumDoc = tiposdocmov.NumDoc;
                     entityMov.Transaccion = tiposdocmov.Transaccion;
                     entityMov.Periodo = entityMov.FechaDoc.ToString("yyyyMM");
-                    entityMov.IdDetAlmacen = entityOrd.IdDetAlmacen;
-                    entityMov.IdDetCenCosto = entityOrd.IdDetCenCosto;
-                    entityMov.IdEmpresa = entityOrd.IdEmpresa;
-                    entityMov.IdTercero = entityOrd.IdProveedor;
-                    entityMov.Estado = Constantes.EstadoActivo;
                     entityMov.FechaCreacion = DateTimeOffset.Now;
                     context.Movimientos.Add(entityMov);
                     context.SaveChanges();
@@ -132,7 +126,7 @@ namespace SiinErp.Areas.Inventario.Business
                     }
 
 
-                    List<OrdenesDetalle> listDetalleOrd = context.OrdenesDetalles.Where(x => x.IdOrden == entityOrd.IdOrden).ToList();
+                    List<OrdenesDetalle> listDetalleOrd = context.OrdenesDetalles.Where(x => x.IdOrden == entityMov.IdOrden).ToList();
                     foreach (OrdenesDetalle det in listDetalleOrd)
                     {
                         MovimientosDetalle movdet = listaDetalleMov.FirstOrDefault(x => x.IdArticulo == det.IdArticulo);
@@ -146,7 +140,7 @@ namespace SiinErp.Areas.Inventario.Business
                     context.MovimientosDetalles.AddRange(listaDetalleMov);
                     context.SaveChanges();
 
-                    transaccion.Commit();
+                    tran.Commit();
                 }
             }
             catch (Exception ex)

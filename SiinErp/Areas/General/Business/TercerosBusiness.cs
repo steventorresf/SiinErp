@@ -15,25 +15,28 @@ namespace SiinErp.Areas.General.Business
             try
             {
                 SiinErpContext context = new SiinErpContext();
-                List<Terceros> Lista = (from t in context.Terceros.Where(x => x.IdEmpresa == IdEmpresa && x.TipoTercero.Equals(Constantes.Otros))
-                                        join c in context.Ciudades on t.IdCiudad equals c.IdCiudad
-                                        join d in context.Departamentos on c.IdDepartamento equals d.IdDepartamento
+                List<Terceros> Lista = (from ter in context.Terceros.Where(x => x.IdEmpresa == IdEmpresa && x.TipoTercero.Equals(Constantes.Otros))
+                                        join tip in context.TablasEmpresaDetalles on ter.IdDetTipoPersona equals tip.IdDetalle
+                                        join ciu in context.Ciudades on ter.IdCiudad equals ciu.IdCiudad
+                                        join dep in context.Departamentos on ciu.IdDepartamento equals dep.IdDepartamento
                                         select new Terceros()
                                         {
-                                            IdTercero = t.IdTercero,
-                                            IdEmpresa = t.IdEmpresa,
-                                            NitCedula = t.NitCedula,
-                                            DgVerificacion = t.DgVerificacion,
-                                            IdDetTipoPersona = t.IdDetTipoPersona,
-                                            NombreTercero = t.NombreTercero,
-                                            IdCiudad = t.IdCiudad,
-                                            Direccion = t.Direccion,
-                                            Telefono = t.Telefono,
-                                            FechaCreacion = t.FechaCreacion,
-                                            CreadoPor = t.CreadoPor,
-                                            Estado = t.Estado,
-                                            NombreCiudad = c.NombreCiudad + " - " + d.NombreDepartamento,
-                                            IdDepartamento = d.IdDepartamento,
+                                            IdTercero = ter.IdTercero,
+                                            IdEmpresa = ter.IdEmpresa,
+                                            TipoTercero = ter.TipoTercero,
+                                            NitCedula = ter.NitCedula,
+                                            DgVerificacion = ter.DgVerificacion,
+                                            IdDetTipoPersona = ter.IdDetTipoPersona,
+                                            NombreTipoPersona = tip.Descripcion,
+                                            NombreTercero = ter.NombreTercero,
+                                            IdCiudad = ter.IdCiudad,
+                                            Direccion = ter.Direccion,
+                                            Telefono = ter.Telefono,
+                                            FechaCreacion = ter.FechaCreacion,
+                                            CreadoPor = ter.CreadoPor,
+                                            Estado = ter.Estado,
+                                            NombreCiudad = ciu.NombreCiudad + " - " + dep.NombreDepartamento,
+                                            IdDepartamento = dep.IdDepartamento,
                                         }).OrderBy(x => x.NombreTercero).ToList();
                 return Lista;
             }
@@ -59,6 +62,7 @@ namespace SiinErp.Areas.General.Business
                                         {
                                             IdTercero = pro.IdTercero,
                                             IdEmpresa = pro.IdEmpresa,
+                                            TipoTercero = pro.TipoTercero,
                                             NitCedula = pro.NitCedula,
                                             DgVerificacion = pro.DgVerificacion,
                                             NombreTercero = pro.NombreTercero,
@@ -100,6 +104,7 @@ namespace SiinErp.Areas.General.Business
                                         {
                                             IdTercero = pro.IdTercero,
                                             IdEmpresa = pro.IdEmpresa,
+                                            TipoTercero = pro.TipoTercero,
                                             NitCedula = pro.NitCedula,
                                             DgVerificacion = pro.DgVerificacion,
                                             NombreTercero = pro.NombreTercero,

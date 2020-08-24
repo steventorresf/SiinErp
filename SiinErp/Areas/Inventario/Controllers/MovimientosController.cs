@@ -42,12 +42,10 @@ namespace SiinErp.Areas.Inventario.Controllers
         {
             try
             {
-                string numFactura = data["numFactura"].ToObject<string>();
-                Ordenes entityOrd = data["entityOrd"].ToObject<Ordenes>();
                 Movimientos entityMov = data["entityMov"].ToObject<Movimientos>();
                 List<MovimientosDetalle> listDetalleMov = data["listDetalleMov"].ToObject<List<MovimientosDetalle>>();
 
-                BusinessMov.CreateByEntradaCompra(numFactura, entityOrd, entityMov, listDetalleMov);
+                BusinessMov.CreateByEntradaCompra(entityMov, listDetalleMov);
                 return Ok(true);
             }
             catch (Exception)

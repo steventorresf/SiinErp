@@ -646,8 +646,8 @@
     border-color: #6f42c1 !important;
 }
 
-.form-group label.required {
-    font-weight: bold;
+.form-group label i {
+    color:red;
 }
 
 #menu-opciones i {

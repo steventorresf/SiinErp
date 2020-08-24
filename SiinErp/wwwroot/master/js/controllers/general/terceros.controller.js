@@ -15,9 +15,7 @@
         vm.title = 'Home Page';
         vm.formVisible = false;
         vm.formModify = false;
-        vm.entity = {
-            estado: 'A',
-        };
+        vm.entity = {};
 
 
         vm.init = init;
@@ -26,13 +24,14 @@
         vm.editar = editar;
         vm.guardar = guardar;
         vm.cancelar = cancelar;
-        $scope.editar = editar;
+        
         vm.onChangeDepartamento = onChangeDepartamento;
         vm.listEstados = [{ codigo: 'A', descripcion: 'Activo' }, { codigo: 'I', descripcion: 'Inactivo' }];
         
 
         function init() {
             getAll();
+            getTiposPersona();
             getDepartamentos();
         }
 
@@ -42,6 +41,18 @@
             response.then(
                 function (response) {
                     vm.gridOptions.data = response.data;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        function getTiposPersona() {
+            var response = tabdetService.getAll(Tab.TiposPer, vm.userApp.idEmpresa);
+            response.then(
+                function (response) {
+                    vm.listTiposPer = response.data;
                 },
                 function (response) {
                     console.log(response);
@@ -80,6 +91,7 @@
 
         function nuevo() {
             vm.entity = {
+                tipoTercero: TipoTercero.Otro,
                 idEmpresa: vm.userApp.idEmpresa,
                 creadoPor: vm.userApp.idUsu,
                 estado: 'A',
@@ -91,8 +103,9 @@
 
         function editar(entity) {
             vm.entity = angular.copy(entity);
+            vm.entity.idDetTipoPersona = angular.copy(entity.idDetTipoPersona).toString();
+
             getCiudades();
-            vm.entity.idDetRegimen = angular.copy(entity.idDetTipoPersona).toString();
             vm.formModify = true;
             vm.formVisible = true;
         }
@@ -148,6 +161,14 @@
                     field: 'nombreTercero',
                     displayName: 'Nombre Completo',
                     headerCellClass: 'bg-header',
+                    width: 300,
+                },
+                {
+                    name: 'nombreTipoPersona',
+                    field: 'nombreTipoPersona',
+                    displayName: 'TipoCliente',
+                    headerCellClass: 'bg-header',
+                    width: 200,
                 },
                 {
                     name: 'nombreCiudad',
@@ -175,7 +196,7 @@
                     headerCellClass: 'bg-header',
                     cellClass: 'text-center',
                     cellTemplate:
-                        "<span class='mr-1'><a href='' ng-click='grid.appScope.editar(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<span class='mr-1'><a href='' ng-click='grid.appScope.vm.editar(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
                         "<i class='fa fa-edit'></i></a></span>",
                     width: 80,
                 }
