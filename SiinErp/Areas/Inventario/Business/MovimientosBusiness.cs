@@ -14,6 +14,8 @@ namespace SiinErp.Areas.Inventario.Business
 {
     public class MovimientosBusiness
     {
+
+        #region Inventario
         public void Create(Movimientos entityMov, List<MovimientosDetalle> listDetalleMov)
         {
             try
@@ -105,7 +107,7 @@ namespace SiinErp.Areas.Inventario.Business
                     TiposDoc tiposdocmov = context.TiposDoc.FirstOrDefault(x => x.TipoDoc.Equals(Constantes.InvDocEntradaOc));
                     tiposdocmov.NumDoc++;
                     context.SaveChanges();
-
+                    entityMov.CodModulo = Constantes.ModuloCompras;
                     entityMov.TipoDoc = tiposdocmov.TipoDoc;
                     entityMov.NumDoc = tiposdocmov.NumDoc;
                     entityMov.Transaccion = tiposdocmov.Transaccion;
@@ -255,7 +257,7 @@ namespace SiinErp.Areas.Inventario.Business
             try
             {
                 SiinErpContext context = new SiinErpContext();
-                List<Movimientos> Lista = (from tip in context.TiposDoc.Where(x => x.EsModificable)
+                List<Movimientos> Lista = (from tip in context.TiposDoc
                                            join mov in context.Movimientos.Where(x => x.FechaDoc >= Fecha && x.Estado.Equals(Constantes.EstadoActivo)) on tip.TipoDoc equals mov.TipoDoc
                                            join alm in context.TablasEmpresaDetalles on mov.IdDetAlmacen equals alm.IdDetalle
                                            select new Movimientos()
@@ -278,14 +280,17 @@ namespace SiinErp.Areas.Inventario.Business
             }
         }
 
-        #region Facturas
-        public List<Movimientos> GetPendientesByCli(int IdCliente)
+        #endregion
+
+        #region Facturas Ventas Y Compras
+        public List<Movimientos> GetPendientesByTercero(int IdEmpresa, int IdTercero)
         {
             try
             {
                 SiinErpContext context = new SiinErpContext();
-                List<Movimientos> Lista = (from f in context.Movimientos.Where(x => x.IdTercero == IdCliente && x.Estado.Equals(Constantes.EstadoActivo))
-                                           select new Movimientos()
+                List<Movimientos> Lista = (from f in context.Movimientos.Where(x => x.IdEmpresa == IdEmpresa &&  x.IdTercero == IdTercero && x.Estado.Equals(Constantes.EstadoActivo))
+               
+                                                                       select new Movimientos()
                                            {
                                                IdMovimiento = f.IdMovimiento,
                                                TipoDoc = f.TipoDoc,
@@ -301,7 +306,7 @@ namespace SiinErp.Areas.Inventario.Business
             }
             catch (Exception ex)
             {
-                ErroresBusiness.Create("GetPendientesByCli", ex.Message, null);
+                ErroresBusiness.Create("GetPendientesByTercero", ex.Message, null);
                 throw;
             }
         }

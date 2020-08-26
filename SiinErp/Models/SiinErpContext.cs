@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using SiinErp.Areas.Ventas.Entities;
+using SiinErp.Areas.Tesoreria.Entities;
 
 namespace SiinErp.Models
 {
@@ -82,6 +83,11 @@ namespace SiinErp.Models
         public virtual DbSet<MovimientosFormasPago> MovimientosFormasPagos { get; set; }
 
         public virtual DbSet<TiposDoc> TiposDoc { get; set; }
+        #endregion
+
+        #region Tesoreria
+        public virtual DbSet<Pagos> Pagos { get; set; }
+        public virtual DbSet<PagosDetalle> PagosDetalle { get; set; }
         #endregion
 
 

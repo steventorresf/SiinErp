@@ -3,12 +3,12 @@
 
     angular
         .module('app')
-        .factory('InvMovimientosDetalleService', InvMovimientosDetalleService);
+        .factory('TesPagosService', TesPagosService);
 
-    InvMovimientosDetalleService.$inject = ['$http', '$q'];
+    TesPagosService.$inject = ['$http', '$q'];
 
-    function InvMovimientosDetalleService($http, $q) {
-        var nameSpace = '/Inventario/api/MovimientosDetalle/';
+    function TesPagosService($http, $q) {
+        var nameSpace = '/Tesoreria/api/Pagos/';
 
         var service = {
             getAll: getAll,
@@ -18,8 +18,8 @@
 
         return service;
 
-        function getAll(idMov) {
-            return $http.get(nameSpace + idMov)
+        function getAll(idEmp) {
+            return $http.get(nameSpace + idEmp)
                 .then(
                     function (response) {
                         return response;
@@ -30,7 +30,6 @@
                     }
                 );
         }
-
 
         function create(data) {
             return $http.post(nameSpace, data)

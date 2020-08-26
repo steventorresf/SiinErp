@@ -34,8 +34,7 @@ namespace SiinErp.Areas.Inventario.Entities
         [Required]
         public short Transaccion { get; set; }
 
-        [Required]
-        public bool EsModificable { get; set; }
+     
        
         [Required]
         public DateTimeOffset FechaCreacion { get; set; }

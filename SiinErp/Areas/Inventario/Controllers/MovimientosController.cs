@@ -97,26 +97,32 @@ namespace SiinErp.Areas.Inventario.Controllers
                 var lista = BusinessMov.GetMovimientosByModificable(Fecha);
                 return Ok(lista);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                //  ErroresBusiness.Create("GetConceptos", ex.Message, null);
                 throw;
             }
+
+
+
         }
 
         #region Facturas
-        [HttpGet("PenCli/{IdCli}")]
-        public IActionResult GetPendientesByCli(int IdCli)
-        {
-            try
-            {
-                var lista = BusinessMov.GetPendientesByCli(IdCli);
-                return Ok(lista);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+           [HttpGet("Pendientes/{IdEmp}/{IdTercero}")]
+           public IActionResult GetPendientesByTercero(int IdEmp, int IdTercero)
+           {
+               try
+               {
+                   var lista = BusinessMov.GetPendientesByTercero(IdEmp, IdTercero);
+                   return Ok(lista);
+               }
+               catch (Exception)
+               {
+                   throw;
+               }
+           }  
+
+    
 
         [HttpGet("ByFecha/{IdEmp}/{Fecha}")]
         public IActionResult GetFacturasByFecha(int IdEmp, string Fecha)

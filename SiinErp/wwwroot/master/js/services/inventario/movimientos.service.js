@@ -18,12 +18,27 @@
             createByFacturaDeVenta: createByFacturaDeVenta,
             getByModificable: getByModificable,
             update: update,
+            getPendientesTercero: getPendientesTercero,
         };
 
         return service;
 
         function getAll(idEmp) {
             return $http.get(nameSpace + idEmp)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getPendientesTercero(idEmp, idTercero) {
+            console.log("77777", idEmp, idTercero,nameSpace + 'Pendientes/' + idEmp + idTercero);
+            return $http.get(nameSpace + 'Pendientes/' + idEmp + '/' + idTercero)
                 .then(
                     function (response) {
                         return response;

@@ -19,7 +19,7 @@
         vm.guardar = guardar;
         vm.cancelar = cancelar;
         $scope.editar = editar;
-//
+
         vm.listTransaccions = [
             { idDetalle: '1', descripcion: "Entrada" },
             { idDetalle: '-1', descripcion: "Salida" }
