@@ -1625,10 +1625,9 @@
                 );
         }
 
-       
         function getPendientesTercero(idEmp, idTercero) {
-            console.log("999999", idEmp, idTercero);
-            return $http.get(nameSpace + 'Pendientes/' + idEmp + idTercero)
+            console.log("77777", idEmp, idTercero,nameSpace + 'Pendientes/' + idEmp + idTercero);
+            return $http.get(nameSpace + 'Pendientes/' + idEmp + '/' + idTercero)
                 .then(
                     function (response) {
                         return response;
