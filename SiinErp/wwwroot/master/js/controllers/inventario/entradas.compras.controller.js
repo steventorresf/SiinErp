@@ -303,12 +303,17 @@
                         vrCosto: ob.vrUnitario,
                         pcDscto: ob.pcDscto,
                         pcIva: ob.pcIva,
+                        vrNeto: ob.vrNeto,
+                        vrBruto: ob.vrBruto,
+                       
                     });
+                    console.log("entarda", vm.listDetalleMov);
                 }
             }
 
             if (vm.listDetalleMov.length > 0) {
                 vm.entityMov.idUsuario = vm.userApp.idUsu;
+                vm.entityMov.valorNeto = 25000;
 
                 var data = {
                     entityOrd: vm.entityOrd,

@@ -12,6 +12,8 @@
 
         vm.title = 'Home Page';
         vm.init = init;
+        listDetallePag = {};
+        listDetalleFac = {};
         vm.userApp = angular.copy($cookies.getObject('UsuApp'));
         vm.onChangeTipoDoc = onChangeTipoDoc;
         vm.guardar = guardar;
@@ -44,7 +46,7 @@
 
         function getTiposDoc() {
             var response = tipdocService.getByModulo(vm.userApp.idEmpresa, Modulo.Cartera);
-          
+
             response.then(
                 function (response) {
                     vm.listTiposDoc = response.data;
@@ -68,9 +70,9 @@
         }
 
         function buscarPendientesTercero() {
-            console.log("pendiente",vm.userApp.idEmpresa, vm.entity.idTercero)
+
             var response = facService.getPendientesTercero(vm.userApp.idEmpresa, vm.entity.idTercero);
-           
+
             response.then(
                 function (response) {
                     vm.gridOptions.data = response.data;
@@ -85,9 +87,28 @@
 
 
         function guardar() {
-            var listDetalleFac = vm.gridOptions.data.filter(function (ob) {
+            listDetallePag = vm.gridOptions.data.filter(function (ob) {
                 return ob.vrPagar > 0;
             });
+
+            var array = [];
+            listDetallePag.forEach(function (entry) {
+                var obj = {
+                    idDetallePago: 0,
+                    idPago: 0,
+                    tipoDocAfectado: entry.tipoDoc,
+                    numDocAfectado: entry.numDoc,
+                    valorCargo: entry.vrPagar,
+                    valorDscto: entry.valorDscto
+                };
+
+              //  vm.listDetalleFac = [];
+              //  vm.listDetalleFac.push(obj);
+                  array.push(obj);
+                  listDetalleFac = array;
+               
+            });
+
 
             if (listDetalleFac.length > 0) {
                 var data = {
@@ -95,7 +116,7 @@
                     listDetalleFac: listDetalleFac,
                 }
 
-                var response = movService.create(data);
+                var response = tespagService.create(data);
                 response.then(
                     function (response) {
                         window.location.reload();
@@ -131,8 +152,8 @@
                     enableCellEdit: false,
                 },
                 {
-                    name: 'numDoc',
-                    field: 'numDoc',
+                    name: 'numFactura',
+                    field: 'numFactura',
                     displayName: 'Factura',
                     headerCellClass: 'bg-header',
                     cellClass: 'text-center',
@@ -216,11 +237,13 @@
                     rowEntity.valorNeto = rowEntity.vrPagar - rowEntity.valorDscto;
 
                     var vrTotal = 0;
-                    for (var i = 0; i < vm.gridOptions.data.length; i++) {
-                        vrTotal += rowEntity.valorNeto;
-                    }
+                    vm.gridOptions.data.forEach(function (row, index) {
+                        vrTotal += row.valorNeto;
+                    });
 
                     vm.entity.valorRestante = vm.entity.valorTotal - vrTotal;
+
+
                 });
 
             },

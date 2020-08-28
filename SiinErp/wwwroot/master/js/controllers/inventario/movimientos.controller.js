@@ -5,9 +5,9 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'growl', 'InvMovimientosService', 'GenTablasEmpresaDetService', 'InvTiposDocService', 'InvArticulosService', 'GenTercerosService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'growl', 'InvMovimientosService', 'GenTablasEmpresaDetService', 'InvTiposDocService', 'InvArticulosService', 'GenTercerosService', 'InvMovimientosDetalleService'];
 
-    function AppController($location, $cookies, $scope, growl, movService, tabdetService, tipdocService, artService, terService) {
+    function AppController($location, $cookies, $scope, growl, movService, tabdetService, tipdocService, artService, terService, movdetService) {
         var vm = this;
         var fecha = new Date();
 
@@ -31,7 +31,7 @@
         vm.entityMov = {};
 
         $scope.editar = editar;
-        
+
         function init() {
             getAll();
             getAlmacens();
@@ -41,16 +41,20 @@
         }
 
         function getAll() {
-            var response = movService.getByModificable(vm.entity.fecha.DateSiin(true));
+            //var response = movService.getByModificable(vm.entity.fecha.DateSiin(true));
+            var response = movService.getAll(vm.userApp.idEmpresa);
             response.then(
                 function (response) {
-                    vm.gridOptionsMov = response.data;
+                    console.log("pasosssss", response.data);
+                    vm.gridOptionsMov.data = response.data;
                 },
                 function (response) {
                     console.log(response);
                 }
             );
         }
+
+
 
         vm.gridOptionsMov = {
             data: [],
@@ -73,7 +77,7 @@
                 {
                     name: 'numDoc',
                     field: 'numDoc',
-                    displayName: 'NumDoc',
+                    displayName: 'NumeDoc',
                     headerCellClass: 'bg-header',
                     width: 100,
                     enableCellEdit: false,
@@ -113,8 +117,8 @@
             onRegisterApi: function (gridApi) {
                 vm.gridApiMov = gridApi;
                 gridApi.edit.on.afterCellEdit($scope, function (rowEntity, colDef, newValue, oldValue) {
-                    rowEntity.valorBruto = (rowEntity.vrUnitario * rowEntity.cantidad);
-                    rowEntity.valorNeto = rowEntity.valorBruto - (rowEntity.valorBruto * rowEntity.pcDscto / 100) + (rowEntity.valorBruto * rowEntity.pcIva / 100);
+                    rowEntity.vrBruto = (rowEntity.vrUnitario * rowEntity.cantidad);
+                    rowEntity.vrNeto = rowEntity.vrBruto - (rowEntity.vrBruto * rowEntity.pcDscto / 100) + (rowEntity.vrBruto * rowEntity.pcIva / 100);
                     CalcularTotales();
                 });
             },
@@ -122,9 +126,16 @@
 
         function editar(entity) {
             vm.entityMov = angular.copy(entity);
-            vm.entityMov.fechaDoc = new Date(angular.copy(entity.sFechaFormatted).toString());
+           
+            if ((typeof vm.entityMov.fechaDoc !== 'undefined') && (typeof vm.entityMov.fechaDoc === 'string')) {
+                vm.entityMov.fechaDoc = new Date(new Date(vm.entityMov.fechaDoc).toUTCString());
+            }
             vm.entityMov.idDetAlmacen = angular.copy(entity.idDetAlmacen);
-
+            vm.entityMov.idDetCenCosto = angular.copy(entity.idDetCenCosto);
+         
+            getTerceros();
+            getTiposDocByAlmacen();
+            console.log("paso111111", vm.entityMov);
             getDetalleMov();
 
             vm.modify = true;
@@ -136,6 +147,7 @@
             var response = movdetService.getAll(vm.entityMov.idMovimiento);
             response.then(
                 function (response) {
+                    console.log("paso22222");
                     vm.gridOptions.data = response.data;
                     CalcularTotales();
                 },
@@ -276,8 +288,8 @@
                 vrCosto: $item.vrCosto,
                 pcDscto: 0,
                 pcIva: 0,
-                valorBruto: $item.vrVenta,
-                valorNeto: $item.vrVenta,
+                vrBruto: $item.vrVenta,
+                vrNeto: $item.vrVenta,
             });
             vm.idArticulo = null;
             CalcularTotales();
@@ -351,8 +363,8 @@
                     cellFilter: 'number: 0',
                 },
                 {
-                    name: 'valorBruto',
-                    field: 'valorBruto',
+                    name: 'vrBruto',
+                    field: 'vrBruto',
                     displayName: 'VrBruto',
                     headerCellClass: 'bg-header',
                     cellClass: 'text-right',
@@ -362,8 +374,8 @@
                     enableCellEdit: false,
                 },
                 {
-                    name: 'valorNeto',
-                    field: 'valorNeto',
+                    name: 'vrNeto',
+                    field: 'vrNeto',
                     displayName: 'VrNeto',
                     headerCellClass: 'bg-header',
                     cellClass: 'text-right',
@@ -376,25 +388,25 @@
             onRegisterApi: function (gridApi) {
                 vm.gridApi = gridApi;
                 gridApi.edit.on.afterCellEdit($scope, function (rowEntity, colDef, newValue, oldValue) {
-                    rowEntity.valorBruto = (rowEntity.vrUnitario * rowEntity.cantidad);
-                    rowEntity.valorNeto = rowEntity.valorBruto - (rowEntity.valorBruto * rowEntity.pcDscto / 100) + (rowEntity.valorBruto * rowEntity.pcIva / 100);
+                    rowEntity.vrBruto = (rowEntity.vrUnitario * rowEntity.cantidad);
+                    rowEntity.vrNeto = rowEntity.vrBruto - (rowEntity.vrBruto * rowEntity.pcDscto / 100) + (rowEntity.vrBruto * rowEntity.pcIva / 100);
                     CalcularTotales();
                 });
             },
         };
 
         function CalcularTotales() {
-            vm.entityMov.valorBruto = 0;
+            vm.entityMov.vrBruto = 0;
             vm.entityMov.valorDscto = 0;
             vm.entityMov.valorIva = 0;
-            vm.entityMov.valorNeto = 0;
-            
+            vm.entityMov.vrNeto = 0;
+
             for (var i = 0; i < vm.gridOptions.data.length; i++) {
                 var data = vm.gridOptions.data[i];
-                vm.entityMov.valorBruto += data.valorBruto;
-                vm.entityMov.valorDscto += data.valorBruto * data.pcDscto / 100;
-                vm.entityMov.valorIva += (data.valorBruto * data.pcDscto / 100) * data.pcIva / 100;
-                vm.entityMov.valorNeto += data.valorNeto;
+                vm.entityMov.vrBruto += data.vrBruto;
+                vm.entityMov.valorDscto += data.vrBruto * data.pcDscto / 100;
+                vm.entityMov.valorIva += (data.vrBruto * data.pcDscto / 100) * data.pcIva / 100;
+                vm.entityMov.vrNeto += data.vrNeto;
             }
         }
 
@@ -402,12 +414,15 @@
         function guardar() {
             if (vm.gridOptions.data.length > 0) {
                 vm.entityMov.idUsuario = vm.userApp.idUsu;
+                vm.entityMov.valorSaldo = 0;
                 vm.entityMov.idEmpresa = vm.userApp.idEmpresa;
 
                 var data = {
                     entityMov: vm.entityMov,
                     listDetalleMov: vm.gridOptions.data,
                 };
+
+
 
                 var response = movService.create(data);
                 response.then(

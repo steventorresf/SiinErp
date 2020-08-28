@@ -19,6 +19,7 @@
         return service;
 
         function getAll(idMov) {
+            console.log("detal", idMov);
             return $http.get(nameSpace + idMov)
                 .then(
                     function (response) {

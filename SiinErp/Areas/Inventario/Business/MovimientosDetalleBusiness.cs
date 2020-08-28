@@ -27,6 +27,8 @@ namespace SiinErp.Areas.Inventario.Business
                                                       PcIva = md.PcIva,
                                                       VrCosto = md.VrCosto,
                                                       VrUnitario = md.VrUnitario,
+                                                      CodArticulo = ar.CodArticulo,
+                                                      NombreArticulo = ar.NombreArticulo,
                                                       Articulo = ar,
                                                   }).ToList();
                 return Lista;

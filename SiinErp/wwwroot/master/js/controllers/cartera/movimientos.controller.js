@@ -202,7 +202,7 @@
             onRegisterApi: function (gridApi) {
                 vm.gridApi = gridApi;
                 gridApi.selection.on.rowSelectionChanged($scope, function (row) {
-                    
+
                 });
 
                 gridApi.edit.on.afterCellEdit($scope, function (rowEntity, colDef, newValue, oldValue) {
@@ -212,12 +212,18 @@
 
                     rowEntity.valorNeto = rowEntity.vrPagar - rowEntity.valorDscto;
 
+                  
                     var vrTotal = 0;
-                    for (var i = 0; i < vm.gridOptions.data.length; i++) {
+                    vm.gridOptions.data.forEach(function (row, index) {
+                        vrTotal += row.valorNeto;
+                    });
+
+                 /*   for (var i = 0; i < vm.gridOptions.data.length; i++) {
                         vrTotal += rowEntity.valorNeto;
-                    }
+                    } */
 
                     vm.entity.valorRestante = vm.entity.valorConcepto - vrTotal;
+
                 });
 
             },

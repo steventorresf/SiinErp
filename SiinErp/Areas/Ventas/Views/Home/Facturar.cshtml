@@ -47,18 +47,19 @@
                         <form id="formApp" name="formApp" novalidate="novalidate" class="form-horizontal">
                             <div class="form-group row">
                                 <div class="col-12 col-md-6" ng-show="vm.entityFac.tipoDoc === 'FC'">
-                                    <label class="required">Cliente:</label>
-                                    <ui-select ng-model="vm.entityFac.idCliente"
+                                    <label class="required">Cliente Nombre:</label>
+                                    <ui-select ng-model="vm.entityMov.idTercero"
                                                form="formApp"
                                                theme="bootstrap"
                                                tabindex="7"
                                                required
                                                ng-disabled="vm.modify"
                                                on-select="vm.onChangeCliente($item, $model)">
-                                        <ui-select-match placeholder="Seleccione un cliente...">{{$select.selected.nombreCliente}}</ui-select-match>
-                                        <ui-select-choices repeat="item.idCliente as item in vm.listClientes track by $index">
-                                            <div ng-bind-html="item.nombreCliente | highlight: $select.search"></div>
+                                        <ui-select-match placeholder="Seleccione un tercero...">{{$select.selected.nombreTercero}}</ui-select-match>
+                                        <ui-select-choices repeat="item.idTercero as item in vm.listTerceros track by $index">
+                                            <div ng-bind-html="item.nombreTercero | highlight: $select.search"></div>
                                         </ui-select-choices>
+
                                     </ui-select>
                                 </div>
                                 <div class="col-12 col-md-3" ng-show="vm.entityFac.tipoDoc === 'FC'">
@@ -152,21 +153,21 @@
                     <div class="card-body">
                         <div class="col-12">
                             <div class="row">
-                                <div class="col-12 col-md-3" ng-if="vm.entity.valorBruto > 0">
+                                <div class="col-12 col-md-3" ng-if="vm.entityMov.valorBruto > 0">
                                     <label>Vr. Bruto:</label>
-                                    <input type="text" ng-model="vm.entity.valorBruto | number : 0" class="form-control" onkeydown="return false" />
+                                    <input type="text" ng-model="vm.entityMov.valorBruto | number : 0" class="form-control" onkeydown="return false" />
                                 </div>
-                                <div class="col-12 col-md-3" ng-if="vm.entity.valorDscto > 0">
+                                <div class="col-12 col-md-3" ng-if="vm.entityMov.valorDscto > 0">
                                     <label>Vr. Descuento:</label>
-                                    <input type="text" ng-model="vm.entity.valorDscto | number : 0" class="form-control" onkeydown="return false" />
+                                    <input type="text" ng-model="vm.entityMov.valorDscto | number : 0" class="form-control" onkeydown="return false" />
                                 </div>
-                                <div class="col-12 col-md-3" ng-if="vm.entity.valorIva > 0">
+                                <div class="col-12 col-md-3" ng-if="vm.entityMov.valorIva > 0">
                                     <label>Vr. Iva:</label>
-                                    <input type="text" ng-model="vm.entity.valorIva | number : 0" class="form-control" onkeydown="return false" />
+                                    <input type="text" ng-model="vm.entityMov.valorIva | number : 0" class="form-control" onkeydown="return false" />
                                 </div>
-                                <div class="col-12 col-md-3" ng-if="vm.entity.valorNeto > 0">
-                                    <label>Vr. Neto:</label>
-                                    <input type="text" ng-model="vm.entity.valorNeto | number : 0" class="form-control" onkeydown="return false" />
+                                <div class="col-12 col-md-3" ng-if="vm.entityMov.valorNeto > 0">
+                                    <label>Valor. Neto:</label>
+                                    <input type="text" ng-model="vm.entityMov.valorNeto | number : 0" class="form-control" onkeydown="return false" />
                                 </div>
                             </div>
                             <div class="row mt-2">

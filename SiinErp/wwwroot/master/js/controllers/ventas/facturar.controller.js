@@ -5,9 +5,9 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'VenClientesService', 'VenVendedoresService', 'CarPlazosPagoService', 'GenTablasEmpresaDetService', 'InvArticulosService', 'InvTiposDocService', 'InvMovimientosService', 'InvMovimientosDetalleService', 'VenFacturasService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'VenVendedoresService', 'CarPlazosPagoService', 'GenTablasEmpresaDetService', 'InvArticulosService', 'InvTiposDocService', 'InvMovimientosService', 'InvMovimientosDetalleService', 'VenFacturasService', 'GenTercerosService'];
 
-    function AppController($location, $cookies, $scope, cliService, venService, ppaService, tabdetService, artService, tipdocService, movService, movdetService, facService) {
+    function AppController($location, $cookies, $scope, venService, ppaService, tabdetService, artService, tipdocService, movService, movdetService, facService,  terService) {
         var vm = this;
         var fecha = new Date();
 
@@ -48,10 +48,11 @@
         }
 
         function getAll() {
-            vm.gridOptionsFac.data = [];
-            var response = facService.getByFecha(vm.userApp.idEmpresa, vm.entity.fecha.DateSiin(true));
+            //var response = movService.getByModificable(vm.entity.fecha.DateSiin(true));
+            var response = movService.getByModificable(vm.userApp.idEmpresa);
             response.then(
                 function (response) {
+                    console.log("pasosssss", response.data);
                     vm.gridOptionsFac.data = response.data;
                 },
                 function (response) {
@@ -59,6 +60,9 @@
                 }
             );
         }
+
+
+     
 
         vm.gridOptionsFac = {
             data: [],
@@ -99,8 +103,8 @@
                     cellFilter: 'date: \'dd/MM/yyyy\'',
                 },
                 {
-                    name: 'nombreCliente',
-                    field: 'nombreCliente',
+                    name: 'nombreTercero',
+                    field: 'nombreTercero',
                     displayName: 'NombreCliente',
                     headerCellClass: 'bg-header',
                 },
@@ -155,10 +159,11 @@
         }
 
         function getClientes() {
-            var response = cliService.getAll(vm.userApp.idEmpresa);
+            var response = terService.getActCli(vm.userApp.idEmpresa);
+         
             response.then(
                 function (response) {
-                    vm.listClientes = response.data;
+                    vm.listTerceros = response.data;
                 },
                 function (response) {
                     console.log(response);
@@ -166,12 +171,11 @@
             );
         }
 
+       
         function onChangeCliente($item, $model) {
             vm.entityFac.idPlazoPago = $item.idPlazoPago;
-            vm.entityFac.idVendedor = $item.idVendedor;
-            vm.entityFac.idListaPrecio = $item.idListaPrecio;
-            vm.entityFac.numCuotas = $item.plazoPago.cuotas;
-            vm.entityFac.plazoDias = $item.plazoPago.plazoDias;
+            vm.entityMov.idVendedor = $item.idVendedor;
+            vm.entityMov.plazoDias = $item.plazoPago.plazoDias;
         }
 
         function getPlazosPago() {
@@ -188,7 +192,7 @@
 
         function onChangePlazoPago($item, $model) {
             vm.entityFac.numCuotas = $item.cuotas;
-            vm.entityFac.plazoDias = $item.plazoDias;
+            vm.entityMov.plazoDias = $item.plazoDias;
         }
 
         function onChangeArticulo($item, $model) {
@@ -272,7 +276,8 @@
 
             vm.entityFac.idEmpresa = vm.userApp.idEmpresa;
             vm.entityFac.idDetAlmacen = angular.copy(vm.entityMov.idDetAlmacen);
-            vm.entityFac.fechaDoc = angular.copy(vm.entityMov.fechaDoc);
+            vm.entityFac.fechaDoc = angular.copy(vm.entityMov.fechaDoc); 
+      //    vm.entityMov.fechaVencimiento = vm.entityFac.fechaDoc + vm.entityFac.plazoDias;
             vm.entityFac.FechaPago = vm.entityFac.plazoDias > 0 ? null : vm.entityFac.FechaDoc;
             vm.entityFac.comentario = angular.copy(vm.entityMov.comentario);
             vm.entityFac.idUsuario = vm.userApp.idUsu;
@@ -320,7 +325,7 @@
 
 
         function anular() {
-            var response = facService.remove(vm.entityFac.idFactura);
+            var response = movService.remove(vm.entityMov.idMovimiento);
             response.then(
                 function (response) {
                     window.location.reload();
@@ -453,17 +458,17 @@
         }
 
         function CalcularTotales() {
-            vm.entity.valorBruto = 0;
-            vm.entity.valorDscto = 0;
-            vm.entity.valorIva = 0;
-            vm.entity.valorNeto = 0;
+            vm.entityMov.valorBruto = 0;
+            vm.entityMov.valorDscto = 0;
+            vm.entityMov.valorIva = 0;
+            vm.entityMov.valorNeto = 0;
 
             for (var i = 0; i < vm.gridOptions.data.length; i++) {
                 var data = vm.gridOptions.data[i];
-                vm.entity.valorBruto += data.vrBruto;
-                vm.entity.valorDscto += data.vrBruto * data.pcDscto / 100;
-                vm.entity.valorIva += data.vrBruto * data.pcIva / 100;
-                vm.entity.valorNeto += data.vrBruto - (data.vrBruto * data.pcDscto / 100) + (data.vrBruto * data.pcIva / 100);
+                vm.entityMov.valorBruto += data.vrBruto;
+                vm.entityMov.valorDscto += data.vrBruto * data.pcDscto / 100;
+                vm.entityMov.valorIva += data.vrBruto * data.pcIva / 100;
+                vm.entityMov.valorNeto += data.vrBruto - (data.vrBruto * data.pcDscto / 100) + (data.vrBruto * data.pcIva / 100);
             }
         }
 
@@ -477,14 +482,23 @@
             vm.formFact = true;
         }
 
+       
         function editar(entity) {
             vm.entityFac = angular.copy(entity);
             vm.entityMov = angular.copy(entity);
-            vm.entityMov.fechaDoc = new Date(angular.copy(entity.sFechaFormatted).toString());
+           
+             if ((typeof vm.entityMov.fechaDoc !== 'undefined') && (typeof vm.entityMov.fechaDoc === 'string')) {
+                vm.entityMov.fechaDoc = new Date(new Date(vm.entityMov.fechaDoc).toUTCString());
+            }
             vm.entityMov.idDetAlmacen = angular.copy(entity.idDetAlmacen);
             if (vm.entity.idVendedor != null) {
                 vm.entity.idVendedor = angular.copy(entity.idVendedor).toString();
             }
+
+         
+            getClientes();
+       
+            console.log("paso111111", vm.entityMov);
 
             getDetalleMov();
 

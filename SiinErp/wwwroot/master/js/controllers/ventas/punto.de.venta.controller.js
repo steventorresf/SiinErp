@@ -216,17 +216,17 @@
         };
 
         function CalcularTotales() {
-            vm.entity.valorBruto = 0;
-            vm.entity.valorDscto = 0;
-            vm.entity.valorIva = 0;
-            vm.entity.valorNeto = 0;
+            vm.entityMov.valorBruto = 0;
+            vm.entityMov.valorDscto = 0;
+            vm.entityMov.valorIva = 0;
+            vm.entityMov.valorNeto = 0;
 
             for (var i = 0; i < vm.gridOptions.data.length; i++) {
                 var data = vm.gridOptions.data[i];
-                vm.entity.valorBruto += data.vrBruto;
-                vm.entity.valorDscto += data.vrBruto * data.pcDscto / 100;
-                vm.entity.valorIva += data.vrBruto * data.pcIva / 100;
-                vm.entity.valorNeto += data.vrBruto - (data.vrBruto * data.pcDscto / 100) + (data.vrBruto * data.pcIva / 100);
+                vm.entityMov.valorBruto += data.vrBruto;
+                vm.entityMov.valorDscto += data.vrBruto * data.pcDscto / 100;
+                vm.entityMov.valorIva += data.vrBruto * data.pcIva / 100;
+                vm.entityMov.valorNeto += data.vrBruto - (data.vrBruto * data.pcDscto / 100) + (data.vrBruto * data.pcIva / 100);
             }
         }
 
@@ -265,7 +265,7 @@
                         rowEntity.valor = oldValue;
                     }
 
-                    vm.entity.vrRestante = vm.entity.valorNeto;
+                    vm.entity.vrRestante = vm.entityMov.valorNeto;
                     for (var i = 0; i < vm.gridOptionsPag.data.length; i++) {
                         vm.entity.vrRestante -= vm.gridOptionsPag.data[i].valor;
                     }
@@ -287,7 +287,7 @@
                 }
             }
 
-            if ((vm.entity.valorNeto - pagoTotal) === 0) {
+            if ((vm.entityMov.valorNeto - pagoTotal) === 0) {
                 vm.entityMov.idEmpresa = vm.userApp.idEmpresa;
                 vm.entityMov.idUsuario = vm.userApp.idUsu;
 

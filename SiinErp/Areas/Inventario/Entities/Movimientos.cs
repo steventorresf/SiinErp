@@ -87,14 +87,9 @@ namespace SiinErp.Areas.Inventario.Entities
         public decimal ValorBruto { get; set; }
 
         [Required]
-        public decimal ValorPagado { get; set; }
+        public decimal ValorSaldo { get; set; }
 
-        [Required]
-        public decimal ValorNotaCredito { get; set; }
-
-        [Required]
-        public decimal ValorNotaDebito { get; set; }
-
+      
         [Required]
         [StringLength(1)]
         public string Estado { get; set; }
@@ -113,7 +108,5 @@ namespace SiinErp.Areas.Inventario.Entities
         [NotMapped]
         public string sFechaFormatted { get; set; }
 
-        [NotMapped]
-        public decimal ValorSaldo { get; set; }
     }
 }

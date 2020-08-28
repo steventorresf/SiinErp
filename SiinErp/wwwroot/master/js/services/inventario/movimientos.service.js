@@ -18,6 +18,7 @@
             createByFacturaDeVenta: createByFacturaDeVenta,
             getByModificable: getByModificable,
             update: update,
+            remove: remove,
             getPendientesTercero: getPendientesTercero,
         };
 
@@ -102,8 +103,8 @@
                 );
         }
 
-        function getByModificable(fecha) {
-            return $http.get(nameSpace + 'ByModificable/' + fecha)
+        function getByModificable(IdEmp) {
+            return $http.get(nameSpace + 'ByModificable/' + IdEmp)
                 .then(
                     function (response) {
                         return response;
@@ -127,5 +128,19 @@
                     }
                 );
         }
+
+        function remove(id) {
+            console.log("borra", id);
+            return $http.delete(nameSpace + '/' + id)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
     }
 })();

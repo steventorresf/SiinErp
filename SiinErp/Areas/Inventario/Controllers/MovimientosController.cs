@@ -42,10 +42,11 @@ namespace SiinErp.Areas.Inventario.Controllers
         {
             try
             {
+                Ordenes entityOrd = data["entityOrd"].ToObject<Ordenes>();
                 Movimientos entityMov = data["entityMov"].ToObject<Movimientos>();
                 List<MovimientosDetalle> listDetalleMov = data["listDetalleMov"].ToObject<List<MovimientosDetalle>>();
 
-                BusinessMov.CreateByEntradaCompra(entityMov, listDetalleMov);
+                BusinessMov.CreateByEntradaCompra(entityOrd, entityMov, listDetalleMov);
                 return Ok(true);
             }
             catch (Exception)
@@ -89,12 +90,12 @@ namespace SiinErp.Areas.Inventario.Controllers
             }
         }
 
-        [HttpGet("ByModificable/{Fecha}")]
-        public IActionResult GetByModificable(DateTime Fecha)
+        [HttpGet("ByModificable/{IdEmp}")]
+        public IActionResult GetByModificable(int IdEmp)
         {
             try
             {
-                var lista = BusinessMov.GetMovimientosByModificable(Fecha);
+                var lista = BusinessMov.GetMovimientosByModificable(IdEmp);
                 return Ok(lista);
             }
             catch (Exception ex)
@@ -107,8 +108,24 @@ namespace SiinErp.Areas.Inventario.Controllers
 
         }
 
+        [HttpGet("{IdEmp}")]
+        public IActionResult GetAll(int IdEmp)
+        {
+            try
+            {
+                var lista = BusinessMov.GetAll(IdEmp);
+                return Ok(lista);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+      
         #region Facturas
-           [HttpGet("Pendientes/{IdEmp}/{IdTercero}")]
+        [HttpGet("Pendientes/{IdEmp}/{IdTercero}")]
            public IActionResult GetPendientesByTercero(int IdEmp, int IdTercero)
            {
                try
@@ -152,19 +169,22 @@ namespace SiinErp.Areas.Inventario.Controllers
             }
         }
 
-        [HttpDelete("{IdFac}")]
-        public IActionResult AnularFactura(int IdFac)
+        [HttpDelete("{Id}")]
+        public IActionResult Anular(int Id)
         {
             try
             {
-                BusinessMov.AnularFactura(IdFac);
+                BusinessMov.Anular(Id);
                 return Ok(true);
             }
             catch (Exception)
             {
                 throw;
+                
             }
         }
+
+      
         #endregion
     }
 }

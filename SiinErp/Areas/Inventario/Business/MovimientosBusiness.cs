@@ -28,6 +28,7 @@ namespace SiinErp.Areas.Inventario.Business
                     context.SaveChanges();
 
                     entityMov.NumDoc = tiposdocmov.NumDoc;
+                    entityMov.CodModulo = Constantes.ModuloInventario;
                     entityMov.Periodo = entityMov.FechaDoc.ToString("yyyyMM");
                     entityMov.Estado = Constantes.EstadoActivo;
                     entityMov.FechaCreacion = DateTimeOffset.Now;
@@ -97,7 +98,7 @@ namespace SiinErp.Areas.Inventario.Business
             }
         }
 
-        public void CreateByEntradaCompra(Movimientos entityMov, List<MovimientosDetalle> listaDetalleMov)
+        public void CreateByEntradaCompra(Ordenes entityOrd, Movimientos entityMov, List<MovimientosDetalle> listaDetalleMov)
         {
             try
             {
@@ -110,7 +111,10 @@ namespace SiinErp.Areas.Inventario.Business
                     entityMov.CodModulo = Constantes.ModuloCompras;
                     entityMov.TipoDoc = tiposdocmov.TipoDoc;
                     entityMov.NumDoc = tiposdocmov.NumDoc;
+                    entityMov.ValorSaldo = entityMov.ValorNeto;
+                    entityMov.ValorBruto = entityMov.ValorNeto;
                     entityMov.Transaccion = tiposdocmov.Transaccion;
+                    entityMov.FechaVencimiento = entityMov.FechaDoc.AddDays(entityOrd.PlazoPago.PlazoDias);
                     entityMov.Periodo = entityMov.FechaDoc.ToString("yyyyMM");
                     entityMov.FechaCreacion = DateTimeOffset.Now;
                     context.Movimientos.Add(entityMov);
@@ -165,6 +169,7 @@ namespace SiinErp.Areas.Inventario.Business
 
                     entityMov.TipoDoc = tiposdocmov.TipoDoc;
                     entityMov.NumDoc = tiposdocmov.NumDoc;
+                    entityMov.CodModulo = Constantes.ModuloVentas;
                     entityMov.Transaccion = tiposdocmov.Transaccion;
                     entityMov.Periodo = entityMov.FechaDoc.ToString("yyyyMM");
                     entityMov.IdDetCenCosto = null;
@@ -218,12 +223,16 @@ namespace SiinErp.Areas.Inventario.Business
 
                     entityMov.TipoDoc = tiposdocmov.TipoDoc;
                     entityMov.NumDoc = tiposdocmov.NumDoc;
+                    entityMov.CodModulo = Constantes.ModuloVentas;
                     entityMov.Transaccion = tiposdocmov.Transaccion;
                     entityMov.Periodo = entityMov.FechaDoc.ToString("yyyyMM");
                     entityMov.IdDetCenCosto = null;
-                    entityMov.IdTercero = null;
+                    entityMov.IdTercero = entityMov.IdTercero;
+                    //    entityMov.FechaVencimiento = entityMov.FechaDoc.AddDays(entity.PlazoPago.PlazoDias);
+                    entityMov.FechaVencimiento = entityMov.FechaDoc.AddDays(30);
                     entityMov.Estado = Constantes.EstadoActivo;
                     entityMov.FechaCreacion = DateTimeOffset.Now;
+                    entityMov.ValorSaldo = entityMov.ValorNeto;
                     context.Movimientos.Add(entityMov);
                     context.SaveChanges();
 
@@ -252,13 +261,47 @@ namespace SiinErp.Areas.Inventario.Business
         }
 
 
-        public List<Movimientos> GetMovimientosByModificable(DateTime Fecha)
+        public List<Movimientos> GetMovimientosByModificable(int IdEmp)
+        {
+            try
+            {
+                SiinErpContext context = new SiinErpContext();
+
+                List<Movimientos> Lista = (from tip in context.TiposDoc
+                                           join mov in context.Movimientos.Where(x => x.IdEmpresa == IdEmp && x.CodModulo == Constantes.ModuloVentas && x.Estado.Equals(Constantes.EstadoActivo)) on tip.TipoDoc equals mov.TipoDoc
+                                           join ter in context.Terceros on mov.IdTercero equals ter.IdTercero into LeftJoin
+                                           from LJ in LeftJoin.DefaultIfEmpty()
+
+                                           select new Movimientos()
+                                           {
+                                               IdMovimiento = mov.IdMovimiento,
+                                               TipoDoc = mov.TipoDoc,
+                                               NumDoc = mov.NumDoc,
+                                               FechaDoc = mov.FechaDoc,
+                                               ValorNeto = mov.ValorNeto,
+                                               Estado = mov.Estado,
+                                               IdTercero = mov.IdTercero,
+                                               IdVendedor = mov.IdVendedor,
+                                               IdDetAlmacen = mov.IdDetAlmacen,
+                                               NombreTercero = LJ != null ? LJ.NombreTercero : "",
+                                           }).OrderByDescending(x => x.FechaDoc).ToList();
+                return Lista;
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("GetMovimientosByModificable", ex.Message, null);
+                throw;
+            }
+        }
+
+
+        public List<Movimientos> GetAll(int IdEmp)
         {
             try
             {
                 SiinErpContext context = new SiinErpContext();
                 List<Movimientos> Lista = (from tip in context.TiposDoc
-                                           join mov in context.Movimientos.Where(x => x.FechaDoc >= Fecha && x.Estado.Equals(Constantes.EstadoActivo)) on tip.TipoDoc equals mov.TipoDoc
+                                           join mov in context.Movimientos.Where(x => x.IdEmpresa == IdEmp && x.Estado.Equals(Constantes.EstadoActivo)) on tip.TipoDoc equals mov.TipoDoc
                                            join alm in context.TablasEmpresaDetalles on mov.IdDetAlmacen equals alm.IdDetalle
                                            select new Movimientos()
                                            {
@@ -268,12 +311,15 @@ namespace SiinErp.Areas.Inventario.Business
                                                FechaDoc = mov.FechaDoc,
                                                Comentario = mov.Comentario,
                                                Estado = mov.Estado,
+                                               IdTercero = mov.IdTercero,
                                                IdDetAlmacen = mov.IdDetAlmacen,
+                                               IdDetCenCosto = mov.IdDetCenCosto,
+                                               IdDetConcepto= mov.IdDetConcepto,
                                                NombreAlmacen = alm.Descripcion,
                                            }).OrderByDescending(x => x.FechaDoc).ToList();
                 return Lista;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErroresBusiness.Create("GetMovimientosByModificable", ex.Message, null);
                 throw;
@@ -288,16 +334,17 @@ namespace SiinErp.Areas.Inventario.Business
             try
             {
                 SiinErpContext context = new SiinErpContext();
-                List<Movimientos> Lista = (from f in context.Movimientos.Where(x => x.IdEmpresa == IdEmpresa &&  x.IdTercero == IdTercero && x.Estado.Equals(Constantes.EstadoActivo))
-               
-                                                                       select new Movimientos()
+                List<Movimientos> Lista = (from f in context.Movimientos.Where(x => x.IdEmpresa == IdEmpresa && x.IdTercero == IdTercero && x.Estado.Equals(Constantes.EstadoActivo))
+
+                                           select new Movimientos()
                                            {
                                                IdMovimiento = f.IdMovimiento,
                                                TipoDoc = f.TipoDoc,
                                                NumDoc = f.NumDoc,
+                                               NumFactura = f.NumFactura,
                                                FechaDoc = f.FechaDoc,
                                                FechaVencimiento = f.FechaVencimiento,
-                                               ValorSaldo = f.ValorNeto - f.ValorPagado,
+                                               ValorSaldo = f.ValorSaldo,
                                                VrPagar = 0,
                                                ValorDscto = 0,
                                                ValorNeto = 0
@@ -364,14 +411,14 @@ namespace SiinErp.Areas.Inventario.Business
             }
         }
 
-        public void AnularFactura(int IdFac)
+        public void Anular(int Id)
         {
             try
             {
                 SiinErpContext context = new SiinErpContext();
                 using (var tran = context.Database.BeginTransaction())
                 {
-                    Movimientos entityMov = context.Movimientos.Find(IdFac);
+                    Movimientos entityMov = context.Movimientos.Find(Id);
                     entityMov.Estado = Constantes.EstadoInactivo;
                     context.SaveChanges();
 
@@ -389,7 +436,7 @@ namespace SiinErp.Areas.Inventario.Business
             }
             catch (Exception ex)
             {
-                ErroresBusiness.Create("AnularFactura", ex.Message, null);
+                ErroresBusiness.Create("Anular", ex.Message, null);
                 throw;
             }
         }

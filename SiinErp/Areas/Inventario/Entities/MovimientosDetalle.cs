@@ -43,5 +43,12 @@ namespace SiinErp.Areas.Inventario.Entities
 
         [NotMapped]
         public Articulos Articulo { get; set; }
+
+        [NotMapped]
+        public string CodArticulo { get; set; }
+
+        [NotMapped]
+        public string NombreArticulo { get; set; }
+
     }
 }

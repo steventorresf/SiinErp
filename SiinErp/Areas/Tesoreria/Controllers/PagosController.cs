@@ -32,6 +32,7 @@ namespace SiinErp.Areas.Tesoreria.Controllers
             }
             catch (Exception)
             {
+
                 throw;
             }
         }
