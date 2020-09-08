@@ -1628,8 +1628,8 @@
 
         return service;
 
-        function getAll(idEmp) {
-            return $http.get(nameSpace + idEmp)
+        function getAll(idEmp, fechaIni, FechaFin) {
+            return $http.get(nameSpace + idEmp + '/' + fechaIni + '/' + FechaFin)
                 .then(
                     function (response) {
                         return response;

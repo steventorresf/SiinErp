@@ -14,6 +14,7 @@
         vm.title = 'Home Page';
         vm.init = init;
         vm.userApp = angular.copy($cookies.getObject('UsuApp'));
+        vm.getAll = getAll;
         vm.getClientes = getClientes;
         vm.guardar = guardar;
         vm.nuevo = nuevo;
@@ -27,18 +28,11 @@
         vm.refreshArticulo = refreshArticulo;
         vm.onChangeArticulo = onChangeArticulo;
         vm.removeArt = removeArt;
-        vm.entityMov = {
-            idEmpresa: vm.userApp.idEmpresa,
-            fecha: fecha.addDays(fecha.getDate() > 1 ? (fecha.getDate() - 1) * -1 : 0),
-            valorBruto: 0,
-            valorDscto: 0,
-            valorIva: 0,
-            valorNeto: 0,
-            creadoPor: vm.userApp.nombreUsuario,
-            estado: Estados.Activo,
-            periodo: '-',
-        };
+        vm.entityMov = {};
         vm.formFact = false;
+
+        vm.fechaInicial = fecha.addDays(fecha.getDate() > 1 ? (fecha.getDate() - 1) * -1 : 0);
+        vm.fechaFinal = fecha.addDays(0);
 
         function init() {
             getAll();
@@ -50,7 +44,7 @@
 
         function getAll() {
             //var response = movService.getByModificable(vm.entity.fecha.DateSiin(true));
-            var response = movService.getByModificable(vm.userApp.idEmpresa);
+            var response = movService.getAll(vm.userApp.idEmpresa, vm.fechaInicial.DateSiin(true), vm.fechaFinal.DateSiin(true));
             response.then(
                 function (response) {
                     vm.gridOptionsFac.data = response.data;
@@ -128,7 +122,7 @@
                     headerCellClass: 'bg-header',
                     cellClass: 'text-center',
                     cellTemplate:
-                        "<span><a href='' ng-click='grid.appScope.editar(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<span><a href='' ng-click='grid.appScope.vm.editar(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
                         "<i class='fa fa-edit'></i></a></span>",
                     width: 80,
                     enableCellEdit: false,
@@ -174,7 +168,8 @@
        
         function onChangeCliente($item, $model) {
             vm.entityMov.idVendedor = $item.idVendedor;
-            vm.entityMov.plazoDias = $item.plazoPago.plazoDias;
+            vm.entityMov.idPlazoPago = $item.idPlazoPago;
+            vm.entityMov.plazoPago = $item;
         }
 
         function getPlazosPago() {
@@ -190,8 +185,7 @@
         }
 
         function onChangePlazoPago($item, $model) {
-            vm.entityFac.numCuotas = $item.cuotas;
-            vm.entityMov.plazoDias = $item.plazoDias;
+            vm.entityMov.plazoPago = $item;
         }
 
         function onChangeArticulo($item, $model) {
@@ -453,18 +447,30 @@
             vm.entityMov.valorNeto = 0;
 
             for (var i = 0; i < vm.gridOptions.data.length; i++) {
+                vm.gridOptions.data[i].vrBruto = vm.gridOptions.data[i].vrUnitario * vm.gridOptions.data[i].cantidad;
                 var data = vm.gridOptions.data[i];
                 vm.entityMov.valorBruto += data.vrBruto;
                 vm.entityMov.valorDscto += data.vrBruto * data.pcDscto / 100;
                 vm.entityMov.valorIva += data.vrBruto * data.pcIva / 100;
                 vm.entityMov.valorNeto += data.vrBruto - (data.vrBruto * data.pcDscto / 100) + (data.vrBruto * data.pcIva / 100);
+
+                vm.gridOptions.data[i].vrNeto = data.vrUnitario - (data.vrBruto * data.pcDscto / 100) + (data.vrBruto * data.pcIva / 100);
             }
         }
 
         function nuevo() {
             vm.entityFac = {};
-            vm.entityMov = {};
-            vm.entity.idArticulo = null;
+            vm.entityMov = {
+                idEmpresa: vm.userApp.idEmpresa,
+                fecha: fecha.addDays(fecha.getDate() > 1 ? (fecha.getDate() - 1) * -1 : 0),
+                valorBruto: 0,
+                valorDscto: 0,
+                valorIva: 0,
+                valorNeto: 0,
+                creadoPor: vm.userApp.nombreUsuario,
+                estado: Estados.Activo,
+                periodo: '-',
+            };
             getTipoDoc();
             vm.modify = false;
             $scope.modify = false;
@@ -479,10 +485,13 @@
              if ((typeof vm.entityMov.fechaDoc !== 'undefined') && (typeof vm.entityMov.fechaDoc === 'string')) {
                 vm.entityMov.fechaDoc = new Date(new Date(vm.entityMov.fechaDoc).toUTCString());
             }
+
             vm.entityMov.idDetAlmacen = angular.copy(entity.idDetAlmacen);
-            if (vm.entity.idVendedor != null) {
-                vm.entity.idVendedor = angular.copy(entity.idVendedor).toString();
+            if (vm.entityMov.idVendedor != null) {
+                vm.entityMov.idVendedor = angular.copy(entity.idVendedor);
             }
+
+            vm.entityMov.idPlazoPago = angular.copy(entity.plazoPago.idPlazoPago);
 
          
             getClientes();

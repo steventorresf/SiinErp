@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SiinErp.Areas.Cartera.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -107,6 +108,9 @@ namespace SiinErp.Areas.Inventario.Entities
 
         [NotMapped]
         public string sFechaFormatted { get; set; }
+
+        [NotMapped]
+        public PlazosPago PlazoPago { get; set; }
 
     }
 }

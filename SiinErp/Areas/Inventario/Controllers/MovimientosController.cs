@@ -108,12 +108,12 @@ namespace SiinErp.Areas.Inventario.Controllers
 
         }
 
-        [HttpGet("{IdEmp}")]
-        public IActionResult GetAll(int IdEmp)
+        [HttpGet("{IdEmp}/{FechaIni}/{FechaFin}")]
+        public IActionResult GetAll(int IdEmp, string FechaIni, string FechaFin)
         {
             try
             {
-                var lista = BusinessMov.GetAll(IdEmp);
+                var lista = BusinessMov.GetAll(IdEmp, Convert.ToDateTime(FechaIni), Convert.ToDateTime(FechaFin));
                 return Ok(lista);
             }
             catch (Exception)
