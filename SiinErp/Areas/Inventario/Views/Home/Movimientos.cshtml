@@ -14,19 +14,25 @@
     <div class="col-12 offset-md-1 col-md-10">
         <div class="card">
             <div class="card-header">
-                <h4></h4>
+                <form class="form-horizontal" id="form" name="form">
+                    <div class="form-group row">
+                        <div class="col-12 col-md-4">
+                            <label>Fecha Inicial:</label>
+                            <input type="date" class="form-control" ng-model="vm.fechaInicial" />
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label>Fecha Final:</label>
+                            <input type="date" class="form-control" ng-model="vm.fechaFinal" />
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <br />
+                            <button class="btn btn-primary" ng-click="vm.getAll()">Buscar</button>
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col-12 col-md-6">
-                        <input type="date" ng-model="vm.entity.fecha" class="form-control" ng-change="vm.onChangeFecha()" />
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <div class="fontsize-10" ui-grid="vm.gridOptionsMov" ui-grid-selection ui-grid-cellNav ui-grid-edit ui-grid-resize-columns ui-grid-auto-resize></div>
-                    </div>
-                </div>
+                <div class="fontsize-10" ui-grid="vm.gridOptionsMov" ui-grid-selection ui-grid-cellNav ui-grid-edit ui-grid-resize-columns ui-grid-auto-resize></div>
             </div>
             <div class="card-footer">
                 <button class="btn btn-primary" ng-click="vm.nuevo()">Nuevo</button>

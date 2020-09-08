@@ -12,10 +12,11 @@ namespace SiinErp.Utiles
         public DateTimeOffset FechaCreacion { get; set; }
 
         [Required]
-        public int CreadoPor { get; set; }
+        [StringLength(50)]
+        public string CreadoPor { get; set; }
 
         public DateTimeOffset? FechaModificado { get; set; }
 
-        public int? ModificadoPor { get; set; }
+        public string ModificadoPor { get; set; }
     }
 }

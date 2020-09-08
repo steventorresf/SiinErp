@@ -280,14 +280,28 @@
 
         var service = {
             getAll: getAll,
+            getPen: getPen,
             create: create,
             update: update,
         };
 
         return service;
 
-        function getAll(idEmp) {
-            return $http.get(nameSpace + idEmp)
+        function getAll(idEmp, fechaIni, fechaFin) {
+            return $http.get(nameSpace + idEmp + '/' + fechaIni + '/' + fechaFin)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getPen(idEmp) {
+            return $http.get(nameSpace + 'GetPen/' + idEmp)
                 .then(
                     function (response) {
                         return response;
@@ -1602,11 +1616,11 @@
 
         var service = {
             getAll: getAll,
+            getAct: getAct,
             create: create,
             createByEntradaCompra: createByEntradaCompra,
             createByPuntoDeVenta: createByPuntoDeVenta,
             createByFacturaDeVenta: createByFacturaDeVenta,
-            getByModificable: getByModificable,
             update: update,
             remove: remove,
             getPendientesTercero: getPendientesTercero,
@@ -1626,9 +1640,21 @@
                     }
                 );
         }
-//
+
+        function getAct(idEmp, fechaIni, fechaFin) {
+            return $http.get(nameSpace + 'ByFecha/' + idEmp + '/' + fechaIni + '/' + fechaFin)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
         function getPendientesTercero(idEmp, idTercero) {
-            console.log("77777", idEmp, idTercero,nameSpace + 'Pendientes/' + idEmp + idTercero);
             return $http.get(nameSpace + 'Pendientes/' + idEmp + '/' + idTercero)
                 .then(
                     function (response) {
@@ -1693,19 +1719,6 @@
                 );
         }
 
-        function getByModificable(IdEmp) {
-            return $http.get(nameSpace + 'ByModificable/' + IdEmp)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-
         function update(id, data) {
             return $http.put(nameSpace + id, data)
                 .then(
@@ -1720,7 +1733,6 @@
         }
 
         function remove(id) {
-            console.log("borra", id);
             return $http.delete(nameSpace + '/' + id)
                 .then(
                     function (response) {
@@ -1842,8 +1854,8 @@
 
         return service;
 
-        function getAll(idEmp) {
-            return $http.get(nameSpace + idEmp)
+        function getAll(idEmp, fechaIni, fechaFin) {
+            return $http.get(nameSpace + idEmp + '/' + fechaIni + '/' + fechaFin)
                 .then(
                     function (response) {
                         return response;

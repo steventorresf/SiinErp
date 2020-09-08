@@ -18,8 +18,8 @@
 
         return service;
 
-        function getAll(idEmp) {
-            return $http.get(nameSpace + idEmp)
+        function getAll(idEmp, fechaIni, fechaFin) {
+            return $http.get(nameSpace + idEmp + '/' + fechaIni + '/' + fechaFin)
                 .then(
                     function (response) {
                         return response;

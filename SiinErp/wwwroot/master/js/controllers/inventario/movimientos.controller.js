@@ -22,7 +22,7 @@
         vm.onChangeTipoDoc = onChangeTipoDoc;
         vm.refreshArticulo = refreshArticulo;
         vm.onChangeArticulo = onChangeArticulo;
-        vm.onChangeFecha = getAll;
+        vm.getAll = getAll;
         vm.almDestino = false;
         vm.formMov = false;
         vm.entity = {
@@ -31,6 +31,9 @@
         vm.entityMov = {};
 
         $scope.editar = editar;
+
+        vm.fechaInicial = fecha.addDays(fecha.getDate() > 1 ? (fecha.getDate() - 1) * -1 : 0);
+        vm.fechaFinal = fecha.addDays(0);
 
         function init() {
             getAll();
@@ -42,10 +45,9 @@
 
         function getAll() {
             //var response = movService.getByModificable(vm.entity.fecha.DateSiin(true));
-            var response = movService.getAll(vm.userApp.idEmpresa);
+            var response = movService.getAct(vm.userApp.idEmpresa, vm.fechaInicial.DateSiin(true), vm.fechaFinal.DateSiin(true));
             response.then(
                 function (response) {
-                    console.log("pasosssss", response.data);
                     vm.gridOptionsMov.data = response.data;
                 },
                 function (response) {
@@ -135,7 +137,6 @@
          
             getTerceros();
             getTiposDocByAlmacen();
-            console.log("paso111111", vm.entityMov);
             getDetalleMov();
 
             vm.modify = true;
@@ -147,7 +148,6 @@
             var response = movdetService.getAll(vm.entityMov.idMovimiento);
             response.then(
                 function (response) {
-                    console.log("paso22222");
                     vm.gridOptions.data = response.data;
                     CalcularTotales();
                 },

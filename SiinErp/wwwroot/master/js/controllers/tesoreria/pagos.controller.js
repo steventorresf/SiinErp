@@ -5,13 +5,18 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'GenTercerosService', 'CarConceptosService', 'InvMovimientosService', 'GenTiposDocService', 'TesPagosService']; // 'TesPagosService' tespagService,
+    AppController.$inject = ['$location', '$cookies', '$scope', 'GenTercerosService', 'CarConceptosService', 'InvMovimientosService', 'GenTiposDocService', 'TesPagosService'];
 
-    function AppController($location, $cookies, $scope, terService, conService, facService, tipdocService, tespagService) {
+    function AppController($location, $cookies, $scope, terService, conService, facService, tipdocService, pagService) {
         var vm = this;
+        var fecha = new Date();
 
+        vm.rango = true;
         vm.title = 'Home Page';
         vm.init = init;
+        vm.getAll = getAll;
+        vm.nuevo = nuevo;
+        vm.cancelar = cancelar;
         listDetallePag = {};
         listDetalleFac = {};
         vm.userApp = angular.copy($cookies.getObject('UsuApp'));
@@ -19,17 +24,114 @@
         vm.guardar = guardar;
         vm.regresar = regresar;
         vm.buscarPendientesTercero = buscarPendientesTercero;
-        vm.entity = {
-            idEmpresa: vm.userApp.idEmpresa,
-            afectaCartera: true,
-            creadoPor: vm.userApp.idUsu,
-            estado: Estados.Activo,
-            valorRestante: 0,
-        };
+        vm.entity = {};
+
+        vm.fechaInicial = fecha.addDays(fecha.getDate() > 1 ? (fecha.getDate() - 1) * -1 : 0);
+        vm.fechaFinal = fecha.addDays(0);
 
         function init() {
+            getAll();
             getProveedores();
             getTiposDoc();
+        }
+
+        function getAll() {
+            vm.gridOptionsPag.data = [];
+
+            var response = pagService.getAll(vm.userApp.idEmpresa, vm.fechaInicial.DateSiin(true), vm.fechaFinal.DateSiin(true));
+            response.then(
+                function (response) {
+                    vm.gridOptionsPag.data = response.data;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        vm.gridOptionsPag = {
+            data: [],
+            enableSorting: true,
+            enableRowSelection: true,
+            enableFullRowSelection: true,
+            multiSelect: false,
+            enableRowHeaderSelection: false,
+            enableColumnMenus: false,
+            enableFiltering: true,
+            columnDefs: [
+                {
+                    name: 'tipoDoc',
+                    field: 'tipoDoc',
+                    displayName: 'Tp',
+                    headerCellClass: 'bg-header',
+                    cellClass: 'text-center',
+                    width: 100,
+                    enableCellEdit: false,
+                },
+                {
+                    name: 'numDoc',
+                    field: 'numDoc',
+                    displayName: '#',
+                    headerCellClass: 'bg-header',
+                    cellClass: 'text-center',
+                    width: 100,
+                    enableCellEdit: false,
+                },
+                {
+                    name: 'fechaDoc',
+                    field: 'fechaDoc',
+                    displayName: 'Fecha Doc',
+                    headerCellClass: 'bg-header',
+                    cellClass: 'text-center',
+                    cellFilter: 'date:\'yyyy-MM-dd\'',
+                    width: 120,
+                    enableCellEdit: false,
+                },
+                {
+                    name: 'nombreProveedor',
+                    field: 'nombreProveedor',
+                    displayName: 'Proveedor',
+                    headerCellClass: 'bg-header',
+                    enableCellEdit: false,
+                },
+                {
+                    name: 'nombreConcepto',
+                    field: 'nombreConcepto',
+                    displayName: 'Concepto',
+                    headerCellClass: 'bg-header',
+                    enableCellEdit: false,
+                },
+                {
+                    name: 'valorTotal',
+                    field: 'valorTotal',
+                    displayName: 'Total',
+                    headerCellClass: 'bg-header',
+                    cellClass: 'text-center',
+                    type: 'number',
+                    cellFilter: 'number: 0',
+                    width: 120,
+                    enableCellEdit: false,
+                },
+            ],
+            onRegisterApi: function (gridApi) {
+                vm.gridApiPag = gridApi;
+            },
+        };
+
+        function nuevo() {
+            vm.entity = {
+                idEmpresa: vm.userApp.idEmpresa,
+                afectaCartera: true,
+                creadoPor: vm.userApp.idUsu,
+                estado: Estados.Activo,
+                valorRestante: 0,
+            };
+
+            vm.rango = false;
+        }
+
+        function cancelar() {
+            vm.rango = true;
         }
 
         function getProveedores() {
@@ -70,8 +172,7 @@
         }
 
         function buscarPendientesTercero() {
-
-            var response = facService.getPendientesTercero(vm.userApp.idEmpresa, vm.entity.idTercero);
+            var response = facService.getPendientesTercero(vm.userApp.idEmpresa, vm.entity.idProveedor);
 
             response.then(
                 function (response) {
@@ -116,7 +217,7 @@
                     listDetalleFac: listDetalleFac,
                 }
 
-                var response = tespagService.create(data);
+                var response = pagService.create(data);
                 response.then(
                     function (response) {
                         window.location.reload();

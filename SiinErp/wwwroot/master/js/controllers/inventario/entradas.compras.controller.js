@@ -28,7 +28,7 @@
         }
 
         function getAll() {
-            var response = ordService.getAll(vm.userApp.idEmpresa);
+            var response = ordService.getPen(vm.userApp.idEmpresa);
             response.then(
                 function (response) {
                     vm.gridOptions.data = response.data;
@@ -132,6 +132,11 @@
                 idTercero: vm.entityOrd.idProveedor,
                 estado: Estados.Activo,
                 idOrden: vm.entityOrd.idOrden,
+                valorBruto: 0,
+                valorDscto: 0,
+                valorIva: 0,
+                valorNeto: 0,
+                creadoPor: vm.userApp.nombreUsuario,
             };
 
             getDetalle();
@@ -143,6 +148,7 @@
             response.then(
                 function (response) {
                     vm.gridOptionsDet.data = response.data;
+                    CalcularTotales();
                 },
                 function (response) {
                     console.log(response);
@@ -279,8 +285,9 @@
                 vm.gridApi = gridApi;
                 gridApi.edit.on.afterCellEdit($scope, function (rowEntity, colDef, newValue, oldValue) {
                     if (rowEntity.cantidad - rowEntity.cantidadEje >= newValue) {
-                        rowEntity.vrBruto = (rowEntity.vrUnitario * rowEntity.cantidad);
-                        rowEntity.vrNeto = rowEntity.vrBruto - (rowEntity.vrBruto * rowEntity.pcDscto / 100) + (rowEntity.vrBruto * rowEntity.pcIva / 100);
+                        CalcularTotales();
+                        //rowEntity.vrBruto = (rowEntity.vrUnitario * newValue);
+                        //rowEntity.vrNeto = rowEntity.vrBruto - (rowEntity.vrBruto * rowEntity.pcDscto / 100) + (rowEntity.vrBruto * rowEntity.pcIva / 100);
                         if (vm.modify) {
                             updateArt(rowEntity);
                         }
@@ -289,6 +296,27 @@
                 });
             },
         };
+
+        function CalcularTotales() {
+            vm.entityMov.valorBruto = 0;
+            vm.entityMov.valorDscto = 0;
+            vm.entityMov.valorIva = 0;
+            vm.entityMov.valorNeto = 0;
+
+            for (var i = 0; i < vm.gridOptionsDet.data.length; i++) {
+                vm.gridOptionsDet.data[i].vrBruto = vm.gridOptionsDet.data[i].vrUnitario * vm.gridOptionsDet.data[i].cantidadRecibida;
+                vm.gridOptionsDet.data[i].vrNeto = vm.gridOptionsDet.data[i].vrBruto -
+                    (vm.gridOptionsDet.data[i].vrBruto * vm.gridOptionsDet.data[i].pcDscto / 100) +
+                    (vm.gridOptionsDet.data[i].vrBruto * vm.gridOptionsDet.data[i].pcIva / 100);
+
+                vm.entityMov.valorBruto += vm.gridOptionsDet.data[i].vrBruto;
+                vm.entityMov.valorDscto += vm.gridOptionsDet.data[i].vrBruto * vm.gridOptionsDet.data[i].pcDscto / 100;
+                vm.entityMov.valorIva += (vm.gridOptionsDet.data[i].vrBruto -
+                    (vm.gridOptionsDet.data[i].vrBruto * vm.gridOptionsDet.data[i].pcDscto / 100)) *
+                    vm.gridOptionsDet.data[i].pcIva / 100;
+                vm.entityMov.valorNeto += vm.entityMov.valorBruto - vm.entityMov.valorDscto + vm.entityMov.valorIva;
+            }
+        }
 
 
         function guardar() {
@@ -307,14 +335,10 @@
                         vrBruto: ob.vrBruto,
                        
                     });
-                    console.log("entarda", vm.listDetalleMov);
                 }
             }
 
             if (vm.listDetalleMov.length > 0) {
-                vm.entityMov.idUsuario = vm.userApp.idUsu;
-                vm.entityMov.valorNeto = 25000;
-
                 var data = {
                     entityOrd: vm.entityOrd,
                     entityMov: vm.entityMov,

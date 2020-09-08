@@ -36,10 +36,10 @@ namespace SiinErp.Areas.Inventario.Entities
         public short Transaccion { get; set; }
 
         [Required]
-        public DateTimeOffset FechaDoc { get; set; }
+        public DateTime FechaDoc { get; set; }
 
         [Required]
-        public DateTimeOffset FechaVencimiento { get; set; }
+        public DateTime FechaVencimiento { get; set; }
 
         [Required]
         [StringLength(6)]

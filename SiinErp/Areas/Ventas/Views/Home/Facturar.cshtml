@@ -46,7 +46,7 @@
                     <div class="card-body">
                         <form id="formApp" name="formApp" novalidate="novalidate" class="form-horizontal">
                             <div class="form-group row">
-                                <div class="col-12 col-md-6" ng-show="vm.entityFac.tipoDoc === 'FC'">
+                                <div class="col-12 col-md-6" ng-show="vm.entityMov.tipoDoc === 'FC'">
                                     <label class="required">Cliente Nombre:</label>
                                     <ui-select ng-model="vm.entityMov.idTercero"
                                                form="formApp"
@@ -62,9 +62,9 @@
 
                                     </ui-select>
                                 </div>
-                                <div class="col-12 col-md-3" ng-show="vm.entityFac.tipoDoc === 'FC'">
+                                <div class="col-12 col-md-3" ng-show="vm.entityMov.tipoDoc === 'FC'">
                                     <label class="required">Plazo de Pago:</label>
-                                    <ui-select ng-model="vm.entityFac.idPlazoPago"
+                                    <ui-select ng-model="vm.entityMov.idPlazoPago"
                                                form="formApp"
                                                theme="bootstrap"
                                                tabindex="7"
@@ -81,9 +81,9 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <div class="col-12 col-md-6" ng-show="vm.entityFac.tipoDoc === 'FC'">
+                                <div class="col-12 col-md-6" ng-show="vm.entityMov.tipoDoc === 'FC'">
                                     <label class="required">Vendedor:</label>
-                                    <ui-select ng-model="vm.entityFac.idVendedor"
+                                    <ui-select ng-model="vm.entityMov.idVendedor"
                                                form="formApp"
                                                theme="bootstrap"
                                                tabindex="7"
@@ -122,7 +122,7 @@
                     </div>
                     <div class="card-body">
                         <div class="col-12" ng-show="!vm.modify">
-                            <ui-select ng-model="vm.entity.idArticulo"
+                            <ui-select ng-model="vm.entityMov.idArticulo"
                                        form="formAppDet"
                                        theme="bootstrap"
                                        tabindex="7"

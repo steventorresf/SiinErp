@@ -31,7 +31,7 @@ namespace SiinErp.Areas.General.Controllers
             }
         }
 
-        [HttpGet("ByAct/{IdEmp}")]
+        [HttpGet("Act/{IdEmp}")]
         public IActionResult GetTercerosActivos(int IdEmp)
         {
             try

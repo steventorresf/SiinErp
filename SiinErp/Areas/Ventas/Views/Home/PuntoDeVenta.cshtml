@@ -41,7 +41,7 @@
                         <div class="form-group row">
                             <div class="col-12">
                                 <label>Articulo:</label>
-                                <ui-select ng-model="vm.entity.idArticulo"
+                                <ui-select ng-model="vm.entityMov.idArticulo"
                                            theme="bootstrap"
                                            tabindex="7"
                                            on-select="vm.onChangeArticulo($item, $model)">
@@ -98,7 +98,7 @@
                         </div>
                         <div class="row mt-1">
                             <div class="col-12 col-md-6">
-                                <h4>{{vm.entity.vrRestante | number : 0}}</h4>
+                                <h4>{{vm.entityMov.vrRestante | number : 0}}</h4>
                             </div>
                             <div class="col-12 col-md-6 text-right">
                                 <button class="btn btn-primary" ng-click="vm.guardar()" ng-disabled="formApp.$invalid || vm.gridOptions.data.length === 0">Guardar</button>

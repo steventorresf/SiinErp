@@ -19,7 +19,6 @@
         vm.nuevo = nuevo;
         vm.editar = editar;
         vm.anular = anular;
-        $scope.editar = editar;
         vm.cancelar = cancelar;
         vm.listEstados = [{ codigo: 'A', descripcion: 'Activo' }, { codigo: 'I', descripcion: 'Inactivo' }];
         vm.onChangeFecha = getAll;
@@ -28,15 +27,17 @@
         vm.refreshArticulo = refreshArticulo;
         vm.onChangeArticulo = onChangeArticulo;
         vm.removeArt = removeArt;
-        $scope.removeArt = removeArt;
-        vm.entity = {
+        vm.entityMov = {
+            idEmpresa: vm.userApp.idEmpresa,
             fecha: fecha.addDays(fecha.getDate() > 1 ? (fecha.getDate() - 1) * -1 : 0),
             valorBruto: 0,
             valorDscto: 0,
             valorIva: 0,
             valorNeto: 0,
+            creadoPor: vm.userApp.nombreUsuario,
+            estado: Estados.Activo,
+            periodo: '-',
         };
-        vm.entityFac = {};
         vm.formFact = false;
 
         function init() {
@@ -52,7 +53,6 @@
             var response = movService.getByModificable(vm.userApp.idEmpresa);
             response.then(
                 function (response) {
-                    console.log("pasosssss", response.data);
                     vm.gridOptionsFac.data = response.data;
                 },
                 function (response) {
@@ -173,7 +173,6 @@
 
        
         function onChangeCliente($item, $model) {
-            vm.entityFac.idPlazoPago = $item.idPlazoPago;
             vm.entityMov.idVendedor = $item.idVendedor;
             vm.entityMov.plazoDias = $item.plazoPago.plazoDias;
         }
@@ -214,7 +213,7 @@
                 };
 
                 vm.gridOptions.data.push(entity);
-                vm.entity.idArticulo = null;
+                vm.entityMov.idArticulo = null;
             }
         }
 
@@ -235,8 +234,8 @@
             response.then(
                 function (response) {
                     var data = response.data;
-                    vm.entityFac.tipoDoc = data.tipoDoc;
-                    vm.entityFac.numDoc = data.numDoc + 1;
+                    vm.entityMov.tipoDoc = data.tipoDoc;
+                    vm.entityMov.numDoc = data.numDoc + 1;
                 },
                 function (response) {
                     console.log(response);
@@ -271,18 +270,8 @@
 
 
         function guardar() {
-            vm.entityMov.idEmpresa = vm.userApp.idEmpresa;
-            vm.entityMov.idUsuario = vm.userApp.idUsu;
-
-            vm.entityFac.idEmpresa = vm.userApp.idEmpresa;
-            vm.entityFac.idDetAlmacen = angular.copy(vm.entityMov.idDetAlmacen);
-            vm.entityFac.fechaDoc = angular.copy(vm.entityMov.fechaDoc); 
       //    vm.entityMov.fechaVencimiento = vm.entityFac.fechaDoc + vm.entityFac.plazoDias;
             vm.entityFac.FechaPago = vm.entityFac.plazoDias > 0 ? null : vm.entityFac.FechaDoc;
-            vm.entityFac.comentario = angular.copy(vm.entityMov.comentario);
-            vm.entityFac.idUsuario = vm.userApp.idUsu;
-            vm.entityFac.estado = Estados.Activo;
-            vm.entityFac.periodo = '-';
 
             if (!$scope.modify) {
                 guardarNuevo();

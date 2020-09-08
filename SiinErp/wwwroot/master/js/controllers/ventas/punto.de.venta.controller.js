@@ -16,14 +16,15 @@
         vm.refreshArticulo = refreshArticulo;
         vm.onChangeArticulo = onChangeArticulo;
         vm.guardar = guardar;
-        vm.entity = {
+        vm.entityMov = {
+            idEmpresa: vm.userApp.idEmpresa,
             valorBruto: 0,
             valorDscto: 0,
             valorIva: 0,
             valorNeto: 0,
             vrRestante: 0,
+            creadoPor: vm.userApp.nombreUsuario,
         };
-        vm.entityMov = {};
 
 
         function init() {
@@ -110,7 +111,7 @@
                 estado: Estados.Pendiente,
             };
             vm.gridOptions.data.push(entity);
-            vm.entity.idArticulo = null;
+            vm.entityMov.idArticulo = null;
             CalcularTotales();
         }
         
@@ -265,9 +266,9 @@
                         rowEntity.valor = oldValue;
                     }
 
-                    vm.entity.vrRestante = vm.entityMov.valorNeto;
+                    vm.entityMov.vrRestante = vm.entityMov.valorNeto;
                     for (var i = 0; i < vm.gridOptionsPag.data.length; i++) {
-                        vm.entity.vrRestante -= vm.gridOptionsPag.data[i].valor;
+                        vm.entityMov.vrRestante -= vm.gridOptionsPag.data[i].valor;
                     }
                     
                 });
@@ -288,9 +289,6 @@
             }
 
             if ((vm.entityMov.valorNeto - pagoTotal) === 0) {
-                vm.entityMov.idEmpresa = vm.userApp.idEmpresa;
-                vm.entityMov.idUsuario = vm.userApp.idUsu;
-
                 var data = {
                     entityMov: vm.entityMov,
                     listDetalleMov: vm.gridOptions.data,

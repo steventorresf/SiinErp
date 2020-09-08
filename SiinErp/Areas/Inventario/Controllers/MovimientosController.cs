@@ -141,12 +141,12 @@ namespace SiinErp.Areas.Inventario.Controllers
 
     
 
-        [HttpGet("ByFecha/{IdEmp}/{Fecha}")]
-        public IActionResult GetFacturasByFecha(int IdEmp, string Fecha)
+        [HttpGet("ByFecha/{IdEmp}/{FechaIni}/{FechaFin}")]
+        public IActionResult GetFacturasByFecha(int IdEmp, string FechaIni, string FechaFin)
         {
             try
             {
-                var lista = BusinessMov.GetFacturasByFecha(IdEmp, DateTimeOffset.Parse(Fecha));
+                var lista = BusinessMov.GetFacturasByRangoFecha(IdEmp, Convert.ToDateTime(FechaIni), Convert.ToDateTime(FechaFin));
                 return Ok(lista);
             }
             catch (Exception)

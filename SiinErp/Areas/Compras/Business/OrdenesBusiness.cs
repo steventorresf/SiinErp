@@ -2,6 +2,7 @@
 using SiinErp.Areas.General.Business;
 using SiinErp.Areas.General.Entities;
 using SiinErp.Models;
+using SiinErp.Utiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +12,12 @@ namespace SiinErp.Areas.Compras.Business
 {
     public class OrdenesBusiness
     {
-        public List<Ordenes> GetOrdenes(int IdEmp)
+        public List<Ordenes> GetOrdenes(int IdEmp, DateTime FechaIni, DateTime FechaFin)
         {
             try
             {
                 SiinErpContext context = new SiinErpContext();
-                List<Ordenes> Lista = (from ord in context.Ordenes.Where(x => x.IdEmpresa == IdEmp)
+                List<Ordenes> Lista = (from ord in context.Ordenes.Where(x => x.IdEmpresa == IdEmp && x.FechaDoc >= FechaIni && x.FechaDoc <= FechaFin)
                                        join pro in context.Terceros on ord.IdProveedor equals pro.IdTercero
                                        join ppa in context.PlazosPagos on ord.IdPlazoPago equals ppa.IdPlazoPago
                                        select new Ordenes()
@@ -47,6 +48,46 @@ namespace SiinErp.Areas.Compras.Business
             catch (Exception ex)
             {
                 ErroresBusiness.Create("GetOrdenCompra", ex.Message, null);
+                throw;
+            }
+        }
+
+        public List<Ordenes> GetOrdenesPendientes(int IdEmp)
+        {
+            try
+            {
+                SiinErpContext context = new SiinErpContext();
+                List<Ordenes> Lista = (from ord in context.Ordenes.Where(x => x.IdEmpresa == IdEmp && x.Estado.Equals(Constantes.EstadoPendiente))
+                                       join pro in context.Terceros on ord.IdProveedor equals pro.IdTercero
+                                       join ppa in context.PlazosPagos on ord.IdPlazoPago equals ppa.IdPlazoPago
+                                       select new Ordenes()
+                                       {
+                                           IdOrden = ord.IdOrden,
+                                           TipoDoc = ord.TipoDoc,
+                                           NumDoc = ord.NumDoc,
+                                           IdProveedor = ord.IdProveedor,
+                                           FechaCreacion = ord.FechaCreacion,
+                                           FechaDoc = ord.FechaDoc,
+                                           ValorBruto = ord.ValorBruto,
+                                           ValorDscto = ord.ValorDscto,
+                                           ValorIva = ord.ValorIva,
+                                           ValorNeto = ord.ValorNeto,
+                                           Proveedor = pro,
+                                           Estado = ord.Estado,
+                                           DireccionDesp = ord.DireccionDesp,
+                                           IdPlazoPago = ord.IdPlazoPago,
+                                           IdEmpresa = ord.IdEmpresa,
+                                           Periodo = ord.Periodo,
+                                           IdDetAlmacen = ord.IdDetAlmacen,
+                                           IdDetCenCosto = ord.IdDetCenCosto,
+                                           Comentarios = ord.Comentarios,
+                                           PlazoPago = ppa,
+                                       }).OrderByDescending(x => x.FechaDoc).ToList();
+                return Lista;
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("GetOrdenCompraPendientes", ex.Message, null);
                 throw;
             }
         }

@@ -17,12 +17,26 @@ namespace SiinErp.Areas.Compras.Controllers
     {
         private OrdenesBusiness BusinessOrd = new OrdenesBusiness();
 
-        [HttpGet("{IdEmp}")]
-        public IActionResult Get(int IdEmp)
+        [HttpGet("{IdEmp}/{FechaIni}/{FechaFin}")]
+        public IActionResult Get(int IdEmp, string FechaIni, string FechaFin)
         {
             try
             {
-                var lista = BusinessOrd.GetOrdenes(IdEmp);
+                var lista = BusinessOrd.GetOrdenes(IdEmp, Convert.ToDateTime(FechaIni), Convert.ToDateTime(FechaFin));
+                return Ok(lista);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet("GetPen/{IdEmp}")]
+        public IActionResult GetPendientes(int IdEmp)
+        {
+            try
+            {
+                var lista = BusinessOrd.GetOrdenesPendientes(IdEmp);
                 return Ok(lista);
             }
             catch (Exception)

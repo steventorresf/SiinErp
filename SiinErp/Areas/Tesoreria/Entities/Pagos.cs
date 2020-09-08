@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SiinErp.Areas.Tesoreria.Entities
 {
     [Table("Pagos", Schema = "Tesoreria")]
-    public class Pagos
+    public class Pagos : Utiles.Auditoria
     {
         [Key]
         public int IdPago { get; set; }
@@ -22,11 +22,9 @@ namespace SiinErp.Areas.Tesoreria.Entities
 
         [Required]
         public int NumDoc { get; set; }
-
         
         [Required]
         public int IdProveedor { get; set; }
-
        
         [Required]
         [StringLength(6)]
@@ -34,7 +32,6 @@ namespace SiinErp.Areas.Tesoreria.Entities
 
         [Required]
         public DateTimeOffset FechaDoc { get; set; }
-
       
         [Required]
         public decimal ValorTotal { get; set; }
@@ -49,18 +46,18 @@ namespace SiinErp.Areas.Tesoreria.Entities
         public string NroCheque { get; set; }
 
         [Required]
-        public int CreadoPor { get; set; }
-
-        [Required]
-        public DateTimeOffset FechaCreacion { get; set; }
-
-        [Required]
         [StringLength(1)]
         public string Estado { get; set; }
-
-      
+        
         [Required]
         public decimal ValorDescuento { get; set; }
+
+
+        [NotMapped]
+        public string NombreProveedor { get; set; }
+
+        [NotMapped]
+        public string NombreConcepto { get; set; }
 
     }
 }

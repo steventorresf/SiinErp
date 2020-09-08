@@ -30,6 +30,7 @@ namespace SiinErp.Utiles
         // Estados
         public const string EstadoActivo = "A";
         public const string EstadoInactivo = "I";
+        public const string EstadoPendiente = "P";
 
         // ClavePredeterminada
         public const string ClavePredeterminada = "12345";

@@ -9,10 +9,12 @@
 
     function AppController($location, $cookies, $scope, ordService, orddetService, terService, ppaService, tabdetService, artService, tipdocService) {
         var vm = this;
+        var fecha = new Date();
 
         vm.title = 'Home Page';
         vm.init = init;
         vm.userApp = angular.copy($cookies.getObject('UsuApp'));
+        vm.getAll = getAll;
         vm.getProveedores = getProveedores;
         vm.guardar = guardar;
         vm.nuevo = nuevo;
@@ -24,7 +26,10 @@
         vm.refreshArticulo = refreshArticulo;
         vm.onChangeArticulo = onChangeArticulo;
         vm.removeArt = removeArt;
-        
+
+        vm.fechaInicial = fecha.addDays(fecha.getDate() > 1 ? (fecha.getDate() - 1) * -1 : 0);
+        vm.fechaFinal = fecha.addDays(0);
+
         vm.entity = {
             idEmpresa: vm.userApp.idEmpresa,
             estado: Estados.Pendiente,
@@ -59,7 +64,9 @@
         }
 
         function getAll() {
-            var response = ordService.getAll(vm.userApp.idEmpresa);
+            vm.gridOptionsPro.data = [];
+
+            var response = ordService.getAll(vm.userApp.idEmpresa, vm.fechaInicial.DateSiin(true), vm.fechaFinal.DateSiin(true));
             response.then(
                 function (response) {
                     vm.gridOptionsPro.data = response.data;
@@ -110,7 +117,7 @@
                     cellClass: 'text-center',
                     width: 100,
                     type: 'date',
-                    cellFilter: 'date: \'yyyy-MM-dd\'',
+                    cellFilter: 'date: \'dd/MM/yyyy\'',
                 },
                 {
                     name: 'estado',
@@ -156,7 +163,7 @@
                 idEmpresa: vm.userApp.idEmpresa,
                 estado: Estados.Pendiente,
                 periodo: '.',
-                idUsuario: vm.userApp.IdUsu,
+                creadoPor: vm.userApp.nombreUsuario,
             };
             vm.gridOptions.data = [];
             getTipoDoc();

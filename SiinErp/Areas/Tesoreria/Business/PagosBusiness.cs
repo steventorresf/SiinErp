@@ -14,6 +14,45 @@ namespace SiinErp.Areas.Tesoreria.Business
 {
     public class PagosBusiness
     {
+        public List<Pagos> GetAll(int IdEmpresa, DateTime FechaIni, DateTime FechaFin)
+        {
+            try
+            {
+                SiinErpContext context = new SiinErpContext();
+                List<Pagos> Lista = (from pa in context.Pagos.Where(x => x.IdEmpresa == IdEmpresa && x.FechaDoc >= FechaIni && x.FechaDoc <= FechaFin)
+                                     join pr in context.Terceros on pa.IdProveedor equals pr.IdTercero
+                                     join co in context.TablasEmpresaDetalles on pa.IdConcepto equals co.IdDetalle
+                                     select new Pagos()
+                                     {
+                                         IdPago = pa.IdPago,
+                                         Comentario = pa.Comentario,
+                                         IdConcepto = pa.IdConcepto,
+                                         CreadoPor = pa.CreadoPor,
+                                         Estado = pa.Estado,
+                                         FechaCreacion = pa.FechaCreacion,
+                                         FechaDoc = pa.FechaDoc,
+                                         FechaModificado = pa.FechaModificado,
+                                         IdEmpresa = pa.IdEmpresa,
+                                         IdProveedor = pa.IdProveedor,
+                                         ModificadoPor = pa.ModificadoPor,
+                                         NombreProveedor = pr.NombreTercero,
+                                         NombreConcepto = co.Descripcion,
+                                         NroCheque = pa.NroCheque,
+                                         NumDoc = pa.NumDoc,
+                                         Periodo = pa.Periodo,
+                                         TipoDoc = pa.TipoDoc,
+                                         ValorDescuento = pa.ValorDescuento,
+                                         ValorTotal = pa.ValorTotal,
+                                     }).ToList();
+                return Lista;
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("GetAllPagos", ex.Message, null);
+                throw;
+            }
+        }
+
         public void Create(Pagos entity, List<PagosDetalle> listDetalleFac)
         {
             try
