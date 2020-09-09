@@ -139,4 +139,3 @@ C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.dll
 C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.pdb
 C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.csproj.CopyComplete
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.csprojAssemblyReference.cache
-C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.csprojAssemblyReference.cache

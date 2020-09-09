@@ -45,7 +45,7 @@
 
         function getAll() {
             //var response = movService.getByModificable(vm.entity.fecha.DateSiin(true));
-            var response = movService.getAct(vm.userApp.idEmpresa, vm.fechaInicial.DateSiin(true), vm.fechaFinal.DateSiin(true));
+            var response = movService.getAll(vm.userApp.idEmpresa,"INV", vm.fechaInicial.DateSiin(true), vm.fechaFinal.DateSiin(true));
             response.then(
                 function (response) {
                     vm.gridOptionsMov.data = response.data;
@@ -413,7 +413,7 @@
 
         function guardar() {
             if (vm.gridOptions.data.length > 0) {
-                vm.entityMov.idUsuario = vm.userApp.idUsu;
+                vm.entityMov.creadoPor= vm.userApp.nombreUsuario,
                 vm.entityMov.valorSaldo = 0;
                 vm.entityMov.idEmpresa = vm.userApp.idEmpresa;
 

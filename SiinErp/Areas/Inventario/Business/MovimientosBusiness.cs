@@ -295,12 +295,12 @@ namespace SiinErp.Areas.Inventario.Business
         }
 
 
-        public List<Movimientos> GetAll(int IdEmp, DateTime FechaIni, DateTime FechaFin)
+        public List<Movimientos> GetAll(int IdEmp,string Modulo, DateTime FechaIni, DateTime FechaFin)
         {
             try
             {
                 SiinErpContext context = new SiinErpContext();
-                List<Movimientos> Lista = (from mov in context.Movimientos.Where(x => x.IdEmpresa == IdEmp && x.CodModulo.Equals(Constantes.ModuloVentas) && x.FechaDoc >= FechaIni && x.FechaDoc <= FechaFin && x.Estado.Equals(Constantes.EstadoActivo))
+                List<Movimientos> Lista = (from mov in context.Movimientos.Where(x => x.IdEmpresa == IdEmp && x.CodModulo.Equals(Modulo) && x.FechaDoc >= FechaIni && x.FechaDoc <= FechaFin && x.Estado.Equals(Constantes.EstadoActivo))
                                            join cli in context.Terceros on mov.IdTercero equals cli.IdTercero
                                            join ppa in context.PlazosPagos on cli.IdPlazoPago equals ppa.IdPlazoPago
                                            join tip in context.TiposDoc on mov.TipoDoc equals tip.TipoDoc

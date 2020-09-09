@@ -44,7 +44,7 @@
 
         function getAll() {
             //var response = movService.getByModificable(vm.entity.fecha.DateSiin(true));
-            var response = movService.getAll(vm.userApp.idEmpresa, vm.fechaInicial.DateSiin(true), vm.fechaFinal.DateSiin(true));
+            var response = movService.getAll(vm.userApp.idEmpresa, "VEN",vm.fechaInicial.DateSiin(true), vm.fechaFinal.DateSiin(true));
             response.then(
                 function (response) {
                     vm.gridOptionsFac.data = response.data;

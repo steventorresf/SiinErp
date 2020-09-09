@@ -24,8 +24,8 @@
 
         return service;
 
-        function getAll(idEmp, fechaIni, FechaFin) {
-            return $http.get(nameSpace + idEmp + '/' + fechaIni + '/' + FechaFin)
+        function getAll(idEmp, modulo, fechaIni, FechaFin) {
+            return $http.get(nameSpace + idEmp + '/' + modulo + '/' + fechaIni + '/' + FechaFin)
                 .then(
                     function (response) {
                         return response;
@@ -37,8 +37,8 @@
                 );
         }
 
-        function getAct(idEmp, fechaIni, fechaFin) {
-            return $http.get(nameSpace + 'ByFecha/' + idEmp + '/' + fechaIni + '/' + fechaFin)
+        function getAct(idEmp, modulo, fechaIni, fechaFin) {
+            return $http.get(nameSpace + 'ByFecha/' + idEmp +'/' + modulo + '/' + fechaIni + '/' + fechaFin)
                 .then(
                     function (response) {
                         return response;
