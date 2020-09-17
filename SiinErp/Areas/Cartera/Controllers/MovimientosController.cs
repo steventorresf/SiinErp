@@ -36,5 +36,33 @@ namespace SiinErp.Areas.Cartera.Controllers
                 throw;
             }
         }
+
+        [HttpGet("{IdEmpresa}/{FechaIni}/{FechaFin}")]
+        public IActionResult GetAll(int IdEmpresa, string FechaIni, string FechaFin)
+        {
+            try
+            {
+                var lista = BusinessMov.GetAll(IdEmpresa, Convert.ToDateTime(FechaIni), Convert.ToDateTime(FechaFin));
+                return Ok(lista);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPut("An/{IdMov}/{NomUsu}")]
+        public IActionResult Anular(int IdMov, string NomUsu)
+        {
+            try
+            {
+                BusinessMov.Anular(IdMov, NomUsu);
+                return Ok(true);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

@@ -5,33 +5,165 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'VenClientesService', 'CarConceptosService', 'VenFacturasService', 'CarMovimientosService', 'GenTiposDocService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'GenTercerosService', 'CarConceptosService', 'InvMovimientosService', 'CarMovimientosService', 'GenTiposDocService'];
 
-    function AppController($location, $cookies, $scope, cliService, conService, facService, movService, tipdocService) {
+    function AppController($location, $cookies, $scope, terService, conService, movInvService, movService, tipdocService) {
         var vm = this;
+        var fecha = new Date();
 
         vm.title = 'Home Page';
         vm.init = init;
         vm.userApp = angular.copy($cookies.getObject('UsuApp'));
+        vm.getAll = getAll;
         vm.onChangeTipoDoc = onChangeTipoDoc;
+        vm.nuevo = nuevo;
+        vm.anular = anular;
+        vm.cancelar = cancelar;
         vm.guardar = guardar;
         vm.regresar = regresar;
         vm.buscarPendientesCli = buscarPendientesCli;
-        vm.entity = {
-            idEmpresa: vm.userApp.idEmpresa,
-            afectaCartera: true,
-            creadoPor: vm.userApp.idUsu,
-            estado: Estados.Activo,
-            valorRestante: 0,
-        };
+
+        vm.gridMov = true;
+        vm.formMov = false;
+        vm.gridVisible = false;
+
+        vm.fechaInicial = fecha.addDays(fecha.getDate() > 1 ? (fecha.getDate() - 1) * -1 : 0);
+        vm.fechaFinal = fecha.addDays(0);
 
         function init() {
+            getAll();
             getClientes();
             getTiposDoc();
         }
 
+        function getAll() {
+            var response = movService.getAll(vm.userApp.idEmpresa, vm.fechaInicial.DateSiin(true), vm.fechaFinal.DateSiin(true));
+            response.then(
+                function (response) {
+                    vm.gridOptionsMov.data = response.data;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        vm.gridOptionsMov = {
+            data: [],
+            enableSorting: true,
+            enableRowSelection: false,
+            enableFullRowSelection: false,
+            multiSelect: false,
+            enableRowHeaderSelection: false,
+            enableColumnMenus: false,
+            enableFiltering: true,
+            columnDefs: [
+                {
+                    name: 'tipoDoc',
+                    field: 'tipoDoc',
+                    displayName: 'TipoDoc',
+                    headerCellClass: 'bg-header',
+                    width: 100,
+                    enableCellEdit: false,
+                },
+                {
+                    name: 'numDoc',
+                    field: 'numDoc',
+                    displayName: 'NumeDoc',
+                    headerCellClass: 'bg-header',
+                    width: 100,
+                    enableCellEdit: false,
+                },
+                {
+                    name: 'fechaDoc',
+                    field: 'fechaDoc',
+                    displayName: 'FechaDoc',
+                    headerCellClass: 'bg-header',
+                    cellClass: 'text-center',
+                    width: 100,
+                    type: 'date',
+                    cellFilter: 'date: \'dd/MM/yyyy\'',
+                },
+                {
+                    name: 'nombreTercero',
+                    field: 'nombreTercero',
+                    displayName: 'NombreCliente',
+                    headerCellClass: 'bg-header',
+                },
+                {
+                    name: 'nombreConcepto',
+                    field: 'nombreConcepto',
+                    displayName: 'NombreConcepto',
+                    headerCellClass: 'bg-header',
+                },
+                {
+                    name: 'valorTotal',
+                    field: 'valorTotal',
+                    displayName: 'V. Total',
+                    headerCellClass: 'bg-header',
+                    cellClass: 'text-right',
+                    width: 100,
+                    type: 'number',
+                    cellFilter: 'number: 2',
+                },
+                {
+                    name: 'tool',
+                    field: '',
+                    displayName: '',
+                    enableColumnMenu: false,
+                    enableFiltering: false,
+                    enableSorting: false,
+                    headerCellClass: 'bg-header',
+                    cellClass: 'text-center',
+                    cellTemplate:
+                        "<span><a href='' ng-click='grid.appScope.vm.anular(row.entity)' tooltip='Anular' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<i class='fa fa-remove text-danger'></i></a></span>",
+                    width: 80,
+                    enableCellEdit: false,
+                }
+            ],
+            onRegisterApi: function (gridApi) {
+                vm.gridApiMov = gridApi;
+                gridApi.edit.on.afterCellEdit($scope, function (rowEntity, colDef, newValue, oldValue) {
+                    rowEntity.vrBruto = (rowEntity.vrUnitario * rowEntity.cantidad);
+                    rowEntity.vrNeto = rowEntity.vrBruto - (rowEntity.vrBruto * rowEntity.pcDscto / 100) + (rowEntity.vrBruto * rowEntity.pcIva / 100);
+                    CalcularTotales();
+                });
+            },
+        };
+
+        function anular(entity) {
+            var response = movService.anular(entity.idMovimiento, vm.userApp.nombreUsuario);
+            response.then(
+                function (response) {
+                    getAll();
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        function cancelar() {
+            vm.formMov = false;
+            vm.gridMov = true;
+        }
+
+        function nuevo() {
+            vm.entity = {
+                idEmpresa: vm.userApp.idEmpresa,
+                afectaCartera: true,
+                creadoPor: vm.userApp.nombreUsuario,
+                estado: Estados.Activo,
+                valorRestante: 0,
+            };
+
+            vm.gridMov = false;
+            vm.formMov = true;
+        }
+
         function getClientes() {
-            var response = cliService.getAll(vm.userApp.idEmpresa);
+            var response = terService.getActCli(vm.userApp.idEmpresa);
             response.then(
                 function (response) {
                     vm.listClientes = response.data;
@@ -67,11 +199,13 @@
         }
 
         function buscarPendientesCli() {
-            var response = facService.getPendientesCli(vm.entity.idCliente);
+            vm.formMov = false;
+            vm.gridVisible = true;
+
+            var response = movInvService.getPendientesTercero(vm.userApp.idEmpresa, vm.entity.idCliente);
             response.then(
                 function (response) {
                     vm.gridOptions.data = response.data;
-                    vm.gridVisible = true;
                     vm.entity.valorRestante = vm.entity.valorConcepto;
                 },
                 function (response) {
@@ -106,6 +240,7 @@
 
         function regresar() {
             vm.gridVisible = false;
+            vm.formMov = true;
         }
 
         vm.gridOptions = {

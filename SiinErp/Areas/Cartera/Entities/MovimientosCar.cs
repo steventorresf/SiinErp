@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SiinErp.Areas.Cartera.Entities
 {
     [Table("Movimientos", Schema = "Cartera")]
-    public class MovimientosCar
+    public class MovimientosCar : Utiles.Auditoria
     {
         [Key]
         public int IdMovimiento { get; set; }
@@ -28,8 +28,6 @@ namespace SiinErp.Areas.Cartera.Entities
 
         [Required]
         public int IdCliente { get; set; }
-
-        public int? IdPadre { get; set; }
 
         [Required]
         [StringLength(6)]
@@ -57,12 +55,6 @@ namespace SiinErp.Areas.Cartera.Entities
         public string Comentarios { get; set; }
 
         [Required]
-        public int CreadoPor { get; set; }
-
-        [Required]
-        public DateTimeOffset FechaCreacion { get; set; }
-
-        [Required]
         [StringLength(1)]
         public string Estado { get; set; }
 
@@ -71,5 +63,12 @@ namespace SiinErp.Areas.Cartera.Entities
 
         [Required]
         public decimal ValorReteFuente { get; set; }
+
+
+        [NotMapped]
+        public string NombreTercero { get; set; }
+
+        [NotMapped]
+        public string NombreConcepto { get; set; }
     }
 }

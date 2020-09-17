@@ -10,7 +10,38 @@
     }
 </style>
 
-<div class="row" ng-show="!vm.gridVisible">
+<div class="row" ng-show="vm.gridMov">
+    <div class="col-12 offset-md-1 col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <form class="form-horizontal" id="form" name="form">
+                    <div class="form-group row">
+                        <div class="col-12 col-md-4">
+                            <label>Fecha Inicial:</label>
+                            <input type="date" class="form-control" ng-model="vm.fechaInicial" />
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label>Fecha Final:</label>
+                            <input type="date" class="form-control" ng-model="vm.fechaFinal" />
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <br />
+                            <button class="btn btn-primary" ng-click="vm.getAll()">Buscar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-body">
+                <div class="fontsize-10" ui-grid="vm.gridOptionsMov" ui-grid-selection ui-grid-cellNav ui-grid-edit ui-grid-resize-columns ui-grid-auto-resize></div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary" ng-click="vm.nuevo()">Nuevo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-show="vm.formMov">
     <div class="col-12 offset-md-2 col-md-8">
         <div class="card">
             <div class="card-body">
@@ -24,9 +55,9 @@
                                        tabindex="7"
                                        required
                                        on-select="vm.onChangeCliente($item, $model)">
-                                <ui-select-match placeholder="Seleccione un cliente...">{{$select.selected.nombreCliente}}</ui-select-match>
-                                <ui-select-choices repeat="item.idCliente as item in vm.listClientes track by $index">
-                                    <div ng-bind-html="item.nombreCliente | highlight: $select.search"></div>
+                                <ui-select-match placeholder="Seleccione un cliente...">{{$select.selected.nombreTercero}}</ui-select-match>
+                                <ui-select-choices repeat="item.idTercero as item in vm.listClientes track by $index">
+                                    <div ng-bind-html="item.nombreTercero | highlight: $select.search"></div>
                                 </ui-select-choices>
                             </ui-select>
                         </div>
@@ -74,6 +105,7 @@
                     <div class="form-group row">
                         <div class="col-12">
                             <button class="btn btn-primary" ng-click="vm.buscarPendientesCli()" ng-disabled="formApp.$invalid">Buscar</button>
+                            <button class="btn btn-default" ng-click="vm.cancelar()">Cancelar</button>
                         </div>
                     </div>
                 </form>
