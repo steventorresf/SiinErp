@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using SiinErp.Areas.Ventas.Entities;
 using SiinErp.Areas.Tesoreria.Entities;
+using SiinErp.Areas.Contabilidad.Entities;
 
 namespace SiinErp.Models
 {
@@ -97,6 +98,21 @@ namespace SiinErp.Models
         public virtual DbSet<ListaPreciosDetalle> ListaPreciosDetalles { get; set; }
 
         public virtual DbSet<Vendedores> Vendedores { get; set; }
+        #endregion
+
+
+        #region Contabilidad
+     
+       
+        public virtual DbSet<PlanDeCuentas> PlanDeCuentas { get; set; }
+
+      
+        public virtual DbSet<Retenciones> Retenciones { get; set; }
+
+        public virtual DbSet<TiposContab> TiposContab { get; set; }
+
+
+
         #endregion
     }
 }

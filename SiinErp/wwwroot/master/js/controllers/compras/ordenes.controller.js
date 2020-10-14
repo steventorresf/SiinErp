@@ -176,7 +176,7 @@
 
         function editar(entity) {
             vm.entity = angular.copy(entity);
-            vm.entity.fechaDoc = angular.copy(entity.fechaDoc).toString().substring(0, 10);
+            vm.entity.fechaDoc = new Date(new Date(vm.entity.fechaDoc).toUTCString());
             vm.entity.idDetAlmacen = angular.copy(entity.idDetAlmacen);
             vm.entity.idDetCenCosto = angular.copy(entity.idDetCenCosto);
             getDetalle();
@@ -322,6 +322,7 @@
 
         function guardar() {
             vm.entity.listDetalle = angular.copy(vm.gridOptions.data);
+            console.log("grabando ", vm.entity);
             var response = null;
             if (!vm.modify) { response = ordService.create(vm.entity); }
             else { response = ordService.update(vm.entity.idOrden, vm.entity); }

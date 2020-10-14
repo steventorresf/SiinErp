@@ -4,15 +4,15 @@
     "inputFiles": [
       "wwwroot/vendor/jquery/jquery.js",
       "wwwroot/vendor/bootstrap/js/bootstrap.js",
-      "wwwroot/vendor/node_modules/angular/angular.min.js",
-      "wwwroot/vendor/node_modules/angular-growl-v2/build/angular-growl.js",
-      "wwwroot/vendor/node_modules/angular-animate/angular-animate.min.js",
-      "wwwroot/vendor/node_modules/angular-resource/angular-resource.min.js",
-      "wwwroot/vendor/node_modules/angular-cookies/angular-cookies.min.js",
-      "wwwroot/vendor/node_modules/angular-sanitize/angular-sanitize.min.js",
-      "wwwroot/vendor/node_modules/angular-ui-grid/ui-grid.min.js",
-      "wwwroot/vendor/node_modules/angular-ui-utils/modules/utils.js",
-      "wwwroot/vendor/node_modules/ui-select/dist/select.min.js",
+      "wwwroot/vendor/modules/angular/angular.min.js",
+      "wwwroot/vendor/modules/angular-growl-v2/build/angular-growl.js",
+      "wwwroot/vendor/modules/angular-animate/angular-animate.min.js",
+      "wwwroot/vendor/modules/angular-resource/angular-resource.min.js",
+      "wwwroot/vendor/modules/angular-cookies/angular-cookies.min.js",
+      "wwwroot/vendor/modules/angular-sanitize/angular-sanitize.min.js",
+      "wwwroot/vendor/modules/angular-ui-grid/ui-grid.min.js",
+      "wwwroot/vendor/modules/angular-ui-utils/modules/utils.js",
+      "wwwroot/vendor/modules/ui-select/dist/select.min.js",
       "wwwroot/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js",
       "wwwroot/master/js/app.js",
       "wwwroot/js/grasp_mobile_progress_circle-1.0.0.min.js",
@@ -29,9 +29,9 @@
   {
     "outputFileName": "wwwroot/css/basic.css",
     "inputFiles": [
-      "wwwroot/vendor/node_modules/angular-ui-grid/ui-grid.min.css",
-      "wwwroot/vendor/node_modules/angular-growl-v2/build/angular-growl.css",
-      "wwwroot/vendor/node_modules/ui-select/dist/select.min.css",
+      "wwwroot/vendor/modules/angular-ui-grid/ui-grid.min.css",
+      "wwwroot/vendor/modules/angular-growl-v2/build/angular-growl.css",
+      "wwwroot/vendor/modules/ui-select/dist/select.min.css",
       "wwwroot/vendor/bootstrap-datepicker/css/bootstrap-datepicker.css",
       "wwwroot/css/custom.css"
     ]

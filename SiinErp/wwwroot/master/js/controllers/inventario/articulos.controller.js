@@ -284,5 +284,7 @@
             },
         };
 
+      //boton reporte  window.open('http://c-gomez/Reports/report/SiinErp/ReporteArticulos?Costo=' + vm.costo)
+
     }
 })();

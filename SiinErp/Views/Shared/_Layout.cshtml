@@ -161,12 +161,10 @@
                     <li>
                         <a href="#Con" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-dollar"></i>Contabilidad </a>
                         <ul id="Con" class="collapse list-unstyled ">
-                            <li><a href="pages-contacts.html">Tipos Documento</a></li>
-                            <li><a href="pages-invoice.html">Conceptos</a></li>
-                            <li><a href="login.html">Plan de Cuentas</a></li>
-                            <li><a href="pages-profile.html">Comprobantes</a></li>
-                            <li><a href="pages-pricing.html">Plantillas</a></li>
-                            <li><a href="pages-pricing.html">Retenciones</a></li>
+                            <li><a href="@Url.Content("~/")Contabilidad/Home/TiposContab">Tipos Doc Contables</a></li>
+                            <li><a href="@Url.Content("~/")Contabilidad/Home/Retenciones">Conceptos Retencion</a></li>
+                            <li><a href="@Url.Content("~/")Contabilidad/Home/PlanDeCuentas">Plan De Cuentas</a></li>
+
                         </ul>
                     </li>
                 </ul>
@@ -181,9 +179,8 @@
 
                 <script src="~/js/basic.min.js"></script>
                 <link rel="stylesheet" href="~/css/basic.min.css" />
-                <script src="~/master/js/services/services.js"></script>
                 <script src="~/master/js/services/services.min.js"></script>
-                <script src="~/master/js/services/tesoreria/pagos.service.js"></script>
+                @*<script src="~/master/js/services/tesoreria/pagos.service.js"></script>*@
              
                 <!--      <script src="~/master/js/services/inventario/*.js"></script>
 
