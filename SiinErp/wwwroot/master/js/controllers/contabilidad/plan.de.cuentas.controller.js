@@ -5,9 +5,9 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$scope', '$cookies', 'ContPlanDeCuentaService', 'GenTablasEmpresaDetService'];
+    AppController.$inject = ['$location', '$scope', '$cookies', 'ContPlanDeCuentaService'];
 
-    function AppController($location, $scope, $cookies, contplanService, tabdetService) {
+    function AppController($location, $scope, $cookies, contplanService) {
         var vm = this;
 
         vm.title = 'Home Page';
@@ -46,7 +46,8 @@
 
         function nuevo() {
             vm.entity = {};
-            vm.entity.idUsuario = vm.userApp.idUsuario;
+            vm.entity.idEmpresa = vm.userApp.idEmpresa;
+            vm.entity.creadoPor = vm.userApp.nombreUsuario;
             vm.formModify = false;
             vm.formVisible = true;
         }
@@ -58,8 +59,6 @@
         }
 
         function guardar() {
-            vm.entity.idEmpresa = vm.userApp.idEmpresa;
-
             var response = null;
             if (vm.formModify) { response = contplanService.update(vm.entity.idCuentaContable, vm.entity); }
             else { response = contplanService.create(vm.entity); }
@@ -89,7 +88,6 @@
             enableColumnMenus: false,
             enableFiltering: true,
             columnDefs: [
-
                 {
                     name: 'codCuenta',
                     field: 'codCuenta',
@@ -113,7 +111,6 @@
                     headerCellClass: 'bg-header',
                     width: 400,
                 },
-
                 {
                     name: 'idRetencion',
                     field: 'idRetencion',
@@ -121,7 +118,6 @@
                     headerCellClass: 'bg-header',
                     width: 100,
                 },
-
                 {
                     name: 'terceroSN',
                     field: 'terceroSN',
@@ -129,7 +125,6 @@
                     headerCellClass: 'bg-header',
                     width: 100,
                 },
-
                 {
                     name: 'estado',
                     field: 'estado',
@@ -137,9 +132,6 @@
                     headerCellClass: 'bg-header',
                     width: 100,
                 },
-
-               
-
                 {
                     name: 'tool',
                     field: '',

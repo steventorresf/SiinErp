@@ -70,6 +70,17 @@ Date.prototype.DateSiin = function (sep) {
     return dateFormatted;
 }
 
+Date.prototype.DatePeriodo = function () {
+    var date = new Date(this.valueOf());
+
+    var year = date.getFullYear();
+    var month = (date.getMonth() < 9 ? '0' : '') + (date.getMonth() + 1);
+    var dateFormatted = '';
+
+    dateFormatted = year + '' + month;
+    return dateFormatted;
+}
+
 Date.prototype.addDays = function (days) {
     var date = new Date(this.valueOf());
     date.setDate(date.getDate() + days);

@@ -53,7 +53,6 @@ namespace SiinErp.Models
         public virtual DbSet<Usuarios> Usuarios { get; set; }
         #endregion
 
-
         #region Cartera
         public virtual DbSet<Conceptos> Conceptos { get; set; }
 
@@ -64,13 +63,11 @@ namespace SiinErp.Models
         public virtual DbSet<PlazosPago> PlazosPagos { get; set; }
         #endregion
 
-
         #region Compras
         public virtual DbSet<Ordenes> Ordenes { get; set; }
 
         public virtual DbSet<OrdenesDetalle> OrdenesDetalles { get; set; }
         #endregion
-
 
         #region Inventario
         public virtual DbSet<Articulos> Articulos { get; set; }
@@ -91,7 +88,6 @@ namespace SiinErp.Models
         public virtual DbSet<PagosDetalle> PagosDetalle { get; set; }
         #endregion
 
-
         #region Ventas
         public virtual DbSet<ListaPrecios> ListaPrecios { get; set; }
 
@@ -100,13 +96,15 @@ namespace SiinErp.Models
         public virtual DbSet<Vendedores> Vendedores { get; set; }
         #endregion
 
-
         #region Contabilidad
      
        
+        public virtual DbSet<Comprobantes> Comprobantes { get; set; }
+
+        public virtual DbSet<ComprobantesDetalle> ComprobantesDetalles { get; set; }
+
         public virtual DbSet<PlanDeCuentas> PlanDeCuentas { get; set; }
 
-      
         public virtual DbSet<Retenciones> Retenciones { get; set; }
 
         public virtual DbSet<TiposContab> TiposContab { get; set; }

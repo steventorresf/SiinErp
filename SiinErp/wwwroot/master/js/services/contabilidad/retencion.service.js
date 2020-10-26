@@ -32,7 +32,6 @@
                 );
         }
 
-
         function getRetencion(idEmp, tipoDoc) {
             return $http.get(nameSpace + 'Get/' + idEmp + '/' + tipoDoc)
                 .then(

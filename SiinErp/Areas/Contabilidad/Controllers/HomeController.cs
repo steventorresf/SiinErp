@@ -26,6 +26,10 @@ namespace SiinErp.Areas.Contabilidad.Controllers
         {
             return View();
         }
-      
+        public IActionResult Comprobantes()
+        {
+            return View();
+        }
+
     }
 }

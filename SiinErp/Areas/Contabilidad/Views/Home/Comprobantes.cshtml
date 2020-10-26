@@ -1,0 +1,200 @@
+﻿
+@{
+    ViewData["Title"] = "Comprobantes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row" ng-show="!vm.formVisibleDet">
+    <div class="col-12 offset-md-1 col-md-10">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Encabezado Documento</h4>
+                    </div>
+                    <div class="card-body">
+                        <form id="formApp" name="formApp" novalidate="novalidate" class="form-horizontal">
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    <label>Tipo De Documento:</label>
+                                    <ui-select ng-model="vm.entity.tipoDoc"
+                                               form="formApp"
+                                               theme="bootstrap"
+                                               tabindex="7"
+                                               required
+                                               on-select="vm.onChangeTipoDoc($item, $model)">
+                                        <ui-select-match placeholder="Seleccione ...">{{$select.selected.descripcion}}</ui-select-match>
+                                        <ui-select-choices repeat="item.tipoDoc as item in vm.listTiposContab | filter: $select.search">
+                                            <div ng-bind-html="item.descripcion | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-12 col-md-4">
+                                    <label>No. Documento:</label>
+                                    <input type="text" form="formApp" class="form-control" ng-model="vm.entity.numDoc" required />
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label>Fecha Documento:</label>
+                                    <input type="date" form="formApp" class="form-control" ng-model="vm.entity.fechaDoc" ng-change="vm.onChangeFechaDoc()" required />
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label>Periodo:</label>
+                                    <input type="text" form="formApp" class="form-control" ng-model="vm.entity.periodo" required onkeydown="return false" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-12 col-md-7">
+                                <h4>Detalle Documento</h4>
+                            </div>
+                            <div class="col-12 col-md-5 text-right">
+                                <button class="btn btn-link" ng-click="vm.agDet()">Agregar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="fontsize-10" ui-grid="vm.gridOptionsDet" ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-12 col-md-4">
+                                <label>V. D&eacute;bito:</label>
+                                <input type="text" class="form-control text-right" ng-model="vm.valorDebito | number: 0" onkeydown="return false" />
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <label>V. Cr&eacute;dito:</label>
+                                <input type="text" class="form-control text-right" ng-model="vm.valorCredito | number: 0" onkeydown="return false" />
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-12">
+                                <button class="btn btn-primary" ng-click="vm.guardar()" ng-disabled="formApp.$invalid || vm.gridOptionsDet.data.length === 0 || vm.valorDebito != vm.valorCredito">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row" ng-show="vm.formVisibleDet">
+    <div class="col-12 offset-md-1 col-md-10">
+        <div class="card">
+            <div class="card-body">
+                <form id="formAppDet" name="formAppDet" novalidate="novalidate" class="form-horizontal">
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <label>Detalle:</label>
+                            <textarea rows="3" form="formAppDet" class="form-control" ng-model="vm.entityDet.detalle" required></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12 col-md-8">
+                            <label>Cuenta Contable:</label>
+                            <ui-select ng-model="vm.entityDet.idCuentaContable"
+                                       form="formAppDet"
+                                       theme="bootstrap"
+                                       tabindex="7"
+                                       required
+                                       on-select="vm.onChangeCuentaCont($item, $model)">
+                                <ui-select-match placeholder="Seleccione ...">{{$select.selected.nombreCuenta}}</ui-select-match>
+                                <ui-select-choices repeat="item.idCuentaContable as item in vm.listCuentaCont | filter: $select.search">
+                                    <div ng-bind-html="item.nombreCuenta | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label>V. Transacci&oacute;n:</label>
+                            <input type="number" class="form-control" form="formAppDet" ng-model="vm.entityDet.valor" required />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12 col-md-8">
+                            <label>Tercero:</label>
+                            <ui-select ng-model="vm.entityDet.idTercero"
+                                       form="formAppDet"
+                                       theme="bootstrap"
+                                       tabindex="7"
+                                       required
+                                       on-select="vm.onChangeTercero($item, $model)">
+                                <ui-select-match placeholder="Seleccione ...">{{$select.selected.nombreTercero}}</ui-select-match>
+                                <ui-select-choices repeat="item.idTercero as item in vm.listTerceros | filter: $select.search">
+                                    <div ng-bind-html="item.nombreTercero | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label>Deb/Cred:</label>
+                            <ui-select ng-model="vm.entityDet.debCred"
+                                       form="formAppDet"
+                                       theme="bootstrap"
+                                       tabindex="7"
+                                       required>
+                                <ui-select-match placeholder="Seleccione ...">{{$select.selected.descripcion}}</ui-select-match>
+                                <ui-select-choices repeat="item.codigo as item in vm.listDebCred | filter: $select.search">
+                                    <div ng-bind-html="item.descripcion | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12 col-md-6">
+                            <label>Centro de Costo:</label>
+                            <ui-select ng-model="vm.entityDet.idDetCenCosto"
+                                       form="formAppDet"
+                                       theme="bootstrap"
+                                       tabindex="7"
+                                       required
+                                       on-select="vm.onChangeCentroCosto($item, $model)">
+                                <ui-select-match placeholder="Seleccione ...">{{$select.selected.descripcion}}</ui-select-match>
+                                <ui-select-choices repeat="item.idDetalle as item in vm.listCenCosto | filter: $select.search">
+                                    <div ng-bind-html="item.descripcion | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label>Retenci&oacute;n:</label>
+                            <ui-select ng-model="vm.entityDet.idRetencion"
+                                       form="formAppDet"
+                                       theme="bootstrap"
+                                       tabindex="7"
+                                       required
+                                       on-select="vm.onChangeRetencion($item, $model)">
+                                <ui-select-match placeholder="Seleccione ...">{{$select.selected.descripcion}}</ui-select-match>
+                                <ui-select-choices repeat="item.idRetencion as item in vm.listRetencion | filter: $select.search">
+                                    <div ng-bind-html="item.descripcion | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <button class="btn btn-primary" ng-click="vm.agregarDet()" ng-disabled="formAppDet.$invalid">Agregar</button>
+                            <button class="btn btn-default" ng-click="vm.cancelarDet()">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+<script src="~/master/js/controllers/contabilidad/comprobantes.controller.js"></script>

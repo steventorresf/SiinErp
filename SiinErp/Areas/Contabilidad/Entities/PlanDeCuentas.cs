@@ -8,14 +8,13 @@ using System.Threading.Tasks;
 namespace SiinErp.Areas.Contabilidad.Entities
 {
     [Table("PlanDeCuentas", Schema = "Contabilidad")]
-    public class PlanDeCuentas
+    public class PlanDeCuentas : Utiles.Auditoria
     {
         [Key]
         public int IdCuentaContable { get; set; }
 
         [Required]
         public int IdEmpresa { get; set; }
-
 
         [Required]
         [StringLength(10)]
@@ -28,20 +27,11 @@ namespace SiinErp.Areas.Contabilidad.Entities
         [Required]
         [StringLength(50)]
         public string NombreCuenta { get; set; }
-
         
         public int? IdRetencion { get; set; }
 
-
         [Required]
         public bool TerceroSN { get; set; }
-
-
-        [Required]
-        public DateTimeOffset FechaCreacion { get; set; }
-
-        [Required]
-        public int IdUsuario { get; set; }
 
         [Required]
         [StringLength(1)]
