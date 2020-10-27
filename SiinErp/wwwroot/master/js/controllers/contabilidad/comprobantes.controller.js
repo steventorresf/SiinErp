@@ -5,17 +5,29 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$scope', '$cookies', 'ContTiposDocService', 'GenTercerosService', 'GenTablasEmpresaDetService', 'ContRetencionService', 'ContPlanDeCuentaService', 'ContComprobantesService'];
+    AppController.$inject = ['$location', '$scope', '$cookies', 'ContTiposDocService', 'GenTercerosService', 'GenTablasEmpresaDetService', 'ContRetencionService', 'ContPlanDeCuentaService', 'ContComprobantesService', 'ContComprobantesDetService'];
 
-    function AppController($location, $scope, $cookies, tdocService, terService, tabdetService, retService, cuentService, comprobService) {
+    function AppController($location, $scope, $cookies, tdocService, terService, tabdetService, retService, cuentService, comprobService, comprobdetService) {
         var vm = this;
+        var fecha = new Date();
+
+        vm.gridVisible = true;
+
+        vm.fechaInicial = fecha.addDays(fecha.getDate() > 1 ? (fecha.getDate() - 1) * -1 : 0);
+        vm.fechaFinal = fecha.addDays(0);
 
         vm.title = 'Home Page';
         vm.userApp = angular.copy($cookies.getObject('UsuApp'));
         vm.init = init;
+        vm.getAll = getAll;
+        vm.nuevo = nuevo;
+        vm.regresar = regresar;
+        vm.editar = editar;
         vm.guardar = guardar;
+        vm.anular = anular;
         vm.agregarDet = agregarDet;
         vm.agDet = agDet;
+        vm.quitar = quitar;
         vm.cancelarDet = cancelarDet;
         vm.listDebCred = [
             { codigo: 'D', descripcion: 'Debito' },
@@ -34,11 +46,126 @@
 
 
         function init() {
+            getAll();
             getTiposDoc();
             getCuentasContable();
             getTerceros();
             getCentroCostos();
             getRetencion();
+        }
+
+        function getAll() {
+            vm.gridOptions.data = [];
+
+            var response = comprobService.getAll(vm.userApp.idEmpresa, vm.fechaInicial.DateSiin(true), vm.fechaFinal.DateSiin(true));
+            response.then(
+                function (response) {
+                    vm.gridOptions.data = response.data;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        vm.gridOptions = {
+            data: [],
+            enableSorting: true,
+            enableRowSelection: true,
+            enableFullRowSelection: true,
+            multiSelect: false,
+            enableRowHeaderSelection: false,
+            enableColumnMenus: false,
+            enableFiltering: true,
+            columnDefs: [
+                {
+                    name: 'tipoDoc',
+                    field: 'tipoDoc',
+                    displayName: 'TipoDoc',
+                    headerCellClass: 'bg-header',
+                    cellClass: 'text-center',
+                    width: 120,
+                },
+                {
+                    name: 'numDoc',
+                    field: 'numDoc',
+                    displayName: 'NumDoc',
+                    headerCellClass: 'bg-header',
+                    cellClass: 'text-center',
+                    width: 120,
+                },
+                {
+                    name: 'sFechaDoc',
+                    field: 'sFechaDoc',
+                    displayName: 'FechaDoc',
+                    headerCellClass: 'bg-header',
+                    cellClass: 'text-center',
+                    width: 150,
+                },
+                {
+                    name: 'periodo',
+                    field: 'periodo',
+                    displayName: 'Periodo',
+                    headerCellClass: 'bg-header',
+                    cellClass: 'text-center',
+                    width: 150,
+                },
+                {
+                    name: 'tool',
+                    field: '',
+                    displayName: '',
+                    enableColumnMenu: false,
+                    enableFiltering: false,
+                    enableSorting: false,
+                    headerCellClass: 'bg-header',
+                    cellClass: 'text-center',
+                    cellTemplate:
+                        "<span><a href='' ng-click='grid.appScope.vm.editar(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<i class='fa fa-edit'></i></a></span>",
+                    width: 80,
+                    enableCellEdit: false,
+                }
+            ],
+            onRegisterApi: function (gridApi) {
+                vm.gridApi = gridApi;
+            },
+        };
+
+        function regresar() {
+            vm.gridVisible = true;
+        }
+
+        function nuevo() {
+            vm.entity = {};
+            vm.gridOptionsDet.data = [];
+            vm.valorDebito = 0;
+            vm.valorCredito = 0;
+
+            vm.formModify = false;
+            vm.gridVisible = false;
+
+            vm.i = 0;
+        }
+
+        function editar(entity) {
+            vm.entity = angular.copy(entity);
+            vm.entity.fechaDoc = new Date(vm.entity.fechaDoc);
+            getAllDet();
+            vm.formModify = true;
+            vm.gridVisible = false;
+        }
+
+        function getAllDet() {
+            var response = comprobdetService.getAll(vm.entity.idComprobante);
+            response.then(
+                function (response) {
+                    vm.gridOptionsDet.data = response.data;
+                    CalcularValores();
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
         }
 
         function getTiposDoc() {
@@ -64,7 +191,7 @@
 
 
         function getCuentasContable() {
-            var response = cuentService.getAll(vm.userApp.idEmpresa);
+            var response = cuentService.getAllByNivel(vm.userApp.idEmpresa, '5');
             response.then(
                 function (response) {
                     vm.listCuentaCont = response.data;
@@ -134,28 +261,25 @@
             vm.formVisibleDet = true;
         }
 
-        function editar(entity) {
-            vm.entity = angular.copy(entity);
-            vm.formModify = true;
-            vm.formVisible = true;
-        }
-
         function cancelarDet() {
             vm.formVisibleDet = false;
         }
 
         function agregarDet() {
+            vm.i++;
+
             var data = {
+                id: vm.i,
                 detalle: vm.entityDet.detalle,
                 idCuentaContable: vm.entityDet.idCuentaContable,
-                cuentaContable: vm.entityCuentaCont.nombreCuenta,
+                nombreCuenta: vm.entityCuentaCont.nombreCuenta,
                 idTercero: vm.entityDet.idTercero,
                 nombreTercero: vm.entityTercero.nombreTercero,
                 debCred: vm.entityDet.debCred,
                 idDetCenCosto: vm.entityDet.idDetCenCosto,
                 centroCosto: vm.entityCenCosto.descripcion,
                 idRetencion: vm.entityDet.idRetencion,
-                retencion: vm.entityRetencion.descripcion,
+                nombreRetencion: vm.entityRetencion.descripcion,
                 valor: vm.entityDet.valor,
             };
 
@@ -183,8 +307,8 @@
                     width: 400,
                 },
                 {
-                    name: 'cuentaContable',
-                    field: 'cuentaContable',
+                    name: 'nombreCuenta',
+                    field: 'nombreCuenta',
                     displayName: 'cuentaContable',
                     headerCellClass: 'bg-header',
                     width: 350,
@@ -212,8 +336,8 @@
                     width: 250,
                 },
                 {
-                    name: 'retencion',
-                    field: 'retencion',
+                    name: 'nombreRetencion',
+                    field: 'nombreRetencion',
                     displayName: 'Retencion',
                     headerCellClass: 'bg-header',
                     width: 250,
@@ -228,6 +352,21 @@
                     cellFilter: 'number: 0',
                     width: 150,
                 },
+                {
+                    name: 'tool',
+                    field: '',
+                    displayName: '',
+                    enableColumnMenu: false,
+                    enableFiltering: false,
+                    enableSorting: false,
+                    headerCellClass: 'bg-header',
+                    cellClass: 'text-center',
+                    cellTemplate:
+                        "<span ng-if='!grid.appScope.vm.formModify'><a href='' ng-click='grid.appScope.vm.quitar(row.entity)' tooltip='Quitar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<i class='fa fa-remove text-danger'></i></a></span>",
+                    width: 80,
+                    enableCellEdit: false,
+                }
             ],
             onRegisterApi: function (gridApi) {
                 vm.gridApiDet = gridApi;
@@ -249,21 +388,56 @@
             }
         }
 
+        function quitar(entity) {
+            vm.gridOptionsDet.data = vm.gridOptionsDet.data.filter(function (e) {
+                return e.id != entity.id;
+            });
+            CalcularValores();
+        }
+
         function guardar() {
-            vm.entity.estado = 'A';
-            vm.entity.idEmpresa = vm.userApp.idEmpresa;
-            vm.entity.creadoPor = vm.userApp.nombreUsuario;
+            if (vm.formModify) {
+                vm.entity.modificadoPor = vm.userApp.nombreUsuario;
+                var response = comprobService.update(vm.entity.idComprobante, vm.entity);
+                response.then(
+                    function (response) {
+                        getAll();
+                        regresar();
+                    },
+                    function (response) {
+                        console.log(response);
+                    }
+                );
+            }
+            else {
+                vm.entity.estado = 'A';
+                vm.entity.idEmpresa = vm.userApp.idEmpresa;
+                vm.entity.creadoPor = vm.userApp.nombreUsuario;
 
-            var data = {
-                entity: vm.entity,
-                listEntity: vm.gridOptionsDet.data,
-            };
+                var data = {
+                    entity: vm.entity,
+                    listEntity: vm.gridOptionsDet.data,
+                };
 
-            var response = comprobService.create(data);
+                var response = comprobService.create(data);
+                response.then(
+                    function (response) {
+                        getAll();
+                        regresar();
+                    },
+                    function (response) {
+                        console.log(response);
+                    }
+                );
+            }
+        }
+
+        function anular() {
+            var response = comprobService.anular(vm.entity.idComprobante, vm.userApp.nombreUsuario);
             response.then(
                 function (response) {
-                    //cancelar();
-                    window.location.href = url + 'Contabilidad/Home/Comprobantes';
+                    getAll();
+                    regresar();
                 },
                 function (response) {
                     console.log(response);

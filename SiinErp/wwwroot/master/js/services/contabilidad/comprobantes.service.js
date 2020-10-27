@@ -14,12 +14,13 @@
             getAll: getAll,
             create: create,
             update: update,
+            anular: anular,
         };
 
         return service;
 
-        function getAll(idEmp) {
-            return $http.get(nameSpace + idEmp)
+        function getAll(idEmp, fechaI, fechaF) {
+            return $http.get(nameSpace + idEmp + '/' + fechaI + '/' + fechaF)
                 .then(
                     function (response) {
                         return response;
@@ -46,6 +47,19 @@
 
         function update(id, data) {
             return $http.put(nameSpace + id, data)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function anular(id, modificadoPor) {
+            return $http.delete(nameSpace + id + '/' + modificadoPor)
                 .then(
                     function (response) {
                         return response;

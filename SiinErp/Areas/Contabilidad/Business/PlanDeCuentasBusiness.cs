@@ -16,13 +16,27 @@ namespace SiinErp.Areas.Contabilidad.Business
             try
             {
                 SiinErpContext context = new SiinErpContext();
-                List<PlanDeCuentas> Lista = context.PlanDeCuentas.OrderBy(x => x.CodCuenta).ToList();
-
+                List<PlanDeCuentas> Lista = context.PlanDeCuentas.Where(x => x.IdEmpresa == IdEmpresa).OrderBy(x => x.CodCuenta).ToList();
                 return Lista;
             }
             catch (Exception ex)
             {
                 ErroresBusiness.Create("GetPlanContab", ex.Message, null);
+                throw;
+            }
+        }
+
+        public List<PlanDeCuentas> GetPlanDeCuentasByNivel(int IdEmpresa, string Nivel)
+        {
+            try
+            {
+                SiinErpContext context = new SiinErpContext();
+                List<PlanDeCuentas> Lista = context.PlanDeCuentas.Where(x => x.IdEmpresa == IdEmpresa && x.NivelCuenta.Equals(Nivel)).OrderBy(x => x.CodCuenta).ToList();
+                return Lista;
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("GetPlanContabByNivel", ex.Message, null);
                 throw;
             }
         }

@@ -40,5 +40,18 @@ namespace SiinErp.Areas.Contabilidad.Entities
 
         [Required]
         public decimal Valor { get; set; }
+
+
+        [NotMapped]
+        public string NombreTercero { get; set; }
+
+        [NotMapped]
+        public string CentroCosto { get; set; }
+
+        [NotMapped]
+        public string NombreRetencion { get; set; }
+
+        [NotMapped]
+        public string NombreCuenta { get; set; }
     }
 }

@@ -12,6 +12,7 @@
 
         var service = {
             getAll: getAll,
+            getAllByNivel: getAllByNivel,
             getPlan: getPlan,
             create: create,
             update: update,
@@ -32,6 +33,18 @@
                 );
         }
 
+        function getAllByNivel(idEmp, nivel) {
+            return $http.get(nameSpace + 'ByNivel/' + idEmp + '/' + nivel)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
 
         function getPlan(idEmp, codCuenta) {
             return $http.get(nameSpace + 'Get/' + idEmp + '/' + codCuenta)

@@ -19,7 +19,7 @@ namespace SiinErp.Areas.Contabilidad.Controllers
         private PlanDeCuentasBusiness BusinessPlanDeCuentas = new PlanDeCuentasBusiness();
 
         [HttpGet("{IdEmp}")]
-        public IActionResult GetTiposDoc(int IdEmp)
+        public IActionResult GetAll(int IdEmp)
         {
             try
             {
@@ -32,7 +32,19 @@ namespace SiinErp.Areas.Contabilidad.Controllers
             }
         }
 
-
+        [HttpGet("ByNivel/{IdEmp}/{Nivel}")]
+        public IActionResult GetAllByNivel(int IdEmp, string Nivel)
+        {
+            try
+            {
+                var lista = BusinessPlanDeCuentas.GetPlanDeCuentasByNivel(IdEmp, Nivel);
+                return Ok(lista);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
 
         [HttpGet("Get/{IdEmp}/{CodCuenta}")]
         public IActionResult GetTipoDoc(int IdEmp, string CodCuenta)

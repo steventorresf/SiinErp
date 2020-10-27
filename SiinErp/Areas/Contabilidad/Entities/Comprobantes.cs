@@ -33,5 +33,9 @@ namespace SiinErp.Areas.Contabilidad.Entities
         [Required]
         [StringLength(1)]
         public string Estado { get; set; }
+
+
+        [NotMapped]
+        public string sFechaDoc { get; set; }
     }
 }

@@ -4,7 +4,38 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row" ng-show="!vm.formVisibleDet">
+<div class="row" ng-show="vm.gridVisible">
+    <div class="col-12 offset-md-1 col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <form class="form-horizontal" id="form" name="form">
+                    <div class="form-group row">
+                        <div class="col-12 col-md-4">
+                            <label>Fecha Inicial:</label>
+                            <input type="date" class="form-control" ng-model="vm.fechaInicial" />
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label>Fecha Final:</label>
+                            <input type="date" class="form-control" ng-model="vm.fechaFinal" />
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <br />
+                            <button class="btn btn-primary" ng-click="vm.getAll()">Buscar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-body">
+                <div class="fontsize-10" ui-grid="vm.gridOptions" ui-grid-selection ui-grid-cellNav ui-grid-edit ui-grid-resize-columns ui-grid-auto-resize></div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary" ng-click="vm.nuevo()">Nuevo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-show="!vm.formVisibleDet && !vm.gridVisible">
     <div class="col-12 offset-md-1 col-md-10">
         <div class="row">
             <div class="col-12">
@@ -22,7 +53,8 @@
                                                theme="bootstrap"
                                                tabindex="7"
                                                required
-                                               on-select="vm.onChangeTipoDoc($item, $model)">
+                                               on-select="vm.onChangeTipoDoc($item, $model)"
+                                               ng-disabled="vm.formModify">
                                         <ui-select-match placeholder="Seleccione ...">{{$select.selected.descripcion}}</ui-select-match>
                                         <ui-select-choices repeat="item.tipoDoc as item in vm.listTiposContab | filter: $select.search">
                                             <div ng-bind-html="item.descripcion | highlight: $select.search"></div>
@@ -33,7 +65,7 @@
                             <div class="form-group row">
                                 <div class="col-12 col-md-4">
                                     <label>No. Documento:</label>
-                                    <input type="text" form="formApp" class="form-control" ng-model="vm.entity.numDoc" required />
+                                    <input type="text" form="formApp" class="form-control" ng-model="vm.entity.numDoc" ng-disabled="vm.formModify" required />
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <label>Fecha Documento:</label>
@@ -58,7 +90,7 @@
                                 <h4>Detalle Documento</h4>
                             </div>
                             <div class="col-12 col-md-5 text-right">
-                                <button class="btn btn-link" ng-click="vm.agDet()">Agregar</button>
+                                <button class="btn btn-link" ng-click="vm.agDet()" ng-if="!vm.formModify">Agregar</button>
                             </div>
                         </div>
                     </div>
@@ -81,8 +113,12 @@
                             </div>
                         </div>
                         <div class="row mt-2">
-                            <div class="col-12">
+                            <div class="col-12 col-md-7">
                                 <button class="btn btn-primary" ng-click="vm.guardar()" ng-disabled="formApp.$invalid || vm.gridOptionsDet.data.length === 0 || vm.valorDebito != vm.valorCredito">Guardar</button>
+                                <button class="btn btn-default" ng-click="vm.regresar()">Regresar</button>
+                            </div>
+                            <div class="col-12 col-md-5 text-right">
+                                <button class="btn btn-danger" ng-click="vm.anular()" ng-show="vm.formModify">Anular</button>
                             </div>
                         </div>
                     </div>
