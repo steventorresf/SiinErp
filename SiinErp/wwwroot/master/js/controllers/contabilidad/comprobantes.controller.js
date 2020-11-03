@@ -26,7 +26,9 @@
         vm.guardar = guardar;
         vm.anular = anular;
         vm.agregarDet = agregarDet;
+        vm.editarDet = editarDet;
         vm.agDet = agDet;
+        vm.edDet = edDet;
         vm.quitar = quitar;
         vm.cancelarDet = cancelarDet;
         vm.listDebCred = [
@@ -161,6 +163,16 @@
                 function (response) {
                     vm.gridOptionsDet.data = response.data;
                     CalcularValores();
+                    vm.i = 0;
+                    for (var i = 0; i < vm.gridOptionsDet.data.length; i++) {
+                        vm.gridOptionsDet.data[i].modo = 'E';
+                        if (vm.gridOptionsDet.data[i].idDetalleComprobante > vm.i) {
+                            vm.i = vm.gridOptionsDet.data[i].idDetalleComprobante;
+                        }
+                    }
+
+                    vm.gridDetalle = [];
+                    vm.gridDetalle = angular.copy(vm.gridOptionsDet.data);
                 },
                 function (response) {
                     console.log(response);
@@ -259,6 +271,13 @@
         function agDet() {
             vm.entityDet = {};
             vm.formVisibleDet = true;
+            vm.formModifyDet = false;
+        }
+
+        function edDet(entity) {
+            vm.entityDet = angular.copy(entity);
+            vm.formVisibleDet = true;
+            vm.formModifyDet = true;
         }
 
         function cancelarDet() {
@@ -269,7 +288,7 @@
             vm.i++;
 
             var data = {
-                id: vm.i,
+                idDetalleComprobante: vm.i,
                 detalle: vm.entityDet.detalle,
                 idCuentaContable: vm.entityDet.idCuentaContable,
                 nombreCuenta: vm.entityCuentaCont.nombreCuenta,
@@ -281,9 +300,72 @@
                 idRetencion: vm.entityDet.idRetencion,
                 nombreRetencion: vm.entityRetencion.descripcion,
                 valor: vm.entityDet.valor,
+                estado: 'A',
+                creadoPor: vm.userApp.nombreUsuario,
+                modo: 'A',
             };
 
             vm.gridOptionsDet.data.push(data);
+
+            if (vm.formModify) {
+                vm.gridDetalle.push(data);
+            }
+
+            CalcularValores();
+
+            vm.formVisibleDet = false;
+        }
+
+        function editarDet() {
+            var entity = null;
+
+            for (var i = 0; i < vm.gridOptionsDet.data.length; i++) {
+                if (vm.gridOptionsDet.data[i].idDetalleComprobante === vm.entityDet.idDetalleComprobante) {
+                    if (vm.gridOptionsDet.data[i].detalle != vm.entityDet.detalle) {
+                        vm.gridOptionsDet.data[i].detalle = vm.entityDet.detalle;
+                        vm.gridOptionsDet.data[i].modo = vm.gridOptionsDet.data[i].modo === 'E' ? 'E' : 'A';
+                    }
+                    if (vm.gridOptionsDet.data[i].idCuentaContable != vm.entityDet.idCuentaContable) {
+                        vm.gridOptionsDet.data[i].idCuentaContable = vm.entityDet.idCuentaContable;
+                        vm.gridOptionsDet.data[i].nombreCuenta = vm.entityCuentaCont.nombreCuenta;
+                        vm.gridOptionsDet.data[i].modo = vm.gridOptionsDet.data[i].modo === 'E' ? 'E' : 'A';
+                    }
+                    if (vm.gridOptionsDet.data[i].idTercero != vm.entityDet.idTercero) {
+                        vm.gridOptionsDet.data[i].idTercero = vm.entityDet.idTercero;
+                        vm.gridOptionsDet.data[i].nombreTercero = vm.entityTercero.nombreTercero;
+                        vm.gridOptionsDet.data[i].modo = vm.gridOptionsDet.data[i].modo === 'E' ? 'E' : 'A';
+                    }
+                    if (vm.gridOptionsDet.data[i].debCred != vm.entityDet.debCred) {
+                        vm.gridOptionsDet.data[i].debCred = vm.entityDet.debCred;
+                        vm.gridOptionsDet.data[i].modo = vm.gridOptionsDet.data[i].modo === 'E' ? 'E' : 'A';
+                    }
+                    if (vm.gridOptionsDet.data[i].idDetCenCosto != vm.entityDet.idDetCenCosto) {
+                        vm.gridOptionsDet.data[i].idDetCenCosto = vm.entityDet.idDetCenCosto;
+                        vm.gridOptionsDet.data[i].centroCosto = vm.entityCenCosto.descripcion;
+                        vm.gridOptionsDet.data[i].modo = vm.gridOptionsDet.data[i].modo === 'E' ? 'E' : 'A';
+                    }
+                    if (vm.gridOptionsDet.data[i].idRetencion != vm.entityDet.idRetencion) {
+                        vm.gridOptionsDet.data[i].idRetencion = vm.entityDet.idRetencion;
+                        vm.gridOptionsDet.data[i].nombreRetencion = vm.entityRetencion.descripcion;
+                        vm.gridOptionsDet.data[i].modo = vm.gridOptionsDet.data[i].modo === 'E' ? 'E' : 'A';
+                    }
+                    if (vm.gridOptionsDet.data[i].valor != vm.entityDet.valor) {
+                        vm.gridOptionsDet.data[i].valor = vm.entityDet.valor;
+                        vm.gridOptionsDet.data[i].modo = vm.gridOptionsDet.data[i].modo === 'E' ? 'E' : 'A';
+                    }
+
+                    entity = vm.gridOptionsDet.data[i];
+                    break;
+                }
+            }
+
+            for (var i = 0; i < vm.gridDetalle.length; i++) {
+                if (vm.gridDetalle[i].idDetalleComprobante === vm.entityDet.idDetalleComprobante) {
+                    vm.gridDetalle[i] = entity;
+                    break;
+                }
+            }            
+
             CalcularValores();
 
             vm.formVisibleDet = false;
@@ -353,7 +435,7 @@
                     width: 150,
                 },
                 {
-                    name: 'tool',
+                    name: 'toolE',
                     field: '',
                     displayName: '',
                     enableColumnMenu: false,
@@ -362,7 +444,22 @@
                     headerCellClass: 'bg-header',
                     cellClass: 'text-center',
                     cellTemplate:
-                        "<span ng-if='!grid.appScope.vm.formModify'><a href='' ng-click='grid.appScope.vm.quitar(row.entity)' tooltip='Quitar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<span><a href='' ng-click='grid.appScope.vm.edDet(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<i class='fa fa-edit text-info'></i></a></span>",
+                    width: 80,
+                    enableCellEdit: false,
+                },
+                {
+                    name: 'toolX',
+                    field: '',
+                    displayName: '',
+                    enableColumnMenu: false,
+                    enableFiltering: false,
+                    enableSorting: false,
+                    headerCellClass: 'bg-header',
+                    cellClass: 'text-center',
+                    cellTemplate:
+                        "<span><a href='' ng-click='grid.appScope.vm.quitar(row.entity)' tooltip='Quitar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
                         "<i class='fa fa-remove text-danger'></i></a></span>",
                     width: 80,
                     enableCellEdit: false,
@@ -390,15 +487,28 @@
 
         function quitar(entity) {
             vm.gridOptionsDet.data = vm.gridOptionsDet.data.filter(function (e) {
-                return e.id != entity.id;
+                return e.idDetalleComprobante != entity.idDetalleComprobante;
             });
+
+            for (var i = 0; i < vm.gridDetalle.length; i++) {
+                if (vm.gridDetalle[i].idDetalleComprobante === entity.idDetalleComprobante) {
+                    vm.gridDetalle[i].modo = 'X';
+                    break;
+                }
+            }
             CalcularValores();
         }
 
         function guardar() {
             if (vm.formModify) {
                 vm.entity.modificadoPor = vm.userApp.nombreUsuario;
-                var response = comprobService.update(vm.entity.idComprobante, vm.entity);
+
+                var data = {
+                    entity: vm.entity,
+                    listEntity: vm.gridDetalle,
+                };
+
+                var response = comprobService.update(vm.entity.idComprobante, data);
                 response.then(
                     function (response) {
                         getAll();

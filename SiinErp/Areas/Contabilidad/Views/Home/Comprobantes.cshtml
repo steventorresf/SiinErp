@@ -90,7 +90,7 @@
                                 <h4>Detalle Documento</h4>
                             </div>
                             <div class="col-12 col-md-5 text-right">
-                                <button class="btn btn-link" ng-click="vm.agDet()" ng-if="!vm.formModify">Agregar</button>
+                                <button class="btn btn-link" ng-click="vm.agDet()">Agregar</button>
                             </div>
                         </div>
                     </div>
@@ -221,7 +221,8 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <button class="btn btn-primary" ng-click="vm.agregarDet()" ng-disabled="formAppDet.$invalid">Agregar</button>
+                            <button class="btn btn-primary" ng-click="vm.agregarDet()" ng-disabled="formAppDet.$invalid" ng-if="!vm.formModifyDet">Agregar</button>
+                            <button class="btn btn-primary" ng-click="vm.editarDet()" ng-disabled="formAppDet.$invalid" ng-if="vm.formModifyDet">Editar</button>
                             <button class="btn btn-default" ng-click="vm.cancelarDet()">Cancelar</button>
                         </div>
                     </div>

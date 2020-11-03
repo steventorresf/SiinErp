@@ -1,6 +1,7 @@
 ﻿using SiinErp.Areas.Contabilidad.Entities;
 using SiinErp.Areas.General.Business;
 using SiinErp.Models;
+using SiinErp.Utiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace SiinErp.Areas.Contabilidad.Business
             try
             {
                 SiinErpContext context = new SiinErpContext();
-                List<ComprobantesDetalle> Lista = (from cd in context.ComprobantesDetalles.Where(x => x.IdComprobante == IdComprobante)
+                List<ComprobantesDetalle> Lista = (from cd in context.ComprobantesDetalles.Where(x => x.IdComprobante == IdComprobante && x.Estado.Equals(Constantes.EstadoActivo))
                                                    join cc in context.TablasEmpresaDetalles on cd.IdDetCenCosto equals cc.IdDetalle
                                                    join re in context.Retenciones on cd.IdRetencion equals re.IdRetencion
                                                    join tr in context.Terceros on cd.IdTercero equals tr.IdTercero

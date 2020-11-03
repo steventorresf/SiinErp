@@ -69,7 +69,9 @@ namespace SiinErp.Areas.Contabilidad.Business
                     Comprobantes obEntity = context.Comprobantes.FirstOrDefault(x => x.NumDoc == entity.NumDoc && x.TipoDoc.Equals(entity.TipoDoc));
                     foreach(ComprobantesDetalle d in listEntity)
                     {
+                        d.IdDetalleComprobante = 0;
                         d.IdComprobante = obEntity.IdComprobante;
+                        d.FechaCreacion = DateTimeOffset.Now;
                     }
 
                     context.ComprobantesDetalles.AddRange(listEntity);
@@ -85,19 +87,66 @@ namespace SiinErp.Areas.Contabilidad.Business
             }
         }
 
-        public void Update(int IdComprobante, Comprobantes entity)
+        public void Update(int IdComprobante, JObject data)
         {
             try
             {
+                Comprobantes entity = data["entity"].ToObject<Comprobantes>();
+                List<ComprobantesDetalle> listEntity = data["listEntity"].ToObject<List<ComprobantesDetalle>>();
+
                 SiinErpContext context = new SiinErpContext();
                 using (var tran = context.Database.BeginTransaction())
                 {
+                    entity.FechaDoc = entity.FechaDoc.ToOffset(new TimeSpan(-5, 0, 0));
                     Comprobantes ob = context.Comprobantes.Find(IdComprobante);
-                    ob.FechaDoc = entity.FechaDoc;
-                    ob.Periodo = entity.Periodo;
-                    ob.ModificadoPor = entity.ModificadoPor;
-                    ob.FechaModificado = DateTimeOffset.Now;
-                    context.SaveChanges();
+                    if (ob.FechaDoc != entity.FechaDoc)
+                    {
+                        ob.FechaDoc = entity.FechaDoc;
+                        ob.Periodo = entity.Periodo;
+                        ob.ModificadoPor = entity.ModificadoPor;
+                        ob.FechaModificado = DateTimeOffset.Now;
+                        context.SaveChanges();
+                    }
+
+                    foreach(ComprobantesDetalle d in listEntity)
+                    {
+                        switch (d.Modo)
+                        {
+                            case "A":
+                                {
+                                    d.IdDetalleComprobante = 0;
+                                    d.IdComprobante = entity.IdComprobante;
+                                    d.FechaCreacion = DateTimeOffset.Now;
+                                    context.ComprobantesDetalles.Add(d);
+                                    context.SaveChanges();
+                                    break;
+                                }
+                            case "E":
+                                {
+                                    ComprobantesDetalle entityDet = context.ComprobantesDetalles.Find(d.IdDetalleComprobante);
+                                    entityDet.Detalle = d.Detalle;
+                                    entityDet.IdCuentaContable = d.IdCuentaContable;
+                                    entityDet.IdTercero = d.IdTercero;
+                                    entityDet.DebCred = d.DebCred;
+                                    entityDet.IdDetCenCosto = d.IdDetCenCosto;
+                                    entityDet.IdRetencion = d.IdRetencion;
+                                    entityDet.Valor = d.Valor;
+                                    entityDet.ModificadoPor = entity.ModificadoPor;
+                                    entityDet.FechaModificado = DateTimeOffset.Now;
+                                    context.SaveChanges();
+                                    break;
+                                }
+                            case "X":
+                                {
+                                    ComprobantesDetalle entityDet = context.ComprobantesDetalles.Find(d.IdDetalleComprobante);
+                                    entityDet.Estado = Constantes.EstadoInactivo;
+                                    entityDet.ModificadoPor = entity.ModificadoPor;
+                                    entityDet.FechaModificado = DateTimeOffset.Now;
+                                    context.SaveChanges();
+                                    break;
+                                }
+                        }
+                    }
 
                     tran.Commit();
                 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SiinErp.Areas.Contabilidad.Entities
 {
     [Table("ComprobantesDetalle", Schema = "Contabilidad")]
-    public class ComprobantesDetalle
+    public class ComprobantesDetalle : Utiles.Auditoria
     {
         [Key]
         public int IdDetalleComprobante { get; set; }
@@ -41,6 +41,10 @@ namespace SiinErp.Areas.Contabilidad.Entities
         [Required]
         public decimal Valor { get; set; }
 
+        [Required]
+        [StringLength(1)]
+        public string Estado { get; set; }
+
 
         [NotMapped]
         public string NombreTercero { get; set; }
@@ -53,5 +57,8 @@ namespace SiinErp.Areas.Contabilidad.Entities
 
         [NotMapped]
         public string NombreCuenta { get; set; }
+
+        [NotMapped]
+        public string Modo { get; set; }
     }
 }

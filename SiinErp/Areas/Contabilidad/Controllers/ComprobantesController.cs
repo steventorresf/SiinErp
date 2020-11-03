@@ -47,11 +47,11 @@ namespace SiinErp.Areas.Contabilidad.Controllers
         }
 
         [HttpPut("{IdComp}")]
-        public IActionResult Update(int IdComp, [FromBody] Comprobantes entity)
+        public IActionResult Update(int IdComp, [FromBody] JObject data)
         {
             try
             {
-                Business.Update(IdComp, entity);
+                Business.Update(IdComp, data);
                 return Ok(true);
             }
             catch (Exception ex)
