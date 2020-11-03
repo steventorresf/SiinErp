@@ -359,12 +359,14 @@
                 }
             }
 
-            for (var i = 0; i < vm.gridDetalle.length; i++) {
-                if (vm.gridDetalle[i].idDetalleComprobante === vm.entityDet.idDetalleComprobante) {
-                    vm.gridDetalle[i] = entity;
-                    break;
+            if (vm.formModify) {
+                for (var i = 0; i < vm.gridDetalle.length; i++) {
+                    if (vm.gridDetalle[i].idDetalleComprobante === vm.entityDet.idDetalleComprobante) {
+                        vm.gridDetalle[i] = entity;
+                        break;
+                    }
                 }
-            }            
+            }
 
             CalcularValores();
 
