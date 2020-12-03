@@ -98,10 +98,22 @@ namespace SiinErp.Areas.Inventario.Entities
 
 
         [NotMapped]
+        public string NoDoc { get; set; }
+
+        [NotMapped]
+        public string NombreEmpresa { get; set; }
+
+        [NotMapped]
         public string NombreTercero { get; set; }
 
         [NotMapped]
         public string NombreAlmacen { get; set; }
+
+        [NotMapped]
+        public string NombreConcepto { get; set; }
+
+        [NotMapped]
+        public string NombreCentroCosto { get; set; }
 
         [NotMapped]
         public decimal VrPagar { get; set; }
@@ -111,6 +123,9 @@ namespace SiinErp.Areas.Inventario.Entities
 
         [NotMapped]
         public PlazosPago PlazoPago { get; set; }
+
+        [NotMapped]
+        public List<MovimientosDetalle> ListaDetalle { get; set; }
 
     }
 }

@@ -184,7 +184,24 @@ namespace SiinErp.Areas.Inventario.Controllers
             }
         }
 
-      
+
+        #endregion
+
+
+        #region Impresion
+        [HttpGet("Imp/{IdMov}")]
+        public IActionResult Imprimir(int IdMov)
+        {
+            try
+            {
+                var entity = BusinessMov.Imprimir(IdMov);
+                return Ok(entity);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         #endregion
     }
 }
