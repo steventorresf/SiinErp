@@ -461,6 +461,7 @@ namespace SiinErp.Areas.Inventario.Business
                                       join em in context.Empresas on mo.IdEmpresa equals em.IdEmpresa
                                       join cc in context.TablasEmpresaDetalles on mo.IdDetCenCosto equals cc.IdDetalle
                                       join co in context.TablasEmpresaDetalles on mo.IdDetConcepto equals co.IdDetalle
+                                      join al in context.TablasEmpresaDetalles on mo.IdDetAlmacen equals al.IdDetalle
                                       join ce in context.Terceros on mo.IdTercero equals ce.IdTercero into LeftJoin
                                       from LJ in LeftJoin.DefaultIfEmpty()
                                       select new Movimientos()
@@ -472,11 +473,13 @@ namespace SiinErp.Areas.Inventario.Business
                                           IdTercero = mo.IdTercero,
                                           IdVendedor = mo.IdVendedor,
                                           FechaDoc = mo.FechaDoc,
-                                          sFechaFormatted = mo.FechaDoc.ToString("MM/dd/yyyy"),
+                                          sFechaFormatted = mo.FechaDoc.ToString("dd/MM/yyyy"),
                                           ValorNeto = mo.ValorNeto,
                                           IdDetAlmacen = mo.IdDetAlmacen,
                                           NombreEmpresa = em.RazonSocial,
                                           NombreConcepto = co.Descripcion,
+                                          NombreAlmacen = al.Descripcion,
+                                          NombreCentroCosto = cc.Descripcion,
                                           NombreTercero = LJ != null ? LJ.NombreTercero : "",
                                       }).FirstOrDefault();
 
