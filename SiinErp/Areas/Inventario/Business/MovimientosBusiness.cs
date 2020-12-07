@@ -108,7 +108,7 @@ namespace SiinErp.Areas.Inventario.Business
                     TiposDoc tiposdocmov = context.TiposDoc.FirstOrDefault(x => x.TipoDoc.Equals(Constantes.InvDocEntradaOc));
                     tiposdocmov.NumDoc++;
                     context.SaveChanges();
-                    entityMov.CodModulo = Constantes.ModuloCompras;
+                    entityMov.CodModulo = Constantes.ModuloInventario;
                     entityMov.TipoDoc = tiposdocmov.TipoDoc;
                     entityMov.NumDoc = tiposdocmov.NumDoc;
                     entityMov.ValorSaldo = entityMov.ValorNeto;
