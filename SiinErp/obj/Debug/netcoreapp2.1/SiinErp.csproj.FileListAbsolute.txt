@@ -146,4 +146,15 @@ C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.Views.pd
 C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.dll
 C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.pdb
 C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.csproj.CopyComplete
+<<<<<<< HEAD
 C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.csprojAssemblyReference.cache
+=======
+C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Contabilidad\Views\Home\TiposContab.cshtml.g.cs
+C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Contabilidad\Views\Home\PlanDeCuentas.cshtml.g.cs
+C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Contabilidad\Views\Home\Retenciones.cshtml.g.cs
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Contabilidad\Views\Home\PlanDeCuentas.g.cshtml.cs
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Contabilidad\Views\Home\Retenciones.g.cshtml.cs
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Contabilidad\Views\Home\TiposContab.g.cshtml.cs
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Contabilidad\Views\Home\Comprobantes.g.cshtml.cs
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.csprojAssemblyReference.cache
+>>>>>>> b6b35c5fd96bf2034c1fb68f5c443df7991d7db5

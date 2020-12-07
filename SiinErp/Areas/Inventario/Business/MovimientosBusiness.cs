@@ -449,5 +449,66 @@ namespace SiinErp.Areas.Inventario.Business
             }
         }
         #endregion
+
+
+        #region Impresión
+        public Movimientos Imprimir(int IdMov)
+        {
+            try
+            {
+                SiinErpContext context = new SiinErpContext();
+                Movimientos entity = (from mo in context.Movimientos.Where(x => x.IdMovimiento == IdMov)
+                                      join em in context.Empresas on mo.IdEmpresa equals em.IdEmpresa
+                                      join cc in context.TablasEmpresaDetalles on mo.IdDetCenCosto equals cc.IdDetalle
+                                      join co in context.TablasEmpresaDetalles on mo.IdDetConcepto equals co.IdDetalle
+                                      join al in context.TablasEmpresaDetalles on mo.IdDetAlmacen equals al.IdDetalle
+                                      join ce in context.Terceros on mo.IdTercero equals ce.IdTercero into LeftJoin
+                                      from LJ in LeftJoin.DefaultIfEmpty()
+                                      select new Movimientos()
+                                      {
+                                          IdMovimiento = mo.IdMovimiento,
+                                          TipoDoc = mo.TipoDoc,
+                                          NumDoc = mo.NumDoc,
+                                          NoDoc = mo.TipoDoc + " " + mo.NumDoc,
+                                          IdTercero = mo.IdTercero,
+                                          IdVendedor = mo.IdVendedor,
+                                          FechaDoc = mo.FechaDoc,
+                                          sFechaFormatted = mo.FechaDoc.ToString("dd/MM/yyyy"),
+                                          ValorNeto = mo.ValorNeto,
+                                          IdDetAlmacen = mo.IdDetAlmacen,
+                                          NombreEmpresa = em.RazonSocial,
+                                          NombreConcepto = co.Descripcion,
+                                          NombreAlmacen = al.Descripcion,
+                                          NombreCentroCosto = cc.Descripcion,
+                                          NombreTercero = LJ != null ? LJ.NombreTercero : "",
+                                      }).FirstOrDefault();
+
+                entity.ListaDetalle = (from d in context.MovimientosDetalles.Where(x => x.IdMovimiento == IdMov)
+                                       join a in context.Articulos on d.IdArticulo equals a.IdArticulo
+                                       select new MovimientosDetalle()
+                                       {
+                                           IdDetalleMovimiento = d.IdDetalleMovimiento,
+                                           IdMovimiento = d.IdMovimiento,
+                                           IdArticulo = d.IdArticulo,
+                                           Cantidad = d.Cantidad,
+                                           PcDscto = d.PcDscto,
+                                           VrBruto = d.VrBruto,
+                                           PcIva = d.PcIva,
+                                           VrCosto = d.VrCosto,
+                                           VrNeto = d.VrNeto,
+                                           VrUnitario = d.VrUnitario,
+                                           NombreArticulo = a.NombreArticulo,
+                                           Articulo = a,
+                                           CodArticulo = a.CodArticulo
+                                       }).ToList();
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("ImprimirMovimiento", ex.Message, null);
+                throw;
+            }
+        }
+        #endregion
     }
 }

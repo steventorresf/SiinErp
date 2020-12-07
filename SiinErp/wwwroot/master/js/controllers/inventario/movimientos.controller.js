@@ -31,6 +31,7 @@
         vm.entityMov = {};
 
         $scope.editar = editar;
+        $scope.imprimir = imprimir;
 
         vm.fechaInicial = fecha.addDays(fecha.getDate() > 1 ? (fecha.getDate() - 1) * -1 : 0);
         vm.fechaFinal = fecha.addDays(0);
@@ -111,7 +112,9 @@
                     cellClass: 'text-center',
                     cellTemplate:
                         "<span><a href='' ng-click='grid.appScope.editar(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
-                        "<i class='fa fa-edit'></i></a></span>",
+                        "<i class='fa fa-edit'></i></a></span>" +
+                        "<span><a href='' ng-click='grid.appScope.imprimir(row.entity)' tooltip='Imprimir' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<i class='fa fa-print text-success'></i></a></span>",
                     width: 80,
                     enableCellEdit: false,
                 }
@@ -142,6 +145,10 @@
             vm.modify = true;
             $scope.modify = true;
             vm.formMov = true;
+        }
+
+        function imprimir(entity) {
+            movService.imprimir(entity.idMovimiento);
         }
 
         function getDetalleMov() {
