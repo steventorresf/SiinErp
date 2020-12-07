@@ -83,6 +83,10 @@ C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Layo
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_ValidationScriptsPartial.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Views\_ViewImports.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Views\_ViewStart.g.cshtml.cs
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Contabilidad\Views\Home\PlanDeCuentas.g.cshtml.cs
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Contabilidad\Views\Home\Retenciones.g.cshtml.cs
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Contabilidad\Views\Home\TiposContab.g.cshtml.cs
+C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Contabilidad\Views\Home\Comprobantes.g.cshtml.cs
 C:\Repositorios\SiinErp\SiinErp\SiinErp\bin\Debug\netcoreapp2.1\appsettings.Development.json
 C:\Repositorios\SiinErp\SiinErp\SiinErp\bin\Debug\netcoreapp2.1\appsettings.json
 C:\Repositorios\SiinErp\SiinErp\SiinErp\bin\Debug\netcoreapp2.1\Properties\launchSettings.json
@@ -105,6 +109,10 @@ C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Cart
 C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Cartera\Views\Home\PlazosPago.cshtml.g.cs
 C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Compras\Views\Home\Ordenes.cshtml.g.cs
 C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Compras\Views\Home\Proveedores.cshtml.g.cs
+C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Contabilidad\Views\Home\Comprobantes.cshtml.g.cs
+C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Contabilidad\Views\Home\PlanDeCuentas.cshtml.g.cs
+C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Contabilidad\Views\Home\Retenciones.cshtml.g.cs
+C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Contabilidad\Views\Home\TiposContab.cshtml.g.cs
 C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\General\Views\Home\DptosCiudads.cshtml.g.cs
 C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\General\Views\Home\Empresas.cshtml.g.cs
 C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\General\Views\Home\Parametros.cshtml.g.cs
@@ -138,10 +146,4 @@ C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.Views.pd
 C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.dll
 C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.pdb
 C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.csproj.CopyComplete
-C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Contabilidad\Views\Home\TiposContab.cshtml.g.cs
-C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Contabilidad\Views\Home\PlanDeCuentas.cshtml.g.cs
-C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Contabilidad\Views\Home\Retenciones.cshtml.g.cs
-C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Contabilidad\Views\Home\PlanDeCuentas.g.cshtml.cs
-C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Contabilidad\Views\Home\Retenciones.g.cshtml.cs
-C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Contabilidad\Views\Home\TiposContab.g.cshtml.cs
-C:\Repositorios\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\Razor\Areas\Contabilidad\Views\Home\Comprobantes.g.cshtml.cs
+C:\Repositorios\SiinErp\SiinErp\SiinErp\obj\Debug\netcoreapp2.1\SiinErp.csprojAssemblyReference.cache
