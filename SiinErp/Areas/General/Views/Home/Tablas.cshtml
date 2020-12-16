@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row mt-4" ng-show="!vm.modoDet">
+<div class="row mt-4" ng-show="!vm.formVisibleDet">
     <div class="col-12 offset-md-1 col-md-10">
         <div class="card">
             <div class="card-header">
@@ -18,6 +18,7 @@
                                        form="formApp"
                                        theme="bootstrap"
                                        tabindex="7"
+                                       on-select="vm.onChangeTabla($item, $model)"
                                        required>
                                 <ui-select-match placeholder="Seleccione una tabla...">{{$select.selected.descripcion}}</ui-select-match>
                                 <ui-select-choices repeat="item.idTabla as item in vm.listTablas | filter: $select.search">
@@ -26,22 +27,25 @@
                             </ui-select>
                         </div>
                         <div class="col-12 col-md-6">
-                            <button class="btn btn-primary" ng-click="vm.agregarTab()" ng-disabled="formApp.$invalid">Agregar</button>
+                            <button class="btn btn-primary" ng-click="vm.getAllDet()" ng-disabled="formApp.$invalid">Buscar</button>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <div class="fontsize-10" ui-grid="vm.gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize></div>
+                            <div class="fontsize-10" ui-grid="vm.gridOptionsDet" ui-grid-edit ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize></div>
                         </div>
                     </div>
                 </form>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary" ng-click="vm.nuevoDet()">Nuevo</button>
             </div>
         </div>
     </div>
 </div>
 
 
-<div class="row mt-4" ng-show="vm.modoDet && !vm.formVisibleDet">
+@*<div class="row mt-4" ng-show="vm.modoDet && !vm.formVisibleDet">
     <div class="col-12 offset-md-1 col-md-10">
         <div class="card">
             <div class="card-header text-center">
@@ -50,19 +54,19 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-12">
-                        <div class="fontsize-10" ui-grid="vm.gridOptionsDet" ui-grid-edit ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize></div>
+                        
                     </div>
                     <div class="col-12 mt-3">
                         <button class="btn btn-default" ng-click="vm.regresarDet()">Regresar</button>
-                        <button class="btn btn-primary" ng-click="vm.nuevoDet()">Nuevo</button>
+                        
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
-<div class="row mt-4" ng-show="vm.modoDet && vm.formVisibleDet">
+<div class="row mt-4" ng-show="vm.formVisibleDet">
     <div class="col-12 offset-md-2 col-md-8">
         <div class="card">
             <div class="card-header">
@@ -74,7 +78,7 @@
                     <div class="form-group row">
                         <div class="col-12">
                             <label>Descripci&oacute;n Tabla:</label>
-                            <input type="text" form="formAppDet" ng-model="vm.entity.tabla.descripcion" class="form-control" disabled="disabled" required />
+                            <input type="text" form="formAppDet" ng-model="vm.entity.descripcion" class="form-control" disabled="disabled" required />
                         </div>
                     </div>
                     <div class="form-group row">

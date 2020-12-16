@@ -5,7 +5,7 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'VenVendedoresService', 'CarPlazosPagoService', 'GenTablasEmpresaDetService', 'InvArticulosService', 'InvTiposDocService', 'InvMovimientosService', 'InvMovimientosDetalleService', 'VenFacturasService', 'GenTercerosService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'VenVendedoresService', 'CarPlazosPagoService', 'GenTablasDetService', 'InvArticulosService', 'InvTiposDocService', 'InvMovimientosService', 'InvMovimientosDetalleService', 'VenFacturasService', 'GenTercerosService'];
 
     function AppController($location, $cookies, $scope, venService, ppaService, tabdetService, artService, tipdocService, movService, movdetService, facService, terService) {
         var vm = this;
@@ -16,6 +16,7 @@
         vm.userApp = angular.copy($cookies.getObject('UsuApp'));
         vm.getAll = getAll;
         vm.getClientes = getClientes;
+        vm.imprimir = imprimir;
         vm.guardar = guardar;
         vm.nuevo = nuevo;
         vm.editar = editar;
@@ -123,7 +124,9 @@
                     cellClass: 'text-center',
                     cellTemplate:
                         "<span><a href='' ng-click='grid.appScope.vm.editar(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
-                        "<i class='fa fa-edit'></i></a></span>",
+                        "<i class='fa fa-edit'></i></a></span>" +
+                        "<span><a href='' ng-click='grid.appScope.vm.imprimir(row.entity)' tooltip='Imprimir' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<i class='fa fa-print text-success'></i></a></span>",
                     width: 80,
                     enableCellEdit: false,
                 }
@@ -149,6 +152,16 @@
                         console.log(response);
                     }
                 );
+            }
+        }
+
+        function imprimir(entity) {
+            if (entity.tipoDoc === 'FC') {
+                movService.imprimirFC(entity.idMovimiento);
+            }
+
+            if (entity.tipoDoc === 'FA') {
+                movService.imprimirFA(entity.idMovimiento);
             }
         }
 

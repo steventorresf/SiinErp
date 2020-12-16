@@ -42,9 +42,7 @@ namespace SiinErp.Models
 
         public virtual DbSet<Tablas> Tablas { get; set; }
 
-        public virtual DbSet<TablasEmpresa> TablasEmpresas { get; set; }
-
-        public virtual DbSet<TablasEmpresaDetalle> TablasEmpresaDetalles { get; set; }        
+        public virtual DbSet<TablasDetalle> TablasDetalles { get; set; }        
 
         public virtual DbSet<Terceros> Terceros { get; set; }
 
@@ -89,6 +87,10 @@ namespace SiinErp.Models
         #endregion
 
         #region Ventas
+        public virtual DbSet<Caja> Caja { get; set; }
+
+        public virtual DbSet<CajaDetalle> CajaDetalle { get; set; }
+
         public virtual DbSet<ListaPrecios> ListaPrecios { get; set; }
 
         public virtual DbSet<ListaPreciosDetalle> ListaPreciosDetalles { get; set; }

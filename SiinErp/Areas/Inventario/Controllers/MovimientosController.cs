@@ -67,7 +67,7 @@ namespace SiinErp.Areas.Inventario.Controllers
                 BusinessMov.CreateByPuntoDeVenta(entityMov, listDetalleMov, listDetallePag);
                 return Ok(true);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }

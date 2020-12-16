@@ -16,7 +16,7 @@ namespace SiinErp.Areas.General.Business
             {
                 SiinErpContext context = new SiinErpContext();
                 List<Terceros> Lista = (from ter in context.Terceros.Where(x => x.IdEmpresa == IdEmpresa && x.TipoTercero.Equals(Constantes.Otros))
-                                        join tip in context.TablasEmpresaDetalles on ter.IdDetTipoPersona equals tip.IdDetalle
+                                        join tip in context.TablasDetalles on ter.IdDetTipoPersona equals tip.IdDetalle
                                         join ciu in context.Ciudades on ter.IdCiudad equals ciu.IdCiudad
                                         join dep in context.Departamentos on ciu.IdDepartamento equals dep.IdDepartamento
                                         select new Terceros()
@@ -54,7 +54,7 @@ namespace SiinErp.Areas.General.Business
             {
                 SiinErpContext context = new SiinErpContext();
                 List<Terceros> Lista = (from pro in context.Terceros.Where(x => x.IdEmpresa == IdEmpresa && x.TipoTercero.Equals(Constantes.Proveedor))
-                                        join tip in context.TablasEmpresaDetalles on pro.IdDetTipoPersona equals tip.IdDetalle
+                                        join tip in context.TablasDetalles on pro.IdDetTipoPersona equals tip.IdDetalle
                                         join pla in context.PlazosPagos on pro.IdPlazoPago equals pla.IdPlazoPago
                                         join ciu in context.Ciudades on pro.IdCiudad equals ciu.IdCiudad
                                         join dep in context.Departamentos on ciu.IdDepartamento equals dep.IdDepartamento
@@ -96,7 +96,7 @@ namespace SiinErp.Areas.General.Business
             {
                 SiinErpContext context = new SiinErpContext();
                 List<Terceros> Lista = (from pro in context.Terceros.Where(x => x.IdEmpresa == IdEmpresa && x.TipoTercero.Equals(Constantes.Proveedor) && x.Estado.Equals(Constantes.EstadoActivo))
-                                        join tip in context.TablasEmpresaDetalles on pro.IdDetTipoPersona equals tip.IdDetalle
+                                        join tip in context.TablasDetalles on pro.IdDetTipoPersona equals tip.IdDetalle
                                         join pla in context.PlazosPagos on pro.IdPlazoPago equals pla.IdPlazoPago
                                         join ciu in context.Ciudades on pro.IdCiudad equals ciu.IdCiudad
                                         join dep in context.Departamentos on ciu.IdDepartamento equals dep.IdDepartamento
@@ -166,10 +166,10 @@ namespace SiinErp.Areas.General.Business
             {
                 SiinErpContext context = new SiinErpContext();
                 List<Terceros> Lista = (from cli in context.Terceros.Where(x => x.IdEmpresa == IdEmpresa && x.TipoTercero.Equals(Constantes.Cliente))
-                                        join tip in context.TablasEmpresaDetalles on cli.IdDetTipoPersona equals tip.IdDetalle
+                                        join tip in context.TablasDetalles on cli.IdDetTipoPersona equals tip.IdDetalle
                                         join ciu in context.Ciudades on cli.IdCiudad equals ciu.IdCiudad
                                         join dep in context.Departamentos on ciu.IdDepartamento equals dep.IdDepartamento
-                                        join zon in context.TablasEmpresaDetalles on cli.IdDetZona equals zon.IdDetalle
+                                        join zon in context.TablasDetalles on cli.IdDetZona equals zon.IdDetalle
                                         join pla in context.PlazosPagos on cli.IdPlazoPago equals pla.IdPlazoPago
                                         select new Terceros()
                                         {
@@ -215,10 +215,10 @@ namespace SiinErp.Areas.General.Business
             {
                 SiinErpContext context = new SiinErpContext();
                 List<Terceros> Lista = (from cli in context.Terceros.Where(x => x.IdEmpresa == IdEmpresa && x.TipoTercero.Equals(Constantes.Cliente) && x.Estado.Equals(Constantes.EstadoActivo))
-                                        join tip in context.TablasEmpresaDetalles on cli.IdDetTipoPersona equals tip.IdDetalle
+                                        join tip in context.TablasDetalles on cli.IdDetTipoPersona equals tip.IdDetalle
                                         join ciu in context.Ciudades on cli.IdCiudad equals ciu.IdCiudad
                                         join dep in context.Departamentos on ciu.IdDepartamento equals dep.IdDepartamento
-                                        join zon in context.TablasEmpresaDetalles on cli.IdDetZona equals zon.IdDetalle
+                                        join zon in context.TablasDetalles on cli.IdDetZona equals zon.IdDetalle
                                         join pla in context.PlazosPagos on cli.IdPlazoPago equals pla.IdPlazoPago
                                         select new Terceros()
                                         {

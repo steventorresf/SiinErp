@@ -1,0 +1,102 @@
+﻿
+@{
+    ViewData["Title"] = "Ventas - Caja";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row mt-4" ng-show="!vm.formVisible && !vm.postCerrado">
+    <div class="col-12 offset-md-1 col-md-8">
+        <div class="card">
+            <div class="card-header" ng-if="vm.cajaCerrada">
+                <button class="btn btn-primary" ng-click="vm.abrirCaja()">Abrir Caja</button>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="fontsize-10" ui-grid="vm.gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4" ng-show="vm.formVisible && !vm.postCerrado">
+    <div class="col-12 offset-md-1 col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 ng-if="vm.formOpen">Abrir Caja</h4>
+                <h4 ng-if="!vm.formOpen">Cerrar Caja</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <form id="formApp" name="formApp" novalidate="novalidate" class="form-horizontal">
+                            <div class="form-group row">
+                                <div class="col-12 col-md-4">
+                                    <label>Turno:</label>
+                                    <ui-select ng-model="vm.entity.idTurno"
+                                               form="formApp"
+                                               theme="bootstrap"
+                                               tabindex="7"
+                                               required
+                                               ng-disabled="!vm.formOpen">
+                                        <ui-select-match placeholder="Seleccione...">{{$select.selected.descripcion}}</ui-select-match>
+                                        <ui-select-choices repeat="item.idDetalle as item in vm.listTurnos | filter: $select.search">
+                                            <div ng-bind-html="item.descripcion | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label>Saldo Inicial:</label>
+                                    <input type="number" form="formApp" class="form-control" ng-model="vm.entity.saldoInicial" required ng-disabled="!vm.formOpen" />
+                                </div>
+                                <div class="col-12 col-md-4" ng-if="!vm.formOpen">
+                                    <label>Saldo Final:</label>
+                                    <input type="number" form="formApp" class="form-control" ng-model="vm.entity.saldoFinal" required />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    <label>Comentario:</label>
+                                    <textarea rows="3" style="min-width:100%" ng-model="vm.entity.comentario" ng-disabled="!vm.formOpen"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-12">
+                        <button class="btn btn-primary" ng-click="vm.btnGuardar()" ng-disabled="formApp.$invalid">Guardar</button>
+                        <button class="btn btn-default" ng-click="vm.cancelar()">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4" ng-show="vm.postCerrado">
+    <div class="col-12 offset-md-1 col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="text-success">¡La caja ha sido cerrada exitosamente!</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <h4>¿Qu&eacute; desea hacer?</h4>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-success" ng-click="vm.imprimirCaja()">Imprimir</button>
+                        <button class="btn btn-default" ng-click="vm.regresar()">Regresar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/master/js/controllers/ventas/caja.controller.js"></script>

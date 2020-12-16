@@ -17,7 +17,7 @@ namespace SiinErp.Areas.Inventario.Business
             {
                 SiinErpContext context = new SiinErpContext();
                 List<TiposDoc> Lista = (from td in context.TiposDoc.Where(x => x.IdEmpresa == IdEmpresa)
-                                        join ti in context.TablasEmpresaDetalles on td.IdDetAlmacen equals ti.IdDetalle
+                                        join ti in context.TablasDetalles on td.IdDetAlmacen equals ti.IdDetalle
                                         select new TiposDoc()
                                         {
                                             IdTipoDoc = td.IdTipoDoc,

@@ -31,20 +31,6 @@ namespace SiinErp.Areas.General.Controllers
             }
         }
 
-        [HttpGet("GetNo/{IdEmp}")]
-        public IActionResult GetNoTablasEmpresa(int IdEmp)
-        {
-            try
-            {
-                var lista = BusinessTab.GetNoTablasEmpresa(IdEmp);
-                return Ok(lista);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
         [HttpPost]
         public IActionResult CreateTabla([FromBody] Tablas entity)
         {

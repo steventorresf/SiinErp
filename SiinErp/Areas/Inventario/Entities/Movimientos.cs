@@ -46,8 +46,7 @@ namespace SiinErp.Areas.Inventario.Entities
         [StringLength(6)]
         public string Periodo { get; set; }
 
-        [Required]
-        public int IdDetConcepto { get; set; }
+        public int? IdDetConcepto { get; set; }
 
         public int? IdTercero { get; set; }
 
@@ -116,16 +115,25 @@ namespace SiinErp.Areas.Inventario.Entities
         public string NombreCentroCosto { get; set; }
 
         [NotMapped]
+        public string NombreVendedor { get; set; }
+
+        [NotMapped]
         public decimal VrPagar { get; set; }
 
         [NotMapped]
         public string sFechaFormatted { get; set; }
 
         [NotMapped]
+        public string sFechaVen { get; set; }
+
+        [NotMapped]
         public PlazosPago PlazoPago { get; set; }
 
         [NotMapped]
         public List<MovimientosDetalle> ListaDetalle { get; set; }
+
+        [NotMapped]
+        public int IdCaja { get; set; }
 
     }
 }

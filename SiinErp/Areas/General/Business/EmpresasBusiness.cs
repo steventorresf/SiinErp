@@ -17,7 +17,7 @@ namespace SiinErp.Areas.General.Business
                 List<Empresas> Lista = (from em in context.Empresas
                                         join ci in context.Ciudades on em.IdCiudad equals ci.IdCiudad
                                         join de in context.Departamentos on ci.IdDepartamento equals de.IdDepartamento
-                                        join re in context.TablasEmpresaDetalles on em.IdDetRegimen equals re.IdDetalle
+                                        join re in context.TablasDetalles on em.IdDetRegimen equals re.IdDetalle
                                         select new Empresas()
                                         {
                                             IdEmpresa = em.IdEmpresa,
