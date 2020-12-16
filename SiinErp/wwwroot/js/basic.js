@@ -17661,6 +17661,8 @@ const Tab = {
     InvCenCos: 'InvCenCos',
     InvTrans: 'InvTrans',
     TiposPer: 'GenTiposPer',
+    Cajeros: 'VenCajeros',
+    Turnos: 'GenTurnos',
     FormPago: 'VenFormPago',
     InvConceptos: 'InvConceptos',
 }

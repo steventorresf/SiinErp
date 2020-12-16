@@ -31,6 +31,7 @@ namespace SiinErp.Utiles
         public const string EstadoActivo = "A";
         public const string EstadoInactivo = "I";
         public const string EstadoPendiente = "P";
+        public const string EstadoCerrado = "C";
 
         // ClavePredeterminada
         public const string ClavePredeterminada = "12345";
@@ -52,5 +53,8 @@ namespace SiinErp.Utiles
         public const string InvDocFacturaVenta = "FC";
         public const string InvDocTraslados = "TB";
         public const string InvDocEntradaTraslado = "ET";
+
+        // Tablas generales
+        public const string TabCajeros = "VenCajeros";
     }
 }

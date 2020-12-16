@@ -17,7 +17,7 @@ namespace SiinErp.Areas.Ventas.Business
             {
                 SiinErpContext context = new SiinErpContext();
                 List<Vendedores> Lista = (from ven in context.Vendedores.Where(x => x.IdEmpresa == IdEmp)
-                                          join zon in context.TablasEmpresaDetalles on ven.IdDetZona equals zon.IdDetalle
+                                          join zon in context.TablasDetalles on ven.IdDetZona equals zon.IdDetalle
                                           select new Vendedores()
                                           {
                                               IdVendedor = ven.IdVendedor,

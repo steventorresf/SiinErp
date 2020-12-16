@@ -21,7 +21,7 @@ namespace SiinErp.Areas.Tesoreria.Business
                 SiinErpContext context = new SiinErpContext();
                 List<Pagos> Lista = (from pa in context.Pagos.Where(x => x.IdEmpresa == IdEmpresa && x.FechaDoc >= FechaIni && x.FechaDoc <= FechaFin)
                                      join pr in context.Terceros on pa.IdProveedor equals pr.IdTercero
-                                     join co in context.TablasEmpresaDetalles on pa.IdConcepto equals co.IdDetalle
+                                     join co in context.TablasDetalles on pa.IdConcepto equals co.IdDetalle
                                      select new Pagos()
                                      {
                                          IdPago = pa.IdPago,

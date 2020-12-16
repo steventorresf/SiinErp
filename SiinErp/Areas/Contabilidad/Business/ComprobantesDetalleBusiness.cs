@@ -17,7 +17,7 @@ namespace SiinErp.Areas.Contabilidad.Business
             {
                 SiinErpContext context = new SiinErpContext();
                 List<ComprobantesDetalle> Lista = (from cd in context.ComprobantesDetalles.Where(x => x.IdComprobante == IdComprobante && x.Estado.Equals(Constantes.EstadoActivo))
-                                                   join cc in context.TablasEmpresaDetalles on cd.IdDetCenCosto equals cc.IdDetalle
+                                                   join cc in context.TablasDetalles on cd.IdDetCenCosto equals cc.IdDetalle
                                                    join re in context.Retenciones on cd.IdRetencion equals re.IdRetencion
                                                    join tr in context.Terceros on cd.IdTercero equals tr.IdTercero
                                                    join cu in context.PlanDeCuentas on cd.IdCuentaContable equals cu.IdCuentaContable

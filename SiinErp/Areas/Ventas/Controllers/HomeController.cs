@@ -34,5 +34,9 @@ namespace SiinErp.Areas.Ventas.Controllers
         {
             return View();
         }
+        public IActionResult Caja()
+        {
+            return View();
+        }
     }
 }

@@ -16,8 +16,8 @@ namespace SiinErp.Areas.Inventario.Business
             {
                 SiinErpContext context = new SiinErpContext();
                 List<Articulos> Lista = (from ar in context.Articulos.Where(x => x.IdEmpresa == IdEmp)
-                                         join ta in context.TablasEmpresaDetalles on ar.IdDetTipoArticulo equals ta.IdDetalle
-                                         join um in context.TablasEmpresaDetalles on ar.IdDetUnidadMed equals um.IdDetalle
+                                         join ta in context.TablasDetalles on ar.IdDetTipoArticulo equals ta.IdDetalle
+                                         join um in context.TablasDetalles on ar.IdDetUnidadMed equals um.IdDetalle
                                          select new Articulos()
                                          {
                                              IdArticulo = ar.IdArticulo,
@@ -63,8 +63,8 @@ namespace SiinErp.Areas.Inventario.Business
                 SiinErpContext context = new SiinErpContext();
                 List<Articulos> Lista = (from lp in context.ListaPreciosDetalles.Where(x => x.IdListaPrecio == IdListaPrecio)
                                          join ar in context.Articulos on lp.IdArticulo equals ar.IdArticulo
-                                         join ta in context.TablasEmpresaDetalles on ar.IdDetTipoArticulo equals ta.IdDetalle
-                                         join um in context.TablasEmpresaDetalles on ar.IdDetUnidadMed equals um.IdDetalle
+                                         join ta in context.TablasDetalles on ar.IdDetTipoArticulo equals ta.IdDetalle
+                                         join um in context.TablasDetalles on ar.IdDetUnidadMed equals um.IdDetalle
                                          select new Articulos()
                                          {
                                              IdArticulo = ar.IdArticulo,

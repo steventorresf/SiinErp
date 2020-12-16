@@ -5,9 +5,9 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'growl', 'InvArticulosService', 'InvMovimientosService', 'GenTablasEmpresaDetService', 'VenFacturasService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'growl', 'InvArticulosService', 'InvMovimientosService', 'GenTablasDetService', 'VenFacturasService', 'VenCajaService'];
 
-    function AppController($location, $cookies, $scope, growl, artService, movService, tabdetService, factService) {
+    function AppController($location, $cookies, $scope, growl, artService, movService, tabdetService, factService, cajaService) {
         var vm = this;
 
         vm.title = 'Home Page';
@@ -15,7 +15,7 @@
         vm.userApp = angular.copy($cookies.getObject('UsuApp'));
         vm.refreshArticulo = refreshArticulo;
         vm.onChangeArticulo = onChangeArticulo;
-        vm.guardar = guardar;
+        vm.btnGuardar = btnGuardar;
         vm.entityMov = {
             idEmpresa: vm.userApp.idEmpresa,
             valorBruto: 0,
@@ -274,6 +274,27 @@
                 });
             },
         };
+
+        function btnGuardar() {
+            var response = cajaService.getIdCajaActiva(vm.userApp.idEmpresa);
+            response.then(
+                function (response) {
+                    vm.entityMov.idCaja = response.data;
+                    if (vm.entityMov.idCaja > 0) {
+                        guardar();
+                    }
+                    if (vm.entityMov.idCaja === 0) {
+                        alert('La caja NO se encuentra Abierta.');
+                    }
+                    if (vm.entityMov.idCaja < 0) {
+                        alert('La caja se encuentra Abierta más de una vez.');
+                    }
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
 
 
         function guardar() {
