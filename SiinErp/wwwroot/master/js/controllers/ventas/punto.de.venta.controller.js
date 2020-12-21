@@ -5,9 +5,9 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'growl', 'InvArticulosService', 'InvMovimientosService', 'GenTablasDetService', 'VenFacturasService', 'VenCajaService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'growl', 'InvArticulosService', 'InvMovimientosService', 'GenTablasDetService', 'VenCajaService'];
 
-    function AppController($location, $cookies, $scope, growl, artService, movService, tabdetService, factService, cajaService) {
+    function AppController($location, $cookies, $scope, growl, artService, movService, tabdetService, cajaService) {
         var vm = this;
 
         vm.title = 'Home Page';
@@ -30,6 +30,7 @@
         function init() {
             vm.entityMov.fechaDoc = new Date();
             getAlmacens();
+            getCajeros();
             getFormsPagos();
         }
 
@@ -40,6 +41,19 @@
                 function (response) {
                     vm.listAlmacens = response.data;
                     getLastAlm();
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        function getCajeros() {
+            var response = tabdetService.getAll(Tab.Cajeros, vm.userApp.idEmpresa);
+            response.then(
+                function (response) {
+                    vm.listCajeros = response.data;
+                    getLastCaja();
                 },
                 function (response) {
                     console.log(response);
@@ -66,10 +80,26 @@
         }
 
         function getLastAlm() {
-            var response = factService.getLastAlm(vm.userApp.idUsu);
+            var response = movService.getLastAlm(vm.userApp.nombreUsuario, vm.userApp.idEmpresa);
             response.then(
                 function (response) {
-                    vm.entityMov.idDetAlmacen = response.data;
+                    if (response.data > 0) {
+                        vm.entityMov.idDetAlmacen = response.data;
+                    }
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        function getLastCaja() {
+            var response = cajaService.getLastIdDetCajeroByUsu(vm.userApp.nombreUsuario, vm.userApp.idEmpresa);
+            response.then(
+                function (response) {
+                    if (response.data > 0) {
+                        vm.entityMov.idDetCajero = response.data;
+                    }
                 },
                 function (response) {
                     console.log(response);
@@ -276,7 +306,7 @@
         };
 
         function btnGuardar() {
-            var response = cajaService.getIdCajaActiva(vm.userApp.idEmpresa);
+            var response = cajaService.getIdCajaActiva(vm.entityMov.idDetCajero);
             response.then(
                 function (response) {
                     vm.entityMov.idCaja = response.data;

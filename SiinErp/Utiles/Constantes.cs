@@ -54,6 +54,9 @@ namespace SiinErp.Utiles
         public const string InvDocTraslados = "TB";
         public const string InvDocEntradaTraslado = "ET";
 
+        // Tipos de documento ventas
+        public const string VenDocEgresoCaja = "EG";
+
         // Tablas generales
         public const string TabCajeros = "VenCajeros";
     }

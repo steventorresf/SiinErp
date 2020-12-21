@@ -17,6 +17,9 @@ namespace SiinErp.Areas.Ventas.Entities
         public int IdEmpresa { get; set; }
 
         [Required]
+        public int IdDetCajero { get; set; }
+
+        [Required]
         public int IdTurno { get; set; }
 
         [Required]
@@ -44,6 +47,9 @@ namespace SiinErp.Areas.Ventas.Entities
         public string NombreEmpresa { get; set; }
 
         [NotMapped]
+        public string NombreCaja { get; set; }
+
+        [NotMapped]
         public string NombreTurno { get; set; }
 
         [NotMapped]
@@ -54,5 +60,8 @@ namespace SiinErp.Areas.Ventas.Entities
 
         [NotMapped]
         public List<CajaDetalle> ListaResumen { get; set; }
+
+        [NotMapped]
+        public List<CajaDetalle> ListaDetalle { get; set; }
     }
 }

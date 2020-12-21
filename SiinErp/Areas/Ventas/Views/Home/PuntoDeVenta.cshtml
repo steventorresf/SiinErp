@@ -24,7 +24,7 @@
                                 <label class="required">Fecha:</label>
                                 <input type="date" class="form-control" ng-model="vm.entityMov.fechaDoc" form="formApp" required />
                             </div>
-                            <div class="col-12 col-md-8">
+                            <div class="col-12 col-md-4">
                                 <label class="required">Almacen:</label>
                                 <ui-select ng-model="vm.entityMov.idDetAlmacen"
                                            form="formApp"
@@ -33,6 +33,19 @@
                                            required>
                                     <ui-select-match placeholder="Seleccione un almacen...">{{$select.selected.descripcion}}</ui-select-match>
                                     <ui-select-choices repeat="item.idDetalle as item in vm.listAlmacens track by $index">
+                                        <div ng-bind-html="item.descripcion | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <label class="required">Cajero:</label>
+                                <ui-select ng-model="vm.entityMov.idDetCajero"
+                                           form="formApp"
+                                           theme="bootstrap"
+                                           tabindex="7"
+                                           required>
+                                    <ui-select-match placeholder="Seleccione un almacen...">{{$select.selected.descripcion}}</ui-select-match>
+                                    <ui-select-choices repeat="item.idDetalle as item in vm.listCajeros track by $index">
                                         <div ng-bind-html="item.descripcion | highlight: $select.search"></div>
                                     </ui-select-choices>
                                 </ui-select>

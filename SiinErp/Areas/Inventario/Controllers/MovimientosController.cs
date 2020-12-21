@@ -184,6 +184,20 @@ namespace SiinErp.Areas.Inventario.Controllers
             }
         }
 
+        [HttpGet("LastAlm/{NomUsu}/{IdEmp}")]
+        public IActionResult GetLastAlmacenByUsu(string NomUsu, int IdEmp)
+        {
+            try
+            {
+                int IdDetAlmacen = BusinessMov.getLastAlmacenByUsu(NomUsu, IdEmp);
+                return Ok(IdDetAlmacen);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
 
         #endregion
 

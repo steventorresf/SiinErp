@@ -17,12 +17,12 @@ namespace SiinErp.Areas.Ventas.Controllers
     {
         private CajaBusiness BusinessCaja = new CajaBusiness();
 
-        [HttpGet("{IdEmp}")]
-        public IActionResult Get(int IdEmp)
+        [HttpGet("{IdCajero}")]
+        public IActionResult Get(int IdCajero)
         {
             try
             {
-                var lista = BusinessCaja.GetCajas(IdEmp);
+                var lista = BusinessCaja.GetCajasById(IdCajero);
                 return Ok(lista);
             }
             catch (Exception)
@@ -59,13 +59,41 @@ namespace SiinErp.Areas.Ventas.Controllers
             }
         }
 
-        [HttpGet("GetIdCajaAc/{IdEmp}")]
-        public IActionResult GetIdCajaActiva(int IdEmp)
+        [HttpGet("GetIdCajaAc/{IdCajero}")]
+        public IActionResult GetIdCajaActiva(int IdCajero)
         {
             try
             {
-                int idCaja = BusinessCaja.GetIdCajaActiva(IdEmp);
+                int idCaja = BusinessCaja.GetIdCajaActiva(IdCajero);
                 return Ok(idCaja);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet("LastIdDetCajeroByUsu/{NomUsu}/{IdEmp}")]
+        public IActionResult GetLastIdDetCajeroByUsu(string NomUsu, int IdEmp)
+        {
+            try
+            {
+                int idDetCajero = BusinessCaja.GetLastIdDetCajeroByUsu(NomUsu, IdEmp);
+                return Ok(idDetCajero);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet("GetSaldoEnCajaActualIdCaja/{IdCaja}")]
+        public IActionResult GetSaldoEnCajaActual(int IdCaja)
+        {
+            try
+            {
+                decimal SaldoEnCaja = BusinessCaja.GetSaldoEnCajaActual(IdCaja);
+                return Ok(SaldoEnCaja);
             }
             catch (Exception)
             {

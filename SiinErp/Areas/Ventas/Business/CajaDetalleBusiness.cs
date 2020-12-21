@@ -1,4 +1,6 @@
 ﻿using SiinErp.Areas.General.Business;
+using SiinErp.Areas.General.Entities;
+using SiinErp.Areas.Inventario.Entities;
 using SiinErp.Areas.Ventas.Entities;
 using SiinErp.Models;
 using SiinErp.Utiles;
@@ -41,19 +43,29 @@ namespace SiinErp.Areas.Ventas.Business
         }
 
 
-        public void Create(CajaDetalle entity)
+        public void CreateEgreso(CajaDetalle entity)
         {
             try
             {
-                entity.FechaCreacion = DateTimeOffset.Now;
-
                 SiinErpContext context = new SiinErpContext();
-                context.CajaDetalle.Add(entity);
-                context.SaveChanges();
+                using (var tran = context.Database.BeginTransaction())
+                {
+                    TiposDocumento entityTip = context.TiposDocumentos.FirstOrDefault(x => x.TipoDoc.Equals(Constantes.VenDocEgresoCaja));
+                    entityTip.NumDoc++;
+                    context.SaveChanges();
+
+                    entity.TipoDoc = entityTip.TipoDoc;
+                    entity.NumDoc = entityTip.NumDoc;
+                    entity.FechaCreacion = DateTimeOffset.Now;
+                    context.CajaDetalle.Add(entity);
+                    context.SaveChanges();
+
+                    tran.Commit();
+                }
             }
             catch (Exception ex)
             {
-                ErroresBusiness.Create("CreateCajaDetalle", ex.Message, null);
+                ErroresBusiness.Create("CreateEgreso", ex.Message, null);
                 throw;
             }
         }

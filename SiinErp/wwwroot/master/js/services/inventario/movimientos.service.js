@@ -12,6 +12,7 @@
 
         var service = {
             getAll: getAll,
+            getLastAlm: getLastAlm,
             getAct: getAct,
             create: create,
             createByEntradaCompra: createByEntradaCompra,
@@ -29,6 +30,19 @@
 
         function getAll(idEmp, modulo, fechaIni, FechaFin) {
             return $http.get(nameSpace + idEmp + '/' + modulo + '/' + fechaIni + '/' + FechaFin)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getLastAlm(nomUsuario, idEmpresa) {
+            return $http.get(nameSpace + 'LastAlm/' + nomUsuario + '/' + idEmpresa)
                 .then(
                     function (response) {
                         return response;
