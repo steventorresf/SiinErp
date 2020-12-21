@@ -17746,3 +17746,22 @@ Date.prototype.addMonths = function (months) {
     date.setDate(date.getMonth() + months);
     return date;
 }
+
+function PonerPuntosDouble(valor) {
+    var cadena = valor.toString().replace(".", ",");
+    var rescadena = "";
+
+    var i = cadena.indexOf(',');
+    if (i > 0) {
+        rescadena = cadena.substring(i);
+        cadena = cadena.substring(0, i);
+    }
+
+
+    var lon = cadena.length - 3;
+    while (lon > 0) {
+        cadena = cadena.substring(0, lon) + "." + cadena.substring(lon);
+        lon -= 3;
+    }
+    return cadena + rescadena;
+}

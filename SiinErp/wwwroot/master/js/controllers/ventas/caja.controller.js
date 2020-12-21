@@ -13,24 +13,50 @@
         vm.title = 'Home Page';
         vm.init = init;
         vm.userApp = angular.copy($cookies.getObject('UsuApp'));
+        vm.onSelectCajero = onSelectCajero;
         vm.getAll = getAll;
         vm.abrirCaja = abrirCaja;
         vm.cerrarCaja = cerrarCaja;
         vm.btnGuardar = btnGuardar;
         vm.cancelar = cancelar;
         vm.regresar = regresar;
+        vm.egresoCaja = egresoCaja;
+        vm.guardarEgreso = guardarEgreso;
+        vm.cancelarEgreso = cancelarEgreso;
         vm.imprimir = imprimir;
         vm.imprimirCaja = imprimirCaja;
 
         vm.modoDet = false;
 
         function init() {
-            getAll();
+            getCajeros();
             getTurnos();
+
+            vm.gridVisible = true;
+        }
+
+        function getCajeros() {
+            var response = tabdetService.getAll(Tab.Cajeros, vm.userApp.idEmpresa);
+            response.then(
+                function (response) {
+                    vm.listCajeros = response.data;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        function onSelectCajero($item, $model) {
+            vm.gridOptions.data = [];
+            vm.entityCaj = $item;
+            getAll();
         }
 
         function getAll() {
-            var response = cajaService.getAll(vm.userApp.idEmpresa);
+            vm.cajaCerrada = true;
+
+            var response = cajaService.getAll(vm.entityCaj.idDetalle);
             response.then(
                 function (response) {
                     var data = response.data;
@@ -64,6 +90,7 @@
         function abrirCaja() {
             vm.entity = {
                 idEmpresa: vm.userApp.idEmpresa,
+                idDetCajero: vm.entityCaj.idDetalle,
                 periodo: '-',
                 idTurno: null,
                 saldoInicial: null,
@@ -71,6 +98,7 @@
                 estado: 'A',
             };
 
+            vm.gridVisible = false;
             vm.formOpen = true;
             vm.formVisible = true;
         }
@@ -81,6 +109,7 @@
             vm.entity.modificadoPor = vm.userApp.nombreUsuario;
             vm.entity.estado = 'C';
 
+            vm.gridVisible = false;
             vm.formOpen = false;
             vm.formVisible = true;
         }
@@ -117,6 +146,7 @@
             response.then(
                 function (response) {
                     if (!vm.formOpen) {
+                        vm.formVisible = false;
                         vm.postCerrado = true;
                     }
 
@@ -131,10 +161,12 @@
 
         function cancelar() {
             vm.formVisible = false;
+            vm.gridVisible = true;
         }
 
         function regresar() {
             vm.postCerrado = false;
+            vm.gridVisible = true;
         }
 
         function imprimir(entity) {
@@ -144,6 +176,52 @@
 
         function imprimirCaja() {
             cajaService.imprimirCaja(vm.entity.idCaja);
+        }
+
+        function egresoCaja(entity) {
+            var response = cajaService.getSaldoEnCajaActual(entity.idCaja);
+            response.then(
+                function (response) {
+                    vm.entityEg = {
+                        idCaja: angular.copy(entity.idCaja),
+                        tipoDoc: '-',
+                        efectivo: true,
+                        saldoEnCaja: response.data,
+                        transaccion: -1,
+                        estado: 'A',
+                        creadoPor: vm.userApp.nombreUsuario,
+                    };
+
+                    vm.gridVisible = false;
+                    vm.formEgreso = true;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        function guardarEgreso() {
+            if (vm.entityEg.saldoEnCaja >= vm.entityEg.valor && vm.entityEg.valor > 0) {
+                var response = cajadetService.createEgreso(vm.entityEg);
+                response.then(
+                    function (response) {
+                        cancelarEgreso();
+                        alert('¡El egreso ha sido regisrado exitosamente!');
+                    },
+                    function (response) {
+                        console.log(response);
+                    }
+                );
+            }
+            else {
+                alert('El egreso debe ser menor que el saldo en caja.');
+            }
+        }
+
+        function cancelarEgreso() {
+            vm.formEgreso = false;
+            vm.gridVisible = true;
         }
 
         vm.gridOptions = {
@@ -201,7 +279,9 @@
                         "<span ng-if='row.entity.estado === \"C\"'><a href='' ng-click='grid.appScope.vm.imprimir(row.entity)' tooltip='Abrir Caja' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
                         "<i class='fa fa-print text-success'></i></a></span>" +
                         "<span ng-if='row.entity.estado === \"A\"' class='ml-1'><a href='' ng-click='grid.appScope.vm.cerrarCaja(row.entity)' tooltip='Cerrar Caja' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
-                        "<i class='fa fa-folder text-info'></i></a></span>",
+                        "<i class='fa fa-folder text-info'></i></a></span>" +
+                        "<span ng-if='row.entity.estado === \"A\"' class='ml-1'><a href='' ng-click='grid.appScope.vm.egresoCaja(row.entity)' tooltip='Egreso' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<i class='fa fa-folder text-danger'></i></a></span>",
                     width: 80,
                 }
             ],

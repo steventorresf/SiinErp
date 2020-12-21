@@ -4,11 +4,28 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row mt-4" ng-show="!vm.formVisible && !vm.postCerrado">
+<div class="row mt-4" ng-show="vm.gridVisible">
     <div class="col-12 offset-md-1 col-md-8">
         <div class="card">
-            <div class="card-header" ng-if="vm.cajaCerrada">
-                <button class="btn btn-primary" ng-click="vm.abrirCaja()">Abrir Caja</button>
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <label>Cajero:</label>
+                        <ui-select ng-model="vm.idCajero"
+                                   theme="bootstrap"
+                                   tabindex="7"
+                                   on-select="vm.onSelectCajero($item, $model)">
+                            <ui-select-match placeholder="Seleccione...">{{$select.selected.descripcion}}</ui-select-match>
+                            <ui-select-choices repeat="item.idDetalle as item in vm.listCajeros | filter: $select.search">
+                                <div ng-bind-html="item.descripcion | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="col-12 col-md-6" ng-if="vm.cajaCerrada">
+                        <br />
+                        <button class="btn btn-primary" ng-click="vm.abrirCaja()">Abrir Caja</button>
+                    </div>
+                </div>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -21,7 +38,49 @@
     </div>
 </div>
 
-<div class="row mt-4" ng-show="vm.formVisible && !vm.postCerrado">
+<div class="row mt-4" ng-show="vm.formEgreso">
+    <div class="col-12 offset-md-1 col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4>Egreso</h4>
+            </div>
+            <div class="card-body">
+                <form id="formEg" name="formEg" novalidate="novalidate" class="form-horizontal">
+                    <div class="form-group row">
+                        <div class="col-12 col-md-8">
+                            <label>Cajero:</label>
+                            <input type="text" class="form-control" form="formEg" ng-model="vm.entityCaj.descripcion" required />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12 col-md-4">
+                            <label>Saldo En Caja</label>
+                            <input type="text" class="form-control" form="formEg" ng-model="vm.entityEg.saldoEnCaja" required />
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label>Valor Egreso</label>
+                            <input type="text" class="form-control" form="formEg" ng-model="vm.entityEg.valor" required />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12 col-md-8">
+                            <label>Comentario:</label>
+                            <textarea rows="3" class="form-control" form="formEg" style="min-width:100%" ng-model="vm.entityEg.comentario" required></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12 col-md-8">
+                            <button class="btn btn-primary" ng-click="vm.guardarEgreso()" ng-disabled="formEg.$invalid">Guardar Egreso</button>
+                            <button class="btn btn-default" ng-click="vm.cancelarEgreso()">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4" ng-show="vm.formVisible">
     <div class="col-12 offset-md-1 col-md-8">
         <div class="card">
             <div class="card-header">
@@ -33,6 +92,10 @@
                     <div class="col-12">
                         <form id="formApp" name="formApp" novalidate="novalidate" class="form-horizontal">
                             <div class="form-group row">
+                                <div class="col-12 col-md-8">
+                                    <label>Cajero:</label>
+                                    <input type="text" form="formApp" class="form-control" ng-model="vm.entityCaj.descripcion" required readonly="readonly" />
+                                </div>
                                 <div class="col-12 col-md-4">
                                     <label>Turno:</label>
                                     <ui-select ng-model="vm.entity.idTurno"
@@ -47,6 +110,8 @@
                                         </ui-select-choices>
                                     </ui-select>
                                 </div>
+                            </div>
+                            <div class="form-group row">
                                 <div class="col-12 col-md-4">
                                     <label>Saldo Inicial:</label>
                                     <input type="number" form="formApp" class="form-control" ng-model="vm.entity.saldoInicial" required ng-disabled="!vm.formOpen" />

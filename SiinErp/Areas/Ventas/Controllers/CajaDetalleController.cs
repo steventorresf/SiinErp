@@ -17,12 +17,12 @@ namespace SiinErp.Areas.Ventas.Controllers
     {
         private CajaDetalleBusiness BusinessCajaDet = new CajaDetalleBusiness();
 
-        [HttpPost]
-        public IActionResult Create([FromBody] CajaDetalle entity)
+        [HttpPost("Egreso")]
+        public IActionResult CreateEgreso([FromBody] CajaDetalle entity)
         {
             try
             {
-                BusinessCajaDet.Create(entity);
+                BusinessCajaDet.CreateEgreso(entity);
                 return Ok(true);
             }
             catch (Exception)

@@ -16,7 +16,19 @@ namespace SiinErp.Areas.Ventas.Entities
         [Required]
         public int IdCaja { get; set; }
 
+        public int? IdMovimiento { get; set; }
+
+        [Required]
+        [StringLength(2)]
+        public string TipoDoc { get; set; }
+
+        [Required]
+        public int NumDoc { get; set; }
+
         public int? IdDetFormaPago { get; set; }
+
+        [Required]
+        public bool Efectivo { get; set; }
 
         [Required]
         public int Transaccion { get; set; }

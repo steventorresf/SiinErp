@@ -199,7 +199,11 @@ namespace SiinErp.Areas.Inventario.Business
 
                         CajaDetalle entityCajaDet = new CajaDetalle();
                         entityCajaDet.IdCaja = entityMov.IdCaja;
+                        entityCajaDet.IdMovimiento = obMov.IdMovimiento;
+                        entityCajaDet.TipoDoc = obMov.TipoDoc;
+                        entityCajaDet.NumDoc = obMov.NumDoc;
                         entityCajaDet.IdDetFormaPago = mfp.IdDetFormaDePago;
+                        entityCajaDet.Efectivo = mfp.Descripcion.Contains("Efectivo") ? true : false;
                         entityCajaDet.Transaccion = 1;
                         entityCajaDet.Valor = mfp.Valor;
                         entityCajaDet.Estado = Constantes.EstadoActivo;
@@ -461,6 +465,22 @@ namespace SiinErp.Areas.Inventario.Business
             catch (Exception ex)
             {
                 ErroresBusiness.Create("Anular", ex.Message, null);
+                throw;
+            }
+        }
+
+        public int getLastAlmacenByUsu(string nombreUsuario, int IdEmpresa)
+        {
+            try
+            {
+                SiinErpContext context = new SiinErpContext();
+                Movimientos entity = context.Movimientos.Where(x => x.CreadoPor.Equals(nombreUsuario) && x.IdEmpresa == IdEmpresa)
+                                                        .OrderByDescending(x => x.FechaCreacion).FirstOrDefault();
+                return entity != null ? entity.IdDetAlmacen : -1;
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("getLastAlmacenByUsu", ex.Message, null);
                 throw;
             }
         }

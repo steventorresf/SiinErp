@@ -21,5 +21,9 @@ namespace SiinErp.Areas.Inventario.Entities
 
         [Required]
         public decimal Valor { get; set; }
+
+
+        [NotMapped]
+        public string Descripcion { get; set; }
     }
 }
