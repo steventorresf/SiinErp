@@ -69,21 +69,31 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-12 col-md-3">
+                        <div class="col-12 col-md-4">
                             <label>Stock Min:</label>
                             <input type="number" class="form-control" form="formApp" ng-model="vm.entity.stkMin" required />
                         </div>
-                        <div class="col-12 col-md-3">
+                        <div class="col-12 col-md-4">
                             <label>Stock Max:</label>
                             <input type="number" class="form-control" form="formApp" ng-model="vm.entity.stkMax" required />
                         </div>
-                        <div class="col-12 col-md-3">
+                        <div class="col-12 col-md-4">
                             <label>¿Es Linea?:</label>
                             <select ng-model="vm.entity.esLinea" form="formApp" class="form-control" required>
                                 <option ng-repeat="item in vm.listBool" value="{{ item.codigo }}">{{ item.descripcion }}</option>
                             </select>
                         </div>
-                        <div class="col-12 col-md-3">
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12 col-md-4">
+                            <label>Vr. Costo:</label>
+                            <input type="number" class="form-control" form="formApp" ng-model="vm.entity.vrCosto" required />
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label>Vr. Venta:</label>
+                            <input type="number" class="form-control" form="formApp" ng-model="vm.entity.vrVenta" required />
+                        </div>
+                        <div class="col-12 col-md-4">
                             <label>Estado:</label>
                             <select ng-model="vm.entity.estado" form="formApp" class="form-control" required>
                                 <option ng-repeat="item in vm.listEstados" value="{{ item.codigo }}">{{ item.descripcion }}</option>

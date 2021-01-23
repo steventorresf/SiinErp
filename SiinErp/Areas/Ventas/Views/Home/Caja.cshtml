@@ -38,11 +38,12 @@
     </div>
 </div>
 
-<div class="row mt-4" ng-show="vm.formEgreso">
+<div class="row mt-4" ng-show="vm.formEgIn">
     <div class="col-12 offset-md-1 col-md-6">
         <div class="card">
             <div class="card-header">
-                <h4>Egreso</h4>
+                <h4 ng-if="vm.entityEgIn.tipoDoc === 'IN'">Ingreso</h4>
+                <h4 ng-if="vm.entityEgIn.tipoDoc === 'EG'">Egreso</h4>
             </div>
             <div class="card-body">
                 <form id="formEg" name="formEg" novalidate="novalidate" class="form-horizontal">
@@ -55,23 +56,25 @@
                     <div class="form-group row">
                         <div class="col-12 col-md-4">
                             <label>Saldo En Caja</label>
-                            <input type="text" class="form-control" form="formEg" ng-model="vm.entityEg.saldoEnCaja" required />
+                            <input type="text" class="form-control" form="formEg" ng-model="vm.entityEgIn.saldoEnCaja" required />
                         </div>
                         <div class="col-12 col-md-4">
-                            <label>Valor Egreso</label>
-                            <input type="text" class="form-control" form="formEg" ng-model="vm.entityEg.valor" required />
+                            <label ng-if="vm.entityEgIn.tipoDoc === 'IN'">Valor Ingreso</label>
+                            <label ng-if="vm.entityEgIn.tipoDoc === 'EG'">Valor Egreso</label>
+                            <input type="text" class="form-control" form="formEg" ng-model="vm.entityEgIn.valor" required />
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12 col-md-8">
                             <label>Comentario:</label>
-                            <textarea rows="3" class="form-control" form="formEg" style="min-width:100%" ng-model="vm.entityEg.comentario" required></textarea>
+                            <textarea rows="3" class="form-control" form="formEg" style="min-width:100%" ng-model="vm.entityEgIn.comentario" required></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12 col-md-8">
-                            <button class="btn btn-primary" ng-click="vm.guardarEgreso()" ng-disabled="formEg.$invalid">Guardar Egreso</button>
-                            <button class="btn btn-default" ng-click="vm.cancelarEgreso()">Cancelar</button>
+                            <button class="btn btn-primary" ng-if="vm.entityEgIn.tipoDoc === 'IN'" ng-click="vm.guardarIngreso()" ng-disabled="formEg.$invalid">Guardar Ingreso</button>
+                            <button class="btn btn-primary" ng-if="vm.entityEgIn.tipoDoc === 'EG'" ng-click="vm.guardarEgreso()" ng-disabled="formEg.$invalid">Guardar Egreso</button>
+                            <button class="btn btn-default" ng-click="vm.cancelarEgIn()">Cancelar</button>
                         </div>
                     </div>
                 </form>

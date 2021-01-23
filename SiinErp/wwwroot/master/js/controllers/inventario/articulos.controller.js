@@ -67,9 +67,13 @@
 
 
         function nuevo() {
-            vm.entity = {};
-            vm.entity.idEmpresa = vm.userApp.idEmpresa;
-            vm.entity.idUsuario = vm.userApp.idUsu;
+            vm.entity = {
+                idEmpresa: vm.userApp.idEmpresa,
+                creadoPor: vm.userApp.nombreUsuario,
+                idUsuario: vm.userApp.idUsu,
+                nombreBusqueda: '-',
+            };
+            
             vm.formModify = false;
             vm.formVisible = true;
         }
@@ -84,6 +88,7 @@
         }
 
         function guardar() {
+            console.log(vm.entity);
             var response = null;
             if (vm.formModify) { response = artService.update(vm.entity.idArticulo, vm.entity); }
             else { response = artService.create(vm.entity); }

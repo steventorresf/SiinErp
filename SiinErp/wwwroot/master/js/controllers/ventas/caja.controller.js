@@ -22,7 +22,9 @@
         vm.regresar = regresar;
         vm.egresoCaja = egresoCaja;
         vm.guardarEgreso = guardarEgreso;
-        vm.cancelarEgreso = cancelarEgreso;
+        vm.cancelarEgIn = cancelarEgIn;
+        vm.ingresoCaja = ingresoCaja;
+        vm.guardarIngreso = guardarIngreso;
         vm.imprimir = imprimir;
         vm.imprimirCaja = imprimirCaja;
 
@@ -178,13 +180,56 @@
             cajaService.imprimirCaja(vm.entity.idCaja);
         }
 
+        function ingresoCaja(entity) {
+            var response = cajaService.getSaldoEnCajaActual(entity.idCaja);
+            response.then(
+                function (response) {
+                    vm.entityEgIn = {
+                        idCaja: angular.copy(entity.idCaja),
+                        tipoDoc: 'IN',
+                        efectivo: true,
+                        saldoEnCaja: response.data,
+                        transaccion: 1,
+                        estado: 'A',
+                        creadoPor: vm.userApp.nombreUsuario,
+                    };
+
+                    vm.gridVisible = false;
+                    vm.formEgIn = true;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        function guardarIngreso() {
+            if (vm.entityEgIn.saldoEnCaja >= vm.entityEgIn.valor && vm.entityEgIn.valor > 0) {
+                var response = cajadetService.create(vm.entityEgIn);
+                response.then(
+                    function (response) {
+                        cancelarEgIn();
+                        alert('¡El ingreso ha sido regisrado exitosamente!');
+                    },
+                    function (response) {
+                        console.log(response);
+                    }
+                );
+            }
+            else {
+                alert('El egreso debe ser menor que el saldo en caja.');
+            }
+        }
+
+
+
         function egresoCaja(entity) {
             var response = cajaService.getSaldoEnCajaActual(entity.idCaja);
             response.then(
                 function (response) {
-                    vm.entityEg = {
+                    vm.entityEgIn = {
                         idCaja: angular.copy(entity.idCaja),
-                        tipoDoc: '-',
+                        tipoDoc: 'EG',
                         efectivo: true,
                         saldoEnCaja: response.data,
                         transaccion: -1,
@@ -193,7 +238,7 @@
                     };
 
                     vm.gridVisible = false;
-                    vm.formEgreso = true;
+                    vm.formEgIn = true;
                 },
                 function (response) {
                     console.log(response);
@@ -202,11 +247,11 @@
         }
 
         function guardarEgreso() {
-            if (vm.entityEg.saldoEnCaja >= vm.entityEg.valor && vm.entityEg.valor > 0) {
-                var response = cajadetService.createEgreso(vm.entityEg);
+            if (vm.entityEgIn.saldoEnCaja >= vm.entityEgIn.valor && vm.entityEgIn.valor > 0) {
+                var response = cajadetService.create(vm.entityEgIn);
                 response.then(
                     function (response) {
-                        cancelarEgreso();
+                        cancelarEgIn();
                         alert('¡El egreso ha sido regisrado exitosamente!');
                     },
                     function (response) {
@@ -219,8 +264,8 @@
             }
         }
 
-        function cancelarEgreso() {
-            vm.formEgreso = false;
+        function cancelarEgIn() {
+            vm.formEgIn = false;
             vm.gridVisible = true;
         }
 
@@ -276,12 +321,14 @@
                     headerCellClass: 'bg-header',
                     cellClass: 'text-center',
                     cellTemplate:
-                        "<span ng-if='row.entity.estado === \"C\"'><a href='' ng-click='grid.appScope.vm.imprimir(row.entity)' tooltip='Abrir Caja' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<span ng-if='row.entity.estado === \"C\"'><a href='' ng-click='grid.appScope.vm.imprimir(row.entity)' data-toggle='tooltip' title='Imprimir' tooltip='Imprimir' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
                         "<i class='fa fa-print text-success'></i></a></span>" +
-                        "<span ng-if='row.entity.estado === \"A\"' class='ml-1'><a href='' ng-click='grid.appScope.vm.cerrarCaja(row.entity)' tooltip='Cerrar Caja' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
-                        "<i class='fa fa-folder text-info'></i></a></span>" +
-                        "<span ng-if='row.entity.estado === \"A\"' class='ml-1'><a href='' ng-click='grid.appScope.vm.egresoCaja(row.entity)' tooltip='Egreso' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
-                        "<i class='fa fa-folder text-danger'></i></a></span>",
+                        "<span ng-if='row.entity.estado === \"A\"' class='ml-1'><a href='' ng-click='grid.appScope.vm.cerrarCaja(row.entity)' title='Cerrar Caja' tooltip='Cerrar Caja' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<i class='fa fa-window-close text-info'></i></a></span>" +
+                        "<span ng-if='row.entity.estado === \"A\"' class='ml-1'><a href='' ng-click='grid.appScope.vm.egresoCaja(row.entity)' title='Egreso' tooltip='Egreso' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<i class='fa fa-sign-out text-danger'></i></a></span>" +
+                        "<span ng-if='row.entity.estado === \"A\"' class='ml-1'><a href='' ng-click='grid.appScope.vm.ingresoCaja(row.entity)' title='Ingreso' tooltip='Ingreso' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<i class='fa fa-sign-in text-success'></i></a></span>",
                     width: 80,
                 }
             ],

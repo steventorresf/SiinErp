@@ -12,6 +12,7 @@
 
         var service = {
             getAll: getAll,
+            getAllByPrefix: getAllByPrefix,
             create: create,
             update: update,
             remove: remove,
@@ -21,6 +22,19 @@
 
         function getAll(idEmp) {
             return $http.get(nameSpace + idEmp)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getAllByPrefix(data) {
+            return $http.post(nameSpace + 'ByPrefix/', data)
                 .then(
                     function (response) {
                         return response;

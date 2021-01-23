@@ -26,6 +26,11 @@
             creadoPor: vm.userApp.nombreUsuario,
         };
 
+        vm.getArticuloByCod = getArticuloByCod;
+        vm.clicTipoBusqueda = clicTipoBusqueda;
+        vm.busquedaArtCodigo = true;
+        vm.busquedaArtTexto = false;
+
 
         function init() {
             vm.entityMov.fechaDoc = new Date();
@@ -78,7 +83,7 @@
                 }
             );
         }
-
+        
         function getLastAlm() {
             var response = movService.getLastAlm(vm.userApp.nombreUsuario, vm.userApp.idEmpresa);
             response.then(
@@ -92,7 +97,7 @@
                 }
             );
         }
-
+        
         function getLastCaja() {
             var response = cajaService.getLastIdDetCajeroByUsu(vm.userApp.nombreUsuario, vm.userApp.idEmpresa);
             response.then(
@@ -107,6 +112,20 @@
             );
         }
 
+        function clicTipoBusqueda(tipo) {
+            if (tipo === 'Texto') {
+                vm.entityMov.idArticulo = null;
+                vm.busquedaArtCodigo = false;
+                vm.busquedaArtTexto = true;
+            }
+
+            if (tipo === 'Codigo') {
+                vm.entityMov.busquedaCodigo = null;
+                vm.busquedaArtTexto = false;
+                vm.busquedaArtCodigo = true;
+            }
+        }
+
         function refreshArticulo(prefix) {
             if (prefix.length > 2) {
                 var data = {
@@ -118,6 +137,28 @@
                 response.then(
                     function (response) {
                         vm.listArticulos = response.data;
+                    },
+                    function (response) {
+                        console.log(response);
+                    }
+                );
+            }
+        }
+
+        function getArticuloByCod() {
+            if (vm.entityMov.busquedaCodigo != undefined && vm.entityMov.busquedaCodigo != null && vm.entityMov.busquedaCodigo != '') {
+                var data = {
+                    idEmpresa: vm.userApp.idEmpresa,
+                    codigo: vm.entityMov.busquedaCodigo,
+                };
+
+                var response = artService.getByCodigo(data);
+                response.then(
+                    function (response) {
+                        var entity = response.data;
+                        if (entity != null && entity != undefined && entity != '') {
+                            onChangeArticulo(entity, null);
+                        }
                     },
                     function (response) {
                         console.log(response);
@@ -142,6 +183,7 @@
             };
             vm.gridOptions.data.push(entity);
             vm.entityMov.idArticulo = null;
+            vm.entityMov.busquedaCodigo = null;
             CalcularTotales();
         }
         

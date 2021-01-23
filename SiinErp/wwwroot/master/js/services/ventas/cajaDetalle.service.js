@@ -12,7 +12,7 @@
 
         var service = {
             getAll: getAll,
-            createEgreso: createEgreso,
+            create: create,
             update: update,
             getCantidadDetalleCaja: getCantidadDetalleCaja,
         };
@@ -32,8 +32,8 @@
                 );
         }
 
-        function createEgreso(data) {
-            return $http.post(nameSpace + 'Egreso/', data)
+        function create(data) {
+            return $http.post(nameSpace + 'Create/', data)
                 .then(
                     function (response) {
                         return response;

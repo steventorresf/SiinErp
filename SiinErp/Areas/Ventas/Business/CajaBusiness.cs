@@ -197,7 +197,7 @@ namespace SiinErp.Areas.Ventas.Business
                                                       TipoDoc = cd.TipoDoc,
                                                       NumDoc = cd.NumDoc,
                                                       Efectivo = cd.Efectivo,
-                                                      NombreFormaPago = j == null ? "Egresos" : j.Descripcion,
+                                                      NombreFormaPago = j == null ? (cd.TipoDoc.Equals(Constantes.VenDocEgresoCaja) ? "Egresos" : "Ingresos") : j.Descripcion,
                                                   }).ToList();
 
                 entity.ListaDetalle = ListaDetalle;

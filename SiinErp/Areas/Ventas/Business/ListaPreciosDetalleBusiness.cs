@@ -1,4 +1,5 @@
-﻿using SiinErp.Areas.General.Business;
+﻿using Newtonsoft.Json.Linq;
+using SiinErp.Areas.General.Business;
 using SiinErp.Areas.Ventas.Entities;
 using SiinErp.Models;
 using System;
@@ -26,6 +27,41 @@ namespace SiinErp.Areas.Ventas.Business
                                                        PcDscto = ld.PcDscto,
                                                        Articulo = ar,
                                                    }).OrderBy(x => x.IdArticulo).ToList();
+                return Lista;
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("GetListaPreciosDetalle", ex.Message, null);
+                throw;
+            }
+        }
+
+        public List<ListaPreciosDetalle> GetListaPreciosDetalleByPrefix(JObject data)
+        {
+            try
+            {
+                int IdListaPrecio = data["idListaPrecio"].ToObject<int>();
+                string Prefix = data["prefix"].ToObject<string>();
+
+                string[] ListPrefix = Prefix.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+
+                SiinErpContext context = new SiinErpContext();
+                List<ListaPreciosDetalle> Lista = (from ld in context.ListaPreciosDetalles.Where(x => x.IdListaPrecio == IdListaPrecio)
+                                                   join ar in context.Articulos on ld.IdArticulo equals ar.IdArticulo
+                                                   where ar.NombreBusqueda.Contains(ListPrefix[0])
+                                                   select new ListaPreciosDetalle()
+                                                   {
+                                                       IdDetalleListaPrecio = ld.IdDetalleListaPrecio,
+                                                       IdListaPrecio = ld.IdListaPrecio,
+                                                       IdArticulo = ld.IdArticulo,
+                                                       VrUnitario = ld.VrUnitario,
+                                                       PcDscto = ld.PcDscto,
+                                                       Articulo = ar,
+                                                   }).OrderBy(x => x.IdArticulo).ToList();
+                for (int i = 1; i < ListPrefix.Length; i++)
+                {
+                    Lista = Lista.Where(x => x.Articulo.NombreBusqueda.Contains(ListPrefix[i])).ToList();
+                }
                 return Lista;
             }
             catch (Exception ex)
