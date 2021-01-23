@@ -146,6 +146,7 @@
         }
 
         function getArticuloByCod() {
+            console.log("Enter");
             if (vm.entityMov.busquedaCodigo != undefined && vm.entityMov.busquedaCodigo != null && vm.entityMov.busquedaCodigo != '') {
                 var data = {
                     idEmpresa: vm.userApp.idEmpresa,
