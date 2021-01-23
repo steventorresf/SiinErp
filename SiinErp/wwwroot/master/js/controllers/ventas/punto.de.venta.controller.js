@@ -83,7 +83,7 @@
                 }
             );
         }
-
+        
         function getLastAlm() {
             var response = movService.getLastAlm(vm.userApp.nombreUsuario, vm.userApp.idEmpresa);
             response.then(
@@ -97,7 +97,7 @@
                 }
             );
         }
-
+        
         function getLastCaja() {
             var response = cajaService.getLastIdDetCajeroByUsu(vm.userApp.nombreUsuario, vm.userApp.idEmpresa);
             response.then(
@@ -146,7 +146,6 @@
         }
 
         function getArticuloByCod() {
-            console.log("Enter");
             if (vm.entityMov.busquedaCodigo != undefined && vm.entityMov.busquedaCodigo != null && vm.entityMov.busquedaCodigo != '') {
                 var data = {
                     idEmpresa: vm.userApp.idEmpresa,
@@ -157,7 +156,6 @@
                 response.then(
                     function (response) {
                         var entity = response.data;
-                        console.log(entity);
                         if (entity != null && entity != undefined && entity != '') {
                             onChangeArticulo(entity, null);
                         }
@@ -185,6 +183,7 @@
             };
             vm.gridOptions.data.push(entity);
             vm.entityMov.idArticulo = null;
+            vm.entityMov.busquedaCodigo = null;
             CalcularTotales();
         }
         
