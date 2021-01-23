@@ -5,9 +5,9 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'VenVendedoresService', 'CarPlazosPagoService', 'GenTablasDetService', 'InvArticulosService', 'InvTiposDocService', 'InvMovimientosService', 'InvMovimientosDetalleService', 'VenFacturasService', 'GenTercerosService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'VenVendedoresService', 'CarPlazosPagoService', 'GenTablasDetService', 'InvArticulosService', 'InvTiposDocService', 'InvMovimientosService', 'InvMovimientosDetalleService', 'VenFacturasService', 'GenTercerosService', 'VenListaPreciosDetalleService'];
 
-    function AppController($location, $cookies, $scope, venService, ppaService, tabdetService, artService, tipdocService, movService, movdetService, facService, terService) {
+    function AppController($location, $cookies, $scope, venService, ppaService, tabdetService, artService, tipdocService, movService, movdetService, facService, terService, lisdetService) {
         var vm = this;
         var fecha = new Date();
 
@@ -34,6 +34,10 @@
 
         vm.fechaInicial = fecha.addDays(fecha.getDate() > 1 ? (fecha.getDate() - 1) * -1 : 0);
         vm.fechaFinal = fecha.addDays(0);
+
+        vm.clicTipoBusqueda = clicTipoBusqueda;
+        vm.busquedaArtTexto = true;
+        vm.busquedaArtCodigo = false;
 
         function init() {
             getAll();
@@ -136,14 +140,29 @@
             },
         };
 
+        function clicTipoBusqueda(tipo) {
+            if (tipo === 'Texto') {
+                vm.entityMov.idArticulo = null;
+                vm.busquedaArtCodigo = false;
+                vm.busquedaArtTexto = true;
+            }
+
+            if (tipo === 'Codigo') {
+                vm.entityMov.busquedaCodigo = null;
+                vm.busquedaArtTexto = false;
+                vm.busquedaArtCodigo = true;
+            }
+        }
+
         function refreshArticulo(prefix) {
-            if (prefix.length > 2) {
+            if (prefix.length > 2 && $scope.formApp.$valid) {
                 var data = {
-                    IdEmp: vm.userApp.idEmpresa,
-                    Prefix: prefix,
+                    idEmp: vm.userApp.idEmpresa,
+                    idListaPrecio: vm.entityMov.idListaPrecio,
+                    prefix: prefix,
                 };
 
-                var response = artService.getAllByPrefix(data);
+                var response = lisdetService.getAllByPrefix(data);
                 response.then(
                     function (response) {
                         vm.listArticulos = response.data;
@@ -182,7 +201,8 @@
         function onChangeCliente($item, $model) {
             vm.entityMov.idVendedor = $item.idVendedor;
             vm.entityMov.idPlazoPago = $item.idPlazoPago;
-            vm.entityMov.plazoPago = $item;
+            vm.entityMov.plazoPago = $item.plazoPago;
+            vm.entityMov.idListaPrecio = $item.idListaPrecio;
         }
 
         function getPlazosPago() {
@@ -207,12 +227,12 @@
                 var entity = {
                     idDetalleOrden: 0,
                     idArticulo: $item.idArticulo,
-                    articulo: $item,
-                    cantidad: 0,
+                    articulo: $item.articulo,
+                    cantidad: 1,
                     margen: 0,
                     cantidadEje: 0,
-                    vrUnitario: $item.vrCosto,
-                    pcDscto: 0,
+                    vrUnitario: $item.vrUnitario,
+                    pcDscto: $item.pcDscto,
                     pcIva: $item.pcIva,
                     vrBruto: 0,
                     vrNeto: 0,
@@ -237,7 +257,6 @@
         }
 
         function getTipoDoc() {
-            console.log("fac", InvTiposDoc.FacturaVenta);
             var response = tipdocService.getTipoDoc(vm.userApp.idEmpresa, InvTiposDoc.FacturaVenta);
             response.then(
                 function (response) {
@@ -510,11 +529,7 @@
 
             vm.entityMov.idPlazoPago = angular.copy(entity.plazoPago.idPlazoPago);
 
-
             getClientes();
-
-            console.log("paso111111", vm.entityMov);
-
             getDetalleMov();
 
             vm.modify = true;

@@ -12,6 +12,7 @@
 
         var service = {
             getAll: getAll,
+            getByCodigo: getByCodigo,
             getAllByPrefix: getAllByPrefix,
             getAllByAlmPrefix: getAllByAlmPrefix,
             create: create,
@@ -22,6 +23,19 @@
 
         function getAll(idEmp) {
             return $http.get(nameSpace + idEmp)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getByCodigo(data) {
+            return $http.post(nameSpace + 'ByCod/', data)
                 .then(
                     function (response) {
                         return response;

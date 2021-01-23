@@ -1777,6 +1777,7 @@
 
         var service = {
             getAll: getAll,
+            getByCodigo: getByCodigo,
             getAllByPrefix: getAllByPrefix,
             getAllByAlmPrefix: getAllByAlmPrefix,
             create: create,
@@ -1787,6 +1788,19 @@
 
         function getAll(idEmp) {
             return $http.get(nameSpace + idEmp)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getByCodigo(data) {
+            return $http.post(nameSpace + 'ByCod/', data)
                 .then(
                     function (response) {
                         return response;
@@ -3026,7 +3040,7 @@
 
         var service = {
             getAll: getAll,
-            createEgreso: createEgreso,
+            create: create,
             update: update,
             getCantidadDetalleCaja: getCantidadDetalleCaja,
         };
@@ -3046,8 +3060,8 @@
                 );
         }
 
-        function createEgreso(data) {
-            return $http.post(nameSpace + 'Egreso/', data)
+        function create(data) {
+            return $http.post(nameSpace + 'Create/', data)
                 .then(
                     function (response) {
                         return response;
@@ -3263,6 +3277,7 @@
 
         var service = {
             getAll: getAll,
+            getAllByPrefix: getAllByPrefix,
             create: create,
             update: update,
             remove: remove,
@@ -3272,6 +3287,19 @@
 
         function getAll(idEmp) {
             return $http.get(nameSpace + idEmp)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getAllByPrefix(data) {
+            return $http.post(nameSpace + 'ByPrefix/', data)
                 .then(
                     function (response) {
                         return response;

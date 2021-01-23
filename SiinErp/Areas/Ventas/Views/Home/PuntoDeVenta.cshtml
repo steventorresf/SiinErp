@@ -52,7 +52,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-12">
+                            <div class="col-12 col-md-8" ng-if="vm.busquedaArtTexto">
                                 <label>Articulo:</label>
                                 <ui-select ng-model="vm.entityMov.idArticulo"
                                            theme="bootstrap"
@@ -65,6 +65,15 @@
                                         <div ng-bind-html="item.nombreBusqueda | highlight: $select.search"></div>
                                     </ui-select-choices>
                                 </ui-select>
+                            </div>
+                            <div ng-if="vm.busquedaArtCodigo" class="col-12 col-md-8">
+                                <label>Articulo:</label>
+                                <input type="text" class="form-control" ng-model="vm.entityMov.busquedaCodigo" ng-change="vm.getArticuloByCod()" placeholder="Digite código" form="formAppDet" required />
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <br />
+                                <button ng-if="!vm.busquedaArtTexto" ng-click="vm.clicTipoBusqueda('Texto')" class="btn-link">¿B&uacute;squeda por texto?</button>
+                                <button ng-if="!vm.busquedaArtCodigo" ng-click="vm.clicTipoBusqueda('Codigo')" class="btn-link">¿B&uacute;squeda por c&oacute;digo?</button>
                             </div>
                         </div>
                         <div class="form-group row">

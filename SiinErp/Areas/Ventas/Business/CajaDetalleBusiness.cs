@@ -43,14 +43,14 @@ namespace SiinErp.Areas.Ventas.Business
         }
 
 
-        public void CreateEgreso(CajaDetalle entity)
+        public void Create(CajaDetalle entity)
         {
             try
             {
                 SiinErpContext context = new SiinErpContext();
                 using (var tran = context.Database.BeginTransaction())
                 {
-                    TiposDocumento entityTip = context.TiposDocumentos.FirstOrDefault(x => x.TipoDoc.Equals(Constantes.VenDocEgresoCaja));
+                    TiposDocumento entityTip = context.TiposDocumentos.FirstOrDefault(x => x.TipoDoc.Equals(entity.TipoDoc));
                     entityTip.NumDoc++;
                     context.SaveChanges();
 
@@ -65,7 +65,7 @@ namespace SiinErp.Areas.Ventas.Business
             }
             catch (Exception ex)
             {
-                ErroresBusiness.Create("CreateEgreso", ex.Message, null);
+                ErroresBusiness.Create("Create", ex.Message, null);
                 throw;
             }
         }

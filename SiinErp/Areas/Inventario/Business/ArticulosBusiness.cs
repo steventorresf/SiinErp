@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SiinErp.Areas.General.Business;
+using Newtonsoft.Json.Linq;
 
 namespace SiinErp.Areas.Inventario.Business
 {
@@ -25,6 +26,7 @@ namespace SiinErp.Areas.Inventario.Business
                                              CodArticulo = ar.CodArticulo,
                                              Referencia = ar.Referencia,
                                              NombreArticulo = ar.NombreArticulo,
+                                             NombreBusqueda = ar.NombreBusqueda,
                                              IdDetTipoArticulo = ar.IdDetTipoArticulo,
                                              IdDetUnidadMed = ar.IdDetUnidadMed,
                                              EsLinea = ar.EsLinea,
@@ -103,6 +105,24 @@ namespace SiinErp.Areas.Inventario.Business
             }
         }
 
+        public Articulos GetArticuloByCodigo(JObject data)
+        {
+            try
+            {
+                int IdEmpresa = data["idEmpresa"].ToObject<int>();
+                string Codigo = data["codigo"].ToObject<string>();
+
+                SiinErpContext context = new SiinErpContext();
+                Articulos entity = context.Articulos.FirstOrDefault(x => x.CodArticulo.Equals(Codigo) && x.IdEmpresa == IdEmpresa);
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("GetArticuloByCodigo", ex.Message, null);
+                throw;
+            }
+        }
+
         public List<Articulos> GetArticulosByPrefix(int IdEmp, string Prefix)
         {
             try
@@ -111,7 +131,7 @@ namespace SiinErp.Areas.Inventario.Business
 
                 SiinErpContext context = new SiinErpContext();
                 List<Articulos> Lista = context.Articulos.Where(x => x.IdEmpresa == IdEmp && x.NombreBusqueda.Contains(ListPrefix[0])).ToList();
-                for(int i = 1; i < ListPrefix.Length; i++)
+                for (int i = 1; i < ListPrefix.Length; i++)
                 {
                     Lista = Lista.Where(x => x.NombreBusqueda.Contains(ListPrefix[i])).ToList();
                 }
@@ -153,6 +173,7 @@ namespace SiinErp.Areas.Inventario.Business
         {
             try
             {
+                entity.NombreBusqueda = entity.CodArticulo + " - " + entity.NombreArticulo;
                 SiinErpContext context = new SiinErpContext();
                 context.Articulos.Add(entity);
                 context.SaveChanges();
@@ -173,9 +194,12 @@ namespace SiinErp.Areas.Inventario.Business
                 ob.CodArticulo = entity.CodArticulo;
                 ob.Referencia = entity.Referencia;
                 ob.NombreArticulo = entity.NombreArticulo;
+                ob.NombreBusqueda = entity.CodArticulo + " - " + entity.NombreArticulo;
                 ob.IdDetTipoArticulo = entity.IdDetTipoArticulo;
                 ob.IdDetUnidadMed = entity.IdDetUnidadMed;
                 ob.EsLinea = entity.EsLinea;
+                ob.VrCosto = entity.VrCosto;
+                ob.VrVenta = entity.VrVenta;
                 ob.Peso = entity.Peso;
                 ob.PcIva = entity.PcIva;
                 ob.StkMin = entity.StkMin;

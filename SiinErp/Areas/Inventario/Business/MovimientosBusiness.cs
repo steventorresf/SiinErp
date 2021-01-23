@@ -561,5 +561,47 @@ namespace SiinErp.Areas.Inventario.Business
             }
         }
         #endregion
+
+        #region Reportes
+        public List<Movimientos> RptAnalisisCartera(int IdEmpresa)
+        {
+            try
+            {
+                DateTimeOffset FechaAhora = DateTimeOffset.Now;
+                SiinErpContext context = new SiinErpContext();
+                List<Movimientos> Lista = (from mo in context.Movimientos.Where(x => x.IdEmpresa == IdEmpresa && x.ValorSaldo > 0 && x.TipoDoc.Equals(Constantes.InvDocFacturaVenta))
+                                           join cl in context.Terceros on mo.IdTercero equals cl.IdTercero
+                                           join ve in context.Vendedores on cl.IdVendedor equals ve.IdVendedor
+                                           join em in context.Empresas on mo.IdEmpresa equals em.IdEmpresa
+                                           select new Movimientos()
+                                           {
+                                               IdMovimiento = mo.IdMovimiento,
+                                               TipoDoc = mo.TipoDoc,
+                                               NumDoc = mo.NumDoc,
+                                               NoDoc = mo.TipoDoc + " " + mo.NumDoc,
+                                               IdEmpresa = mo.IdEmpresa,
+                                               Empresa = em,
+                                               IdVendedor = mo.IdVendedor,
+                                               Vendedor = ve,
+                                               IdTercero = mo.IdTercero,
+                                               Tercero = cl,
+                                               FechaDoc = mo.FechaDoc,
+                                               FechaVencimiento = mo.FechaVencimiento,
+                                               ValorNeto = mo.ValorNeto,
+                                               DiasVencidos = (FechaAhora - mo.FechaVencimiento).Days,
+                                               ValorSaldo = mo.ValorSaldo,
+                                               FechaCreacion = mo.FechaCreacion,
+                                               CreadoPor = mo.CreadoPor,
+                                               Estado = mo.Estado,
+                                           }).ToList();
+                return Lista;
+            }
+            catch(Exception ex)
+            {
+                ErroresBusiness.Create("RptAnalisisCartera", ex.Message, null);
+                throw;
+            }
+        }
+        #endregion
     }
 }

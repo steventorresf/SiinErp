@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using SiinErp.Areas.Ventas.Business;
 using SiinErp.Areas.Ventas.Entities;
 using SiinErp.Utiles;
@@ -23,6 +24,20 @@ namespace SiinErp.Areas.Ventas.Controllers
             try
             {
                 var lista = BusinessListDet.GetListaPreciosDetalle(IdListaD);
+                return Ok(lista);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost("ByPrefix")]
+        public IActionResult GetAllByPrefix([FromBody] JObject data)
+        {
+            try
+            {
+                var lista = BusinessListDet.GetListaPreciosDetalleByPrefix(data);
                 return Ok(lista);
             }
             catch (Exception ex)

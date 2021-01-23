@@ -1,4 +1,6 @@
 ﻿using SiinErp.Areas.Cartera.Entities;
+using SiinErp.Areas.General.Entities;
+using SiinErp.Areas.Ventas.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -95,7 +97,7 @@ namespace SiinErp.Areas.Inventario.Entities
         public string Estado { get; set; }
 
 
-
+        // NotMapped
         [NotMapped]
         public string NoDoc { get; set; }
 
@@ -104,6 +106,9 @@ namespace SiinErp.Areas.Inventario.Entities
 
         [NotMapped]
         public string NombreTercero { get; set; }
+
+        [NotMapped]
+        public string TelefonoTercero { get; set; }
 
         [NotMapped]
         public string NombreAlmacen { get; set; }
@@ -127,6 +132,9 @@ namespace SiinErp.Areas.Inventario.Entities
         public string sFechaVen { get; set; }
 
         [NotMapped]
+        public int DiasVencidos { get; set; }
+
+        [NotMapped]
         public PlazosPago PlazoPago { get; set; }
 
         [NotMapped]
@@ -134,6 +142,16 @@ namespace SiinErp.Areas.Inventario.Entities
 
         [NotMapped]
         public int IdCaja { get; set; }
+
+        // NotMapped Object
+        [NotMapped]
+        public Empresas Empresa { get; set; }
+
+        [NotMapped]
+        public Terceros Tercero { get; set; }
+
+        [NotMapped]
+        public Vendedores Vendedor { get; set; }
 
     }
 }

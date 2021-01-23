@@ -131,27 +131,40 @@
                         <h6>Articulos Detallados</h6>
                     </div>
                     <div class="card-body">
-                        <div class="col-12" ng-show="!vm.modify">
-                            <ui-select ng-model="vm.entityMov.idArticulo"
-                                       form="formAppDet"
-                                       theme="bootstrap"
-                                       tabindex="7"
-                                       required
-                                       on-select="vm.onChangeArticulo($item, $model)">
-                                <ui-select-match placeholder="Seleccione un articulo...">{{$select.selected.nombreBusqueda}}</ui-select-match>
-                                <ui-select-choices repeat="item.idArticulo as item in vm.listArticulos track by $index"
-                                                   refresh="vm.refreshArticulo($select.search)"
-                                                   refresh-delay="0">
-                                    <div ng-bind-html="item.nombreBusqueda | highlight: $select.search"></div>
-                                </ui-select-choices>
-                            </ui-select>
+                        <div class="row" ng-show="!vm.modify">
+                            <div class="col-12 col-md-8" ng-if="vm.busquedaArtTexto">
+                                <ui-select ng-model="vm.entityMov.idArticulo"
+                                           form="formAppDet"
+                                           theme="bootstrap"
+                                           tabindex="7"
+                                           required
+                                           on-select="vm.onChangeArticulo($item, $model)">
+                                    <ui-select-match placeholder="Seleccione un articulo...">{{$select.selected.articulo.nombreBusqueda}}</ui-select-match>
+                                    <ui-select-choices repeat="item.idArticulo as item in vm.listArticulos track by $index"
+                                                       refresh="vm.refreshArticulo($select.search)"
+                                                       refresh-delay="0">
+                                        <div ng-bind-html="item.articulo.nombreBusqueda | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <div ng-if="vm.busquedaArtCodigo" class="col-12 col-md-8">
+                                <input type="text" class="form-control" ng-model="vm.entityMov.busquedaCodigo" placeholder="Digite código" form="formAppDet" required />
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <button ng-if="!vm.busquedaArtTexto" ng-click="vm.clicTipoBusqueda('Texto')" class="btn-link">¿B&uacute;squeda por texto?</button>
+                                <button ng-if="!vm.busquedaArtCodigo" ng-click="vm.clicTipoBusqueda('Codigo')" class="btn-link">¿B&uacute;squeda por c&oacute;digo?</button>
+                            </div>
                         </div>
-                        <div class="col-12 mt-sm-3">
-                            <div class="fontsize-10" ui-grid="vm.gridOptions" ui-grid-selection ui-grid-cellNav ui-grid-edit ui-grid-resize-columns ui-grid-auto-resize></div>
+                        <div class="row mt-sm-3">
+                            <div class="col-12">
+                                <div class="fontsize-10" ui-grid="vm.gridOptions" ui-grid-selection ui-grid-cellNav ui-grid-edit ui-grid-resize-columns ui-grid-auto-resize></div>
+                            </div>
                         </div>
-                        <div class="col-12 mt-sm-3">
-                            <label>Comentarios:</label><br />
-                            <textarea ng-model="vm.entityMov.comentario" class="form-control"></textarea>
+                        <div class="row mt-sm-3">
+                            <div class="col-12">
+                                <label>Comentarios:</label><br />
+                                <textarea ng-model="vm.entityMov.comentario" class="form-control"></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>

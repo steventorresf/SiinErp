@@ -32,6 +32,20 @@ namespace SiinErp.Areas.Inventario.Controllers
             }
         }
 
+        [HttpPost("ByCod")]
+        public IActionResult GetArticuloByCodigo([FromBody] JObject data)
+        {
+            try
+            {
+                var entity = BusinessArt.GetArticuloByCodigo(data);
+                return Ok(entity);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         [HttpPost("Prefix")]
         public IActionResult GetArticulosByPrefix([FromBody] JObject data)
         {
