@@ -174,7 +174,6 @@ namespace SiinErp.Areas.Inventario.Business
                     entityMov.Transaccion = tiposdocmov.Transaccion;
                     entityMov.Periodo = entityMov.FechaDoc.ToString("yyyyMM");
                     entityMov.IdDetCenCosto = null;
-                    entityMov.IdTercero = null;
                     entityMov.Estado = Constantes.EstadoActivo;
                     entityMov.FechaCreacion = DateTimeOffset.Now;
                     context.Movimientos.Add(entityMov);

@@ -21,6 +21,7 @@
             updatePro: updatePro,
 
             getAllCli: getAllCli,
+            getCliByIden: getCliByIden,
             getActCli: getActCli,
             updateCli: updateCli,
         };
@@ -122,6 +123,19 @@
         // Clientes
         function getAllCli(idEmp) {
             return $http.get(nameSpace + 'Cli/' + idEmp)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getCliByIden(data) {
+            return $http.post(nameSpace + 'CliByIden/', data)
                 .then(
                     function (response) {
                         return response;

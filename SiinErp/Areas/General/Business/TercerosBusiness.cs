@@ -1,4 +1,5 @@
-﻿using SiinErp.Areas.General.Entities;
+﻿using Newtonsoft.Json.Linq;
+using SiinErp.Areas.General.Entities;
 using SiinErp.Models;
 using SiinErp.Utiles;
 using System;
@@ -201,6 +202,58 @@ namespace SiinErp.Areas.General.Business
                                             IdDepartamento = dep.IdDepartamento,
                                         }).OrderBy(x => x.NombreTercero).ToList();
                 return Lista;
+            }
+            catch (Exception ex)
+            {
+                ErroresBusiness.Create("GetClientes", ex.Message, null);
+                throw;
+            }
+        }
+
+        public Terceros GetClienteByIden(JObject data)
+        {
+            try
+            {
+                int IdEmpresa = data["idEmpresa"].ToObject<int>();
+                string NitCedula = data["nitCedula"].ToObject<string>();
+
+                SiinErpContext context = new SiinErpContext();
+                Terceros entity = (from cli in context.Terceros.Where(x => x.NitCedula.Equals(NitCedula) && x.IdEmpresa == IdEmpresa && x.TipoTercero.Equals(Constantes.Cliente))
+                                   join tip in context.TablasDetalles on cli.IdDetTipoPersona equals tip.IdDetalle
+                                   join ciu in context.Ciudades on cli.IdCiudad equals ciu.IdCiudad
+                                   join dep in context.Departamentos on ciu.IdDepartamento equals dep.IdDepartamento
+                                   join zon in context.TablasDetalles on cli.IdDetZona equals zon.IdDetalle
+                                   join pla in context.PlazosPagos on cli.IdPlazoPago equals pla.IdPlazoPago
+                                   select new Terceros()
+                                   {
+                                       IdTercero = cli.IdTercero,
+                                       TipoTercero = cli.TipoTercero,
+                                       IdEmpresa = cli.IdEmpresa,
+                                       NitCedula = cli.NitCedula,
+                                       DgVerificacion = cli.DgVerificacion,
+                                       IdDetTipoPersona = cli.IdDetTipoPersona,
+                                       NombreTercero = cli.NombreTercero,
+                                       Direccion = cli.Direccion,
+                                       EMail = cli.EMail,
+                                       IdCiudad = cli.IdCiudad,
+                                       Telefono = cli.Telefono,
+                                       IdDetZona = cli.IdDetZona,
+                                       IdVendedor = cli.IdVendedor,
+                                       IdCuentaContable = cli.IdCuentaContable,
+                                       IdPlazoPago = cli.IdPlazoPago,
+                                       LimiteCredito = cli.LimiteCredito,
+                                       IdPadre = cli.IdPadre,
+                                       IdListaPrecio = cli.IdListaPrecio,
+                                       Iva = cli.Iva,
+                                       FechaCreacion = cli.FechaCreacion,
+                                       CreadoPor = cli.CreadoPor,
+                                       Estado = cli.Estado,
+                                       NombreTipoPersona = tip.Descripcion,
+                                       PlazoPago = pla,
+                                       NombreCiudad = ciu.NombreCiudad + " - " + dep.NombreDepartamento,
+                                       IdDepartamento = dep.IdDepartamento,
+                                   }).FirstOrDefault();
+                return entity;
             }
             catch (Exception ex)
             {

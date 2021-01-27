@@ -1420,6 +1420,7 @@
             updatePro: updatePro,
 
             getAllCli: getAllCli,
+            getCliByIden: getCliByIden,
             getActCli: getActCli,
             updateCli: updateCli,
         };
@@ -1521,6 +1522,19 @@
         // Clientes
         function getAllCli(idEmp) {
             return $http.get(nameSpace + 'Cli/' + idEmp)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getCliByIden(data) {
+            return $http.post(nameSpace + 'CliByIden/', data)
                 .then(
                     function (response) {
                         return response;
@@ -1777,8 +1791,8 @@
 
         var service = {
             getAll: getAll,
-            getByCodigo: getByCodigo,
-            getAllByPrefix: getAllByPrefix,
+            getByCodigoAndListaP: getByCodigoAndListaP,
+            GetByPrefixListaP: GetByPrefixListaP,
             getAllByAlmPrefix: getAllByAlmPrefix,
             create: create,
             update: update,
@@ -1799,8 +1813,8 @@
                 );
         }
 
-        function getByCodigo(data) {
-            return $http.post(nameSpace + 'ByCod/', data)
+        function getByCodigoAndListaP(data) {
+            return $http.post(nameSpace + 'ByCodListaP/', data)
                 .then(
                     function (response) {
                         return response;
@@ -1812,8 +1826,8 @@
                 );
         }
 
-        function getAllByPrefix(data) {
-            return $http.post(nameSpace + 'Prefix/', data)
+        function GetByPrefixListaP(data) {
+            return $http.post(nameSpace + 'PrefixListaP/', data)
                 .then(
                     function (response) {
                         return response;
@@ -3114,6 +3128,7 @@
 
         var service = {
             getAll: getAll,
+            getByIden: getByIden,
             create: create,
             update: update,
         };
@@ -3122,6 +3137,19 @@
 
         function getAll(idEmp) {
             return $http.get(nameSpace + idEmp)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getByIden(data) {
+            return $http.post(nameSpace + 'ByIden/', data)
                 .then(
                     function (response) {
                         return response;

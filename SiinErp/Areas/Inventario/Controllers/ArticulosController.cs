@@ -32,12 +32,12 @@ namespace SiinErp.Areas.Inventario.Controllers
             }
         }
 
-        [HttpPost("ByCod")]
-        public IActionResult GetArticuloByCodigo([FromBody] JObject data)
+        [HttpPost("ByCodListaP")]
+        public IActionResult GetByCodigoListaP([FromBody] JObject data)
         {
             try
             {
-                var entity = BusinessArt.GetArticuloByCodigo(data);
+                var entity = BusinessArt.GetByCodigoListaP(data);
                 return Ok(entity);
             }
             catch (Exception)
@@ -46,15 +46,12 @@ namespace SiinErp.Areas.Inventario.Controllers
             }
         }
 
-        [HttpPost("Prefix")]
-        public IActionResult GetArticulosByPrefix([FromBody] JObject data)
+        [HttpPost("PrefixListaP")]
+        public IActionResult GetByPrefixListaP([FromBody] JObject data)
         {
             try
             {
-                int IdEmp = data["IdEmp"].ToObject<int>();
-                string Prefix = data["Prefix"].ToObject<string>();
-
-                var lista = BusinessArt.GetArticulosByPrefix(IdEmp, Prefix);
+                var lista = BusinessArt.GetByPrefixListaP(data);
                 return Ok(lista);
             }
             catch (Exception)

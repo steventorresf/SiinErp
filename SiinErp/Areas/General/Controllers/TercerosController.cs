@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using SiinErp.Areas.General.Business;
 using SiinErp.Areas.General.Entities;
 using SiinErp.Utiles;
@@ -23,6 +24,20 @@ namespace SiinErp.Areas.General.Controllers
             try
             {
                 var lista = BusinessTer.GetTerceros(IdEmp);
+                return Ok(lista);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost("CliByIden")]
+        public IActionResult GetClienteByIden([FromBody] JObject data)
+        {
+            try
+            {
+                var lista = BusinessTer.GetClienteByIden(data);
                 return Ok(lista);
             }
             catch (Exception)

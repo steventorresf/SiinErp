@@ -29,6 +29,7 @@ namespace SiinErp.Areas.Ventas.Business
         {
             try
             {
+                entity.FechaCreacion = DateTimeOffset.Now;
                 SiinErpContext context = new SiinErpContext();
                 context.ListaPrecios.Add(entity);
                 context.SaveChanges();
@@ -48,6 +49,8 @@ namespace SiinErp.Areas.Ventas.Business
                 ListaPrecios ob = context.ListaPrecios.Find(IdListaPrecio);
                 ob.NombreLista = entity.NombreLista;
                 ob.Estado = entity.Estado;
+                ob.ModificadoPor = entity.ModificadoPor;
+                ob.FechaModificado = DateTimeOffset.Now;
                 context.SaveChanges();
             }
             catch (Exception ex)

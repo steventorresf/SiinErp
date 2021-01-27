@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SiinErp.Areas.Ventas.Entities
 {
     [Table("ListaPrecios", Schema = "Ventas")]
-    public class ListaPrecios
+    public class ListaPrecios : Utiles.Auditoria
     {
         [Key]
         public int IdListaPrecio { get; set; }
@@ -17,14 +17,8 @@ namespace SiinErp.Areas.Ventas.Entities
         public int IdEmpresa { get; set; }
 
         [Required]
-        [StringLength(80)]
+        [StringLength(100)]
         public string NombreLista { get; set; }
-
-        [Required]
-        public DateTimeOffset FechaCreacion { get; set; }
-
-        [Required]
-        public int IdUsuario { get; set; }
 
         [Required]
         [StringLength(1)]

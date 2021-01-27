@@ -5,14 +5,15 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'growl', 'InvArticulosService', 'InvMovimientosService', 'GenTablasDetService', 'VenCajaService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'growl', 'GenTercerosService', 'VenListaPreciosService', 'InvArticulosService', 'InvMovimientosService', 'GenTablasDetService', 'VenCajaService', 'CarPlazosPagoService', 'VenVendedoresService', 'GenDepartamentosService', 'GenCiudadesService'];
 
-    function AppController($location, $cookies, $scope, growl, artService, movService, tabdetService, cajaService) {
+    function AppController($location, $cookies, $scope, growl, terService, lisService, artService, movService, tabdetService, cajaService, ppaService, venService, depService, ciuService) {
         var vm = this;
 
         vm.title = 'Home Page';
         vm.init = init;
         vm.userApp = angular.copy($cookies.getObject('UsuApp'));
+        vm.onChangeCliente = onChangeCliente;
         vm.refreshArticulo = refreshArticulo;
         vm.onChangeArticulo = onChangeArticulo;
         vm.btnGuardar = btnGuardar;
@@ -31,14 +32,68 @@
         vm.busquedaArtCodigo = true;
         vm.busquedaArtTexto = false;
 
+        vm.listBool = [{ codigo: 'true', descripcion: 'Si' }, { codigo: 'false', descripcion: 'No' }];
+        vm.crearCliente = crearCliente;
+        vm.guardarCliente = guardarCliente;
+        vm.cancelarCliente = cancelarCliente;
+        vm.getCiudades = getCiudades;
+
 
         function init() {
+            vm.gridPrincipal = true;
             vm.entityMov.fechaDoc = new Date();
+            getClientes();
+            getListasPrecios();
             getAlmacens();
             getCajeros();
             getFormsPagos();
+
+            getPlazosPago();
+            getVendedores();
+            getZonas();
+            getDepartamentos();
+            getTiposPersona();
         }
 
+
+        function getClientes() {
+            var response = terService.getActCli(vm.userApp.idEmpresa);
+
+            response.then(
+                function (response) {
+                    vm.listClientes = [];
+
+                    var data = response.data;
+                    for (var i = 0; i < data.length; i++) {
+                        vm.listClientes.push(data[i]);
+                    }
+                    vm.listClientes.push({ idTercero: 0, nombreTercero: '*Sin Cliente*' });
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        function onChangeCliente($item, $model) {
+            vm.entityMov.idListaPrecio = null;
+
+            if ($item.idTercero > 0) {
+                vm.entityMov.idListaPrecio = $item.idListaPrecio;
+            }
+        }
+
+        function getListasPrecios() {
+            var response = lisService.getAll(vm.userApp.idEmpresa);
+            response.then(
+                function (response) {
+                    vm.listListasPrecios = response.data;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
 
         function getAlmacens() {
             var response = tabdetService.getAll(Tab.InvAlm, vm.userApp.idEmpresa);
@@ -84,6 +139,20 @@
             );
         }
         
+        function getLastListaPrecioByUsuarioAndSinCliente() {
+            var response = movService.getLastListaPrecioByUsuarioAndSinCliente(vm.userApp.nombreUsuario, vm.userApp.idEmpresa);
+            response.then(
+                function (response) {
+                    if (response.data > 0) {
+                        vm.entityMov.idDetAlmacen = response.data;
+                    }
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
         function getLastAlm() {
             var response = movService.getLastAlm(vm.userApp.nombreUsuario, vm.userApp.idEmpresa);
             response.then(
@@ -129,11 +198,12 @@
         function refreshArticulo(prefix) {
             if (prefix.length > 2) {
                 var data = {
-                    IdEmp: vm.userApp.idEmpresa,
-                    Prefix: prefix,
+                    idEmpresa: vm.userApp.idEmpresa,
+                    idListaPrecio: vm.entityMov.idListaPrecio,
+                    prefix: prefix,
                 };
 
-                var response = artService.getAllByPrefix(data);
+                var response = artService.GetByPrefixListaP(data);
                 response.then(
                     function (response) {
                         vm.listArticulos = response.data;
@@ -149,10 +219,11 @@
             if (vm.entityMov.busquedaCodigo != undefined && vm.entityMov.busquedaCodigo != null && vm.entityMov.busquedaCodigo != '') {
                 var data = {
                     idEmpresa: vm.userApp.idEmpresa,
+                    idListaPrecio: vm.entityMov.idListaPrecio,
                     codigo: vm.entityMov.busquedaCodigo,
                 };
 
-                var response = artService.getByCodigo(data);
+                var response = artService.getByCodigoAndListaP(data);
                 response.then(
                     function (response) {
                         var entity = response.data;
@@ -342,30 +413,48 @@
                     for (var i = 0; i < vm.gridOptionsPag.data.length; i++) {
                         vm.entityMov.vrRestante -= vm.gridOptionsPag.data[i].valor;
                     }
-                    
                 });
             },
         };
 
         function btnGuardar() {
-            var response = cajaService.getIdCajaActiva(vm.entityMov.idDetCajero);
-            response.then(
-                function (response) {
-                    vm.entityMov.idCaja = response.data;
-                    if (vm.entityMov.idCaja > 0) {
-                        guardar();
-                    }
-                    if (vm.entityMov.idCaja === 0) {
-                        alert('La caja NO se encuentra Abierta.');
-                    }
-                    if (vm.entityMov.idCaja < 0) {
-                        alert('La caja se encuentra Abierta más de una vez.');
-                    }
-                },
-                function (response) {
-                    console.log(response);
+            var val = true;
+            vm.entityMov.valorSaldo = 0;
+
+            var length = vm.gridOptionsPag.data.filter(function (e) {
+                return e.descripcion === 'A Credito' && e.valor > 0;
+            });
+            
+            if (length.length > 0) {
+                vm.entityMov.valorSaldo = length[0].valor;
+                if (vm.entityMov.idTercero === null || vm.entityMov.idTercero === undefined || vm.entityMov.idTercero <= 0) {
+                    val = false;
                 }
-            );
+            }
+
+            if (val) {
+                var response = cajaService.getIdCajaActiva(vm.entityMov.idDetCajero);
+                response.then(
+                    function (response) {
+                        vm.entityMov.idCaja = response.data;
+                        if (vm.entityMov.idCaja > 0) {
+                            guardar();
+                        }
+                        if (vm.entityMov.idCaja === 0) {
+                            alert('La caja NO se encuentra Abierta.');
+                        }
+                        if (vm.entityMov.idCaja < 0) {
+                            alert('La caja se encuentra Abierta más de una vez.');
+                        }
+                    },
+                    function (response) {
+                        console.log(response);
+                    }
+                );
+            }
+            else {
+                alert('No puede asignar un valor "A Credito", porque no selecciona cliente. ');
+            }
         }
 
 
@@ -382,6 +471,10 @@
             }
 
             if ((vm.entityMov.valorNeto - pagoTotal) === 0) {
+                if (vm.entityMov.idTercero <= 0) {
+                    vm.entityMov.idTercero = null;
+                }
+
                 var data = {
                     entityMov: vm.entityMov,
                     listDetalleMov: vm.gridOptions.data,
@@ -403,6 +496,132 @@
             }
 
             
+        }
+
+
+        // Cliente
+        function crearCliente() {
+            vm.entityCli = {
+                idEmpresa: vm.userApp.idEmpresa,
+                tipoTercero: TipoTercero.Cliente,
+                estado: Estados.Activo,
+                creadoPor: vm.userApp.nombreUsuario,
+            };
+
+            vm.gridPrincipal = false;
+            vm.gridCliente = true;
+        }
+        
+        function getPlazosPago() {
+            var response = ppaService.getAll(vm.userApp.idEmpresa);
+            response.then(
+                function (response) {
+                    vm.listPlazosPago = response.data;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        function getVendedores() {
+            var response = venService.getAll(vm.userApp.idEmpresa);
+            response.then(
+                function (response) {
+                    vm.listVendedores = response.data;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        function getZonas() {
+            var response = tabdetService.getAll(Tab.Zonas, vm.userApp.idEmpresa);
+            response.then(
+                function (response) {
+                    vm.listZonas = response.data;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        function getTiposPersona() {
+            var response = tabdetService.getAll(Tab.TiposPer, vm.userApp.idEmpresa);
+            response.then(
+                function (response) {
+                    vm.listTiposPer = response.data;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        function getDepartamentos() {
+            var response = depService.getAll();
+            response.then(
+                function (response) {
+                    vm.listDepartamentos = response.data;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        function getCiudades() {
+            vm.entityCli.idCiudad = null;
+            var response = ciuService.getAll(vm.entityCli.idDepartamento);
+            response.then(
+                function (response) {
+                    vm.listCiudades = response.data;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+
+        function cancelarCliente() {
+            vm.gridCliente = false;
+            vm.gridPrincipal = true;
+        }
+
+        function guardarCliente() {
+            var response = terService.create(vm.entityCli);
+            response.then(
+                function (response) {
+                    cancelarCliente();
+                    getClientes();
+                    getClienteByIden();
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        function getClienteByIden() {
+            var data = {
+                idEmpresa: vm.userApp.idEmpresa,
+                nitCedula: vm.entityCli.nitCedula,
+            };
+
+            var response = terService.getCliByIden(data);
+            response.then(
+                function (response) {
+                    var dataCli = response.data;
+                    vm.entityMov.idTercero = dataCli.idTercero;
+                    vm.entityMov.idListaPrecio = dataCli.idListaPrecio;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
         }
 
     }

@@ -12,6 +12,7 @@
 
         var service = {
             getAll: getAll,
+            getByIden: getByIden,
             create: create,
             update: update,
         };
@@ -20,6 +21,19 @@
 
         function getAll(idEmp) {
             return $http.get(nameSpace + idEmp)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getByIden(data) {
+            return $http.post(nameSpace + 'ByIden/', data)
                 .then(
                     function (response) {
                         return response;

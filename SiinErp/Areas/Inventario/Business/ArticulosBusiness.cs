@@ -74,6 +74,7 @@ namespace SiinErp.Areas.Inventario.Business
                                              CodArticulo = ar.CodArticulo,
                                              Referencia = ar.Referencia,
                                              NombreArticulo = ar.NombreArticulo,
+                                             NombreBusqueda = ar.NombreBusqueda,
                                              IdDetTipoArticulo = ar.IdDetTipoArticulo,
                                              IdDetUnidadMed = ar.IdDetUnidadMed,
                                              EsLinea = ar.EsLinea,
@@ -105,32 +106,106 @@ namespace SiinErp.Areas.Inventario.Business
             }
         }
 
-        public Articulos GetArticuloByCodigo(JObject data)
+        public Articulos GetByCodigoListaP(JObject data)
         {
             try
             {
                 int IdEmpresa = data["idEmpresa"].ToObject<int>();
+                int IdListaPrecio = data["idListaPrecio"].ToObject<int>();
                 string Codigo = data["codigo"].ToObject<string>();
 
                 SiinErpContext context = new SiinErpContext();
-                Articulos entity = context.Articulos.FirstOrDefault(x => x.CodArticulo.Equals(Codigo) && x.IdEmpresa == IdEmpresa);
+                Articulos entity = (from lp in context.ListaPreciosDetalles.Where(x => x.IdListaPrecio == IdListaPrecio)
+                                    join ar in context.Articulos on lp.IdArticulo equals ar.IdArticulo
+                                    join ta in context.TablasDetalles on ar.IdDetTipoArticulo equals ta.IdDetalle
+                                    join um in context.TablasDetalles on ar.IdDetUnidadMed equals um.IdDetalle
+                                    where ar.CodArticulo.Equals(Codigo)
+                                    select new Articulos()
+                                    {
+                                        IdArticulo = ar.IdArticulo,
+                                        IdEmpresa = ar.IdEmpresa,
+                                        CodArticulo = ar.CodArticulo,
+                                        Referencia = ar.Referencia,
+                                        NombreArticulo = ar.NombreArticulo,
+                                        NombreBusqueda = ar.NombreBusqueda,
+                                        IdDetTipoArticulo = ar.IdDetTipoArticulo,
+                                        IdDetUnidadMed = ar.IdDetUnidadMed,
+                                        EsLinea = ar.EsLinea,
+                                        Peso = ar.Peso,
+                                        PcIva = ar.PcIva,
+                                        StkMin = ar.StkMin,
+                                        StkMax = ar.StkMax,
+                                        VrVenta = ar.VrVenta,
+                                        VrCosto = ar.VrCosto,
+                                        Existencia = ar.Existencia,
+                                        IndCosto = ar.IndCosto,
+                                        IndConsumo = ar.IndConsumo,
+                                        FechaCreacion = ar.FechaCreacion,
+                                        FechaUEntrada = ar.FechaUEntrada,
+                                        FechaUPedida = ar.FechaUPedida,
+                                        FechaUSalida = ar.FechaUSalida,
+                                        IdUsuario = ar.IdUsuario,
+                                        Estado = ar.Estado,
+                                        NombreTipoArticulo = ta.Descripcion,
+                                        NombreUnidadMed = um.Descripcion,
+                                        DescEsLinea = ar.EsLinea ? "Si" : "No",
+                                    }).FirstOrDefault();
                 return entity;
             }
             catch (Exception ex)
             {
-                ErroresBusiness.Create("GetArticuloByCodigo", ex.Message, null);
+                ErroresBusiness.Create("GetByCodigoListaP", ex.Message, null);
                 throw;
             }
         }
 
-        public List<Articulos> GetArticulosByPrefix(int IdEmp, string Prefix)
+        public List<Articulos> GetByPrefixListaP(JObject data)
         {
             try
             {
+                int IdEmpresa = data["idEmpresa"].ToObject<int>();
+                int IdListaPrecio = data["idListaPrecio"].ToObject<int>();
+                string Prefix = data["prefix"].ToObject<string>();
+
                 string[] ListPrefix = Prefix.Split(" ", StringSplitOptions.RemoveEmptyEntries);
 
                 SiinErpContext context = new SiinErpContext();
-                List<Articulos> Lista = context.Articulos.Where(x => x.IdEmpresa == IdEmp && x.NombreBusqueda.Contains(ListPrefix[0])).ToList();
+                List<Articulos> Lista = (from lp in context.ListaPreciosDetalles.Where(x => x.IdListaPrecio == IdListaPrecio)
+                                         join ar in context.Articulos on lp.IdArticulo equals ar.IdArticulo
+                                         join ta in context.TablasDetalles on ar.IdDetTipoArticulo equals ta.IdDetalle
+                                         join um in context.TablasDetalles on ar.IdDetUnidadMed equals um.IdDetalle
+                                         where ar.NombreBusqueda.Contains(ListPrefix[0])
+                                         select new Articulos()
+                                         {
+                                             IdArticulo = ar.IdArticulo,
+                                             IdEmpresa = ar.IdEmpresa,
+                                             CodArticulo = ar.CodArticulo,
+                                             Referencia = ar.Referencia,
+                                             NombreArticulo = ar.NombreArticulo,
+                                             NombreBusqueda = ar.NombreBusqueda,
+                                             IdDetTipoArticulo = ar.IdDetTipoArticulo,
+                                             IdDetUnidadMed = ar.IdDetUnidadMed,
+                                             EsLinea = ar.EsLinea,
+                                             Peso = ar.Peso,
+                                             PcIva = ar.PcIva,
+                                             StkMin = ar.StkMin,
+                                             StkMax = ar.StkMax,
+                                             VrVenta = ar.VrVenta,
+                                             VrCosto = ar.VrCosto,
+                                             Existencia = ar.Existencia,
+                                             IndCosto = ar.IndCosto,
+                                             IndConsumo = ar.IndConsumo,
+                                             FechaCreacion = ar.FechaCreacion,
+                                             FechaUEntrada = ar.FechaUEntrada,
+                                             FechaUPedida = ar.FechaUPedida,
+                                             FechaUSalida = ar.FechaUSalida,
+                                             IdUsuario = ar.IdUsuario,
+                                             Estado = ar.Estado,
+                                             NombreTipoArticulo = ta.Descripcion,
+                                             NombreUnidadMed = um.Descripcion,
+                                             DescEsLinea = ar.EsLinea ? "Si" : "No",
+                                         }).ToList();
+
                 for (int i = 1; i < ListPrefix.Length; i++)
                 {
                     Lista = Lista.Where(x => x.NombreBusqueda.Contains(ListPrefix[i])).ToList();
@@ -139,7 +214,7 @@ namespace SiinErp.Areas.Inventario.Business
             }
             catch (Exception ex)
             {
-                ErroresBusiness.Create("GetArticulosByPrefix", ex.Message, null);
+                ErroresBusiness.Create("GetByPrefixListaP", ex.Message, null);
                 throw;
             }
         }

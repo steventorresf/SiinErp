@@ -12,8 +12,8 @@
 
         var service = {
             getAll: getAll,
-            getByCodigo: getByCodigo,
-            getAllByPrefix: getAllByPrefix,
+            getByCodigoAndListaP: getByCodigoAndListaP,
+            GetByPrefixListaP: GetByPrefixListaP,
             getAllByAlmPrefix: getAllByAlmPrefix,
             create: create,
             update: update,
@@ -34,8 +34,8 @@
                 );
         }
 
-        function getByCodigo(data) {
-            return $http.post(nameSpace + 'ByCod/', data)
+        function getByCodigoAndListaP(data) {
+            return $http.post(nameSpace + 'ByCodListaP/', data)
                 .then(
                     function (response) {
                         return response;
@@ -47,8 +47,8 @@
                 );
         }
 
-        function getAllByPrefix(data) {
-            return $http.post(nameSpace + 'Prefix/', data)
+        function GetByPrefixListaP(data) {
+            return $http.post(nameSpace + 'PrefixListaP/', data)
                 .then(
                     function (response) {
                         return response;

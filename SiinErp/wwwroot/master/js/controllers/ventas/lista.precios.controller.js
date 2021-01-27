@@ -70,7 +70,7 @@
         function nuevo() {
             vm.entity = {};
             vm.entity.idEmpresa = vm.userApp.idEmpresa;
-            vm.entity.idUsuario = vm.userApp.idUsu;
+            vm.entity.creadoPor = vm.userApp.nombreUsuario;
             vm.entity.estado = 'A';
             vm.formModify = false;
             vm.formVisible = true;
@@ -78,6 +78,7 @@
 
         function editar(entity) {
             vm.entity = angular.copy(entity);
+            vm.entity.modificadoPor = vm.userApp.nombreUsuario;
             vm.formModify = true;
             vm.formVisible = true;
         }
