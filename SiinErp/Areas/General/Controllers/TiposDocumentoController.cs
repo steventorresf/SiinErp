@@ -31,12 +31,12 @@ namespace SiinErp.Areas.General.Controllers
             }
         }
 
-        [HttpGet("ByCod/{Cod}")]
-        public IActionResult GetTipoDocumento(string Cod)
+        [HttpGet("ByCod/{IdEmp}/{Cod}")]
+        public IActionResult GetByTipoDocumento(int IdEmp, string Cod)
         {
             try
             {
-                var entity = BusinessDoc.GetTipoDocumento(Cod);
+                var entity = BusinessDoc.GetTipoDocumento(IdEmp, Cod);
                 return Ok(entity);
             }
             catch (Exception)

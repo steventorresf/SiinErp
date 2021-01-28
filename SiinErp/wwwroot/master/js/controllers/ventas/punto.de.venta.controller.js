@@ -5,9 +5,9 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'growl', 'GenTercerosService', 'VenListaPreciosService', 'InvArticulosService', 'InvMovimientosService', 'GenTablasDetService', 'VenCajaService', 'CarPlazosPagoService', 'VenVendedoresService', 'GenDepartamentosService', 'GenCiudadesService', 'CarPlazosPagoService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'growl', 'GenTercerosService', 'VenListaPreciosService', 'InvArticulosService', 'InvMovimientosService', 'GenTablasDetService', 'VenCajaService', 'CarPlazosPagoService', 'VenVendedoresService', 'GenDepartamentosService', 'GenCiudadesService', 'CarPlazosPagoService', 'GenTiposDocService'];
 
-    function AppController($location, $cookies, $scope, growl, terService, lisService, artService, movService, tabdetService, cajaService, ppaService, venService, depService, ciuService, ppaService) {
+    function AppController($location, $cookies, $scope, growl, terService, lisService, artService, movService, tabdetService, cajaService, ppaService, venService, depService, ciuService, ppaService, tipdocService) {
         var vm = this;
 
         vm.title = 'Home Page';
@@ -48,6 +48,8 @@
         function init() {
             vm.gridPrincipal = true;
             vm.entityMov.fechaDoc = new Date();
+
+            getTipoDocFacturaVenta();
             getPlazosPago();
             getListasPrecios();
             getAlmacens();
@@ -61,6 +63,19 @@
         }
 
 
+        function getTipoDocFacturaVenta() {
+            var response = tipdocService.getByCod(vm.userApp.idEmpresa, GenTiposDoc.FacturaVenta);
+            response.then(
+                function (response) {
+                    var data = response.data;
+                    vm.entityMov.tipoDoc = data.tipoDoc;
+                    vm.entityMov.numDoc = data.numDoc + 1;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
 
         function getClienteByIden() {
             vm.entityMov.idTercero = null;
@@ -460,6 +475,7 @@
         function btnGuardar() {
             var val = true;
             vm.entityMov.valorSaldo = 0;
+            vm.entityMov.tpPago = Constantes.TpPago_Contado;
 
             var length = vm.gridOptionsPag.data.filter(function (e) {
                 return e.descripcion === 'A Credito' && e.valor > 0;
@@ -467,6 +483,7 @@
             
             if (length.length > 0) {
                 vm.entityMov.valorSaldo = length[0].valor;
+                vm.entityMov.tpPago = Constantes.TpPago_Credito;
                 if (vm.entityMov.idTercero === null || vm.entityMov.idTercero === undefined || vm.entityMov.idTercero <= 0) {
                     val = false;
                 }

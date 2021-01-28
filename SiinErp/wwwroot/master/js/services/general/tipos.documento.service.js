@@ -33,8 +33,8 @@
                 );
         }
 
-        function getByCod(cod) {
-            return $http.get(nameSpace + 'ByCod/' + cod)
+        function getByCod(idEmp, cod) {
+            return $http.get(nameSpace + 'ByCod/' + idEmp + '/' + cod)
                 .then(
                     function (response) {
                         return response;

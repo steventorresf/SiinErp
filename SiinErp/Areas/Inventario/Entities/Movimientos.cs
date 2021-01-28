@@ -52,6 +52,9 @@ namespace SiinErp.Areas.Inventario.Entities
 
         public int? IdTercero { get; set; }
 
+        [StringLength(2)]
+        public string TpPago { get; set; }
+
         [StringLength(500)]
         public string Comentario { get; set; }
 

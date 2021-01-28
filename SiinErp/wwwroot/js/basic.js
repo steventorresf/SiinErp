@@ -17685,11 +17685,11 @@ const GenTiposDoc = {
     OrdenCompra: 'OC',
     OrdenVenta: 'OV',
     ReciboCaja: 'RC',
+    FacturaVenta: 'FV',
 };
 
 const InvTiposDoc = {
-    FacturaVenta: 'FC',
-    FacturaPuntoVenta: 'FA',
+    FacturaVenta: 'FV',
     Traslados: 'TB',
 };
 
@@ -17712,6 +17712,11 @@ const TipoTercero = {
     Proveedor: 'PR',
     Otro: 'OT',
 };
+
+const Constantes = {
+    TpPago_Contado: 'CO',
+    TpPago_Credito: 'CR',
+}
 
 
 function FormatNumber(number, element) {

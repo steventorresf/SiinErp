@@ -9,12 +9,12 @@ namespace SiinErp.Areas.General.Business
 {
     public class TiposDocumentoBusiness
     {
-        public TiposDocumento GetTipoDocumento(string TipoDoc)
+        public TiposDocumento GetTipoDocumento(int IdEmpresa, string TipoDoc)
         {
             try
             {
                 SiinErpContext context = new SiinErpContext();
-                TiposDocumento tipoDocumento = context.TiposDocumentos.FirstOrDefault(x => x.TipoDoc.Equals(TipoDoc));
+                TiposDocumento tipoDocumento = context.TiposDocumentos.FirstOrDefault(x => x.TipoDoc.Equals(TipoDoc) && x.IdEmpresa == IdEmpresa);
                 return tipoDocumento;
             }
             catch(Exception ex)
