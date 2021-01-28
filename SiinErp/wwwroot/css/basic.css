@@ -689,7 +689,7 @@ i.btn-link {
 }
 
 .ui-select-bootstrap .form-control {
-    background-color: transparent !important;
+    background-color: white !important;
 }
 
 .ui-select-multiple.ui-select-bootstrap .ui-select-match-item {

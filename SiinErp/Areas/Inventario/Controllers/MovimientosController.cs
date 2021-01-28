@@ -64,8 +64,8 @@ namespace SiinErp.Areas.Inventario.Controllers
                 List<MovimientosDetalle> listDetalleMov = data["listDetalleMov"].ToObject<List<MovimientosDetalle>>();
                 List<MovimientosFormasPago> listDetallePag = data["listDetallePag"].ToObject<List<MovimientosFormasPago>>();
 
-                BusinessMov.CreateByPuntoDeVenta(entityMov, listDetalleMov, listDetallePag);
-                return Ok(true);
+                int id = BusinessMov.CreateByPuntoDeVenta(entityMov, listDetalleMov, listDetallePag);
+                return Ok(id);
             }
             catch (Exception ex)
             {

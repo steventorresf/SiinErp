@@ -37,8 +37,8 @@ namespace SiinErp.Areas.General.Controllers
         {
             try
             {
-                var lista = BusinessTer.GetClienteByIden(data);
-                return Ok(lista);
+                var entity = BusinessTer.GetClienteByIden(data);
+                return Ok(new { resp = true, entity });
             }
             catch (Exception)
             {

@@ -111,6 +111,9 @@ namespace SiinErp.Areas.Inventario.Entities
         public string TelefonoTercero { get; set; }
 
         [NotMapped]
+        public string DireccionTercero { get; set; }
+
+        [NotMapped]
         public string NombreAlmacen { get; set; }
 
         [NotMapped]
@@ -136,6 +139,9 @@ namespace SiinErp.Areas.Inventario.Entities
 
         [NotMapped]
         public PlazosPago PlazoPago { get; set; }
+
+        [NotMapped]
+        public ListaPrecios ListaPrecios { get; set; }
 
         [NotMapped]
         public List<MovimientosDetalle> ListaDetalle { get; set; }

@@ -1,4 +1,5 @@
 ﻿using SiinErp.Areas.Cartera.Entities;
+using SiinErp.Areas.Ventas.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -84,5 +85,8 @@ namespace SiinErp.Areas.General.Entities
 
         [NotMapped]
         public PlazosPago PlazoPago { get; set; }
+
+        [NotMapped]
+        public ListaPrecios ListaPrecios { get; set; }
     }
 }

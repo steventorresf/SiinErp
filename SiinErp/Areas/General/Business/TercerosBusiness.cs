@@ -224,6 +224,7 @@ namespace SiinErp.Areas.General.Business
                                    join dep in context.Departamentos on ciu.IdDepartamento equals dep.IdDepartamento
                                    join zon in context.TablasDetalles on cli.IdDetZona equals zon.IdDetalle
                                    join pla in context.PlazosPagos on cli.IdPlazoPago equals pla.IdPlazoPago
+                                   join lip in context.ListaPrecios on cli.IdListaPrecio equals lip.IdListaPrecio
                                    select new Terceros()
                                    {
                                        IdTercero = cli.IdTercero,
@@ -250,6 +251,7 @@ namespace SiinErp.Areas.General.Business
                                        Estado = cli.Estado,
                                        NombreTipoPersona = tip.Descripcion,
                                        PlazoPago = pla,
+                                       ListaPrecios = lip,
                                        NombreCiudad = ciu.NombreCiudad + " - " + dep.NombreDepartamento,
                                        IdDepartamento = dep.IdDepartamento,
                                    }).FirstOrDefault();

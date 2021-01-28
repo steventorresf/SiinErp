@@ -157,7 +157,7 @@ namespace SiinErp.Areas.Inventario.Business
             }
         }
 
-        public void CreateByPuntoDeVenta(Movimientos entityMov, List<MovimientosDetalle> listaDetalleMov, List<MovimientosFormasPago> listaDetallePag)
+        public int CreateByPuntoDeVenta(Movimientos entityMov, List<MovimientosDetalle> listaDetalleMov, List<MovimientosFormasPago> listaDetallePag)
         {
             try
             {
@@ -175,6 +175,7 @@ namespace SiinErp.Areas.Inventario.Business
                     entityMov.Periodo = entityMov.FechaDoc.ToString("yyyyMM");
                     entityMov.IdDetCenCosto = null;
                     entityMov.Estado = Constantes.EstadoActivo;
+                    entityMov.FechaVencimiento = entityMov.PlazoPago == null ? entityMov.FechaDoc : entityMov.FechaDoc.AddDays(entityMov.PlazoPago.PlazoDias);
                     entityMov.FechaCreacion = DateTimeOffset.Now;
                     context.Movimientos.Add(entityMov);
                     context.SaveChanges();
@@ -220,6 +221,8 @@ namespace SiinErp.Areas.Inventario.Business
                     context.SaveChanges();
 
                     transaccion.Commit();
+
+                    return obMov.IdMovimiento;
                 }
             }
             catch (Exception ex)

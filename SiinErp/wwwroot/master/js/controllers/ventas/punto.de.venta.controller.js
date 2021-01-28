@@ -5,15 +5,14 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'growl', 'GenTercerosService', 'VenListaPreciosService', 'InvArticulosService', 'InvMovimientosService', 'GenTablasDetService', 'VenCajaService', 'CarPlazosPagoService', 'VenVendedoresService', 'GenDepartamentosService', 'GenCiudadesService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'growl', 'GenTercerosService', 'VenListaPreciosService', 'InvArticulosService', 'InvMovimientosService', 'GenTablasDetService', 'VenCajaService', 'CarPlazosPagoService', 'VenVendedoresService', 'GenDepartamentosService', 'GenCiudadesService', 'CarPlazosPagoService'];
 
-    function AppController($location, $cookies, $scope, growl, terService, lisService, artService, movService, tabdetService, cajaService, ppaService, venService, depService, ciuService) {
+    function AppController($location, $cookies, $scope, growl, terService, lisService, artService, movService, tabdetService, cajaService, ppaService, venService, depService, ciuService, ppaService) {
         var vm = this;
 
         vm.title = 'Home Page';
         vm.init = init;
         vm.userApp = angular.copy($cookies.getObject('UsuApp'));
-        vm.onChangeCliente = onChangeCliente;
         vm.refreshArticulo = refreshArticulo;
         vm.onChangeArticulo = onChangeArticulo;
         vm.btnGuardar = btnGuardar;
@@ -27,6 +26,7 @@
             creadoPor: vm.userApp.nombreUsuario,
         };
 
+        vm.getClienteByIden = getClienteByIden;
         vm.getArticuloByCod = getArticuloByCod;
         vm.clicTipoBusqueda = clicTipoBusqueda;
         vm.busquedaArtCodigo = true;
@@ -38,17 +38,22 @@
         vm.cancelarCliente = cancelarCliente;
         vm.getCiudades = getCiudades;
 
+        vm.onChangeListaPrecios = onChangeListaPrecios;
+        vm.onChangePlazoPago = onChangePlazoPago;
+
+        vm.imprimirFact = imprimirFact;
+        vm.terminarFact = terminarFact;
+
 
         function init() {
             vm.gridPrincipal = true;
             vm.entityMov.fechaDoc = new Date();
-            getClientes();
+            getPlazosPago();
             getListasPrecios();
             getAlmacens();
             getCajeros();
             getFormsPagos();
 
-            getPlazosPago();
             getVendedores();
             getZonas();
             getDepartamentos();
@@ -56,32 +61,47 @@
         }
 
 
-        function getClientes() {
-            var response = terService.getActCli(vm.userApp.idEmpresa);
 
-            response.then(
-                function (response) {
-                    vm.listClientes = [];
-
-                    var data = response.data;
-                    for (var i = 0; i < data.length; i++) {
-                        vm.listClientes.push(data[i]);
-                    }
-                    vm.listClientes.push({ idTercero: 0, nombreTercero: '*Sin Cliente*' });
-                },
-                function (response) {
-                    console.log(response);
-                }
-            );
-        }
-
-        function onChangeCliente($item, $model) {
+        function getClienteByIden() {
+            vm.entityMov.idTercero = null;
+            vm.entityMov.nombreTercero = null;
+            vm.entityMov.direccionTercero = null;
+            vm.entityMov.telefonoTercero = null;
+            vm.entityMov.idPlazoPago = null;
+            vm.entityMov.plazoPago = null;
             vm.entityMov.idListaPrecio = null;
+            vm.entityMov.listaPrecios = null;
 
-            if ($item.idTercero > 0) {
-                vm.entityMov.idListaPrecio = $item.idListaPrecio;
+            if (vm.entityMov.nitCedula != '') {
+                var data = {
+                    idEmpresa: vm.userApp.idEmpresa,
+                    nitCedula: vm.entityMov.nitCedula,
+                };
+
+                var response = terService.getCliByIden(data);
+                response.then(
+                    function (response) {
+                        var dataCli = response.data.entity;
+                        console.log(dataCli);
+                        if (dataCli != null) {
+                            vm.entityMov.idTercero = dataCli.idTercero;
+                            vm.entityMov.nombreTercero = dataCli.nombreTercero;
+                            vm.entityMov.direccionTercero = dataCli.direccion;
+                            vm.entityMov.telefonoTercero = dataCli.telefono;
+                            vm.entityMov.idPlazoPago = dataCli.idPlazoPago;
+                            vm.entityMov.plazoPago = dataCli.plazoPago;
+                            vm.entityMov.idListaPrecio = dataCli.idListaPrecio;
+                            vm.entityMov.listaPrecios = dataCli.listaPrecios;
+                        }
+                        else { vm.entityMov.nitCedula = null; }
+                    },
+                    function (response) {
+                        console.log(response);
+                    }
+                );
             }
         }
+
 
         function getListasPrecios() {
             var response = lisService.getAll(vm.userApp.idEmpresa);
@@ -93,6 +113,26 @@
                     console.log(response);
                 }
             );
+        }
+
+        function onChangeListaPrecios($item, $model) {
+            vm.entityMov.listaPrecios = $item;
+        }
+
+        function getPlazosPago() {
+            var response = ppaService.getAll(vm.userApp.idEmpresa);
+            response.then(
+                function (response) {
+                    vm.listPlazosPago = response.data;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        function onChangePlazoPago($item, $model) {
+            vm.entityMov.plazoPago = $item;
         }
 
         function getAlmacens() {
@@ -484,7 +524,9 @@
                 var response = movService.createByPuntoDeVenta(data);
                 response.then(
                     function (response) {
-                        window.location.reload();
+                        vm.entityMov.idMovimiento = response.data;
+                        vm.gridPrincipal = false;
+                        vm.gridTerminado = true;
                     },
                     function (response) {
                         console.log(response);
@@ -496,6 +538,14 @@
             }
 
             
+        }
+
+        function imprimirFact() {
+            movService.imprimirFA(vm.entityMov.idMovimiento);
+        }
+
+        function terminarFact() {
+            window.location.reload();
         }
 
 
@@ -510,18 +560,6 @@
 
             vm.gridPrincipal = false;
             vm.gridCliente = true;
-        }
-        
-        function getPlazosPago() {
-            var response = ppaService.getAll(vm.userApp.idEmpresa);
-            response.then(
-                function (response) {
-                    vm.listPlazosPago = response.data;
-                },
-                function (response) {
-                    console.log(response);
-                }
-            );
         }
 
         function getVendedores() {
@@ -598,25 +636,6 @@
                     cancelarCliente();
                     getClientes();
                     getClienteByIden();
-                },
-                function (response) {
-                    console.log(response);
-                }
-            );
-        }
-
-        function getClienteByIden() {
-            var data = {
-                idEmpresa: vm.userApp.idEmpresa,
-                nitCedula: vm.entityCli.nitCedula,
-            };
-
-            var response = terService.getCliByIden(data);
-            response.then(
-                function (response) {
-                    var dataCli = response.data;
-                    vm.entityMov.idTercero = dataCli.idTercero;
-                    vm.entityMov.idListaPrecio = dataCli.idListaPrecio;
                 },
                 function (response) {
                     console.log(response);
