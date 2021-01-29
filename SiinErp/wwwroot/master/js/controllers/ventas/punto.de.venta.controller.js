@@ -108,7 +108,6 @@
                             vm.entityMov.idListaPrecio = dataCli.idListaPrecio;
                             vm.entityMov.listaPrecios = dataCli.listaPrecios;
                         }
-                        else { vm.entityMov.nitCedula = null; }
                     },
                     function (response) {
                         console.log(response);
@@ -569,6 +568,7 @@
         // Cliente
         function crearCliente() {
             vm.entityCli = {
+                nitCedula: angular.copy(vm.entityMov.nitCedula),
                 idEmpresa: vm.userApp.idEmpresa,
                 tipoTercero: TipoTercero.Cliente,
                 estado: Estados.Activo,
@@ -650,8 +650,9 @@
             var response = terService.create(vm.entityCli);
             response.then(
                 function (response) {
+                    vm.entityMov.nitCedula = angular.copy(vm.entityCli.nitCedula);
+
                     cancelarCliente();
-                    getClientes();
                     getClienteByIden();
                 },
                 function (response) {

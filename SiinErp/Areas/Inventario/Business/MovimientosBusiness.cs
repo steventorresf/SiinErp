@@ -164,14 +164,14 @@ namespace SiinErp.Areas.Inventario.Business
                 SiinErpContext context = new SiinErpContext();
                 using (var transaccion = context.Database.BeginTransaction())
                 {
-                    TiposDoc tiposdocmov = context.TiposDoc.FirstOrDefault(x => x.TipoDoc.Equals(Constantes.InvDocFacturaPuntoVenta) && x.IdDetAlmacen == entityMov.IdDetAlmacen && x.IdEmpresa == entityMov.IdEmpresa);
+                    TiposDocumento tiposdocmov = context.TiposDocumentos.FirstOrDefault(x => x.TipoDoc.Equals(entityMov.TipoDoc) && x.IdEmpresa == entityMov.IdEmpresa);
                     tiposdocmov.NumDoc++;
                     context.SaveChanges();
 
                     entityMov.TipoDoc = tiposdocmov.TipoDoc;
                     entityMov.NumDoc = tiposdocmov.NumDoc;
                     entityMov.CodModulo = Constantes.ModuloVentas;
-                    entityMov.Transaccion = tiposdocmov.Transaccion;
+                    entityMov.Transaccion = 1;//tiposdocmov.IdDetTransaccion;
                     entityMov.Periodo = entityMov.FechaDoc.ToString("yyyyMM");
                     entityMov.IdDetCenCosto = null;
                     entityMov.Estado = Constantes.EstadoActivo;
