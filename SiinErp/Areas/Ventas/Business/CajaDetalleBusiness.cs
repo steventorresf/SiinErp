@@ -1,6 +1,8 @@
-﻿using SiinErp.Areas.General.Business;
+﻿using SiinErp.Areas.General.Abstract;
+using SiinErp.Areas.General.Business;
 using SiinErp.Areas.General.Entities;
 using SiinErp.Areas.Inventario.Entities;
+using SiinErp.Areas.Ventas.Abstract;
 using SiinErp.Areas.Ventas.Entities;
 using SiinErp.Models;
 using SiinErp.Utiles;
@@ -11,8 +13,16 @@ using System.Threading.Tasks;
 
 namespace SiinErp.Areas.Ventas.Business
 {
-    public class CajaDetalleBusiness
+    public class CajaDetalleBusiness : ICajaDetalleBusiness
     {
+        private readonly IErrorBusiness errorBusiness;
+
+        public CajaDetalleBusiness()
+        {
+            errorBusiness = new ErrorBusiness();
+        }
+
+
         public List<CajaDetalle> GetCajaDetalleById(int IdCaja)
         {
             try
@@ -37,7 +47,7 @@ namespace SiinErp.Areas.Ventas.Business
             }
             catch (Exception ex)
             {
-                ErroresBusiness.Create("GetCajaDetalleById", ex.Message, null);
+                errorBusiness.Create("GetCajaDetalleById", ex.Message, null);
                 throw;
             }
         }
@@ -50,7 +60,7 @@ namespace SiinErp.Areas.Ventas.Business
                 SiinErpContext context = new SiinErpContext();
                 using (var tran = context.Database.BeginTransaction())
                 {
-                    TiposDocumento entityTip = context.TiposDocumentos.FirstOrDefault(x => x.TipoDoc.Equals(entity.TipoDoc));
+                    TipoDocumento entityTip = context.TiposDocumentos.FirstOrDefault(x => x.TipoDoc.Equals(entity.TipoDoc));
                     entityTip.NumDoc++;
                     context.SaveChanges();
 
@@ -65,7 +75,7 @@ namespace SiinErp.Areas.Ventas.Business
             }
             catch (Exception ex)
             {
-                ErroresBusiness.Create("Create", ex.Message, null);
+                errorBusiness.Create("Create", ex.Message, null);
                 throw;
             }
         }
@@ -81,7 +91,7 @@ namespace SiinErp.Areas.Ventas.Business
             }
             catch (Exception ex)
             {
-                ErroresBusiness.Create("GetCantidadDetalleCaja", ex.Message, null);
+                errorBusiness.Create("GetCantidadDetalleCaja", ex.Message, null);
                 throw;
             }
         }

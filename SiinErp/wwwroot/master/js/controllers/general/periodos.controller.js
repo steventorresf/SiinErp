@@ -5,7 +5,7 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$scope', '$cookies', 'GenPeriodosService', 'GenModulosService'];
+    AppController.$inject = ['$location', '$scope', '$cookies', 'GenPeriodoService', 'GenModuloService'];
 
     function AppController($location, $scope, $cookies, perService, modService) {
         

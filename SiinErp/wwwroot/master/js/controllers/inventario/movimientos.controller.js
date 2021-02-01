@@ -5,7 +5,7 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'growl', 'InvMovimientosService', 'GenTablasDetService', 'InvTiposDocService', 'InvArticulosService', 'GenTercerosService', 'InvMovimientosDetalleService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'growl', 'InvMovimientoService', 'GenTablaDetService', 'GenTipoDocService', 'InvArticuloService', 'GenTerceroService', 'InvMovimientoDetalleService'];
 
     function AppController($location, $cookies, $scope, growl, movService, tabdetService, tipdocService, artService, terService, movdetService) {
         var vm = this;
@@ -139,7 +139,7 @@
             vm.entityMov.idDetCenCosto = angular.copy(entity.idDetCenCosto);
          
             getTerceros();
-            getTiposDocByAlmacen();
+            getTiposDocByInventario();
             getDetalleMov();
 
             vm.modify = true;
@@ -170,6 +170,8 @@
             vm.modify = false;
             $scope.modify = false;
             vm.formMov = true;
+
+            getTiposDocByInventario();
         }
 
         function getAlmacens() {
@@ -198,12 +200,10 @@
 
         function onChangeAlmacen($item, $model) {
             vm.gridOptions.data = [];
-            vm.entityMov.tipoDoc = null;
-            getTiposDocByAlmacen();
         }
 
-        function getTiposDocByAlmacen() {
-            var response = tipdocService.getByAlmacen(vm.entityMov.idDetAlmacen, vm.userApp.idEmpresa);
+        function getTiposDocByInventario() {
+            var response = tipdocService.getByModulo(vm.userApp.idEmpresa, Modulo.Inventario);
             response.then(
                 function (response) {
                     vm.listTiposDoc = response.data;
@@ -428,8 +428,6 @@
                     entityMov: vm.entityMov,
                     listDetalleMov: vm.gridOptions.data,
                 };
-
-
 
                 var response = movService.create(data);
                 response.then(

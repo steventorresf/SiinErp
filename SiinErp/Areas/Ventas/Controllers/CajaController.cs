@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SiinErp.Areas.Ventas.Abstract;
 using SiinErp.Areas.Ventas.Business;
 using SiinErp.Areas.Ventas.Entities;
 using SiinErp.Utiles;
@@ -15,14 +16,19 @@ namespace SiinErp.Areas.Ventas.Controllers
     [Area(Constantes.Area_Ventas)]
     public class CajaController : ControllerBase
     {
-        private CajaBusiness BusinessCaja = new CajaBusiness();
+        private readonly ICajaBusiness cajaBusiness;
+
+        public CajaController()
+        {
+            cajaBusiness = new CajaBusiness();
+        }
 
         [HttpGet("{IdCajero}")]
         public IActionResult Get(int IdCajero)
         {
             try
             {
-                var lista = BusinessCaja.GetCajasById(IdCajero);
+                var lista = cajaBusiness.GetCajasById(IdCajero);
                 return Ok(lista);
             }
             catch (Exception)
@@ -36,7 +42,7 @@ namespace SiinErp.Areas.Ventas.Controllers
         {
             try
             {
-                BusinessCaja.Create(entity);
+                cajaBusiness.Create(entity);
                 return Ok(true);
             }
             catch (Exception)
@@ -50,7 +56,7 @@ namespace SiinErp.Areas.Ventas.Controllers
         {
             try
             {
-                BusinessCaja.Update(IdCaja, entity);
+                cajaBusiness.Update(IdCaja, entity);
                 return Ok(true);
             }
             catch (Exception)
@@ -64,7 +70,7 @@ namespace SiinErp.Areas.Ventas.Controllers
         {
             try
             {
-                int idCaja = BusinessCaja.GetIdCajaActiva(IdCajero);
+                int idCaja = cajaBusiness.GetIdCajaActiva(IdCajero);
                 return Ok(idCaja);
             }
             catch (Exception)
@@ -78,7 +84,7 @@ namespace SiinErp.Areas.Ventas.Controllers
         {
             try
             {
-                int idDetCajero = BusinessCaja.GetLastIdDetCajeroByUsu(NomUsu, IdEmp);
+                int idDetCajero = cajaBusiness.GetLastIdDetCajeroByUsu(NomUsu, IdEmp);
                 return Ok(idDetCajero);
             }
             catch (Exception)
@@ -92,7 +98,7 @@ namespace SiinErp.Areas.Ventas.Controllers
         {
             try
             {
-                decimal SaldoEnCaja = BusinessCaja.GetSaldoEnCajaActual(IdCaja);
+                decimal SaldoEnCaja = cajaBusiness.GetSaldoEnCajaActual(IdCaja);
                 return Ok(SaldoEnCaja);
             }
             catch (Exception)
@@ -106,7 +112,7 @@ namespace SiinErp.Areas.Ventas.Controllers
         {
             try
             {
-                var entity = BusinessCaja.GetCajaImpresion(IdCaja);
+                var entity = cajaBusiness.GetCajaImpresion(IdCaja);
                 return Ok(entity);
             }
             catch (Exception)

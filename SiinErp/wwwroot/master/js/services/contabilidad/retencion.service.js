@@ -8,7 +8,7 @@
     ContRetencionService.$inject = ['$http', '$q'];
 
     function ContRetencionService($http, $q) {
-        var nameSpace = '/Contabilidad/api/Retenciones/';
+        var nameSpace = '/Contabilidad/api/Retencion/';
 
         var service = {
             getAll: getAll,

@@ -18,10 +18,6 @@ namespace SiinErp.Areas.Inventario.Controllers
         {
             return View();
         }
-        public IActionResult TiposDoc()
-        {
-            return View();
-        }
         public IActionResult EntradasPorCompra()
         {
             return View();

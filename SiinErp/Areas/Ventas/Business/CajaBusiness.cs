@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
+using SiinErp.Areas.General.Abstract;
 using SiinErp.Areas.General.Business;
 using SiinErp.Areas.General.Entities;
+using SiinErp.Areas.Ventas.Abstract;
 using SiinErp.Areas.Ventas.Entities;
 using SiinErp.Models;
 using SiinErp.Utiles;
@@ -11,8 +13,16 @@ using System.Threading.Tasks;
 
 namespace SiinErp.Areas.Ventas.Business
 {
-    public class CajaBusiness
+    public class CajaBusiness : ICajaBusiness
     {
+        private readonly IErrorBusiness errorBusiness;
+
+        public CajaBusiness()
+        {
+            errorBusiness = new ErrorBusiness();
+        }
+
+
         public List<Caja> GetCajasById(int IdCajero)
         {
             try
@@ -43,7 +53,7 @@ namespace SiinErp.Areas.Ventas.Business
             }
             catch (Exception ex)
             {
-                ErroresBusiness.Create("GetCajasById", ex.Message, null);
+                errorBusiness.Create("GetCajasById", ex.Message, null);
                 throw;
             }
         }
@@ -63,7 +73,7 @@ namespace SiinErp.Areas.Ventas.Business
             }
             catch (Exception ex)
             {
-                ErroresBusiness.Create("CreateCaja", ex.Message, null);
+                errorBusiness.Create("CreateCaja", ex.Message, null);
                 throw;
             }
         }
@@ -83,7 +93,7 @@ namespace SiinErp.Areas.Ventas.Business
             }
             catch (Exception ex)
             {
-                ErroresBusiness.Create("UpdateCerrarCaja", ex.Message, null);
+                errorBusiness.Create("UpdateCerrarCaja", ex.Message, null);
                 throw;
             }
         }
@@ -107,7 +117,7 @@ namespace SiinErp.Areas.Ventas.Business
             }
             catch (Exception ex)
             {
-                ErroresBusiness.Create("GetIdCajaActiva", ex.Message, null);
+                errorBusiness.Create("GetIdCajaActiva", ex.Message, null);
                 throw;
             }
         }
@@ -127,7 +137,7 @@ namespace SiinErp.Areas.Ventas.Business
             }
             catch (Exception ex)
             {
-                ErroresBusiness.Create("GetLastIdDetCajeroByUsu", ex.Message, null);
+                errorBusiness.Create("GetLastIdDetCajeroByUsu", ex.Message, null);
                 throw;
             }
         }
@@ -152,7 +162,7 @@ namespace SiinErp.Areas.Ventas.Business
             }
             catch (Exception ex)
             {
-                ErroresBusiness.Create("GetSaldoEnCajaActual", ex.Message, null);
+                errorBusiness.Create("GetSaldoEnCajaActual", ex.Message, null);
                 throw;
             }
         }
@@ -211,7 +221,7 @@ namespace SiinErp.Areas.Ventas.Business
             }
             catch (Exception ex)
             {
-                ErroresBusiness.Create("ImprimirCaja", ex.Message, null);
+                errorBusiness.Create("ImprimirCaja", ex.Message, null);
                 throw;
             }
         }

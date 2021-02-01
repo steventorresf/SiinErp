@@ -5,7 +5,7 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'GenTercerosService', 'CarConceptosService', 'InvMovimientosService', 'CarMovimientosService', 'GenTiposDocService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'GenTerceroService', 'CarConceptoService', 'InvMovimientoService', 'CarMovimientoService', 'GenTipoDocService'];
 
     function AppController($location, $cookies, $scope, terService, conService, movInvService, movService, tipdocService) {
         var vm = this;

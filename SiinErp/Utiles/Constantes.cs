@@ -44,15 +44,12 @@ namespace SiinErp.Utiles
         public const string TransEntrada = "Entrada";
         public const string TransSalida = "Salida";
 
-        // Tipos de documento compra
-        public const string ComDocOrdenCompra = "OC";
-
-        // Tipos de documento inventario
-        public const string InvDocEntradaOc = "CO";
-        public const string InvDocFacturaPuntoVenta = "FA";
-        public const string InvDocFacturaVenta = "FC";
-        public const string InvDocTraslados = "TB";
-        public const string InvDocEntradaTraslado = "ET";
+        // Tipos de documento
+        public const string TipoDocOrdenCompra = "OC";
+        public const string TipoDocEntradaOc = "CO";
+        public const string TipoDocFacturaVenta = "FV";
+        public const string TipoDocTraslados = "TB";
+        public const string TipoDocEntradaTraslado = "ET";
 
         // Tipos de documento ventas
         public const string VenDocEgresoCaja = "EG";

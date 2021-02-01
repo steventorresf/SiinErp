@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SiinErp.Areas.Ventas.Abstract;
 using SiinErp.Areas.Ventas.Business;
 using SiinErp.Areas.Ventas.Entities;
 using SiinErp.Utiles;
@@ -15,14 +16,19 @@ namespace SiinErp.Areas.Ventas.Controllers
     [Area(Constantes.Area_Ventas)]
     public class CajaDetalleController : ControllerBase
     {
-        private CajaDetalleBusiness BusinessCajaDet = new CajaDetalleBusiness();
+        private readonly ICajaDetalleBusiness cajaDetalleBusiness;
+
+        public CajaDetalleController()
+        {
+            cajaDetalleBusiness = new CajaDetalleBusiness();
+        }
 
         [HttpPost("Create")]
         public IActionResult Create([FromBody] CajaDetalle entity)
         {
             try
             {
-                BusinessCajaDet.Create(entity);
+                cajaDetalleBusiness.Create(entity);
                 return Ok(true);
             }
             catch (Exception)
@@ -36,7 +42,7 @@ namespace SiinErp.Areas.Ventas.Controllers
         {
             try
             {
-                int cant = BusinessCajaDet.GetCantidadDetalleCaja(IdCaja);
+                int cant = cajaDetalleBusiness.GetCantidadDetalleCaja(IdCaja);
                 return Ok(cant);
             }
             catch (Exception)

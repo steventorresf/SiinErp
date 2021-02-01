@@ -5,9 +5,9 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'VenVendedoresService', 'CarPlazosPagoService', 'GenTablasDetService', 'InvArticulosService', 'InvTiposDocService', 'InvMovimientosService', 'InvMovimientosDetalleService', 'VenFacturasService', 'GenTercerosService', 'VenListaPreciosDetalleService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'VenVendedorService', 'CarPlazoPagoService', 'GenTablaDetService', 'InvArticuloService', 'GenTipoDocService', 'InvMovimientoService', 'InvMovimientoDetalleService', 'GenTerceroService', 'VenListaPrecioDetalleService'];
 
-    function AppController($location, $cookies, $scope, venService, ppaService, tabdetService, artService, tipdocService, movService, movdetService, facService, terService, lisdetService) {
+    function AppController($location, $cookies, $scope, venService, ppaService, tabdetService, artService, tipdocService, movService, movdetService, terService, lisdetService) {
         var vm = this;
         var fecha = new Date();
 
@@ -175,11 +175,11 @@
         }
 
         function imprimir(entity) {
-            if (entity.tipoDoc === 'FC') {
+            if (entity.idTercero > 0) {
                 movService.imprimirFC(entity.idMovimiento);
             }
 
-            if (entity.tipoDoc === 'FA') {
+            if (entity.idTercero === null) {
                 movService.imprimirFA(entity.idMovimiento);
             }
         }
@@ -257,7 +257,7 @@
         }
 
         function getTipoDoc() {
-            var response = tipdocService.getTipoDoc(vm.userApp.idEmpresa, InvTiposDoc.FacturaVenta);
+            var response = tipdocService.getByCod(vm.userApp.idEmpresa, GenTiposDoc.FacturaVenta);
             response.then(
                 function (response) {
                     var data = response.data;

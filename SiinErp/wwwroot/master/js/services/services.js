@@ -3,12 +3,12 @@
 
     angular
         .module('app')
-        .factory('CarConceptosService', CarConceptosService);
+        .factory('CarConceptoService', CarConceptoService);
 
-    CarConceptosService.$inject = ['$http', '$q'];
+    CarConceptoService.$inject = ['$http', '$q'];
 
-    function CarConceptosService($http, $q) {
-        var nameSpace = '/Cartera/api/Conceptos/';
+    function CarConceptoService($http, $q) {
+        var nameSpace = '/Cartera/api/Concepto/';
 
         var service = {
             getAll: getAll,
@@ -77,12 +77,12 @@
 
     angular
         .module('app')
-        .factory('CarMovimientosService', CarMovimientosService);
+        .factory('CarMovimientoService', CarMovimientoService);
 
-    CarMovimientosService.$inject = ['$http', '$q'];
+    CarMovimientoService.$inject = ['$http', '$q'];
 
-    function CarMovimientosService($http, $q) {
-        var nameSpace = '/Cartera/api/Movimientos/';
+    function CarMovimientoService($http, $q) {
+        var nameSpace = '/Cartera/api/Movimiento/';
 
         var service = {
             getAll: getAll,
@@ -151,12 +151,12 @@
 
     angular
         .module('app')
-        .factory('CarPlazosPagoService', CarPlazosPagoService);
+        .factory('CarPlazoPagoService', CarPlazoPagoService);
 
-    CarPlazosPagoService.$inject = ['$http', '$q'];
+    CarPlazoPagoService.$inject = ['$http', '$q'];
 
-    function CarPlazosPagoService($http, $q) {
-        var nameSpace = '/Cartera/api/PlazosPago/';
+    function CarPlazoPagoService($http, $q) {
+        var nameSpace = '/Cartera/api/PlazoPago/';
 
         var service = {
             getAll: getAll,
@@ -211,86 +211,12 @@
 
     angular
         .module('app')
-        .factory('ComOrdenesDetService', ComOrdenesDetService);
+        .factory('ComOrdenService', ComOrdenService);
 
-    ComOrdenesDetService.$inject = ['$http', '$q'];
+    ComOrdenService.$inject = ['$http', '$q'];
 
-    function ComOrdenesDetService($http, $q) {
-        var nameSpace = '/Compras/api/OrdenesDetalle/';
-
-        var service = {
-            getAll: getAll,
-            create: create,
-            update: update,
-            remove: remove,
-        };
-
-        return service;
-
-        function getAll(idOrd) {
-            return $http.get(nameSpace + idOrd)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-
-        function create(data) {
-            return $http.post(nameSpace, data)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-
-        function update(id, data) {
-            return $http.put(nameSpace + id, data)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-
-        function remove(id) {
-            return $http.delete(nameSpace + id)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-    }
-})();
-(function () {
-    'use strict';
-
-    angular
-        .module('app')
-        .factory('ComOrdenesService', ComOrdenesService);
-
-    ComOrdenesService.$inject = ['$http', '$q'];
-
-    function ComOrdenesService($http, $q) {
-        var nameSpace = '/Compras/api/Ordenes/';
+    function ComOrdenService($http, $q) {
+        var nameSpace = '/Compras/api/Orden/';
 
         var service = {
             getAll: getAll,
@@ -359,23 +285,24 @@
 
     angular
         .module('app')
-        .factory('ComProveedoresService', ComProveedoresService);
+        .factory('ComOrdenDetService', ComOrdenDetService);
 
-    ComProveedoresService.$inject = ['$http', '$q'];
+    ComOrdenDetService.$inject = ['$http', '$q'];
 
-    function ComProveedoresService($http, $q) {
-        var nameSpace = '/Compras/api/Proveedores/';
+    function ComOrdenDetService($http, $q) {
+        var nameSpace = '/Compras/api/OrdenDetalle/';
 
         var service = {
             getAll: getAll,
             create: create,
             update: update,
+            remove: remove,
         };
 
         return service;
 
-        function getAll(idEmp) {
-            return $http.get(nameSpace + idEmp)
+        function getAll(idOrd) {
+            return $http.get(nameSpace + idOrd)
                 .then(
                     function (response) {
                         return response;
@@ -412,6 +339,19 @@
                     }
                 );
         }
+
+        function remove(id) {
+            return $http.delete(nameSpace + id)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
     }
 })();
 (function () {
@@ -419,11 +359,11 @@
 
     angular
         .module('app')
-        .factory('ContComprobantesService', ContComprobantesService);
+        .factory('ContComprobanteService', ContComprobanteService);
 
-    ContComprobantesService.$inject = ['$http', '$q'];
+    ContComprobanteService.$inject = ['$http', '$q'];
 
-    function ContComprobantesService($http, $q) {
+    function ContComprobanteService($http, $q) {
         var nameSpace = '/Contabilidad/api/Comprobantes/';
 
         var service = {
@@ -493,12 +433,12 @@
 
     angular
         .module('app')
-        .factory('ContComprobantesDetService', ContComprobantesDetService);
+        .factory('ContComprobanteDetService', ContComprobanteDetService);
 
-    ContComprobantesDetService.$inject = ['$http', '$q'];
+    ContComprobanteDetService.$inject = ['$http', '$q'];
 
-    function ContComprobantesDetService($http, $q) {
-        var nameSpace = '/Contabilidad/api/ComprobantesDetalle/';
+    function ContComprobanteDetService($http, $q) {
+        var nameSpace = '/Contabilidad/api/ComprobanteDetalle/';
 
         var service = {
             getAll: getAll,
@@ -558,7 +498,7 @@
     ContPlanDeCuentaService.$inject = ['$http', '$q'];
 
     function ContPlanDeCuentaService($http, $q) {
-        var nameSpace = '/Contabilidad/api/PlanDeCuentas/';
+        var nameSpace = '/Contabilidad/api/PlanDeCuenta/';
 
         var service = {
             getAll: getAll,
@@ -646,7 +586,7 @@
     ContRetencionService.$inject = ['$http', '$q'];
 
     function ContRetencionService($http, $q) {
-        var nameSpace = '/Contabilidad/api/Retenciones/';
+        var nameSpace = '/Contabilidad/api/Retencion/';
 
         var service = {
             getAll: getAll,
@@ -715,12 +655,12 @@
 
     angular
         .module('app')
-        .factory('ContTiposDocService', ContTiposDocService);
+        .factory('ContTipoDocService', ContTipoDocService);
 
-    ContTiposDocService.$inject = ['$http', '$q'];
+    ContTipoDocService.$inject = ['$http', '$q'];
 
-    function ContTiposDocService($http, $q) {
-        var nameSpace = '/Contabilidad/api/TiposContab/';
+    function ContTipoDocService($http, $q) {
+        var nameSpace = '/Contabilidad/api/TipoContab/';
 
         var service = {
             getAll: getAll,
@@ -790,12 +730,12 @@
 
     angular
         .module('app')
-        .factory('GenCiudadesService', GenCiudadesService);
+        .factory('GenCiudadService', GenCiudadService);
 
-    GenCiudadesService.$inject = ['$http', '$q'];
+    GenCiudadService.$inject = ['$http', '$q'];
 
-    function GenCiudadesService($http, $q) {
-        var nameSpace = '/General/api/Ciudades/';
+    function GenCiudadService($http, $q) {
+        var nameSpace = '/General/api/Ciudad/';
 
         var service = {
             getAll: getAll,
@@ -850,12 +790,12 @@
 
     angular
         .module('app')
-        .factory('GenDepartamentosService', GenDepartamentosService);
+        .factory('GenDepartamentoService', GenDepartamentoService);
 
-    GenDepartamentosService.$inject = ['$http', '$q'];
+    GenDepartamentoService.$inject = ['$http', '$q'];
 
-    function GenDepartamentosService($http, $q) {
-        var nameSpace = '/General/api/Departamentos/';
+    function GenDepartamentoService($http, $q) {
+        var nameSpace = '/General/api/Departamento/';
 
         var service = {
             getAll: getAll,
@@ -910,12 +850,12 @@
 
     angular
         .module('app')
-        .factory('GenEmpresasService', GenEmpresasService);
+        .factory('GenEmpresaService', GenEmpresaService);
 
-    GenEmpresasService.$inject = ['$http', '$q'];
+    GenEmpresaService.$inject = ['$http', '$q'];
 
-    function GenEmpresasService($http, $q) {
-        var nameSpace = '/General/api/Empresas/';
+    function GenEmpresaService($http, $q) {
+        var nameSpace = '/General/api/Empresa/';
 
         var service = {
             getAll: getAll,
@@ -985,12 +925,12 @@
 
     angular
         .module('app')
-        .factory('GenModulosService', GenModulosService);
+        .factory('GenModuloService', GenModuloService);
 
-    GenModulosService.$inject = ['$http', '$q'];
+    GenModuloService.$inject = ['$http', '$q'];
 
-    function GenModulosService($http, $q) {
-        var nameSpace = '/General/api/Modulos/';
+    function GenModuloService($http, $q) {
+        var nameSpace = '/General/api/Modulo/';
 
         var service = {
             getAll: getAll,
@@ -1060,72 +1000,12 @@
 
     angular
         .module('app')
-        .factory('GenPaisesService', GenPaisesService);
+        .factory('GenPaisService', GenPaisService);
 
-    GenPaisesService.$inject = ['$http', '$q'];
+    GenPaisService.$inject = ['$http', '$q'];
 
-    function GenPaisesService($http, $q) {
-        var nameSpace = '/General/api/Paises/';
-
-        var service = {
-            getAll: getAll,
-            create: create,
-            update: update,
-        };
-
-        return service;
-
-        function getAll() {
-            return $http.get(nameSpace)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-
-        function create(data) {
-            return $http.post(nameSpace, data)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-
-        function update(id, data) {
-            return $http.put(nameSpace + id, data)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-    }
-})();
-(function () {
-    'use strict';
-
-    angular
-        .module('app')
-        .factory('GenParametrosService', GenParametrosService);
-
-    GenParametrosService.$inject = ['$http', '$q'];
-
-    function GenParametrosService($http, $q) {
-        var nameSpace = '/General/api/Parametros/';
+    function GenPaisService($http, $q) {
+        var nameSpace = '/General/api/Pais/';
 
         var service = {
             getAll: getAll,
@@ -1180,12 +1060,72 @@
 
     angular
         .module('app')
-        .factory('GenPeriodosService', GenPeriodosService);
+        .factory('GenParametroService', GenParametroService);
 
-    GenPeriodosService.$inject = ['$http', '$q'];
+    GenParametroService.$inject = ['$http', '$q'];
 
-    function GenPeriodosService($http, $q) {
-        var nameSpace = '/General/api/Periodos/';
+    function GenParametroService($http, $q) {
+        var nameSpace = '/General/api/Parametro/';
+
+        var service = {
+            getAll: getAll,
+            create: create,
+            update: update,
+        };
+
+        return service;
+
+        function getAll() {
+            return $http.get(nameSpace)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function create(data) {
+            return $http.post(nameSpace, data)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function update(id, data) {
+            return $http.put(nameSpace + id, data)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+    }
+})();
+(function () {
+    'use strict';
+
+    angular
+        .module('app')
+        .factory('GenPeriodoService', GenPeriodoService);
+
+    GenPeriodoService.$inject = ['$http', '$q'];
+
+    function GenPeriodoService($http, $q) {
+        var nameSpace = '/General/api/Periodo/';
 
         var service = {
             getAll: getAll,
@@ -1254,12 +1194,12 @@
 
     angular
         .module('app')
-        .factory('GenTablasService', GenTablasService);
+        .factory('GenTablaService', GenTablaService);
 
-    GenTablasService.$inject = ['$http', '$q'];
+    GenTablaService.$inject = ['$http', '$q'];
 
-    function GenTablasService($http, $q) {
-        var nameSpace = '/General/api/Tablas/';
+    function GenTablaService($http, $q) {
+        var nameSpace = '/General/api/Tabla/';
 
         var service = {
             getAll: getAll,
@@ -1314,12 +1254,12 @@
 
     angular
         .module('app')
-        .factory('GenTablasDetService', GenTablasDetService);
+        .factory('GenTablaDetService', GenTablaDetService);
 
-    GenTablasDetService.$inject = ['$http', '$q'];
+    GenTablaDetService.$inject = ['$http', '$q'];
 
-    function GenTablasDetService($http, $q) {
-        var nameSpace = '/General/api/TablasDetalle/';
+    function GenTablaDetService($http, $q) {
+        var nameSpace = '/General/api/TablaDetalle/';
 
         var service = {
             getAll: getAll,
@@ -1402,12 +1342,12 @@
 
     angular
         .module('app')
-        .factory('GenTercerosService', GenTercerosService);
+        .factory('GenTerceroService', GenTerceroService);
 
-    GenTercerosService.$inject = ['$http', '$q'];
+    GenTerceroService.$inject = ['$http', '$q'];
 
-    function GenTercerosService($http, $q) {
-        var nameSpace = '/General/api/Terceros/';
+    function GenTerceroService($http, $q) {
+        var nameSpace = '/General/api/Tercero/';
 
         var service = {
             create: create,
@@ -1578,12 +1518,12 @@
 
     angular
         .module('app')
-        .factory('GenTiposDocService', GenTiposDocService);
+        .factory('GenTipoDocService', GenTipoDocService);
 
-    GenTiposDocService.$inject = ['$http', '$q'];
+    GenTipoDocService.$inject = ['$http', '$q'];
 
-    function GenTiposDocService($http, $q) {
-        var nameSpace = '/General/api/TiposDocumento/';
+    function GenTipoDocService($http, $q) {
+        var nameSpace = '/General/api/TipoDocumento/';
 
         var service = {
             getAll: getAll,
@@ -1666,12 +1606,12 @@
 
     angular
         .module('app')
-        .factory('GenUsuariosService', GenUsuariosService);
+        .factory('GenUsuarioService', GenUsuarioService);
 
-    GenUsuariosService.$inject = ['$http', '$q'];
+    GenUsuarioService.$inject = ['$http', '$q'];
 
-    function GenUsuariosService($http, $q) {
-        var nameSpace = '/General/api/Usuarios/';
+    function GenUsuarioService($http, $q) {
+        var nameSpace = '/General/api/Usuario/';
         var service = {
             Login: Login,
             getAll: getAll,
@@ -1782,12 +1722,12 @@
 
     angular
         .module('app')
-        .factory('InvArticulosService', InvArticulosService);
+        .factory('InvArticuloService', InvArticuloService);
 
-    InvArticulosService.$inject = ['$http', '$q'];
+    InvArticuloService.$inject = ['$http', '$q'];
 
-    function InvArticulosService($http, $q) {
-        var nameSpace = '/Inventario/api/Articulos/';
+    function InvArticuloService($http, $q) {
+        var nameSpace = '/Inventario/api/Articulo/';
 
         var service = {
             getAll: getAll,
@@ -1884,74 +1824,12 @@
 
     angular
         .module('app')
-        .factory('InvMovimientosDetalleService', InvMovimientosDetalleService);
+        .factory('InvMovimientoService', InvMovimientoService);
 
-    InvMovimientosDetalleService.$inject = ['$http', '$q'];
+    InvMovimientoService.$inject = ['$http', '$q'];
 
-    function InvMovimientosDetalleService($http, $q) {
-        var nameSpace = '/Inventario/api/MovimientosDetalle/';
-
-        var service = {
-            getAll: getAll,
-            create: create,
-            update: update,
-        };
-
-        return service;
-
-        function getAll(idMov) {
-            console.log("detal", idMov);
-            return $http.get(nameSpace + idMov)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-
-
-        function create(data) {
-            return $http.post(nameSpace, data)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-
-        function update(id, data) {
-            return $http.put(nameSpace + id, data)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-    }
-})();
-(function () {
-    'use strict';
-
-    angular
-        .module('app')
-        .factory('InvMovimientosService', InvMovimientosService);
-
-    InvMovimientosService.$inject = ['$http', '$q'];
-
-    function InvMovimientosService($http, $q) {
-        var nameSpace = '/Inventario/api/Movimientos/';
+    function InvMovimientoService($http, $q) {
+        var nameSpace = '/Inventario/api/Movimiento/';
 
         var service = {
             getAll: getAll,
@@ -2578,12 +2456,74 @@
 
     angular
         .module('app')
-        .factory('InvTiposDocService', InvTiposDocService);
+        .factory('InvMovimientoDetalleService', InvMovimientoDetalleService);
 
-    InvTiposDocService.$inject = ['$http', '$q'];
+    InvMovimientoDetalleService.$inject = ['$http', '$q'];
 
-    function InvTiposDocService($http, $q) {
-        var nameSpace = '/Inventario/api/TiposDoc/';
+    function InvMovimientoDetalleService($http, $q) {
+        var nameSpace = '/Inventario/api/MovimientoDetalle/';
+
+        var service = {
+            getAll: getAll,
+            create: create,
+            update: update,
+        };
+
+        return service;
+
+        function getAll(idMov) {
+            console.log("detal", idMov);
+            return $http.get(nameSpace + idMov)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+
+        function create(data) {
+            return $http.post(nameSpace, data)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function update(id, data) {
+            return $http.put(nameSpace + id, data)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+    }
+})();
+(function () {
+    'use strict';
+
+    angular
+        .module('app')
+        .factory('InvTipoDocService', InvTipoDocService);
+
+    InvTipoDocService.$inject = ['$http', '$q'];
+
+    function InvTipoDocService($http, $q) {
+        var nameSpace = '/Inventario/api/TipoDoc/';
 
         var service = {
             getAll: getAll,
@@ -2666,12 +2606,12 @@
 
     angular
         .module('app')
-        .factory('TesPagosService', TesPagosService);
+        .factory('TesPagoService', TesPagoService);
 
-    TesPagosService.$inject = ['$http', '$q'];
+    TesPagoService.$inject = ['$http', '$q'];
 
-    function TesPagosService($http, $q) {
-        var nameSpace = '/Tesoreria/api/Pagos/';
+    function TesPagoService($http, $q) {
+        var nameSpace = '/Tesoreria/api/Pago/';
 
         var service = {
             getAll: getAll,
@@ -3119,16 +3059,15 @@
 
     angular
         .module('app')
-        .factory('VenClientesService', VenClientesService);
+        .factory('VenListaPrecioService', VenListaPrecioService);
 
-    VenClientesService.$inject = ['$http', '$q'];
+    VenListaPrecioService.$inject = ['$http', '$q'];
 
-    function VenClientesService($http, $q) {
-        var nameSpace = '/Ventas/api/Clientes/';
+    function VenListaPrecioService($http, $q) {
+        var nameSpace = '/Ventas/api/ListaPrecio/';
 
         var service = {
             getAll: getAll,
-            getByIden: getByIden,
             create: create,
             update: update,
         };
@@ -3148,19 +3087,6 @@
                 );
         }
 
-        function getByIden(data) {
-            return $http.post(nameSpace + 'ByIden/', data)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-
         function create(data) {
             return $http.post(nameSpace, data)
                 .then(
@@ -3193,115 +3119,12 @@
 
     angular
         .module('app')
-        .factory('VenFacturasService', VenFacturasService);
+        .factory('VenListaPrecioDetalleService', VenListaPrecioDetalleService);
 
-    VenFacturasService.$inject = ['$http', '$q'];
+    VenListaPrecioDetalleService.$inject = ['$http', '$q'];
 
-    function VenFacturasService($http, $q) {
-        var nameSpace = '/Ventas/api/FacturasVen/';
-
-        var service = {
-            getLastAlm: getLastAlm,
-            getPendientesCli: getPendientesCli,
-            getByFecha: getByFecha,
-            create: create,
-            update: update,
-            remove: remove,
-        };
-
-        return service;
-
-        function getLastAlm(idUsu) {
-            return $http.get(nameSpace + 'LastAlm/' + idUsu)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-
-        function getPendientesCli(idCli) {
-            return $http.get(nameSpace + 'PenCli/' + idCli)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-
-        function getByFecha(idEmp, fecha) {
-            return $http.get(nameSpace + 'ByFecha/' + idEmp + '/' + fecha)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-
-        function create(data) {
-            return $http.post(nameSpace, data)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-
-        function update(id, data) {
-            return $http.put(nameSpace + id, data)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-
-        function remove(id) {
-            return $http.delete(nameSpace + id)
-                .then(
-                    function (response) {
-                        return response;
-                        window.location.reload();
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-    }
-})();
-(function () {
-    'use strict';
-
-    angular
-        .module('app')
-        .factory('VenListaPreciosDetalleService', VenListaPreciosDetalleService);
-
-    VenListaPreciosDetalleService.$inject = ['$http', '$q'];
-
-    function VenListaPreciosDetalleService($http, $q) {
-        var nameSpace = '/Ventas/api/ListaPreciosDetalle/';
+    function VenListaPrecioDetalleService($http, $q) {
+        var nameSpace = '/Ventas/api/ListaPrecioDetalle/';
 
         var service = {
             getAll: getAll,
@@ -3385,72 +3208,12 @@
 
     angular
         .module('app')
-        .factory('VenListaPreciosService', VenListaPreciosService);
+        .factory('VenVendedorService', VenVendedorService);
 
-    VenListaPreciosService.$inject = ['$http', '$q'];
+    VenVendedorService.$inject = ['$http', '$q'];
 
-    function VenListaPreciosService($http, $q) {
-        var nameSpace = '/Ventas/api/ListaPrecios/';
-
-        var service = {
-            getAll: getAll,
-            create: create,
-            update: update,
-        };
-
-        return service;
-
-        function getAll(idEmp) {
-            return $http.get(nameSpace + idEmp)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-
-        function create(data) {
-            return $http.post(nameSpace, data)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-
-        function update(id, data) {
-            return $http.put(nameSpace + id, data)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-    }
-})();
-(function () {
-    'use strict';
-
-    angular
-        .module('app')
-        .factory('VenVendedoresService', VenVendedoresService);
-
-    VenVendedoresService.$inject = ['$http', '$q'];
-
-    function VenVendedoresService($http, $q) {
-        var nameSpace = '/Ventas/api/Vendedores/';
+    function VenVendedorService($http, $q) {
+        var nameSpace = '/Ventas/api/Vendedor/';
 
         var service = {
             getAll: getAll,
