@@ -2518,94 +2518,6 @@
 
     angular
         .module('app')
-        .factory('InvTipoDocService', InvTipoDocService);
-
-    InvTipoDocService.$inject = ['$http', '$q'];
-
-    function InvTipoDocService($http, $q) {
-        var nameSpace = '/Inventario/api/TipoDoc/';
-
-        var service = {
-            getAll: getAll,
-            getByAlmacen: getByAlmacen,
-            getTipoDoc: getTipoDoc,
-            create: create,
-            update: update,
-        };
-
-        return service;
-
-        function getAll(idEmp) {
-            return $http.get(nameSpace + idEmp)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-
-        function getByAlmacen(idDetAlm, idEmp) {
-            return $http.get(nameSpace + 'GetByAlm/' + idDetAlm + '/' + idEmp)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-
-        function getTipoDoc(idEmp, tipoDoc) {
-            return $http.get(nameSpace + 'Get/' + idEmp + '/' + tipoDoc)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-
-        function create(data) {
-            return $http.post(nameSpace, data)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-
-        function update(id, data) {
-            return $http.put(nameSpace + id, data)
-                .then(
-                    function (response) {
-                        return response;
-                    },
-                    function (errResponse) {
-                        console.log(errResponse);
-                        return $q.reject(errResponse);
-                    }
-                );
-        }
-    }
-})();
-(function () {
-    'use strict';
-
-    angular
-        .module('app')
         .factory('TesPagoService', TesPagoService);
 
     TesPagoService.$inject = ['$http', '$q'];
@@ -2801,7 +2713,7 @@
                 );
 
                 saldoTotal += d.valor;
-                saldoEnCaja += d.nombreFormaPago.includes('Efectivo') || d.valor < 0 ? d.valor : 0;
+                saldoEnCaja += d.nombreFormaPago.includes('Efectivo') || d.valor < 0 || d.nombreFormaPago.includes('Ingresos') ? d.valor : 0;
             }
 
             tablaResumen.push(
@@ -2837,7 +2749,7 @@
                 vrEnCaja = entity.saldoInicial,
                 vrEgresos = 0;
 
-            for (var i = 0; i < dataR.length; i++) {
+            for (var i = 0; i < dataD.length; i++) {
                 var d = dataD[i];
 
                 var ingresos = "", egresos = "";

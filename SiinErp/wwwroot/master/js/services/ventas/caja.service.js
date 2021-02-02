@@ -138,7 +138,7 @@
                 );
 
                 saldoTotal += d.valor;
-                saldoEnCaja += d.nombreFormaPago.includes('Efectivo') || d.valor < 0 ? d.valor : 0;
+                saldoEnCaja += d.nombreFormaPago.includes('Efectivo') || d.valor < 0 || d.nombreFormaPago.includes('Ingresos') ? d.valor : 0;
             }
 
             tablaResumen.push(
@@ -174,7 +174,7 @@
                 vrEnCaja = entity.saldoInicial,
                 vrEgresos = 0;
 
-            for (var i = 0; i < dataR.length; i++) {
+            for (var i = 0; i < dataD.length; i++) {
                 var d = dataD[i];
 
                 var ingresos = "", egresos = "";
