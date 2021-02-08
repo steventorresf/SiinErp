@@ -7,21 +7,26 @@ using System.Threading.Tasks;
 
 namespace SiinErp.Areas.General.Entities
 {
-    [Table("Ciudad", Schema = "General")]
+
+    [Table("g0ciudad")]
     public class Ciudad
     {
-        [Key]
-        public int IdCiudad { get; set; }
-
+        [Key, Column("cod_ciud")]
         [Required]
-        [StringLength(50)]
-        public string NombreCiudad { get; set; }
+        public string CodCiudad { get; set; }
 
-        [Required]
-        [StringLength(10)]
-        public string CodigoDane { get; set; }
+        [Column("nom_ciud")]
+        public string NomCiudad { get; set; }
 
-        [Required]
-        public int IdDepartamento { get; set; }
+        [Column("cod_dane")]
+        public string CodDane { get; set; }
+
+        [Column("cod_dpto")]
+        public string CodDpto { get; set; }
+
+        [Column("nom_ciu_dane")]
+        public string NombreDane { get; set; }
     }
+
+
 }

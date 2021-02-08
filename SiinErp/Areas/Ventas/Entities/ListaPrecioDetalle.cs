@@ -8,21 +8,22 @@ using System.Threading.Tasks;
 
 namespace SiinErp.Areas.Ventas.Entities
 {
-    [Table("ListaPrecioDetalle", Schema = "Ventas")]
+    [Table("f0lista")]
     public class ListaPrecioDetalle
     {
-        [Key]
-        public int IdDetalleListaPrecio { get; set; }
-
+        [Key, Column("lista_pr", Order = 1)]
         [Required]
         public int IdListaPrecio { get; set; }
 
+        [Key, Column("cod_arti", Order = 2)]
         [Required]
-        public int IdArticulo { get; set; }
+        public string IdArticulo { get; set; }
 
+        [Column("vr_lista")]
         [Required]
         public decimal VrUnitario { get; set; }
 
+        [Column("pc_dsct1")]
         [Required]
         public decimal PcDscto { get; set; }
 

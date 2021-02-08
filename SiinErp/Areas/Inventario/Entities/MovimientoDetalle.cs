@@ -7,46 +7,146 @@ using System.Threading.Tasks;
 
 namespace SiinErp.Areas.Inventario.Entities
 {
-    [Table("MovimientoDetalle", Schema = "Inventario")]
+
+    [Table("i1movi")]
     public class MovimientoDetalle
     {
-        [Key]
-        public int IdDetalleMovimiento { get; set; }
+        [Key, Column("num_movi")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int NumMovi { get; set; }
 
+        [Column("cod_empr")]
         [Required]
-        public int IdMovimiento { get; set; }
+        public string CodEmpresa { get; set; }
 
+        [Column("cod_alma")]
         [Required]
-        public int IdArticulo { get; set; }
+        public string CodAlmacen { get; set; }
 
+        [Column("cod_arti")]
+        [Required]
+        public string CodArticulo { get; set; }
+
+        [Column("transaci")]
+        [Required]
+        public string Transaci { get; set; }
+
+        [Column("tip_docu")]
+        [Required]
+        public string TipDocu { get; set; }
+
+        [Column("num_docu")]
+        [Required]
+        public int NumDocu { get; set; }
+
+        [Column("peri_est")]
+        [Required]
+        public string Periodo { get; set; }
+
+        [Column("cod_terc")]
+        public string CodTercedo { get; set; }
+
+        [Column("fec_movi")]
+        [Required]
+        public DateTime FecDocu { get; set; }
+
+        [Column("fec_grab")]
+        public DateTime FechaProceso { get; set; }
+
+        [Column("num_item")]
+        [Required]
+        public int NumItem { get; set; }
+
+        [Column("cantidad")]
         [Required]
         public decimal Cantidad { get; set; }
 
-        [Required]
-        public decimal PcDscto { get; set; }
+        [Column("pc_dscto")]
+        public decimal PDsctoUno { get; set; }
 
-        [Required]
-        public decimal PcIva { get; set; }
+        [Column("pc_impto")]
+        public decimal PDsctoDos { get; set; }
 
+        [Column("impto_co")]
         [Required]
-        public decimal VrUnitario { get; set; }
+        public decimal PIva { get; set; }
 
+        [Column("vr_movim")]
         [Required]
-        public decimal VrCosto { get; set; }
+        public decimal VrMovim { get; set; }
 
-        [Required]
-        public decimal VrBruto { get; set; }
+        [Column("vr_movid")]
+        public decimal? VrMovid { get; set; }
 
+        [Column("vr_costo")]
         [Required]
-        public decimal VrNeto { get; set; }
+        public decimal? VrCosto { get; set; }
+
+        [Column("vr_costd")]
+        [Required]
+        public decimal? VrCostoD { get; set; }
+
+        [Column("existenc")]
+        public decimal? Existencia { get; set; }
+
+        [Column("existena")]
+        public decimal? ExistenciaA { get; set; }
+
+        [Column("estado_r")]
+        [Required]
+        public string Estado { get; set; }
+
+        [Column("nro_import")]
+        public string NumImportacion { get; set; }
+
+        [Column("num_conten")]
+        public string NumContenedor { get; set; }
+
+        [Column("motonave")]
+        public string MotoNave { get; set; }
+
+        [Column("cod_maq")]
+        public string Identificador { get; set; }
+
+        [Column("tipo_manto")]
+        public string TipDocuMantto { get; set; }
+
+        [Column("documento")]
+        public string Documento { get; set; }
+
+        [Column("tipdcmnto")]
+        public string TipDocuOtro { get; set; }
+
+        [Column("cnum_movi")]
+        public int? CNumMovi { get; set; }
+
+        [Column("idcolor")]
+        public string IdColor { get; set; }
+
+        [Column("idreferencia")]
+        public string IdReferencia { get; set; }
+
+        [Column("cod_tienda")]
+        public string EanTercero { get; set; }
+
+        [Column("vendedor")]
+        public string Vendedor { get; set; }
+
+        [Column("NumItem")]
+        public int? NumItemOtro { get; set; }
+
+        [Column("cod_destino")]
+        public string CodAlmDestino { get; set; }
+
+
+
+
 
 
         [NotMapped]
         public Articulo Articulo { get; set; }
 
-        [NotMapped]
-        public string CodArticulo { get; set; }
-
+    
         [NotMapped]
         public string NombreArticulo { get; set; }
 

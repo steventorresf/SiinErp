@@ -9,69 +9,164 @@ using System.Threading.Tasks;
 
 namespace SiinErp.Areas.General.Entities
 {
-    [Table("Tercero", Schema = "General")]
-    public class Tercero : Utiles.Auditoria
+    [Table("k0clientes")]
+    public class Tercero
     {
-        [Key]
-        public int IdTercero { get; set; }
+        [Column("cod_empr")]
+        public string CodEmpresa { get; set; }
 
+        [Key, Column("cod_clie")]
         [Required]
-        public int IdEmpresa { get; set; }
+        public string CodCliente { get; set; }
 
-        [Required]
-        [StringLength(2)]
-        public string TipoTercero { get; set; }
-
-        [Required]
-        [StringLength(50)]
+        [Column("nit_cedu")]
         public string NitCedula { get; set; }
 
-        [StringLength(1)]
-        public string DgVerificacion { get; set; }
+        [Column("dg_verif")]
+        public string DigitoVer { get; set; }
 
+        [Column("tipo_cli")]
         [Required]
-        public int IdDetTipoPersona { get; set; }
+        public string TipoCliente { get; set; }
 
+        [Column("nom_clie")]
         [Required]
-        [StringLength(200)]
-        public string NombreTercero { get; set; }
+        public string NombreCliente { get; set; }
 
-        [Required]
-        public int IdCiudad { get; set; }
+        [Column("jef_comp")]
+        public string Contacto { get; set; }
 
-        [Required]
-        [StringLength(100)]
+        [Column("financie")]
+        public string NumFax { get; set; }
+
+        [Column("rep_lega")]
+        public string RepLegal { get; set; }
+
+        [Column("direccio")]
         public string Direccion { get; set; }
 
-        [Required]
-        [StringLength(100)]
-        public string Telefono { get; set; }
-
-        [StringLength(100)]
+        [Column("ap_aereo")]
         public string EMail { get; set; }
 
-        public int? IdCuentaContable { get; set; }
+        [Column("cod_ciud")]
+        public string CodCiudad { get; set; }
 
-        public int? IdPlazoPago { get; set; }
+        [Column("telefono")]
+        public string Telefono { get; set; }
 
-        public int? IdDetZona { get; set; }
+        [Column("zona_dis")]
+        public string Zona { get; set; }
 
-        public int? IdVendedor { get; set; }
-
+        [Column("vendedor")]
         [Required]
-        public decimal LimiteCredito { get; set; }
+        public string Vendedor { get; set; }
 
-        public int? IdPadre { get; set; }
+        [Column("cobrador")]
+        public string Cobrador { get; set; }
 
-        public int? IdListaPrecio { get; set; }
+        [Column("cod_cont")]
+        public string CodContable { get; set; }
 
+        [Column("sopo_cre")]
+        public string SNCredito { get; set; }
+
+        [Column("comp_ret")]
         [Required]
-        public bool Iva { get; set; }
+        public string SNRetiene { get; set; }
 
+        [Column("form_pag")]
         [Required]
-        [StringLength(1)]
+        public string FormaPago { get; set; }
+
+        [Column("lim_cred")]
+        public decimal? CupoCredito { get; set; }
+
+        [Column("acm_comm")]
+        public decimal? ComprasMes { get; set; }
+
+        [Column("acm_comp")]
+        public decimal? ComprasTotal { get; set; }
+
+        [Column("acm_aant")]
+        public decimal? ComprasAnoAnt { get; set; }
+
+        [Column("saldo_cl")]
+        public decimal? SaldoCartera { get; set; }
+
+        [Column("fec_ulco")]
+        public DateTime? FecUltCompra { get; set; }
+
+        [Column("fec_uped")]
+        public DateTime? FecUltPedido { get; set; }
+
+        [Column("fec_ulpa")]
+        public DateTime? FecUltPago { get; set; }
+
+        [Column("fec_ingr")]
+        public DateTime? FecIngreso { get; set; }
+
+        [Column("estado_r")]
         public string Estado { get; set; }
 
+        [Column("cod_comp")]
+        [Required]
+        public string CodClientePadre { get; set; }
+
+        [Column("cod_lista")]
+        public Int16? ListaPr { get; set; }
+
+        [Column("EanCliente")]
+        public string EanCliente { get; set; }
+
+        [Column("BaseRet")]
+        [Required]
+        public string SNBaseRet { get; set; }
+
+        [Column("iva")]
+        [Required]
+        public string SNIva { get; set; }
+
+        [Column("Cadena")]
+        [Required]
+        public string SNCadena { get; set; }
+
+        [Column("RetDiaria")]
+        [Required]
+        public string SNRetDiaria { get; set; }
+
+        [Column("PuntoDeVenta")]
+        public string PuntoDeVEnta { get; set; }
+
+        [Column("cod_alma")]
+        public string CodAlmacen { get; set; }
+
+        [Column("Dsc1")]
+        [Required]
+        public decimal Dsc1 { get; set; }
+
+        [Column("Dsc2")]
+        [Required]
+        public decimal Dsc2 { get; set; }
+
+        [Column("usr_codi")]
+        public string Usuario { get; set; }
+
+        [Column("CLinea")]
+        public decimal? CLinea { get; set; }
+
+        [Column("CPropia")]
+        public decimal? CPropia { get; set; }
+
+        [Column("CPromo")]
+        public decimal? CPromo { get; set; }
+
+        [Column("CNegocios")]
+        public decimal? CNegocios { get; set; }
+
+        [Column("CTipoB")]
+        public decimal? CTipoB { get; set; }
+
+      
 
 
         [NotMapped]

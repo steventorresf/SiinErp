@@ -7,57 +7,36 @@ using System.Threading.Tasks;
 
 namespace SiinErp.Areas.General.Entities
 {
-    [Table("TipoDocumento", Schema = "General")]
+    [Table("k0claco")]
     public class TipoDocumento
     {
-        [Key]
-        public int IdTipoDoc { get; set; }
-
-        [Required]
-        public int IdEmpresa { get; set; }
-
-        [Required]
-        [StringLength(5)]
+      
+        [Key, Column("tip_docu")]
         public string TipoDoc { get; set; }
 
+        [Column("cod_empr")]
+        [Required]
+        public string IdEmpresa { get; set; }
+
+        [Column("conse_co")]
         [Required]
         public int NumDoc { get; set; }
 
+        [Column("descripc")]
         [Required]
         [StringLength(50)]
         public string Descripcion { get; set; }
 
+        [Column("transaci")]
         [Required]
-        public short IdDetTransaccion { get; set; }
+        public string IdDetTransaccion { get; set; }
 
-        [Required]
-        [StringLength(10)]
-        public string CodModulo { get; set; }
-
-        [Required]
-        public int IdDetClaseDoc { get; set; }
-
-        public int? IdCuentaDoc { get; set; }
-
-        public int? IdCuentaCargo { get; set; }
-
-        public int? IdCuentaOtro { get; set; }
-
-        public int? IdCuentaReteFuente { get; set; }
-
-        [Required]
-        public DateTimeOffset FechaCreacion { get; set; }
-
-        [Required]
-        public int IdUsuario { get; set; }
-
+      
 
         [NotMapped]
         public string NomTransaccion { get; set; }
 
-        [NotMapped]
-        public string NombreModulo { get; set; }
-
+     
         [NotMapped]
         public string NomClaseDoc { get; set; }
     }

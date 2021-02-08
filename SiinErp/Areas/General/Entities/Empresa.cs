@@ -7,41 +7,62 @@ using System.Threading.Tasks;
 
 namespace SiinErp.Areas.General.Entities
 {
-    [Table("Empresa", Schema = "General")]
+    [Table("g0empresa")]
     public class Empresa
     {
-        [Key]
-        public int IdEmpresa { get; set; }
-
+        [Key, Column("cod_empr")]
         [Required]
-        [StringLength(50)]
-        public string RazonSocial { get; set; }
+        public string CodEmpresa { get; set; }
 
+        [Column("razon_so")]
         [Required]
-        [StringLength(20)]
-        public string NitEmpresa { get; set; }
+        public string NombreEmpresa { get; set; }
 
+        [Column("nit_empr")]
         [Required]
-        public int IdCiudad { get; set; }
+        public string Nit { get; set; }
 
-        [Required]
-        [StringLength(100)]
+        [Column("cod_ciud")]
+        public string CodCiudad { get; set; }
+
+        [Column("multipli")]
+        public string DigVerificacion { get; set; }
+
+        [Column("direccio")]
         public string Direccion { get; set; }
 
+        [Column("telefono")]
         [Required]
-        [StringLength(100)]
         public string Telefono { get; set; }
 
+        [Column("CodEan")]
         [Required]
-        [StringLength(50)]
         public string CodEan { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string Representante { get; set; }
+        [Column("Representante")]
+        public string RepLegal { get; set; }
 
+        [Column("Regimen")]
         [Required]
-        public int IdDetRegimen { get; set; }
+        public string Regimen { get; set; }
+
+        [Column("fax")]
+        [Required]
+        public string Fax { get; set; }
+
+        [Column("pais")]
+        [Required]
+        public string Pais { get; set; }
+
+        [Column("Email")]
+        [Required]
+        public string Email { get; set; }
+
+        public Empresa()
+        {
+            CodEmpresa = "NO";
+        }
+    
 
 
         [NotMapped]

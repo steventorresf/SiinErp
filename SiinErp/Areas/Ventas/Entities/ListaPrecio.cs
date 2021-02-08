@@ -7,21 +7,17 @@ using System.Threading.Tasks;
 
 namespace SiinErp.Areas.Ventas.Entities
 {
-    [Table("ListaPrecio", Schema = "Ventas")]
+    [Table("f0nomlista")]
     public class ListaPrecio : Utiles.Auditoria
     {
-        [Key]
+        
+        [Key, Column("lista_pr")]
         public int IdListaPrecio { get; set; }
 
-        [Required]
-        public int IdEmpresa { get; set; }
 
-        [Required]
+        [Column("nom_lista")]
         [StringLength(100)]
         public string NombreLista { get; set; }
 
-        [Required]
-        [StringLength(1)]
-        public string Estado { get; set; }
     }
 }

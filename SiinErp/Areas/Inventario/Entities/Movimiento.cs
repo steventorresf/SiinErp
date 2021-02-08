@@ -10,94 +10,175 @@ using System.Threading.Tasks;
 
 namespace SiinErp.Areas.Inventario.Entities
 {
-    [Table("Movimiento", Schema = "Inventario")]
-    public class Movimiento : Utiles.Auditoria
+    [Table("f1movc")]
+    public class Movimiento
     {
-        [Key]
-        public int IdMovimiento { get; set; }
-
+        [Column("cod_empr")]
         [Required]
-        public int IdEmpresa { get; set; }
+        public string CodEmpresa { get; set; }
 
+        [Key, Column("tip_docu", Order = 1)]
         [Required]
-        [StringLength(3)]
-        public string CodModulo { get; set; }
+        public string TipDocu { get; set; }
 
+        [Key, Column("num_docu", Order = 2)]
         [Required]
-        [StringLength(5)]
-        public string TipoDoc { get; set; }
+        public int NumDocu { get; set; }
 
+        [Column("cod_alma")]
         [Required]
-        public int NumDoc { get; set; }
+        public string CodAlmacen { get; set; }
 
+        [Column("marca_es")]
+        public string Marca { get; set; }
+
+        [Column("cod_clie")]
         [Required]
-        public int IdDetAlmacen { get; set; }
+        public string CodClientePadre { get; set; }
 
-        public int? IdDetCenCosto { get; set; }
-
+        [Column("peri_est")]
         [Required]
-        public short Transaccion { get; set; }
-
-        [Required]
-        public DateTime FechaDoc { get; set; }
-
-        [Required]
-        public DateTime FechaVencimiento { get; set; }
-
-        [Required]
-        [StringLength(6)]
         public string Periodo { get; set; }
 
-        public int? IdDetConcepto { get; set; }
+        [Column("cod_desp")]
+        [Required]
+        public string CodCliente { get; set; }
 
-        public int? IdTercero { get; set; }
+        [Column("form_pag")]
+        [Required]
+        public string FormaPago { get; set; }
 
-        [StringLength(2)]
-        public string TpPago { get; set; }
+        [Column("num_cuot")]
+        [Required]
+        public Int16 Cuotas { get; set; }
 
-        [StringLength(500)]
-        public string Comentario { get; set; }
+        [Column("porc_ini")]
+        public decimal? Porcentaje { get; set; }
 
-        public int? IdDetAlmDestino { get; set; }
+        [Column("plazo_in")]
+        public Int16? Plazo { get; set; }
 
-        public string NumFactura { get; set; }
+        [Column("descanso")]
+        public Int16? Descanso { get; set; }
 
-        public string NumRemision { get; set; }
+        [Column("fec_proc")]
+        [Required]
+        public DateTime FechaProceso { get; set; }
 
-        public int? IdOrden { get; set; }
+        [Column("fec_docu")]
+        [Required]
+        public DateTime FecDocu { get; set; }
 
-        public int? IdPedido { get; set; }
+        [Column("fec_venc")]
+        [Required]
+        public DateTime FecVence { get; set; }
 
-        public int? IdVendedor { get; set; }
+        [Column("fec_remi")]
+        public DateTime FecRemision { get; set; }
 
+        [Column("fec_ppag")]
+        public DateTime FecPago { get; set; }
+
+        [Column("num_remi")]
+        public string NumNotaEntrega { get; set; }
+
+        [Column("num_orde")]
+        public string NumPedido { get; set; }
+
+        [Column("num_pedi")]
+        public string OrdenCompra { get; set; }
+
+        [Column("vendedor")]
+        public string Vendedor { get; set; }
+
+        [Column("letra_co")]
+        public decimal? Comision { get; set; }
+
+        [Column("transpor")]
+        public string Transportador { get; set; }
+
+        [Column("comenta1")]
+        public string Comentarios { get; set; }
+
+        [Column("comenta2")]
+        public string Contenido { get; set; }
+
+        [Column("dscto_pp")]
+        public decimal? PDsctoFinan { get; set; }
+
+        [Column("dscto_gl")]
+        public decimal PDsctoUno { get; set; }
+
+        [Column("pc_segur")]
+        public decimal? PIva { get; set; }
+
+        [Column("vr_netof")]
         [Required]
         public decimal ValorNeto { get; set; }
 
+        [Column("vr_segur")]
         [Required]
-        public decimal ValorSeguro { get; set; }
+        public decimal ValorAsegurado { get; set; }
 
+        [Column("vr_flete")]
         [Required]
         public decimal ValorFlete { get; set; }
 
+        [Column("vr_impto")]
         [Required]
         public decimal ValorIva { get; set; }
 
+        [Column("vr_dscto")]
         [Required]
-        public decimal ValorDscto { get; set; }
+        public decimal ValorDescuento { get; set; }
 
+        [Column("vr_otros")]
         [Required]
         public decimal ValorOtros { get; set; }
 
+        [Column("vr_bruto")]
         [Required]
         public decimal ValorBruto { get; set; }
 
-        [Required]
-        public decimal ValorSaldo { get; set; }
+        [Column("usr_codi")]
+        public string Usuario { get; set; }
 
-      
-        [Required]
-        [StringLength(1)]
+        [Column("estado_r")]
         public string Estado { get; set; }
+
+        [Column("lista_pr")]
+        public Int16? CodLista { get; set; }
+
+        [Column("dscto_pe")]
+        public decimal? PDsctoDos { get; set; }
+
+        [Column("vr_pagado")]
+        [Required]
+        public decimal ValorPagado { get; set; }
+
+        [Column("vr_notacr")]
+        [Required]
+        public decimal ValorNotaCr { get; set; }
+
+        [Column("vr_notadeb")]
+        [Required]
+        public decimal ValorNotaDb { get; set; }
+
+        [Column("vr_otrods")]
+        [Required]
+        public decimal ValorOtroDscto { get; set; }
+
+        [Column("impr")]
+        [Required]
+        public string Impreso { get; set; }
+
+        [Column("vr_retef")]
+        public decimal ValorRetencion { get; set; }
+
+
+
+
+
 
 
         // NotMapped
@@ -159,8 +240,7 @@ namespace SiinErp.Areas.Inventario.Entities
         [NotMapped]
         public Tercero Tercero { get; set; }
 
-        [NotMapped]
-        public Vendedor Vendedor { get; set; }
+       
 
     }
 }

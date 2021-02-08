@@ -7,25 +7,26 @@ using System.Threading.Tasks;
 
 namespace SiinErp.Areas.Inventario.Entities
 {
-    [Table("ArticuloExistencia", Schema = "Inventario")]
+    [Table("i0existenc")]
     public class ArticuloExistencia
     {
-        [Key]
-        public int IdExistencia { get; set; }
 
+        [Column("cod_empr")]
         [Required]
-        public int IdEmpresa { get; set; }
+        public string CodEmpresa { get; set; }
 
+        [Key, Column("cod_alma", Order = 1)]
         [Required]
-        public int IdDetAlmacen { get; set; }
+        public string CodAlmacen { get; set; }
 
+        [Key, Column("cod_arti", Order = 2)]
         [Required]
-        public int IdArticulo { get; set; }
+        public string CodArticulo { get; set; }
 
+        [Column("existenc")]
         [Required]
         public decimal Existencia { get; set; }
 
-        [StringLength(50)]
-        public string Ubicacion { get; set; }
+       
     }
 }

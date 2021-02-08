@@ -7,33 +7,24 @@ using System.Threading.Tasks;
 
 namespace SiinErp.Areas.Cartera.Entities
 {
-    [Table("PlazoPago", Schema = "Cartera")]
+    [Table("k5fpago")]
     public class PlazoPago
     {
-        [Key]
-        public int IdPlazoPago { get; set; }
+        [Key, Column("form_pag")]
+        public string IdPlazoPago { get; set; }
 
-        [Required]
+        [Column("desc_for")]
         [StringLength(50)]
         public string Descripcion { get; set; }
 
-        [Required]
+        [Column("num_cuot")]
         public short Cuotas { get; set; }
 
-        [Required]
-        public decimal PcInicial { get; set; }
+        [Column("porc_ini")]
+        public decimal? PcInicial { get; set; }
 
-        [Required]
+        [Column("plazo_in")]
         public int PlazoDias { get; set; }
 
-        [Required]
-        public int IdUsuario { get; set; }
-
-        [Required]
-        public DateTimeOffset FechaCreacion { get; set; }
-
-        [Required]
-        [StringLength(1)]
-        public string Estado { get; set; }
     }
 }
