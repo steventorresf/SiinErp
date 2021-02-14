@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SiinErp.Areas.Cartera.Entities
 {
     [Table("PlazoPago", Schema = "Cartera")]
-    public class PlazoPago
+    public class PlazoPago : Utiles.Auditoria
     {
         [Key]
         public int IdPlazoPago { get; set; }
@@ -25,12 +25,6 @@ namespace SiinErp.Areas.Cartera.Entities
 
         [Required]
         public int PlazoDias { get; set; }
-
-        [Required]
-        public int IdUsuario { get; set; }
-
-        [Required]
-        public DateTimeOffset FechaCreacion { get; set; }
 
         [Required]
         [StringLength(1)]

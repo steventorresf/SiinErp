@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SiinErp.Areas.Ventas.Entities
 {
     [Table("Vendedor", Schema = "Ventas")]
-    public class Vendedor
+    public class Vendedor : Utiles.Auditoria
     {
         [Key]
         public int IdVendedor { get; set; }
@@ -30,12 +30,6 @@ namespace SiinErp.Areas.Ventas.Entities
 
         [Required]
         public int IdDetZona { get; set; }
-
-        [Required]
-        public DateTimeOffset FechaCreacion { get; set; }
-
-        [Required]
-        public int IdUsuario { get; set; }
 
         [Required]
         [StringLength(1)]

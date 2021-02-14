@@ -53,7 +53,7 @@ namespace SiinErp.Areas.Inventario.Business
                                              FechaUEntrada = ar.FechaUEntrada,
                                              FechaUPedida = ar.FechaUPedida,
                                              FechaUSalida = ar.FechaUSalida,
-                                             IdUsuario = ar.IdUsuario,
+                                             CreadoPor = ar.CreadoPor,
                                              Estado = ar.Estado,
                                              NombreTipoArticulo = ta.Descripcion,
                                              NombreUnidadMed = um.Descripcion,
@@ -101,7 +101,7 @@ namespace SiinErp.Areas.Inventario.Business
                                              FechaUEntrada = ar.FechaUEntrada,
                                              FechaUPedida = ar.FechaUPedida,
                                              FechaUSalida = ar.FechaUSalida,
-                                             IdUsuario = ar.IdUsuario,
+                                             CreadoPor = ar.CreadoPor,
                                              Estado = ar.Estado,
                                              NombreTipoArticulo = ta.Descripcion,
                                              NombreUnidadMed = um.Descripcion,
@@ -154,7 +154,7 @@ namespace SiinErp.Areas.Inventario.Business
                                         FechaUEntrada = ar.FechaUEntrada,
                                         FechaUPedida = ar.FechaUPedida,
                                         FechaUSalida = ar.FechaUSalida,
-                                        IdUsuario = ar.IdUsuario,
+                                        CreadoPor = ar.CreadoPor,
                                         Estado = ar.Estado,
                                         NombreTipoArticulo = ta.Descripcion,
                                         NombreUnidadMed = um.Descripcion,
@@ -209,7 +209,7 @@ namespace SiinErp.Areas.Inventario.Business
                                              FechaUEntrada = ar.FechaUEntrada,
                                              FechaUPedida = ar.FechaUPedida,
                                              FechaUSalida = ar.FechaUSalida,
-                                             IdUsuario = ar.IdUsuario,
+                                             CreadoPor = ar.CreadoPor,
                                              Estado = ar.Estado,
                                              NombreTipoArticulo = ta.Descripcion,
                                              NombreUnidadMed = um.Descripcion,
@@ -290,6 +290,8 @@ namespace SiinErp.Areas.Inventario.Business
                 ob.StkMin = entity.StkMin;
                 ob.StkMax = entity.StkMax;
                 ob.Estado = entity.Estado;
+                ob.ModificadoPor = entity.ModificadoPor;
+                ob.FechaModificado = DateTimeOffset.Now;
                 context.SaveChanges();
             }
             catch (Exception ex)

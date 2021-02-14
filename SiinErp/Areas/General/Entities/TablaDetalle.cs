@@ -21,6 +21,10 @@ namespace SiinErp.Areas.General.Entities
 
         [Required]
         [StringLength(50)]
+        public string Codigo { get; set; }
+
+        [Required]
+        [StringLength(100)]
         public string Descripcion { get; set; }
 
         [Required]
