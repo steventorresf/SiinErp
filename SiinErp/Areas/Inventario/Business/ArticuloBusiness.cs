@@ -259,6 +259,7 @@ namespace SiinErp.Areas.Inventario.Business
             try
             {
                 entity.NombreBusqueda = entity.CodArticulo + " - " + entity.NombreArticulo;
+                entity.FechaCreacion = DateTimeOffset.Now;
                 SiinErpContext context = new SiinErpContext();
                 context.Articulos.Add(entity);
                 context.SaveChanges();

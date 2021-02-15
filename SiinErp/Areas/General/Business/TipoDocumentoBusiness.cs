@@ -117,6 +117,8 @@ namespace SiinErp.Areas.General.Business
                 ob.IdCuentaCargo = entity.IdCuentaCargo;
                 ob.IdCuentaOtro = entity.IdCuentaOtro;
                 ob.IdCuentaReteFuente = entity.IdCuentaReteFuente;
+                ob.ModificadoPor = entity.ModificadoPor;
+                ob.FechaModificado = DateTimeOffset.Now;
                 context.SaveChanges();
             }
             catch (Exception ex)

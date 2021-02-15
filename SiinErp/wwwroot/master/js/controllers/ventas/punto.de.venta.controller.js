@@ -47,7 +47,7 @@
 
         function init() {
             vm.gridPrincipal = true;
-            vm.entityMov.fechaDoc = new Date();
+            vm.entityMov.sFechaDoc = new Date();
 
             getTipoDocFacturaVenta();
             getPlazosPago();
@@ -97,7 +97,6 @@
                 response.then(
                     function (response) {
                         var dataCli = response.data.entity;
-                        console.log(dataCli);
                         if (dataCli != null) {
                             vm.entityMov.idTercero = dataCli.idTercero;
                             vm.entityMov.nombreTercero = dataCli.nombreTercero;
@@ -473,6 +472,7 @@
 
         function btnGuardar() {
             var val = true;
+            vm.entityMov.fechaDoc = vm.entityMov.sFechaDoc.DateSiin(true);
             vm.entityMov.valorSaldo = 0;
             vm.entityMov.tpPago = Constantes.TpPago_Contado;
 

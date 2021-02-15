@@ -71,7 +71,9 @@
         
 
         function nuevo() {
-            vm.entity = {};
+            vm.entity = {
+                creadoPor: vm.userApp.nombreUsuario,
+            };
             vm.formModify = false;
             vm.formVisible = true;
         }
@@ -80,6 +82,7 @@
             vm.entity = angular.copy(entity);
             vm.entity.idDetTransaccion = angular.copy(entity.idDetTransaccion).toString();
             vm.entity.idDetClaseDoc = angular.copy(entity.idDetClaseDoc).toString();
+            vm.entity.modificadoPor = vm.userApp.nombreUsuario;
             vm.formModify = true;
             vm.formVisible = true;
         }

@@ -333,7 +333,7 @@ namespace SiinErp.Areas.Inventario.Business
                 SiinErpContext context = new SiinErpContext();
                 List<Movimiento> Lista = (from mov in context.Movimientos.Where(x => x.IdEmpresa == IdEmp && x.TipoDoc.Equals(Constantes.TipoDocFacturaVenta) && x.FechaDoc >= FechaIni && x.FechaDoc <= FechaFin && x.Estado.Equals(Constantes.EstadoActivo))
                                           join cli in context.Terceros on mov.IdTercero equals cli.IdTercero
-                                          join ppa in context.PlazosPagos on cli.IdPlazoPago equals ppa.IdPlazoPago
+                                          join ppa in context.PlazosPagos on mov.IdPlazoPago equals ppa.IdPlazoPago
                                           join tip in context.TiposDocumentos on mov.TipoDoc equals tip.TipoDoc
                                           join alm in context.TablasDetalles on mov.IdDetAlmacen equals alm.IdDetalle
                                           select new Movimiento()
@@ -347,6 +347,7 @@ namespace SiinErp.Areas.Inventario.Business
                                               IdTercero = mov.IdTercero,
                                               IdDetAlmacen = mov.IdDetAlmacen,
                                               IdDetCenCosto = mov.IdDetCenCosto,
+                                              IdPlazoPago = mov.IdPlazoPago,
                                               IdDetConcepto = mov.IdDetConcepto,
                                               NombreAlmacen = alm.Descripcion,
                                               ValorNeto = mov.ValorNeto,

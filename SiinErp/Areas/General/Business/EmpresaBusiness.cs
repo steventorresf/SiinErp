@@ -66,6 +66,7 @@ namespace SiinErp.Areas.General.Business
         {
             try
             {
+                entity.FechaCreacion = DateTimeOffset.Now;
                 SiinErpContext context = new SiinErpContext();
                 context.Empresas.Add(entity);
                 context.SaveChanges();
@@ -91,6 +92,8 @@ namespace SiinErp.Areas.General.Business
                 ob.CodEan = entity.CodEan;
                 ob.Representante = entity.Representante;
                 ob.IdDetRegimen = entity.IdDetRegimen;
+                ob.ModificadoPor = entity.ModificadoPor;
+                ob.FechaModificado = DateTimeOffset.Now;
                 context.SaveChanges();
             }
             catch (Exception ex)
