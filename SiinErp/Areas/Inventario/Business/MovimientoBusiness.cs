@@ -230,6 +230,14 @@ namespace SiinErp.Areas.Inventario.Business
                     context.CajaDetalle.AddRange(ListaCajaDetalle);
                     context.SaveChanges();
 
+                    if(entityMov.IdTercero != null)
+                    {
+                        Tercero entityCli = context.Terceros.Find(entityMov.IdTercero);
+                        entityCli.Direccion = entityMov.DireccionTercero;
+                        entityCli.Telefono = entityMov.TelefonoTercero;
+                        context.SaveChanges();
+                    }
+
                     transaccion.Commit();
 
                     return obMov.IdMovimiento;
