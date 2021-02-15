@@ -1,0 +1,35 @@
+.mat-toolbar {
+  min-height: 5%;
+}
+
+.mat-sidenav-container {
+  min-height: 93%;
+}
+
+.mat-sidenav {
+  min-width: 150px;
+}
+
+.mat-sidenav-content {
+  padding: 20px;
+}
+
+.top-spacer {
+  flex: 1 1 auto;
+}
+
+.es {
+  background-image: url('/assets/flags/es.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 32px 32px;
+  white-space: nowrap
+}
+
+.en {
+  background-image: url('/assets/flags/en.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 32px 32px;
+  white-space: nowrap;
+}

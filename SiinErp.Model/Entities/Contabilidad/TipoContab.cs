@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SiinErp.Model.Entities.Contabilidad
 {
     [Table("TipoContab", Schema = "Contabilidad")]
-    public class TipoContab
+    public class TipoContab : Util.Auditoria
     {
         [Key]
         public int IdTipoDoc { get; set; }

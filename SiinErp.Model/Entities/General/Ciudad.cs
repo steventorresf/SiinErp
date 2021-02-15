@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SiinErp.Model.Entities.General
 {
     [Table("Ciudad", Schema = "General")]
-    public class Ciudad
+    public class Ciudad : Util.Auditoria
     {
         [Key]
         public int IdCiudad { get; set; }

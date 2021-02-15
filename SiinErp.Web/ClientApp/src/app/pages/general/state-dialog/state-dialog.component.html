@@ -1,0 +1,89 @@
+<form [formGroup]="mainForm" novalidate (ngSubmit)="onSubmit()">
+    <h1 mat-dialog-title>{{ 'GENERAL_STATE_TITLE' | translate }}</h1>
+    <div mat-dialog-content>
+        <div class="row">
+            <div class="col">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="{{ 'GENERAL_STATE_STATE_CODE' | translate }}"
+                        formControlName="stateCode">
+                    <mat-error *ngIf="mainForm.controls['stateCode'].hasError('required')">
+                        <strong>{{ 'GENERAL_STATE_STATE_CODE' | translate }}</strong>{{ 'COMMON_MESSAGE_ERROR_REQUIRED' | translate }}
+                    </mat-error>
+                    <mat-error *ngIf="mainForm.controls['stateCode'].hasError('minlength')">
+                        {{ 'COMMON_MESSAGE_ERROR_MINLENGTH_PART1' | translate }}<strong>{{ 'GENERAL_STATE_STATE_CODE' | translate }}</strong>{{ 'COMMON_MESSAGE_ERROR_MINLENGTH_PART2' | translate }}
+                    </mat-error>
+                    <mat-error *ngIf="mainForm.controls['stateCode'].hasError('maxlength')">
+                        {{ 'COMMON_MESSAGE_ERROR_MAXLENGTH_PART1' | translate }}<strong>{{ 'GENERAL_STATE_STATE_CODE' | translate }}</strong>{{ 'COMMON_MESSAGE_ERROR_MAXLENGTH_PART2' | translate }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="{{ 'GENERAL_STATE_STATE_NAME' | translate }}"
+                        formControlName="stateName">
+                    <mat-error *ngIf="mainForm.controls['stateName'].hasError('required')">
+                        <strong>{{ 'GENERAL_STATE_STATE_NAME' | translate }}</strong>{{ 'COMMON_MESSAGE_ERROR_REQUIRED' | translate }}
+                    </mat-error>
+                    <mat-error *ngIf="mainForm.controls['stateName'].hasError('minlength')">
+                        {{ 'COMMON_MESSAGE_ERROR_MINLENGTH_PART1' | translate }}<strong>{{ 'GENERAL_STATE_STATE_NAME' | translate }}</strong>{{ 'COMMON_MESSAGE_ERROR_MINLENGTH_PART2' | translate }}
+                    </mat-error>
+                    <mat-error *ngIf="mainForm.controls['stateName'].hasError('maxlength')">
+                        {{ 'COMMON_MESSAGE_ERROR_MAXLENGTH_PART1' | translate }}<strong>{{ 'GENERAL_STATE_STATE_NAME' | translate }}</strong>{{ 'COMMON_MESSAGE_ERROR_MAXLENGTH_PART2' | translate }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <mat-form-field class="full-width">
+                    <input matInput type="number" placeholder="{{ 'GENERAL_STATE_LATITUDE' | translate }}"
+                        formControlName="latitude">
+                    <mat-error *ngIf="mainForm.controls['latitude'].hasError('required')">
+                        <strong>{{ 'GENERAL_STATE_LATITUDE' | translate }}</strong>{{ 'COMMON_MESSAGE_ERROR_REQUIRED' | translate }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field class="full-width">
+                    <input matInput type="number" placeholder="{{ 'GENERAL_STATE_LONGITUDE' | translate }}"
+                        formControlName="longitude">
+                    <mat-error *ngIf="mainForm.controls['longitude'].hasError('required')">
+                        <strong>{{ 'GENERAL_STATE_LONGITUDE' | translate }}</strong>{{ 'COMMON_MESSAGE_ERROR_REQUIRED' | translate }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <mat-form-field class="full-width">
+                    <mat-select placeholder="{{ 'COMMON_INPUT_STATUS' | translate }}" formControlName="countryCode">
+                        <mat-option *ngFor="let country of countries" [value]="country.countryCode">
+                            {{ country.countryName }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="mainForm.controls['countryCode'].hasError('required')">
+                        <strong>{{ 'COMMON_INPUT_STATUS' | translate }}</strong>{{ 'COMMON_MESSAGE_ERROR_REQUIRED' | translate }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col" *ngIf="!create">
+                <mat-form-field class="full-width">
+                    <mat-select placeholder="{{ 'COMMON_INPUT_STATUS' | translate }}" formControlName="rowStatus">
+                        <mat-option *ngFor="let status of statuses" [value]="status.value">
+                            {{ status.text | translate}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="mainForm.controls['rowStatus'].hasError('required')">
+                        <strong>{{ 'COMMON_INPUT_STATUS' | translate }}</strong>{{ 'COMMON_MESSAGE_ERROR_REQUIRED' | translate }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-raised-button color="primary" *ngIf="mainForm.status === 'VALID'"
+            type="submit">{{ 'COMMON_BUTTON_SAVE' | translate }}</button>
+        <button mat-raised-button color="warn" type="button"
+            (click)="close()">{{ 'COMMON_BUTTON_CANCEL' | translate }}</button>
+    </div>
+</form>

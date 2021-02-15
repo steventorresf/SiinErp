@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SiinErp.Model.Entities.General
 {
     [Table("Modulo", Schema = "General")]
-    public class Modulo
+    public class Modulo : Util.Auditoria
     {
         [Key]
         [StringLength(10)]

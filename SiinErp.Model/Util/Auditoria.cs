@@ -12,8 +12,15 @@ namespace SiinErp.Model.Util
         [StringLength(50)]
         public string CreadoPor { get; set; }
 
-        public DateTimeOffset? FechaModificado { get; set; }
+        [Required]
+        public DateTimeOffset FechaModificado { get; set; }
 
+        [Required]
+        [StringLength(50)]
         public string ModificadoPor { get; set; }
+
+        [Required]
+        [StringLength(1)]
+        public string EstadoFila { get; set; }
     }
 }

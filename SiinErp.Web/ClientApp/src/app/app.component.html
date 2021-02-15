@@ -1,0 +1,27 @@
+<mat-toolbar color="primary">
+  <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+    *ngIf="isHandset$ | async">
+    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+  </button>
+  <span>{{ 'TITLE' | translate }}</span>
+  <span class="top-spacer"></span>
+  <mat-select [(value)]="selected" name="language" [ngClass]="selected" (valueChange)="onChange()"
+    style="width: 60px;">
+    <mat-option value="es">
+      <img width="24" height="24" src="/assets/flags/es.svg">
+    </mat-option>
+    <mat-option value="en">
+      <img width="24" height="24" src="/assets/flags/en.svg">
+    </mat-option>
+  </mat-select>
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav #drawer [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    <mat-nav-list>
+      <app-menu *ngFor="let item of navItems" [item]="item"></app-menu>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
