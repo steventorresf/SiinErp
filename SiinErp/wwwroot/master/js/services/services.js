@@ -1833,11 +1833,13 @@
 
         var service = {
             getAll: getAll,
+            getByDocumento: getByDocumento,
             getLastAlm: getLastAlm,
             getAct: getAct,
             create: create,
             createByEntradaCompra: createByEntradaCompra,
             createByPuntoDeVenta: createByPuntoDeVenta,
+            updateByPuntoDeVenta: updateByPuntoDeVenta,
             createByFacturaDeVenta: createByFacturaDeVenta,
             update: update,
             remove: remove,
@@ -1851,6 +1853,19 @@
 
         function getAll(idEmp, modulo, fechaIni, FechaFin) {
             return $http.get(nameSpace + idEmp + '/' + modulo + '/' + fechaIni + '/' + FechaFin)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getByDocumento(data) {
+            return $http.post(nameSpace + 'ByDoc/', data)
                 .then(
                     function (response) {
                         return response;
@@ -1929,6 +1944,19 @@
 
         function createByPuntoDeVenta(data) {
             return $http.post(nameSpace + 'ByPuntoDeVenta/', data)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function updateByPuntoDeVenta(data) {
+            return $http.put(nameSpace + 'ByPuntoDeVenta/', data)
                 .then(
                     function (response) {
                         return response;

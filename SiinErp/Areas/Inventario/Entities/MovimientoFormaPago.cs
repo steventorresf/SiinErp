@@ -25,5 +25,8 @@ namespace SiinErp.Areas.Inventario.Entities
 
         [NotMapped]
         public string Descripcion { get; set; }
+
+        [NotMapped]
+        public int Orden { get; set; }
     }
 }

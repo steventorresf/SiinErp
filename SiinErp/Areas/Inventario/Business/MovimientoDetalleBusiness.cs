@@ -26,21 +26,23 @@ namespace SiinErp.Areas.Inventario.Business
             {
                 SiinErpContext context = new SiinErpContext();
                 List<MovimientoDetalle> Lista = (from md in context.MovimientosDetalles.Where(x => x.IdMovimiento == IdMovimiento)
-                                                  join ar in context.Articulos on md.IdArticulo equals ar.IdArticulo
-                                                  select new MovimientoDetalle()
-                                                  {
-                                                      IdDetalleMovimiento = md.IdDetalleMovimiento,
-                                                      IdMovimiento = md.IdMovimiento,
-                                                      IdArticulo = md.IdArticulo,
-                                                      Cantidad = md.Cantidad,
-                                                      PcDscto = md.PcDscto,
-                                                      PcIva = md.PcIva,
-                                                      VrCosto = md.VrCosto,
-                                                      VrUnitario = md.VrUnitario,
-                                                      CodArticulo = ar.CodArticulo,
-                                                      NombreArticulo = ar.NombreArticulo,
-                                                      Articulo = ar,
-                                                  }).ToList();
+                                                 join ar in context.Articulos on md.IdArticulo equals ar.IdArticulo
+                                                 select new MovimientoDetalle()
+                                                 {
+                                                     IdDetalleMovimiento = md.IdDetalleMovimiento,
+                                                     IdMovimiento = md.IdMovimiento,
+                                                     IdArticulo = md.IdArticulo,
+                                                     Cantidad = md.Cantidad,
+                                                     PcDscto = md.PcDscto,
+                                                     PcIva = md.PcIva,
+                                                     VrCosto = md.VrCosto,
+                                                     VrUnitario = md.VrUnitario,
+                                                     CodArticulo = ar.CodArticulo,
+                                                     NombreArticulo = ar.NombreArticulo,
+                                                     Articulo = ar,
+                                                     VrBruto = md.VrUnitario * md.Cantidad,
+                                                     VrNeto = (md.VrUnitario * md.Cantidad) - ((md.VrUnitario * md.Cantidad) * md.PcDscto / 100) + ((md.VrUnitario * md.Cantidad) * md.PcIva / 100),
+                                                 }).ToList();
                 return Lista;
             }
             catch(Exception ex)

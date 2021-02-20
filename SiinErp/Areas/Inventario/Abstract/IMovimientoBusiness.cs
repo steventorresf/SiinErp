@@ -1,4 +1,5 @@
-﻿using SiinErp.Areas.Compras.Entities;
+﻿using Newtonsoft.Json.Linq;
+using SiinErp.Areas.Compras.Entities;
 using SiinErp.Areas.Inventario.Entities;
 using System;
 using System.Collections.Generic;
@@ -13,9 +14,13 @@ namespace SiinErp.Areas.Inventario.Abstract
 
         void CreateByEntradaCompra(Orden entityOrd, Movimiento entityMov, List<MovimientoDetalle> listaDetalleMov);
 
-        int CreateByPuntoDeVenta(Movimiento entityMov, List<MovimientoDetalle> listaDetalleMov, List<MovimientoFormaPago> listaDetallePag);
+        int CreateByPuntoDeVenta(JObject data);
 
-        void CreateByFacturaDeVenta(Movimiento entityMov, List<MovimientoDetalle> listaDetalleMov);
+        int UpdateByPuntoDeVenta(JObject data);
+
+        void CreateByFacturaDeVenta(JObject data);
+
+        Movimiento GetByDocumento(JObject data);
 
         List<Movimiento> GetMovimientosByModificable(int IdEmp);
 

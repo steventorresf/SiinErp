@@ -66,11 +66,21 @@ namespace SiinErp.Areas.Inventario.Controllers
         {
             try
             {
-                Movimiento entityMov = data["entityMov"].ToObject<Movimiento>();
-                List<MovimientoDetalle> listDetalleMov = data["listDetalleMov"].ToObject<List<MovimientoDetalle>>();
-                List<MovimientoFormaPago> listDetallePag = data["listDetallePag"].ToObject<List<MovimientoFormaPago>>();
+                int id = BusinessMov.CreateByPuntoDeVenta(data);
+                return Ok(id);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
 
-                int id = BusinessMov.CreateByPuntoDeVenta(entityMov, listDetalleMov, listDetallePag);
+        [HttpPut("ByPuntoDeVenta")]
+        public IActionResult UpdateByPuntoDeVenta([FromBody] JObject data)
+        {
+            try
+            {
+                int id = BusinessMov.UpdateByPuntoDeVenta(data);
                 return Ok(id);
             }
             catch (Exception ex)
@@ -84,13 +94,24 @@ namespace SiinErp.Areas.Inventario.Controllers
         {
             try
             {
-                Movimiento entityMov = data["entityMov"].ToObject<Movimiento>();
-                List<MovimientoDetalle> listDetalleMov = data["listDetalleMov"].ToObject<List<MovimientoDetalle>>();
-
-                BusinessMov.CreateByFacturaDeVenta(entityMov, listDetalleMov);
+                BusinessMov.CreateByFacturaDeVenta(data);
                 return Ok(true);
             }
             catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost("ByDoc")]
+        public IActionResult GetByDocumento([FromBody] JObject data)
+        {
+            try
+            {
+                var entity = BusinessMov.GetByDocumento(data);
+                return Ok(new { resp = true, entity });
+            }
+            catch (Exception ex)
             {
                 throw;
             }
@@ -109,9 +130,6 @@ namespace SiinErp.Areas.Inventario.Controllers
                 //  errorBusiness.Create("GetConceptos", ex.Message, null);
                 throw;
             }
-
-
-
         }
 
         [HttpGet("{IdEmp}/{Modulo}/{FechaIni}/{FechaFin}")]

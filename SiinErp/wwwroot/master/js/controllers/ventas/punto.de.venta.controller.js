@@ -17,6 +17,7 @@
         vm.onChangeArticulo = onChangeArticulo;
         vm.btnGuardar = btnGuardar;
         vm.entityMov = {
+            tipoDoc: GenTiposDoc.FacturaVenta,
             idEmpresa: vm.userApp.idEmpresa,
             valorBruto: 0,
             valorDscto: 0,
@@ -24,13 +25,16 @@
             valorNeto: 0,
             vrRestante: 0,
             creadoPor: vm.userApp.nombreUsuario,
+            modify: false,
         };
 
+        vm.clicAntSig = clicAntSig;
         vm.getClienteByIden = getClienteByIden;
         vm.getArticuloByCod = getArticuloByCod;
         vm.clicTipoBusqueda = clicTipoBusqueda;
         vm.busquedaArtCodigo = true;
         vm.busquedaArtTexto = false;
+        vm.quitarArticulo = quitarArticulo;
 
         vm.listBool = [{ codigo: 'true', descripcion: 'Si' }, { codigo: 'false', descripcion: 'No' }];
         vm.crearCliente = crearCliente;
@@ -70,6 +74,68 @@
                     var data = response.data;
                     vm.entityMov.tipoDoc = data.tipoDoc;
                     vm.entityMov.numDoc = data.numDoc + 1;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        function clicAntSig(tipo) {
+            if (tipo === 'A' && vm.entityMov.numDoc > 1) {
+                vm.entityMov.numDoc--;
+            }
+
+            if (tipo === 'S') {
+                vm.entityMov.numDoc++;
+            }
+
+            getByDocumento();
+        }
+
+        function getByDocumento() {
+            var data = {
+                idEmpresa: vm.userApp.idEmpresa,
+                tipoDoc: vm.entityMov.tipoDoc,
+                numDoc: vm.entityMov.numDoc,
+            };
+
+            var response = movService.getByDocumento(data);
+            response.then(
+                function (response) {
+                    var dataR = response.data;
+                    if (dataR.entity != null) {
+                        vm.entityMov = dataR.entity;
+                        vm.entityMov.sFechaDoc = new Date(vm.entityMov.sFechaFormatted);
+                        vm.entityMov.modificadoPor = vm.userApp.nombreUsuario;
+                        vm.entityMov.modify = true;
+
+                        vm.gridOptions.data = dataR.entity.listaDetalle;
+
+                        var dataFp = dataR.entity.listaFormaPago;
+                        for (var i = 0; i < dataFp.length; i++) {
+                            for (var j = 0; j < vm.gridOptionsPag.data.length; j++) {
+                                if (vm.gridOptionsPag.data[j].idDetFormaDePago === dataFp[i].idDetFormaDePago) {
+                                    vm.gridOptionsPag.data[j].valor = dataFp[i].valor;
+                                    vm.entityMov.vrRestante -= vm.gridOptionsPag.data[j].valor;
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        vm.entityMov = {
+                            tipoDoc: data.tipoDoc,
+                            numDoc: data.numDoc,
+                            creadoPor: vm.userApp.nombreUsuario,
+                            vrRestante: 0,
+                            modify: false,
+                        };
+
+                        vm.gridOptions.data = [];
+                        for (var i = 0; i < vm.gridOptionsPag.data.length; i++) {
+                            vm.gridOptionsPag.data[i].valor = 0;
+                        }
+                    }
                 },
                 function (response) {
                     console.log(response);
@@ -183,7 +249,7 @@
                     for (var i = 0; i < response.data.length; i++) {
                         data.push({ idDetFormaDePago: response.data[i].idDetalle, descripcion: response.data[i].descripcion, valor: 0 });
                     }
-                    
+
                     vm.gridOptionsPag.data = data;
                 },
                 function (response) {
@@ -291,24 +357,41 @@
             }
         }
 
+        function validarArticulo($item) {
+            var val = true;
+
+            var data = vm.gridOptions.data.filter(function (e) {
+                return e.idArticulo === $item.idArticulo;
+            });
+
+            if (data.length > 0) {
+                val = false;
+            }
+
+            return val;
+        }
+
         function onChangeArticulo($item, $model) {
-            var entity = {
-                idArticulo: $item.idArticulo,
-                codArticulo: $item.codArticulo,
-                nombreArticulo: $item.nombreArticulo,
-                cantidad: 1,
-                vrUnitario: $item.vrVenta,
-                vrCosto: $item.vrCosto,
-                pcDscto: 0,
-                pcIva: $item.pcIva,
-                vrBruto: $item.vrVenta,
-                vrNeto: $item.vrVenta + ($item.vrVenta * $item.pcIva / 100),
-                estado: Estados.Pendiente,
-            };
-            vm.gridOptions.data.push(entity);
-            vm.entityMov.idArticulo = null;
-            vm.entityMov.busquedaCodigo = null;
-            CalcularTotales();
+            var val = validarArticulo($item);
+            if (val) {
+                var entity = {
+                    idArticulo: $item.idArticulo,
+                    codArticulo: $item.codArticulo,
+                    nombreArticulo: $item.nombreArticulo,
+                    cantidad: 1,
+                    vrUnitario: $item.vrVenta,
+                    vrCosto: $item.vrCosto,
+                    pcDscto: 0,
+                    pcIva: $item.pcIva,
+                    vrBruto: $item.vrVenta,
+                    vrNeto: $item.vrVenta + ($item.vrVenta * $item.pcIva / 100),
+                    estado: Estados.Pendiente,
+                };
+                vm.gridOptions.data.push(entity);
+                vm.entityMov.idArticulo = null;
+                vm.entityMov.busquedaCodigo = null;
+                CalcularTotales();
+            }
         }
         
         vm.gridOptions = {
@@ -340,7 +423,7 @@
                 {
                     name: 'cantidad',
                     field: 'cantidad',
-                    displayName: 'Cantidad',
+                    displayName: 'Cant',
                     headerCellClass: 'bg-header',
                     cellClass: 'text-center',
                     width: 80,
@@ -350,7 +433,7 @@
                 {
                     name: 'vrUnitario',
                     field: 'vrUnitario',
-                    displayName: 'VrUnitario',
+                    displayName: 'Vr Unit',
                     headerCellClass: 'bg-header',
                     cellClass: 'text-right',
                     width: 80,
@@ -401,6 +484,20 @@
                     cellFilter: 'number: 0',
                     enableCellEdit: false,
                 },
+                {
+                    name: 'tool',
+                    field: '',
+                    displayName: '',
+                    enableColumnMenu: false,
+                    enableFiltering: false,
+                    enableSorting: false,
+                    headerCellClass: 'bg-header',
+                    cellClass: 'text-center',
+                    cellTemplate:
+                        "<span><a href='' ng-click='grid.appScope.vm.quitarArticulo(row.entity)' tooltip='Quitar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<i class='fa fa-remove text-danger'></i></a></span>",
+                    width: 50,
+                }
             ],
             onRegisterApi: function (gridApi) {
                 vm.gridApi = gridApi;
@@ -411,6 +508,15 @@
                 });
             },
         };
+
+        function quitarArticulo(entity) {
+            var data = vm.gridOptions.data.filter(function (e) {
+                return e.idArticulo != entity.idArticulo;
+            });
+
+            vm.gridOptions.data = data;
+            CalcularTotales();
+        }
 
         function CalcularTotales() {
             vm.entityMov.valorBruto = 0;
@@ -425,6 +531,8 @@
                 vm.entityMov.valorIva += data.vrBruto * data.pcIva / 100;
                 vm.entityMov.valorNeto += data.vrBruto - (data.vrBruto * data.pcDscto / 100) + (data.vrBruto * data.pcIva / 100);
             }
+
+            calcularFormaPago();
         }
 
         vm.gridOptionsPag = {
@@ -462,13 +570,17 @@
                         rowEntity.valor = oldValue;
                     }
 
-                    vm.entityMov.vrRestante = vm.entityMov.valorNeto;
-                    for (var i = 0; i < vm.gridOptionsPag.data.length; i++) {
-                        vm.entityMov.vrRestante -= vm.gridOptionsPag.data[i].valor;
-                    }
+                    calcularFormaPago();
                 });
             },
         };
+
+        function calcularFormaPago() {
+            vm.entityMov.vrRestante = vm.entityMov.valorNeto;
+            for (var i = 0; i < vm.gridOptionsPag.data.length; i++) {
+                vm.entityMov.vrRestante -= vm.gridOptionsPag.data[i].valor;
+            }
+        }
 
         function btnGuardar() {
             var val = true;
@@ -489,24 +601,29 @@
             }
 
             if (val) {
-                var response = cajaService.getIdCajaActiva(vm.entityMov.idDetCajero);
-                response.then(
-                    function (response) {
-                        vm.entityMov.idCaja = response.data;
-                        if (vm.entityMov.idCaja > 0) {
-                            guardar();
+                if (vm.entityMov.modify === false) {
+                    var response = cajaService.getIdCajaActiva(vm.entityMov.idDetCajero);
+                    response.then(
+                        function (response) {
+                            vm.entityMov.idCaja = response.data;
+                            if (vm.entityMov.idCaja > 0) {
+                                guardar();
+                            }
+                            if (vm.entityMov.idCaja === 0) {
+                                alert('La caja NO se encuentra Abierta.');
+                            }
+                            if (vm.entityMov.idCaja < 0) {
+                                alert('La caja se encuentra Abierta más de una vez.');
+                            }
+                        },
+                        function (response) {
+                            console.log(response);
                         }
-                        if (vm.entityMov.idCaja === 0) {
-                            alert('La caja NO se encuentra Abierta.');
-                        }
-                        if (vm.entityMov.idCaja < 0) {
-                            alert('La caja se encuentra Abierta más de una vez.');
-                        }
-                    },
-                    function (response) {
-                        console.log(response);
-                    }
-                );
+                    );
+                }
+                else {
+                    guardar();
+                }
             }
             else {
                 alert('No puede asignar un valor "A Credito", porque no selecciona cliente. ');
@@ -526,17 +643,17 @@
                 }
             }
 
-            if ((vm.entityMov.valorNeto - pagoTotal) === 0) {
-                if (vm.entityMov.idTercero <= 0) {
-                    vm.entityMov.idTercero = null;
-                }
+            if (vm.entityMov.idTercero <= 0) {
+                vm.entityMov.idTercero = null;
+            }
 
-                var data = {
-                    entityMov: vm.entityMov,
-                    listDetalleMov: vm.gridOptions.data,
-                    listDetallePag: vm.listDetallePag,
-                };
+            var data = {
+                entityMov: vm.entityMov,
+                listDetalleMov: vm.gridOptions.data,
+                listDetallePag: vm.listDetallePag,
+            };
 
+            if (!vm.entityMov.modify) {
                 var response = movService.createByPuntoDeVenta(data);
                 response.then(
                     function (response) {
@@ -550,10 +667,18 @@
                 );
             }
             else {
-
-            }
-
-            
+                var response = movService.updateByPuntoDeVenta(data);
+                response.then(
+                    function (response) {
+                        vm.entityMov.idMovimiento = response.data;
+                        vm.gridPrincipal = false;
+                        vm.gridTerminado = true;
+                    },
+                    function (response) {
+                        console.log(response);
+                    }
+                );
+            }            
         }
 
         function imprimirFact() {

@@ -135,7 +135,7 @@
             vm.entity = {
                 tipoTercero: TipoTercero.Cliente,
                 idEmpresa: vm.userApp.idEmpresa,
-                idUsuario: vm.userApp.idUsu,
+                creadoPor: vm.userApp.nombreUsuario,
                 estado: Estados.Activo,
             };
             
