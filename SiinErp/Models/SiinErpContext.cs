@@ -32,6 +32,10 @@ namespace SiinErp.Models
 
         public virtual DbSet<Error> Errores { get; set; }
 
+        public virtual DbSet<Menu> Menu { get; set; }
+
+        public virtual DbSet<MenuUsuario> MenuUsuario { get; set; }
+
         public virtual DbSet<Modulo> Modulos { get; set; }
 
         public virtual DbSet<Pais> Paises { get; set; }

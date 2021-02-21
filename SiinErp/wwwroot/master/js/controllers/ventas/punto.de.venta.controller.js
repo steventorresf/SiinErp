@@ -103,6 +103,20 @@
             var response = movService.getByDocumento(data);
             response.then(
                 function (response) {
+                    vm.entityMov = {
+                        tipoDoc: data.tipoDoc,
+                        numDoc: data.numDoc,
+                        creadoPor: vm.userApp.nombreUsuario,
+                        vrRestante: 0,
+                        modify: false,
+                    };
+
+                    vm.gridOptions.data = [];
+                    for (var i = 0; i < vm.gridOptionsPag.data.length; i++) {
+                        vm.gridOptionsPag.data[i].valor = 0;
+                    }
+
+
                     var dataR = response.data;
                     if (dataR.entity != null) {
                         vm.entityMov = dataR.entity;
@@ -120,20 +134,6 @@
                                     vm.entityMov.vrRestante -= vm.gridOptionsPag.data[j].valor;
                                 }
                             }
-                        }
-                    }
-                    else {
-                        vm.entityMov = {
-                            tipoDoc: data.tipoDoc,
-                            numDoc: data.numDoc,
-                            creadoPor: vm.userApp.nombreUsuario,
-                            vrRestante: 0,
-                            modify: false,
-                        };
-
-                        vm.gridOptions.data = [];
-                        for (var i = 0; i < vm.gridOptionsPag.data.length; i++) {
-                            vm.gridOptionsPag.data[i].valor = 0;
                         }
                     }
                 },
@@ -676,6 +676,7 @@
                     },
                     function (response) {
                         console.log(response);
+                        alert("Ha ocurrido un error inesperado.\rPuede ser que la factura no se pueda modificar, porque ya tiene abono.")
                     }
                 );
             }            

@@ -2365,7 +2365,7 @@
             }
 
             var Documento = {
-                pageSize: 'A4',
+                pageSize: 'A8',
                 //header: function (currentPage, pageCount, pageSize) {
                 //    return [
                 //        {

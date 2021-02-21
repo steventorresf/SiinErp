@@ -782,8 +782,8 @@ namespace SiinErp.Areas.Inventario.Business
 
                 if (entity.IdTercero != null && entity.IdTercero > 0)
                 {
-                    TablaDetalle entityTercero = context.TablasDetalles.Find(entity.IdTercero);
-                    entity.NombreTercero = entityTercero.Descripcion;
+                    Tercero entityTercero = context.Terceros.Find(entity.IdTercero);
+                    entity.NombreTercero = entityTercero.NombreTercero;
                 }
 
                 if (entity.IdVendedor != null && entity.IdVendedor > 0)

@@ -18,5 +18,7 @@ namespace SiinErp.Utiles
         public string Imagen { get; set; }
 
         public int IdEmpresa { get; set; }
+
+        public string Menu { get; set; }
     }
 }

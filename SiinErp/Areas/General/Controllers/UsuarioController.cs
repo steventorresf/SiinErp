@@ -18,10 +18,12 @@ namespace SiinErp.Areas.General.Controllers
     public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioBusiness usuarioBusiness;
+        private readonly IMenuUsuarioBusiness menuUsuarioBusiness;
 
         public UsuarioController()
         {
             usuarioBusiness = new UsuarioBusiness();
+            menuUsuarioBusiness = new MenuUsuarioBusiness();
         }
 
         [HttpPost("Login")]
@@ -48,6 +50,7 @@ namespace SiinErp.Areas.General.Controllers
                             dataCookie.NombreCompleto = obUsu.NombreCompleto;
                             dataCookie.Imagen = "favicon.ico";
                             dataCookie.IdEmpresa = IdEmp;
+                            dataCookie.Menu = menuUsuarioBusiness.GetMenuByIdUsuario(obUsu.IdUsuario);
 
                             HttpContext.Session.SetString("IdUsu", obUsu.IdUsuario.ToString());
                             HttpContext.Session.SetString("NombreUsuario", obUsu.NombreUsuario);
