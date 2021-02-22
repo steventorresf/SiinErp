@@ -416,7 +416,7 @@ namespace SiinErp.Areas.Inventario.Business
                             entityFormaPag.Valor = mfp.Valor;
                             context.SaveChanges();
 
-                            CajaDetalle entityCajaDet = context.CajaDetalle.FirstOrDefault(x => x.IdMovimiento == mfp.IdMovimiento && x.IdCaja == entityMov.IdCaja && x.IdDetFormaPago == mfp.IdDetFormaDePago);
+                            CajaDetalle entityCajaDet = context.CajaDetalle.FirstOrDefault(x => x.IdMovimiento == entityMov.IdMovimiento && x.IdCaja == entityMov.IdCaja && x.IdDetFormaPago == mfp.IdDetFormaDePago);
                             if (entityCajaDet != null)
                             {
                                 entityCajaDet.Valor = mfp.Valor;
