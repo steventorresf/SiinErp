@@ -50,8 +50,8 @@
         function refreshArticulo(prefix) {
             if (prefix.length > 2) {
                 var data = {
-                    IdEmp: vm.userApp.idEmpresa,
-                    Prefix: prefix,
+                    idEmpresa: vm.userApp.idEmpresa,
+                    prefix: prefix,
                 };
 
                 var response = artService.getAllByPrefix(data);
@@ -197,6 +197,7 @@
                     }
                 );
             }
+            else { alert('El articulo ya ha sido agregado previamente.'); }
         }
 
         vm.gridOptionsDet = {

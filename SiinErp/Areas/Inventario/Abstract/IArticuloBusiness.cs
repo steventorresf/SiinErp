@@ -11,6 +11,8 @@ namespace SiinErp.Areas.Inventario.Abstract
     {
         List<Articulo> GetArticulos(int IdEmp);
 
+        List<Articulo> GetAllByPrefix(JObject data);
+
         List<Articulo> GetArticulosByIdListaPrecio(int IdListaPrecio);
 
         Articulo GetByCodigoListaP(JObject data);

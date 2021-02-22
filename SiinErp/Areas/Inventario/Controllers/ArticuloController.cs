@@ -38,6 +38,20 @@ namespace SiinErp.Areas.Inventario.Controllers
             }
         }
 
+        [HttpPost("ByPrefix")]
+        public IActionResult GetAllByPrefix([FromBody] JObject data)
+        {
+            try
+            {
+                var lista = BusinessArt.GetAllByPrefix(data);
+                return Ok(lista);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         [HttpPost("ByCodListaP")]
         public IActionResult GetByCodigoListaP([FromBody] JObject data)
         {
