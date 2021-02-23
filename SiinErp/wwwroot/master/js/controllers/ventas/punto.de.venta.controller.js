@@ -16,6 +16,7 @@
         vm.refreshArticulo = refreshArticulo;
         vm.onChangeArticulo = onChangeArticulo;
         vm.btnGuardar = btnGuardar;
+        vm.btnAnular = btnAnular;
         vm.entityMov = {
             tipoDoc: GenTiposDoc.FacturaVenta,
             idEmpresa: vm.userApp.idEmpresa,
@@ -683,6 +684,20 @@
                     }
                 );
             }            
+        }
+
+        function btnAnular() {
+            var response = movService.remove(vm.entityMov.idMovimiento);
+            response.then(
+                function (response) {
+                    alert("¡La factura ha sido ANULADA correctamente!")
+                    window.location.reload();
+                },
+                function (response) {
+                    console.log(response);
+                    alert("Ha ocurrido un error inesperado.\rPuede ser que la factura no se pueda anular, porque ya tiene abono.")
+                }
+            );
         }
 
         function imprimirFact() {

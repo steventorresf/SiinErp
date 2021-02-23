@@ -40,6 +40,7 @@
                             </div>
                             <button class="mr-2" ng-click="vm.clicAntSig('A')"><i class="fa fa-arrow-left"></i></button>
                             <button ng-click="vm.clicAntSig('S')"><i class="fa fa-arrow-right"></i></button>
+                            <b ng-if="vm.entityMov.estado === 'I'" class="ml-5 text-danger">ANULADA</b>
                         </form>
                     </div>
                     <div class="col-12 col-md-4 text-right">
@@ -168,19 +169,21 @@
                 <div class="row">
                     <div class="col-12 col-md-8">
                         <div class="row">
-                            <div class="col-12 col-md-3">
+                            <div class="col-12 col-lg-6">
                                 <label>Vr. Bruto:</label>
                                 <input type="text" ng-model="vm.entityMov.valorBruto | number : 0" class="form-control" onkeydown="return false" />
                             </div>
-                            <div class="col-12 col-md-3">
+                            <div class="col-12 col-lg-6">
                                 <label>Vr. Descuento:</label>
                                 <input type="text" ng-model="vm.entityMov.valorDscto | number : 0" class="form-control" onkeydown="return false" />
                             </div>
-                            <div class="col-12 col-md-3">
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12 col-lg-6">
                                 <label>Vr. Iva:</label>
                                 <input type="text" ng-model="vm.entityMov.valorIva | number : 0" class="form-control" onkeydown="return false" />
                             </div>
-                            <div class="col-12 col-md-3">
+                            <div class="col-12 col-lg-6">
                                 <label>Vr. Neto:</label>
                                 <input type="text" ng-model="vm.entityMov.valorNeto | number : 0" class="form-control" onkeydown="return false" />
                             </div>
@@ -197,9 +200,14 @@
                                 <h4 ng-if="vm.entityMov.idDetCajero != null">{{vm.entityMov.vrRestante | number : 0}}</h4>
                             </div>
                             <div class="col-12 col-md-6 text-right">
-                                <button class="btn btn-primary" ng-click="vm.btnGuardar()" ng-disabled="formApp.$invalid || !vm.entityMov.valorNeto || vm.entityMov.valorNeto <= 0 || vm.entityMov.vrRestante != 0">Guardar</button>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <button class="btn btn-primary" ng-click="vm.btnGuardar()" ng-if="vm.entityMov.estado != 'I'" ng-disabled="formApp.$invalid || !vm.entityMov.valorNeto || vm.entityMov.valorNeto <= 0 || vm.entityMov.vrRestante != 0">Guardar</button>
+                        <button class="btn btn-danger ml-5" ng-click="vm.btnAnular()" ng-if="vm.entityMov.modify && vm.entityMov.estado != 'I'">Anular</button>
                     </div>
                 </div>
             </div>

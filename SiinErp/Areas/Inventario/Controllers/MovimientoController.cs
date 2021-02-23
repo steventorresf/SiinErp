@@ -203,8 +203,7 @@ namespace SiinErp.Areas.Inventario.Controllers
             }
             catch (Exception)
             {
-                throw;
-                
+                throw;                
             }
         }
 
