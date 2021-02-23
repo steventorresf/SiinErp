@@ -48,6 +48,11 @@
         vm.imprimirFact = imprimirFact;
         vm.terminarFact = terminarFact;
 
+        vm.last = {
+            idDetAlmacen: null,
+            idDetCajero: null,
+        };
+
 
         function init() {
             vm.gridPrincipal = true;
@@ -106,6 +111,8 @@
                     vm.entityMov = {
                         tipoDoc: data.tipoDoc,
                         numDoc: data.numDoc,
+                        idDetAlmacen: angular.copy(vm.last.idDetAlmacen),
+                        idDetCajero: angular.copy(vm.last.idDetCajero),
                         creadoPor: vm.userApp.nombreUsuario,
                         vrRestante: 0,
                         modify: false,
@@ -122,11 +129,17 @@
                         vm.entityMov = dataR.entity;
                         vm.entityMov.sFechaDoc = new Date(vm.entityMov.sFechaFormatted);
                         vm.entityMov.modificadoPor = vm.userApp.nombreUsuario;
+                        vm.entityMov.vrRestante = 0;
                         vm.entityMov.modify = true;
 
                         vm.gridOptions.data = dataR.entity.listaDetalle;
 
                         var dataFp = dataR.entity.listaFormaPago;
+
+                        if (dataFp.length > 0) {
+                            vm.entityMov.vrRestante = angular.copy(vm.entityMov.valorNeto);
+                        }
+
                         for (var i = 0; i < dataFp.length; i++) {
                             for (var j = 0; j < vm.gridOptionsPag.data.length; j++) {
                                 if (vm.gridOptionsPag.data[j].idDetFormaDePago === dataFp[i].idDetFormaDePago) {
@@ -258,25 +271,12 @@
             );
         }
         
-        function getLastListaPrecioByUsuarioAndSinCliente() {
-            var response = movService.getLastListaPrecioByUsuarioAndSinCliente(vm.userApp.nombreUsuario, vm.userApp.idEmpresa);
-            response.then(
-                function (response) {
-                    if (response.data > 0) {
-                        vm.entityMov.idDetAlmacen = response.data;
-                    }
-                },
-                function (response) {
-                    console.log(response);
-                }
-            );
-        }
-
         function getLastAlm() {
             var response = movService.getLastAlm(vm.userApp.nombreUsuario, vm.userApp.idEmpresa);
             response.then(
                 function (response) {
                     if (response.data > 0) {
+                        vm.last.idDetAlmacen = response.data;
                         vm.entityMov.idDetAlmacen = response.data;
                     }
                 },
@@ -291,6 +291,7 @@
             response.then(
                 function (response) {
                     if (response.data > 0) {
+                        vm.last.idDetCajero = response.data;
                         vm.entityMov.idDetCajero = response.data;
                     }
                 },
@@ -576,9 +577,11 @@
         };
 
         function calcularFormaPago() {
-            vm.entityMov.vrRestante = vm.entityMov.valorNeto;
-            for (var i = 0; i < vm.gridOptionsPag.data.length; i++) {
-                vm.entityMov.vrRestante -= vm.gridOptionsPag.data[i].valor;
+            if (!vm.entityMov.modify || vm.entityMov.idDetCajero != null) {
+                vm.entityMov.vrRestante = vm.entityMov.valorNeto;
+                for (var i = 0; i < vm.gridOptionsPag.data.length; i++) {
+                    vm.entityMov.vrRestante -= vm.gridOptionsPag.data[i].valor;
+                }
             }
         }
 
@@ -589,9 +592,9 @@
             vm.entityMov.tpPago = Constantes.TpPago_Contado;
 
             var length = vm.gridOptionsPag.data.filter(function (e) {
-                return e.descripcion === 'A Credito' && e.valor > 0;
+                return e.descripcion.toUpperCase() === 'A CREDITO' && e.valor > 0;
             });
-            
+
             if (length.length > 0) {
                 vm.entityMov.valorSaldo = length[0].valor;
                 vm.entityMov.tpPago = Constantes.TpPago_Credito;

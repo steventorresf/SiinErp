@@ -197,7 +197,7 @@
                                 <h4 ng-if="vm.entityMov.idDetCajero != null">{{vm.entityMov.vrRestante | number : 0}}</h4>
                             </div>
                             <div class="col-12 col-md-6 text-right">
-                                <button class="btn btn-primary" ng-click="vm.btnGuardar()" ng-disabled="formApp.$invalid || (vm.entityMov.idDetCajero != null && vm.entityMov.vrRestante != 0=">Guardar</button>
+                                <button class="btn btn-primary" ng-click="vm.btnGuardar()" ng-disabled="formApp.$invalid || !vm.entityMov.valorNeto || vm.entityMov.valorNeto <= 0 || vm.entityMov.vrRestante != 0">Guardar</button>
                             </div>
                         </div>
                     </div>
