@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SiinErp.Model.Abstract.Contabilidad;
 using SiinErp.Model.Entities.Contabilidad;
-using SiinErp.Model.Util;
+using SiinErp.Model.Common;
 using System;
 
 namespace SiinErp.Web.Controllers.Contabilidad

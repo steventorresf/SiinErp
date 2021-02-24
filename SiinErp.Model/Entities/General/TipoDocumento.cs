@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SiinErp.Model.Entities.General
 {
     [Table("TipoDocumento", Schema = "General")]
-    public class TipoDocumento : Util.Auditoria
+    public class TipoDocumento : Common.Auditoria
     {
         [Key]
         public int IdTipoDoc { get; set; }
@@ -44,9 +44,6 @@ namespace SiinErp.Model.Entities.General
         public int? IdCuentaOtro { get; set; }
 
         public int? IdCuentaReteFuente { get; set; }
-
-        [Required]
-        public DateTimeOffset FechaCreacion { get; set; }
 
         [Required]
         public int IdUsuario { get; set; }

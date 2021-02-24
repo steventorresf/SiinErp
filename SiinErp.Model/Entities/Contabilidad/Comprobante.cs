@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SiinErp.Model.Entities.Contabilidad
 {
     [Table("Comprobante", Schema = "Contabilidad")]
-    public class Comprobante : Util.Auditoria
+    public class Comprobante : Common.Auditoria
     {
         [Key]
         public int IdComprobante { get; set; }

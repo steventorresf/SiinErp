@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SiinErp.Model.Entities.General
 {
     [Table("Pais", Schema = "General")]
-    public class Pais : Util.Auditoria
+    public class Pais : Common.Auditoria
     {
         [Key]
         public int IdPais { get; set; }
@@ -20,5 +17,15 @@ namespace SiinErp.Model.Entities.General
         [Required]
         [StringLength(10)]
         public string CodigoDane { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Pais comparar && IdPais == comparar.IdPais;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(IdPais);
+        }
     }
 }

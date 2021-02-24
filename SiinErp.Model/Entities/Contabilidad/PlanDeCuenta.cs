@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SiinErp.Model.Entities.Contabilidad
 {
     [Table("PlanDeCuenta", Schema = "Contabilidad")]
-    public class PlanDeCuenta : Util.Auditoria
+    public class PlanDeCuenta : Common.Auditoria
     {
         [Key]
         public int IdCuentaContable { get; set; }

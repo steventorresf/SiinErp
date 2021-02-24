@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SiinErp.Model.Abstract.General;
 using SiinErp.Model.Entities.General;
-using SiinErp.Model.Util;
+using SiinErp.Model.Common;
 using System;
 
 namespace SiinErp.Web.Controllers.General
@@ -17,7 +17,7 @@ namespace SiinErp.Web.Controllers.General
         {
             _Business = business;
         }
-
+        /*
         [HttpGet("{id}")]
         public IActionResult GetCiudades(int id)
         {
@@ -58,5 +58,6 @@ namespace SiinErp.Web.Controllers.General
                 throw;
             }
         }
+        */
     }
 }

@@ -5,10 +5,10 @@ namespace SiinErp.Model.Abstract.General
 {
     public interface IPaisBusiness
     {
-        List<Pais> GetPaises();
-
-        void Create(Pais entity);
-
-        void Update(int IdPais, Pais entity);
+        void Create(int id, Pais entity);
+        Pais Read(int id);
+        List<Pais> ReadAll();
+        void Update(int id, Pais entity);
+        void Delete(int id);
     }
 }

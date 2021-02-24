@@ -14,7 +14,7 @@ namespace SiinErp.Model.Business.General
             this.context = context;
         }
 
-        public void Create(string Metodo, string MensajeError, int? IdUsuario)
+        public void Create(string Metodo, string MensajeError, int? IdUsuario) 
         {
             try
             {
@@ -22,6 +22,27 @@ namespace SiinErp.Model.Business.General
                 {
                     Metodo = Metodo,
                     MensajeError = MensajeError,
+                    IdUsuario = IdUsuario,
+                    FechaError = DateTimeOffset.Now
+                };
+                context.Errores.Add(entity);
+                context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void Create(string Metodo, Exception ex, int? IdUsuario)
+        {
+            try
+            {
+                var message = ex.StackTrace.ToString();
+                Error entity = new Error
+                {
+                    Metodo = Metodo,
+                    MensajeError = message.Length > 500 ? message.Substring(0, 500) : message,
                     IdUsuario = IdUsuario,
                     FechaError = DateTimeOffset.Now
                 };

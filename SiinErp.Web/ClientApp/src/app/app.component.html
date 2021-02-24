@@ -1,27 +1,47 @@
-<mat-toolbar color="primary">
-  <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
-    *ngIf="isHandset$ | async">
-    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-  </button>
-  <span>{{ 'TITLE' | translate }}</span>
-  <span class="top-spacer"></span>
-  <mat-select [(value)]="selected" name="language" [ngClass]="selected" (valueChange)="onChange()"
-    style="width: 60px;">
-    <mat-option value="es">
-      <img width="24" height="24" src="/assets/flags/es.svg">
-    </mat-option>
-    <mat-option value="en">
-      <img width="24" height="24" src="/assets/flags/en.svg">
-    </mat-option>
-  </mat-select>
-</mat-toolbar>
-<mat-sidenav-container>
-  <mat-sidenav #drawer [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
-    <mat-nav-list>
-      <app-menu *ngFor="let item of navItems" [item]="item"></app-menu>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<nz-layout class="app-layout">
+  <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null">
+    <div class="sidebar-logo">
+      <a href="https://ng.ant.design/" target="_blank">
+        <img src="/assets/img/logo.svg" alt="logo">
+        <h1>SiinErp</h1>
+      </a>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-submenu nzTitle="Dashboard" nzIcon="dashboard">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/welcome">Home</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/otros/tablas">Tablas</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/form">Basic Form</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu *ngFor="let item of menu" nzTitle="{{item.name}}" nzIcon="{{item.icon}}">
+        <ul>
+          <li nz-menu-item nzMatchRouter *ngFor="let child of item.childs">
+            <a routerLink="{{child.route}}">{{child.name}}</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div class="app-header">
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+          <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+        </span>
+      </div>
+    </nz-header>
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

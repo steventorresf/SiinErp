@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Linq;
 using SiinErp.Model.Abstract.Tesoreria;
 using SiinErp.Model.Entities.Tesoreria;
-using SiinErp.Model.Util;
+using SiinErp.Model.Common;
 using System;
 using System.Collections.Generic;
 

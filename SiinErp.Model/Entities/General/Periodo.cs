@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SiinErp.Model.Entities.General
 {
     [Table("Periodo", Schema = "General")]
-    public class Periodo : Util.Auditoria
+    public class Periodo : Common.Auditoria
     {
         [Key]
         public int IdPeriodo { get; set; }
@@ -38,11 +38,7 @@ namespace SiinErp.Model.Entities.General
         public string Situacion { get; set; }
 
         [Required]
-        public DateTimeOffset FechaCreacion { get; set; }
-
-        [Required]
         public int IdUsuario { get; set; }
-
 
         [NotMapped]
         public string NombreModulo { get; set; }

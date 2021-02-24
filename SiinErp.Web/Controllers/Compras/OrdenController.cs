@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SiinErp.Model.Abstract.Compras;
 using SiinErp.Model.Entities.Compras;
-using SiinErp.Model.Util;
+using SiinErp.Model.Common;
 using System;
 
 namespace SiinErp.Web.Controllers.Compras

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using SiinErp.Model.Abstract.General;
 using SiinErp.Model.Entities.General;
-using SiinErp.Model.Util;
+using SiinErp.Model.Common;
 using System;
 
 namespace SiinErp.Web.Controllers.General

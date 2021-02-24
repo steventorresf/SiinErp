@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SiinErp.Model.Entities.Inventario
 {
     [Table("Articulo", Schema = "Inventario")]
-    public class Articulo : Util.Auditoria
+    public class Articulo : Common.Auditoria
     {
         [Key]
         public int IdArticulo { get; set; }
@@ -73,9 +73,6 @@ namespace SiinErp.Model.Entities.Inventario
         public DateTimeOffset? FechaUSalida { get; set; }
 
         public DateTimeOffset? FechaUPedida { get; set; }
-
-        [Required]
-        public DateTimeOffset FechaCreacion { get; set; }
 
         [Required]
         public int IdUsuario { get; set; }

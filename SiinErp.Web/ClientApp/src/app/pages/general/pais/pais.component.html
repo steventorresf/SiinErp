@@ -1,0 +1,57 @@
+<nz-card nzTitle="Paises" [nzExtra]="extraButtons">
+    <!-- Inicio - DataTable -->
+    <nz-table #table [nzData]="listOfData">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Codigo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of table.data">
+                <td>{{data.idPais}}</td>
+                <td>{{data.nombrePais}}</td>
+                <td>{{data.codigoDane}}</td>
+                <td>
+                    <!-- Inicio - Boton de Editar -->
+                    <button nz-button nzType="primary" (click)="updateModal(data)" nzTooltipTitle="Editar Registro"
+                        nzTooltipPlacement="top" nz-tooltip><i nz-icon nzType="edit"></i></button>
+                    <!-- Fin - Boton de Editar -->
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+    <!-- Fin - DataTable -->
+</nz-card>
+<ng-template #extraButtons>
+    <!-- Inicio - Boton de Agregar -->
+    <button nz-button nzType="primary" (click)="createModal()" nzTooltipTitle="Nuevo Registro" nzTooltipPlacement="top"
+        nz-tooltip><i nz-icon nzType="plus"></i></button>
+    <!-- Fin - Boton de Agregar -->
+</ng-template>
+<!-- Inicio - Area de Ventana Modal -->
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="getModalTitle()" (nzOnCancel)="hideModal()" (nzOnOk)="submitForm()">
+    <ng-container *nzModalContent>
+        <form nz-form [formGroup]="siinerpForm">
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="nombrePais">Nombre</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <input nz-input formControlName="nombrePais" id="nombrePais" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="codigoDane">Codigo DANE</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <input nz-input formControlName="codigoDane" id="codigoDane" />
+                </nz-form-control>
+            </nz-form-item>
+            <input type="hidden" nz-input formControlName="idPais" id="idPais" />
+            <input type="hidden" nz-input formControlName="fechaCreacion" id="fechaCreacion" />
+            <input type="hidden" nz-input formControlName="creadoPor" id="creadoPor" />
+            <input type="hidden" nz-input formControlName="estadoFila" id="estadoFila" />
+        </form>
+    </ng-container>
+</nz-modal>
+<!-- Fin - Area de Ventana Modal -->

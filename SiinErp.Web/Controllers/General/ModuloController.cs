@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SiinErp.Model.Abstract.General;
-using SiinErp.Model.Util;
+using SiinErp.Model.Common;
 using System;
 
 namespace SiinErp.Web.Controllers.General

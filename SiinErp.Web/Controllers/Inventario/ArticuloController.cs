@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Linq;
 using SiinErp.Model.Abstract.Inventario;
 using SiinErp.Model.Entities.Inventario;
-using SiinErp.Model.Util;
+using SiinErp.Model.Common;
 using System;
 
 namespace SiinErp.Web.Controllers.Inventario

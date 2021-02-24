@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SiinErp.Model.Entities.Ventas
 {
     [Table("CajaDetalle", Schema = "Ventas")]
-    public class CajaDetalle : Util.Auditoria
+    public class CajaDetalle : Common.Auditoria
     {
         [Key]
         public int IdCajaDetalle { get; set; }

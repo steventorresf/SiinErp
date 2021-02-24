@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace SiinErp.Model.Entities.Ventas
 {
     [Table("ListaPrecioDetalle", Schema = "Ventas")]
-    public class ListaPrecioDetalle : Util.Auditoria
+    public class ListaPrecioDetalle : Common.Auditoria
     {
         [Key]
         public int IdDetalleListaPrecio { get; set; }

@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 using SiinErp.Model.Abstract.Cartera;
 using SiinErp.Model.Entities.Cartera;
 using SiinErp.Model.Entities.Inventario;
-using SiinErp.Model.Util;
+using SiinErp.Model.Common;
 using System;
 using System.Collections.Generic;
 

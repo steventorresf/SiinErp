@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SiinErp.Model.Entities.Compras
 {
     [Table("OrdenDetalle", Schema = "Compras")]
-    public class OrdenDetalle : Util.Auditoria
+    public class OrdenDetalle : Common.Auditoria
     {
         [Key]
         public int IdDetalleOrden { get; set; }

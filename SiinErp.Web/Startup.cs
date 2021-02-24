@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using SiinErp.Model.Util;
+using SiinErp.Model.Common;
 using SiinErp.Web.Configuration;
 
 namespace SiinErp.Web

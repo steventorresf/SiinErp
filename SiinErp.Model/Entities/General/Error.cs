@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SiinErp.Model.Entities.General
 {
     [Table("Error", Schema = "General")]
-    public class Error : Util.Auditoria
+    public class Error
     {
         [Key]
         public int IdError { get; set; }

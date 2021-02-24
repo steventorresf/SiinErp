@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SiinErp.Model.Entities.Contabilidad
 {
     [Table("TipoContab", Schema = "Contabilidad")]
-    public class TipoContab : Util.Auditoria
+    public class TipoContab : Common.Auditoria
     {
         [Key]
         public int IdTipoDoc { get; set; }
@@ -23,9 +23,6 @@ namespace SiinErp.Model.Entities.Contabilidad
         [Required]
         [StringLength(50)]
         public string Descripcion { get; set; }
-
-        [Required]
-        public DateTimeOffset FechaCreacion { get; set; }
 
         [Required]
         public int IdUsuario { get; set; }

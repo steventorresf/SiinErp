@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SiinErp.Model.Entities.General
 {
     [Table("Modulo", Schema = "General")]
-    public class Modulo : Util.Auditoria
+    public class Modulo : Common.Auditoria
     {
         [Key]
         [StringLength(10)]
@@ -20,8 +20,5 @@ namespace SiinErp.Model.Entities.General
 
         [Required]
         public bool Periodo { get; set; }
-
-        [Required]
-        public DateTimeOffset FechaCreacion { get; set; }
     }
 }

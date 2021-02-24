@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SiinErp.Model.Entities.Cartera
 {
     [Table("Movimiento", Schema = "Cartera")]
-    public class MovimientoCar : Util.Auditoria
+    public class MovimientoCar : Common.Auditoria
     {
         [Key]
         public int IdMovimiento { get; set; }

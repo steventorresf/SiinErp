@@ -2,7 +2,7 @@
 using SiinErp.Model.Abstract.General;
 using SiinErp.Model.Context;
 using SiinErp.Model.Entities.Contabilidad;
-using SiinErp.Model.Util;
+using SiinErp.Model.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;

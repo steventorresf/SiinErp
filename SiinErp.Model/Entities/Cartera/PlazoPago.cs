@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SiinErp.Model.Entities.Cartera
 {
     [Table("PlazoPago", Schema = "Cartera")]
-    public class PlazoPago : Util.Auditoria
+    public class PlazoPago : Common.Auditoria
     {
         [Key]
         public int IdPlazoPago { get; set; }
@@ -25,9 +25,6 @@ namespace SiinErp.Model.Entities.Cartera
 
         [Required]
         public int IdUsuario { get; set; }
-
-        [Required]
-        public DateTimeOffset FechaCreacion { get; set; }
 
         [Required]
         [StringLength(1)]

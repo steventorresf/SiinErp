@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SiinErp.Model.Entities.Contabilidad
 {
     [Table("Retencion", Schema = "Contabilidad")]
-    public class Retencion : Util.Auditoria
+    public class Retencion : Common.Auditoria
     {
         [Key]
         public int IdRetencion { get; set; }
@@ -29,10 +29,6 @@ namespace SiinErp.Model.Entities.Contabilidad
 
         [Required]
         public decimal BaseRetencion { get; set; }
-
-        
-        [Required]
-        public DateTimeOffset FechaCreacion { get; set; }
 
         [Required]
         public int IdUsuario { get; set; }

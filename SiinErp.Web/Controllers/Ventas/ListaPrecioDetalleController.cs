@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Linq;
 using SiinErp.Model.Abstract.Ventas;
 using SiinErp.Model.Entities.Ventas;
-using SiinErp.Model.Util;
+using SiinErp.Model.Common;
 using System;
 
 namespace SiinErp.Areas.Ventas.Controllers

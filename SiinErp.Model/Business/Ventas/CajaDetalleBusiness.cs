@@ -3,7 +3,7 @@ using SiinErp.Model.Abstract.Ventas;
 using SiinErp.Model.Context;
 using SiinErp.Model.Entities.General;
 using SiinErp.Model.Entities.Ventas;
-using SiinErp.Model.Util;
+using SiinErp.Model.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;

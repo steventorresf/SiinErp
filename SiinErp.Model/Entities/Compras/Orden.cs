@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SiinErp.Model.Entities.Compras
 {
     [Table("Orden", Schema = "Compras")]
-    public class Orden : Util.Auditoria
+    public class Orden : Common.Auditoria
     {
         [Key]
         public int IdOrden { get; set; }
@@ -35,9 +35,6 @@ namespace SiinErp.Model.Entities.Compras
 
         [Required]
         public int IdPlazoPago { get; set; }
-
-        [Required]
-        public DateTimeOffset FechaCreacion { get; set; }
 
         [Required]
         public DateTimeOffset FechaDoc { get; set; }

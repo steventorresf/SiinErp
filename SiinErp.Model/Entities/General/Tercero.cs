@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace SiinErp.Model.Entities.General
 {
     [Table("Tercero", Schema = "General")]
-    public class Tercero : Util.Auditoria
+    public class Tercero : Common.Auditoria
     {
         [Key]
         public int IdTercero { get; set; }

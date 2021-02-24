@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SiinErp.Model.Entities.Cartera
 {
     [Table("Concepto", Schema = "Cartera")]
-    public class Concepto : Util.Auditoria
+    public class Concepto : Common.Auditoria
     {
         [Key]
         public int IdConcepto { get; set; }
@@ -23,12 +23,6 @@ namespace SiinErp.Model.Entities.Cartera
         [Required]
         [StringLength(50)]
         public string Descripcion { get; set; }
-
-        [Required]
-        public DateTimeOffset FechaCreacion { get; set; }
-
-        [Required]
-        public int CreadoPor { get; set; }
 
         [Required]
         public bool AplicaCartera { get; set; }
