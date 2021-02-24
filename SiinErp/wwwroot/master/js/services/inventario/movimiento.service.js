@@ -441,7 +441,13 @@
                                 ],
                             ]
                         },
-                        layout: 'noBorders',
+                        layout: {
+                            defaultBorder: false,
+                            paddingLeft: function (i, node) { return 0; },
+                            paddingRight: function (i, node) { return 0; },
+                            paddingTop: function (i, node) { return 0; },
+                            paddingBottom: function (i, node) { return 0; },
+                        },
                         margin: [0, 0, 0, 15],
                     },
                     {
@@ -463,7 +469,13 @@
                                 ],
                             ]
                         },
-                        layout: 'noBorders',
+                        layout: {
+                            defaultBorder: false,
+                            paddingLeft: function (i, node) { return 0; },
+                            paddingRight: function (i, node) { return 0; },
+                            paddingTop: function (i, node) { return 0; },
+                            paddingBottom: function (i, node) { return 0; },
+                        },
                         margin: [0, 0, 0, 15],
                     },
                     {
@@ -475,6 +487,10 @@
                         layout: {
                             hLineColor: 'lightgray',
                             vLineColor: 'lightgray',
+                            paddingLeft: function (i, node) { return 0; },
+                            paddingRight: function (i, node) { return 0; },
+                            paddingTop: function (i, node) { return 0; },
+                            paddingBottom: function (i, node) { return 0; },
                         },
                         margin: [0, 0, 0, 15],
                     },
@@ -495,7 +511,13 @@
                                 ]
                             ]
                         },
-                        layout: 'noBorders',
+                        layout: {
+                            defaultBorder: false,
+                            paddingLeft: function (i, node) { return 0; },
+                            paddingRight: function (i, node) { return 0; },
+                            paddingTop: function (i, node) { return 0; },
+                            paddingBottom: function (i, node) { return 0; },
+                        },
                         margin: [0, 0, 0, 15],
                     },
                 ],
@@ -519,8 +541,8 @@
                 [
                     { text: 'Código', bold: true, alignment: 'left', },
                     { text: 'Articulo', bold: true, alignment: 'left', },
-                    { text: 'Cant', bold: true, alignment: 'left', },
-                    { text: 'VrNeto', bold: true, alignment: 'left', },
+                    { text: 'Cant', bold: true, alignment: 'center', },
+                    { text: 'VrNeto', bold: true, alignment: 'right', },
                 ]
             ];
 
@@ -532,8 +554,8 @@
                     [
                         { text: d.codArticulo },
                         { text: d.nombreArticulo },
-                        { text: d.cantidad, alignment: 'center', },
-                        { text: d.vrNeto, alignment: 'right', },
+                        { text: PonerPuntosDouble(d.cantidad), alignment: 'center', },
+                        { text: PonerPuntosDouble(d.vrNeto), alignment: 'right', },
                     ]
                 );
 
@@ -545,16 +567,17 @@
 
             var Documento = {
                 pageSize: 'A8',
-                //header: function (currentPage, pageCount, pageSize) {
-                //    return [
-                //        {
-                //            text: 'Página ' + currentPage.toString() + '/' + pageCount,
-                //            alignment: 'right',
-                //            margin: [0, 15, 40, 0],
-                //            style: 'estilo',
-                //        },
-                //    ]
-                //},
+                pageMargins: [10, 20, 10, 20],
+                header: function (currentPage, pageCount, pageSize) {
+                    return [
+                        {
+                            text: 'Página ' + currentPage.toString() + '/' + pageCount,
+                            alignment: 'right',
+                            margin: [0, 15, 20, 0],
+                            style: 'estilo',
+                        },
+                    ]
+                },
                 content: [
                     {
                         style: 'estilo',
@@ -567,7 +590,7 @@
                                         colSpan: 4,
                                         alignment: 'center',
                                         bold: true,
-                                        margin: [0, 0, 0, 15],
+                                        margin: [0, 0, 0, 5],
                                     },
                                     {},
                                     {},
@@ -587,8 +610,14 @@
                                 ],
                             ]
                         },
-                        layout: 'noBorders',
-                        margin: [0, 0, 0, 15],
+                        layout: {
+                            defaultBorder: false,
+                            paddingLeft: function (i, node) { return 0; },
+                            paddingRight: function (i, node) { return 0; },
+                            paddingTop: function (i, node) { return 0; },
+                            paddingBottom: function (i, node) { return 0; },
+                        },
+                        margin: [0, 0, 0, 5],
                     },
                     {
                         style: 'estilo',
@@ -596,17 +625,23 @@
                             widths: ['25%', '75%'],
                             body: [
                                 [
-                                    { text: 'Cliente:', bold: true },
-                                    { text: entity.nombreTercero },
+                                    { text: 'Cliente:', bold: true, },
+                                    { text: entity.nombreTercero, },
                                 ],
                                 [
-                                    { text: 'Vendedor:', bold: true },
-                                    entity.nombreVendedor,
+                                    { text: 'Vendedor:', bold: true, },
+                                    { text: entity.nombreVendedor,},
                                 ],
                             ]
                         },
-                        layout: 'noBorders',
-                        margin: [0, 0, 0, 15],
+                        layout: {
+                            defaultBorder: false,
+                            paddingLeft: function (i, node) { return 0; },
+                            paddingRight: function (i, node) { return 0; },
+                            paddingTop: function (i, node) { return 0; },
+                            paddingBottom: function (i, node) { return 0; },
+                        },
+                        margin: [0, 0, 0, 5],
                     },
                     {
                         style: 'estilo',
@@ -617,39 +652,49 @@
                         layout: {
                             hLineColor: 'lightgray',
                             vLineColor: 'lightgray',
+                            paddingLeft: function (i, node) { return 0; },
+                            paddingRight: function (i, node) { return 0; },
+                            paddingTop: function (i, node) { return 0; },
+                            paddingBottom: function (i, node) { return 0; },
                         },
-                        margin: [0, 0, 0, 15],
+                        margin: [0, 0, 0, 5],
                     },
                     {
                         style: 'estilo',
                         table: {
                             widths: ['85%', '15%'],
                             body: [
-                                //[
-                                //    { text: 'SubTotal:', bold: true, alignment: 'right', },
-                                //    { text: '$ ' + vrBruto, bold: true, },
-                                //],
-                                //[
-                                //    { text: 'Dscto:', bold: true, alignment: 'right', },
-                                //    { text: '$ ' + pcDscto, bold: true, },
-                                //],
-                                //[
-                                //    { text: 'Iva:', bold: true, alignment: 'right', },
-                                //    { text: '$ ' + pcIva, bold: true, },
-                                //],
+                                [
+                                    { text: 'SubTotal:', bold: true, alignment: 'right', },
+                                    { text: '$ ' + PonerPuntosDouble(vrBruto), bold: true, alignment: 'right', },
+                                ],
+                                [
+                                    { text: 'Dscto:', bold: true, alignment: 'right', },
+                                    { text: '$ ' + PonerPuntosDouble(pcDscto), bold: true, alignment: 'right', },
+                                ],
+                                [
+                                    { text: 'Iva:', bold: true, alignment: 'right', },
+                                    { text: '$ ' + PonerPuntosDouble(pcIva), bold: true, alignment: 'right', },
+                                ],
                                 [
                                     { text: 'Total:', bold: true, alignment: 'right', },
-                                    { text: '$ ' + vrNeto, bold: true, alignment: 'right', },
+                                    { text: '$ ' + PonerPuntosDouble(vrNeto), bold: true, alignment: 'right', },
                                 ]
                             ]
                         },
-                        layout: 'noBorders',
-                        margin: [0, 0, 0, 15],
+                        layout: {
+                            defaultBorder: false,
+                            paddingLeft: function (i, node) { return 0; },
+                            paddingRight: function (i, node) { return 0; },
+                            paddingTop: function (i, node) { return 0; },
+                            paddingBottom: function (i, node) { return 0; },
+                        },
+                        margin: [0, 0, 0, 5],
                     },
                 ],
                 styles: {
                     estilo: {
-                        fontSize: 9,
+                        fontSize: 4,
                     },
                 },
             };
