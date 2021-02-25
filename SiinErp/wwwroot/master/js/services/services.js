@@ -1362,6 +1362,7 @@
             getAllCli: getAllCli,
             getCliByPrefix: getCliByPrefix,
             getCliByIden: getCliByIden,
+            getCliByPrefix: getCliByPrefix,
             getActCli: getActCli,
             updateCli: updateCli,
         };
