@@ -232,6 +232,7 @@ namespace SiinErp.Areas.Inventario.Business
                     {
                         mfp.IdMovimiento = obMov.IdMovimiento;
 
+
                         CajaDetalle entityCajaDet = new CajaDetalle();
                         entityCajaDet.IdCaja = Convert.ToInt32(entityMov.IdCaja);
                         entityCajaDet.IdMovimiento = obMov.IdMovimiento;
