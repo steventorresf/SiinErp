@@ -30,6 +30,8 @@
         };
 
         vm.clicAntSig = clicAntSig;
+        vm.refreshCliente = refreshCliente;
+        vm.onChangeCliente = onChangeCliente;
         vm.getClienteByIden = getClienteByIden;
         vm.getArticuloByCod = getArticuloByCod;
         vm.clicTipoBusqueda = clicTipoBusqueda;
@@ -99,6 +101,48 @@
             getByDocumento();
         }
 
+        function refreshCliente(prefix) {
+            if (prefix.length > 2) {
+                var data = {
+                    idEmpresa: vm.userApp.idEmpresa,
+                    prefix: prefix,
+                };
+                console.log(terService);
+                var response = terService.getCliByPrefix(data);
+                response.then(
+                    function (response) {
+                        vm.listClientes = response.data;
+                    },
+                    function (response) {
+                        console.log(response);
+                    }
+                );
+            }
+        }
+
+        function onChangeCliente($item, $model) {
+            if ($item.nitCedula === '999') {
+                vm.entityMov.idTercero = null;
+                vm.entityMov.nombreTercero = null;
+                vm.entityMov.direccionTercero = null;
+                vm.entityMov.telefonoTercero = null;
+                vm.entityMov.idPlazoPago = null;
+                vm.entityMov.plazoPago = null;
+                vm.entityMov.idListaPrecio = null;
+                vm.entityMov.listaPrecios = null;
+            }
+            else {
+                vm.entityMov.idTercero = dataCli.idTercero;
+                vm.entityMov.nombreTercero = dataCli.nombreTercero;
+                vm.entityMov.direccionTercero = dataCli.direccion;
+                vm.entityMov.telefonoTercero = dataCli.telefono;
+                vm.entityMov.idPlazoPago = dataCli.idPlazoPago;
+                vm.entityMov.plazoPago = dataCli.plazoPago;
+                vm.entityMov.idListaPrecio = dataCli.idListaPrecio;
+                vm.entityMov.listaPrecios = dataCli.listaPrecios;
+            }
+        }
+
         function getByDocumento() {
             var data = {
                 idEmpresa: vm.userApp.idEmpresa,
@@ -127,6 +171,12 @@
 
                     var dataR = response.data;
                     if (dataR.entity != null) {
+                        
+                        if (dataR.listCli) {
+                            vm.listClientes = dataR.listCli;
+                        }
+                        else { vm.listClientes = []; }
+
                         vm.entityMov = dataR.entity;
                         vm.entityMov.sFechaDoc = new Date(vm.entityMov.sFechaFormatted);
                         vm.entityMov.modificadoPor = vm.userApp.nombreUsuario;

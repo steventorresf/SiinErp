@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using SiinErp.Areas.Compras.Entities;
+using SiinErp.Areas.General.Abstract;
 using SiinErp.Areas.Inventario.Abstract;
 using SiinErp.Areas.Inventario.Business;
 using SiinErp.Areas.Inventario.Entities;
@@ -19,11 +20,12 @@ namespace SiinErp.Areas.Inventario.Controllers
     [Area(Constantes.Area_Inventario)]
     public class MovimientoController : ControllerBase
     {
-        private IMovimientoBusiness BusinessMov;
+        private IMovimientoBusiness movimientoBusiness;
+        private ITerceroBusiness terceroBusiness;
 
         public MovimientoController()
         {
-            BusinessMov = new MovimientoBusiness();
+            movimientoBusiness = new MovimientoBusiness();
         }
 
         [HttpPost]
@@ -34,7 +36,7 @@ namespace SiinErp.Areas.Inventario.Controllers
                 Movimiento entityMov = data["entityMov"].ToObject<Movimiento>();
                 List<MovimientoDetalle> listDetalleMov = data["listDetalleMov"].ToObject<List<MovimientoDetalle>>();
 
-                BusinessMov.Create(entityMov, listDetalleMov);
+                movimientoBusiness.Create(entityMov, listDetalleMov);
                 return Ok(true);
             }
             catch (Exception)
@@ -52,7 +54,7 @@ namespace SiinErp.Areas.Inventario.Controllers
                 Movimiento entityMov = data["entityMov"].ToObject<Movimiento>();
                 List<MovimientoDetalle> listDetalleMov = data["listDetalleMov"].ToObject<List<MovimientoDetalle>>();
 
-                BusinessMov.CreateByEntradaCompra(entityOrd, entityMov, listDetalleMov);
+                movimientoBusiness.CreateByEntradaCompra(entityOrd, entityMov, listDetalleMov);
                 return Ok(true);
             }
             catch (Exception)
@@ -66,7 +68,7 @@ namespace SiinErp.Areas.Inventario.Controllers
         {
             try
             {
-                int id = BusinessMov.CreateByPuntoDeVenta(data);
+                int id = movimientoBusiness.CreateByPuntoDeVenta(data);
                 return Ok(id);
             }
             catch (Exception ex)
@@ -80,7 +82,7 @@ namespace SiinErp.Areas.Inventario.Controllers
         {
             try
             {
-                int id = BusinessMov.UpdateByPuntoDeVenta(data);
+                int id = movimientoBusiness.UpdateByPuntoDeVenta(data);
                 return Ok(id);
             }
             catch (Exception ex)
@@ -94,7 +96,7 @@ namespace SiinErp.Areas.Inventario.Controllers
         {
             try
             {
-                BusinessMov.CreateByFacturaDeVenta(data);
+                movimientoBusiness.CreateByFacturaDeVenta(data);
                 return Ok(true);
             }
             catch (Exception)
@@ -108,8 +110,17 @@ namespace SiinErp.Areas.Inventario.Controllers
         {
             try
             {
-                var entity = BusinessMov.GetByDocumento(data);
-                return Ok(new { resp = true, entity });
+                var entity = movimientoBusiness.GetByDocumento(data);
+
+                if(entity.IdTercero != null)
+                {
+                    var listCli = terceroBusiness.GetClienteListById(Convert.ToInt32(entity.IdTercero));
+                    return Ok(new { resp = true, entity, listCli });
+                }
+                else
+                {
+                    return Ok(new { resp = true, entity });
+                }
             }
             catch (Exception ex)
             {
@@ -122,7 +133,7 @@ namespace SiinErp.Areas.Inventario.Controllers
         {
             try
             {
-                var lista = BusinessMov.GetMovimientosByModificable(IdEmp);
+                var lista = movimientoBusiness.GetMovimientosByModificable(IdEmp);
                 return Ok(lista);
             }
             catch (Exception ex)
@@ -137,7 +148,7 @@ namespace SiinErp.Areas.Inventario.Controllers
         {
             try
             {
-                var lista = BusinessMov.GetAll(IdEmp, Modulo, Convert.ToDateTime(FechaIni), Convert.ToDateTime(FechaFin));
+                var lista = movimientoBusiness.GetAll(IdEmp, Modulo, Convert.ToDateTime(FechaIni), Convert.ToDateTime(FechaFin));
                 return Ok(lista);
             }
             catch (Exception)
@@ -154,7 +165,7 @@ namespace SiinErp.Areas.Inventario.Controllers
            {
                try
                {
-                   var lista = BusinessMov.GetPendientesByTercero(IdEmp, IdTercero);
+                   var lista = movimientoBusiness.GetPendientesByTercero(IdEmp, IdTercero);
                    return Ok(lista);
                }
                catch (Exception)
@@ -170,7 +181,7 @@ namespace SiinErp.Areas.Inventario.Controllers
         {
             try
             {
-                var lista = BusinessMov.GetFacturasByRangoFecha(IdEmp, Convert.ToDateTime(FechaIni), Convert.ToDateTime(FechaFin));
+                var lista = movimientoBusiness.GetFacturasByRangoFecha(IdEmp, Convert.ToDateTime(FechaIni), Convert.ToDateTime(FechaFin));
                 return Ok(lista);
             }
             catch (Exception)
@@ -184,7 +195,7 @@ namespace SiinErp.Areas.Inventario.Controllers
         {
             try
             {
-                BusinessMov.UpdateFactura(entity);
+                movimientoBusiness.UpdateFactura(entity);
                 return Ok(true);
             }
             catch (Exception)
@@ -198,7 +209,7 @@ namespace SiinErp.Areas.Inventario.Controllers
         {
             try
             {
-                BusinessMov.Anular(Id);
+                movimientoBusiness.Anular(Id);
                 return Ok(true);
             }
             catch (Exception)
@@ -212,7 +223,7 @@ namespace SiinErp.Areas.Inventario.Controllers
         {
             try
             {
-                int IdDetAlmacen = BusinessMov.getLastAlmacenByUsu(NomUsu, IdEmp);
+                int IdDetAlmacen = movimientoBusiness.getLastAlmacenByUsu(NomUsu, IdEmp);
                 return Ok(IdDetAlmacen);
             }
             catch (Exception)
@@ -231,7 +242,7 @@ namespace SiinErp.Areas.Inventario.Controllers
         {
             try
             {
-                var entity = BusinessMov.Imprimir(IdMov);
+                var entity = movimientoBusiness.Imprimir(IdMov);
                 return Ok(entity);
             }
             catch (Exception)

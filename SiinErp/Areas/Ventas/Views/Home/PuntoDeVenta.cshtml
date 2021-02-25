@@ -56,14 +56,28 @@
                                 <label class="required">Fecha:</label>
                                 <input type="date" class="form-control" ng-model="vm.entityMov.sFechaDoc" form="formApp" required />
                             </div>
-                            <div class="col-12 col-md-3">
+                            <div class="col-12 col-md-9">
+                                <label>Cliente:</label>
+                                <ui-select ng-model="vm.entityMov.idTercero"
+                                           theme="bootstrap"
+                                           tabindex="7"
+                                           on-select="vm.onChangeCliente($item, $model)">
+                                    <ui-select-match placeholder="Seleccione un cliente...">{{$select.selected.nombreBusqueda}}</ui-select-match>
+                                    <ui-select-choices repeat="item.idTercero as item in vm.listClientes track by $index"
+                                                       refresh="vm.refreshCliente($select.search)"
+                                                       refresh-delay="0">
+                                        <div ng-bind-html="item.nombreBusqueda | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            @*<div class="col-12 col-md-3">
                                 <label class="required">Identificaci&oacute;n:</label>
                                 <input type="text" class="form-control" ng-model="vm.entityMov.nitCedula" form="formApp" my-enter="vm.getClienteByIden()" />
                             </div>
                             <div class="col-12 col-md-6" ng-if="vm.entityMov.idTercero != undefined && vm.entityMov.idTercero != null && vm.entityMov.idTercero > 0">
                                 <label>Nombre Cliente:</label>
                                 <input type="text" class="form-control" form="formApp" ng-model="vm.entityMov.nombreTercero" required />
-                            </div>
+                            </div>*@
                         </div>
                         <div class="form-group row" ng-if="vm.entityMov.idTercero != undefined && vm.entityMov.idTercero != null && vm.entityMov.idTercero > 0">
                             <div class="col-12 col-md-3">

@@ -153,6 +153,20 @@ namespace SiinErp.Areas.General.Controllers
             }
         }
 
+        [HttpPost("CliByPrefix")]
+        public IActionResult GetClientesByPrefix([FromBody] JObject data)
+        {
+            try
+            {
+                var lista = terceroBusiness.GetClientesByPrefix(data);
+                return Ok(lista);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         [HttpGet("Cli/Act/{IdEmp}")]
         public IActionResult GetClientesActivos(int IdEmp)
         {

@@ -37,6 +37,10 @@ namespace SiinErp.Areas.General.Entities
         public string NombreTercero { get; set; }
 
         [Required]
+        [StringLength(300)]
+        public string NombreBusqueda { get; set; }
+
+        [Required]
         public int IdCiudad { get; set; }
 
         [Required]

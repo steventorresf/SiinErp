@@ -156,6 +156,8 @@
         }
 
         function guardar() {
+            vm.entity.nombreBusqueda = vm.entity.nitCedula + ' - ' + vm.entity.nombreTercero;
+
             var response = null;
             if (vm.formModify) { response = terService.updateCli(vm.entity.idTercero, vm.entity); }
             else { response = terService.create(vm.entity); }
