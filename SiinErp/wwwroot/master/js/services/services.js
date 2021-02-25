@@ -1360,6 +1360,7 @@
             updatePro: updatePro,
 
             getAllCli: getAllCli,
+            getCliByPrefix: getCliByPrefix,
             getCliByIden: getCliByIden,
             getActCli: getActCli,
             updateCli: updateCli,
@@ -1475,6 +1476,19 @@
 
         function getCliByIden(data) {
             return $http.post(nameSpace + 'CliByIden/', data)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getCliByPrefix(data) {
+            return $http.post(nameSpace + 'CliByPrefix/', data)
                 .then(
                     function (response) {
                         return response;

@@ -292,7 +292,6 @@
                             <ui-select ng-model="vm.entityCli.idDepartamento"
                                        form="formAppCli"
                                        theme="bootstrap"
-                                       tabindex="7"
                                        required
                                        on-select="vm.getCiudades()">
                                 <ui-select-match placeholder="Seleccione un departamento...">{{$select.selected.nombreDepartamento}}</ui-select-match>
@@ -306,7 +305,6 @@
                             <ui-select ng-model="vm.entityCli.idCiudad"
                                        form="formAppCli"
                                        theme="bootstrap"
-                                       tabindex="7"
                                        required>
                                 <ui-select-match placeholder="Seleccione una ciudad...">{{$select.selected.nombreCiudad}}</ui-select-match>
                                 <ui-select-choices repeat="item.idCiudad as item in vm.listCiudades | filter: $select.search">
@@ -349,7 +347,6 @@
                             <ui-select ng-model="vm.entityCli.idVendedor"
                                        form="formAppCli"
                                        theme="bootstrap"
-                                       tabindex="7"
                                        required>
                                 <ui-select-match placeholder="Seleccione un vendedor...">{{$select.selected.nombreVendedor}}</ui-select-match>
                                 <ui-select-choices repeat="item.idVendedor as item in vm.listVendedores | filter: $select.search">
@@ -362,7 +359,6 @@
                             <ui-select ng-model="vm.entityCli.idListaPrecio"
                                        form="formAppCli"
                                        theme="bootstrap"
-                                       tabindex="7"
                                        required>
                                 <ui-select-match placeholder="Seleccione una lista de precio...">{{$select.selected.nombreLista}}</ui-select-match>
                                 <ui-select-choices repeat="item.idListaPrecio as item in vm.listListasPrecios | filter: $select.search">

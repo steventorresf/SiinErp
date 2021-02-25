@@ -139,6 +139,21 @@ namespace SiinErp.Areas.General.Controllers
         #endregion
 
         #region Clientes
+        [HttpPost("CliReturn")]
+        public IActionResult CreateCliAndReturn([FromBody] Tercero entity)
+        {
+            try
+            {
+                terceroBusiness.Create(entity);
+                
+                return Ok(true);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         [HttpGet("Cli/{IdEmp}")]
         public IActionResult GetClientes(int IdEmp)
         {
