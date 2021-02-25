@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using SiinErp.Areas.Compras.Entities;
 using SiinErp.Areas.General.Abstract;
+using SiinErp.Areas.General.Business;
 using SiinErp.Areas.Inventario.Abstract;
 using SiinErp.Areas.Inventario.Business;
 using SiinErp.Areas.Inventario.Entities;
@@ -26,6 +27,7 @@ namespace SiinErp.Areas.Inventario.Controllers
         public MovimientoController()
         {
             movimientoBusiness = new MovimientoBusiness();
+            terceroBusiness = new TerceroBusiness();
         }
 
         [HttpPost]
@@ -112,7 +114,7 @@ namespace SiinErp.Areas.Inventario.Controllers
             {
                 var entity = movimientoBusiness.GetByDocumento(data);
 
-                if(entity.IdTercero != null)
+                if(entity != null && entity.IdTercero != null)
                 {
                     var listCli = terceroBusiness.GetClienteListById(Convert.ToInt32(entity.IdTercero));
                     return Ok(new { resp = true, entity, listCli });

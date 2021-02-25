@@ -132,14 +132,14 @@
                 vm.entityMov.listaPrecios = null;
             }
             else {
-                vm.entityMov.idTercero = dataCli.idTercero;
-                vm.entityMov.nombreTercero = dataCli.nombreTercero;
-                vm.entityMov.direccionTercero = dataCli.direccion;
-                vm.entityMov.telefonoTercero = dataCli.telefono;
-                vm.entityMov.idPlazoPago = dataCli.idPlazoPago;
-                vm.entityMov.plazoPago = dataCli.plazoPago;
-                vm.entityMov.idListaPrecio = dataCli.idListaPrecio;
-                vm.entityMov.listaPrecios = dataCli.listaPrecios;
+                vm.entityMov.idTercero = $item.idTercero;
+                vm.entityMov.nombreTercero = $item.nombreTercero;
+                vm.entityMov.direccionTercero = $item.direccion;
+                vm.entityMov.telefonoTercero = $item.telefono;
+                vm.entityMov.idPlazoPago = $item.idPlazoPago;
+                vm.entityMov.plazoPago = $item.plazoPago;
+                vm.entityMov.idListaPrecio = $item.idListaPrecio;
+                vm.entityMov.listaPrecios = $item.listaPrecios;
             }
         }
 
@@ -172,7 +172,7 @@
                     var dataR = response.data;
                     if (dataR.entity != null) {
                         
-                        if (dataR.listCli) {
+                        if (dataR.listCli != undefined) {
                             vm.listClientes = dataR.listCli;
                         }
                         else { vm.listClientes = []; }
