@@ -66,7 +66,7 @@ namespace SiinErp
 
             app.UseAuthentication();
 
-            app.UseEndpoints(routes =>
+            app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "areas",
