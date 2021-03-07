@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SiinErp.Areas.General.Entities
 {
     [Table("Tabla", Schema = "General")]
-    public class Tabla
+    public class Tabla : Utiles.Auditoria
     {
         [Key]
         public int IdTabla { get; set; }
@@ -24,5 +24,12 @@ namespace SiinErp.Areas.General.Entities
         [Required]
         [StringLength(50)]
         public string Descripcion { get; set; }
+
+        [Required]
+        [StringLength(1)]
+        public string Estado { get; set; }
+
+        [Required]
+        public bool Visible { get; set; }
     }
 }

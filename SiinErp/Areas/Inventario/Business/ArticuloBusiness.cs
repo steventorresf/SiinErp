@@ -42,6 +42,7 @@ namespace SiinErp.Areas.Inventario.Business
                                              EsLinea = ar.EsLinea,
                                              Peso = ar.Peso,
                                              PcIva = ar.PcIva,
+                                             IncluyeIva = ar.IncluyeIva,
                                              StkMin = ar.StkMin,
                                              StkMax = ar.StkMax,
                                              VrVenta = ar.VrVenta,
@@ -55,6 +56,7 @@ namespace SiinErp.Areas.Inventario.Business
                                              FechaUSalida = ar.FechaUSalida,
                                              CreadoPor = ar.CreadoPor,
                                              Estado = ar.Estado,
+                                             AfectaInventario = ar.AfectaInventario,
                                              NombreTipoArticulo = ta.Descripcion,
                                              NombreUnidadMed = um.Descripcion,
                                              DescEsLinea = ar.EsLinea ? "Si" : "No",
@@ -94,6 +96,7 @@ namespace SiinErp.Areas.Inventario.Business
                                             EsLinea = ar.EsLinea,
                                             Peso = ar.Peso,
                                             PcIva = ar.PcIva,
+                                            IncluyeIva = ar.IncluyeIva,
                                             StkMin = ar.StkMin,
                                             StkMax = ar.StkMax,
                                             VrVenta = ar.VrVenta,
@@ -107,6 +110,7 @@ namespace SiinErp.Areas.Inventario.Business
                                             FechaUSalida = ar.FechaUSalida,
                                             CreadoPor = ar.CreadoPor,
                                             Estado = ar.Estado,
+                                            AfectaInventario = ar.AfectaInventario,
                                             NombreTipoArticulo = ta.Descripcion,
                                             NombreUnidadMed = um.Descripcion,
                                             DescEsLinea = ar.EsLinea ? "Si" : "No",
@@ -147,6 +151,7 @@ namespace SiinErp.Areas.Inventario.Business
                                              EsLinea = ar.EsLinea,
                                              Peso = ar.Peso,
                                              PcIva = ar.PcIva,
+                                             IncluyeIva = ar.IncluyeIva,
                                              StkMin = ar.StkMin,
                                              StkMax = ar.StkMax,
                                              VrVenta = ar.VrVenta,
@@ -160,6 +165,7 @@ namespace SiinErp.Areas.Inventario.Business
                                              FechaUSalida = ar.FechaUSalida,
                                              CreadoPor = ar.CreadoPor,
                                              Estado = ar.Estado,
+                                             AfectaInventario = ar.AfectaInventario,
                                              NombreTipoArticulo = ta.Descripcion,
                                              NombreUnidadMed = um.Descripcion,
                                              DescEsLinea = ar.EsLinea ? "Si" : "No",
@@ -200,6 +206,7 @@ namespace SiinErp.Areas.Inventario.Business
                                         EsLinea = ar.EsLinea,
                                         Peso = ar.Peso,
                                         PcIva = ar.PcIva,
+                                        IncluyeIva = ar.IncluyeIva,
                                         StkMin = ar.StkMin,
                                         StkMax = ar.StkMax,
                                         VrVenta = ar.VrVenta,
@@ -213,6 +220,7 @@ namespace SiinErp.Areas.Inventario.Business
                                         FechaUSalida = ar.FechaUSalida,
                                         CreadoPor = ar.CreadoPor,
                                         Estado = ar.Estado,
+                                        AfectaInventario = ar.AfectaInventario,
                                         NombreTipoArticulo = ta.Descripcion,
                                         NombreUnidadMed = um.Descripcion,
                                         DescEsLinea = ar.EsLinea ? "Si" : "No",
@@ -255,6 +263,7 @@ namespace SiinErp.Areas.Inventario.Business
                                              EsLinea = ar.EsLinea,
                                              Peso = ar.Peso,
                                              PcIva = ar.PcIva,
+                                             IncluyeIva = ar.IncluyeIva,
                                              StkMin = ar.StkMin,
                                              StkMax = ar.StkMax,
                                              VrVenta = ar.VrVenta,
@@ -268,6 +277,7 @@ namespace SiinErp.Areas.Inventario.Business
                                              FechaUSalida = ar.FechaUSalida,
                                              CreadoPor = ar.CreadoPor,
                                              Estado = ar.Estado,
+                                             AfectaInventario = ar.AfectaInventario,
                                              NombreTipoArticulo = ta.Descripcion,
                                              NombreUnidadMed = um.Descripcion,
                                              DescEsLinea = ar.EsLinea ? "Si" : "No",
@@ -345,9 +355,11 @@ namespace SiinErp.Areas.Inventario.Business
                 ob.VrVenta = entity.VrVenta;
                 ob.Peso = entity.Peso;
                 ob.PcIva = entity.PcIva;
+                ob.IncluyeIva = entity.IncluyeIva;
                 ob.StkMin = entity.StkMin;
                 ob.StkMax = entity.StkMax;
                 ob.Estado = entity.Estado;
+                ob.AfectaInventario = entity.AfectaInventario;
                 ob.ModificadoPor = entity.ModificadoPor;
                 ob.FechaModificado = DateTimeOffset.Now;
                 context.SaveChanges();

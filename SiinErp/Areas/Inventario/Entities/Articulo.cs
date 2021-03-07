@@ -48,6 +48,9 @@ namespace SiinErp.Areas.Inventario.Entities
         public decimal PcIva { get; set; }
 
         [Required]
+        public bool IncluyeIva { get; set; }
+
+        [Required]
         public decimal StkMin { get; set; }
 
         [Required]
@@ -74,6 +77,8 @@ namespace SiinErp.Areas.Inventario.Entities
 
         public DateTimeOffset? FechaUPedida { get; set; }
         
+        [Required]
+        public bool AfectaInventario { get; set; }
 
         [Required]
         [StringLength(1)]

@@ -208,21 +208,25 @@ namespace SiinErp.Areas.Inventario.Business
                         vrDscto += m.VrUnitario * m.Cantidad * m.PcDscto / 100;
                         vrIva += m.VrUnitario * m.Cantidad * m.PcIva / 100;
 
-                        ArticuloExistencia entityExist = context.Existencias.FirstOrDefault(x => x.IdArticulo == m.IdArticulo && x.IdDetAlmacen == entityMov.IdDetAlmacen);
-                        if (entityExist == null)
+                        Articulo entityArt = context.Articulos.Find(m.IdArticulo);
+                        if (entityArt.AfectaInventario)
                         {
-                            entityExist = new ArticuloExistencia();
-                            entityExist.IdEmpresa = entityMov.IdEmpresa;
-                            entityExist.IdDetAlmacen = entityMov.IdDetAlmacen;
-                            entityExist.IdArticulo = m.IdArticulo;
-                            entityExist.Existencia = m.Cantidad * -1;
-                            context.Existencias.Add(entityExist);
-                            context.SaveChanges();
-                        }
-                        else
-                        {
-                            entityExist.Existencia += m.Cantidad * -1;
-                            context.SaveChanges();
+                            ArticuloExistencia entityExist = context.Existencias.FirstOrDefault(x => x.IdArticulo == m.IdArticulo && x.IdDetAlmacen == entityMov.IdDetAlmacen);
+                            if (entityExist == null)
+                            {
+                                entityExist = new ArticuloExistencia();
+                                entityExist.IdEmpresa = entityMov.IdEmpresa;
+                                entityExist.IdDetAlmacen = entityMov.IdDetAlmacen;
+                                entityExist.IdArticulo = m.IdArticulo;
+                                entityExist.Existencia = m.Cantidad * -1;
+                                context.Existencias.Add(entityExist);
+                                context.SaveChanges();
+                            }
+                            else
+                            {
+                                entityExist.Existencia += m.Cantidad * -1;
+                                context.SaveChanges();
+                            }
                         }
                     }
 
@@ -239,6 +243,7 @@ namespace SiinErp.Areas.Inventario.Business
                         entityCajaDet.TipoDoc = obMov.TipoDoc;
                         entityCajaDet.NumDoc = obMov.NumDoc;
                         entityCajaDet.IdDetFormaPago = mfp.IdDetFormaDePago;
+                        entityCajaDet.IdDetCuenta = mfp.IdDetCuenta;
                         entityCajaDet.Efectivo = mfp.Descripcion.Contains("Efectivo") ? true : false;
                         entityCajaDet.Transaccion = 1;
                         entityCajaDet.Valor = mfp.Valor;
@@ -311,11 +316,15 @@ namespace SiinErp.Areas.Inventario.Business
                             context.MovimientosDetalles.Remove(m);
                             context.SaveChanges();
 
-                            ArticuloExistencia entityExist = context.Existencias.FirstOrDefault(x => x.IdArticulo == m.IdArticulo && x.IdDetAlmacen == entityMov.IdDetAlmacen);
-                            if (entityExist != null)
+                            Articulo entityArt = context.Articulos.Find(m.IdArticulo);
+                            if (entityArt.AfectaInventario)
                             {
-                                entityExist.Existencia += m.Cantidad;
-                                context.SaveChanges();
+                                ArticuloExistencia entityExist = context.Existencias.FirstOrDefault(x => x.IdArticulo == m.IdArticulo && x.IdDetAlmacen == entityMov.IdDetAlmacen);
+                                if (entityExist != null)
+                                {
+                                    entityExist.Existencia += m.Cantidad;
+                                    context.SaveChanges();
+                                }
                             }
                         }
                     }
@@ -323,7 +332,7 @@ namespace SiinErp.Areas.Inventario.Business
                     listaDetalleMovBD = context.MovimientosDetalles.Where(x => x.IdMovimiento == entityMov.IdMovimiento).ToList();
                     foreach (MovimientoDetalle m in listaDetalleMov)
                     {
-                        ArticuloExistencia entityExist = context.Existencias.FirstOrDefault(x => x.IdArticulo == m.IdArticulo && x.IdDetAlmacen == entityMov.IdDetAlmacen);
+                        Articulo entityArt = context.Articulos.Find(m.IdArticulo);
                         MovimientoDetalle entityDetalle = listaDetalleMovBD.FirstOrDefault(x => x.IdDetalleMovimiento == m.IdDetalleMovimiento);
                         if (entityDetalle == null)
                         {
@@ -331,28 +340,36 @@ namespace SiinErp.Areas.Inventario.Business
                             context.MovimientosDetalles.Add(m);
                             context.SaveChanges();
 
-                            if (entityExist == null)
+                            if (entityArt.AfectaInventario)
                             {
-                                entityExist = new ArticuloExistencia();
-                                entityExist.IdEmpresa = entityMov.IdEmpresa;
-                                entityExist.IdDetAlmacen = entityMov.IdDetAlmacen;
-                                entityExist.IdArticulo = m.IdArticulo;
-                                entityExist.Existencia = m.Cantidad * entityMov.Transaccion;
-                                context.Existencias.Add(entityExist);
-                                context.SaveChanges();
-                            }
-                            else
-                            {
-                                entityExist.Existencia += m.Cantidad * entityMov.Transaccion;
-                                context.SaveChanges();
+                                ArticuloExistencia entityExist = context.Existencias.FirstOrDefault(x => x.IdArticulo == m.IdArticulo && x.IdDetAlmacen == entityMov.IdDetAlmacen);
+                                if (entityExist == null)
+                                {
+                                    entityExist = new ArticuloExistencia();
+                                    entityExist.IdEmpresa = entityMov.IdEmpresa;
+                                    entityExist.IdDetAlmacen = entityMov.IdDetAlmacen;
+                                    entityExist.IdArticulo = m.IdArticulo;
+                                    entityExist.Existencia = m.Cantidad * entityMov.Transaccion;
+                                    context.Existencias.Add(entityExist);
+                                    context.SaveChanges();
+                                }
+                                else
+                                {
+                                    entityExist.Existencia += m.Cantidad * entityMov.Transaccion;
+                                    context.SaveChanges();
+                                }
                             }
                         }
                         else
                         {
-                            if (entityExist != null)
+                            if (entityArt.AfectaInventario)
                             {
-                                entityExist.Existencia += entityDetalle.Cantidad - m.Cantidad;
-                                context.SaveChanges();
+                                ArticuloExistencia entityExist = context.Existencias.FirstOrDefault(x => x.IdArticulo == m.IdArticulo && x.IdDetAlmacen == entityMov.IdDetAlmacen);
+                                if (entityExist != null)
+                                {
+                                    entityExist.Existencia += entityDetalle.Cantidad - m.Cantidad;
+                                    context.SaveChanges();
+                                }
                             }
 
                             entityDetalle.Cantidad = m.Cantidad;
@@ -369,7 +386,7 @@ namespace SiinErp.Areas.Inventario.Business
                     List<MovimientoFormaPago> listaDetallePagDB = context.MovimientosFormasPagos.Where(x => x.IdMovimiento == entityMov.IdMovimiento).ToList();
                     foreach (MovimientoFormaPago m in listaDetallePagDB)
                     {
-                        MovimientoFormaPago entityFormaPag = listaDetallePag.FirstOrDefault(x => x.IdDetFormaDePago == m.IdDetFormaDePago && x.Valor > 0);
+                        MovimientoFormaPago entityFormaPag = listaDetallePag.FirstOrDefault(x => x.IdMovFormaDePago == m.IdMovFormaDePago && x.Valor > 0);
                         if (entityFormaPag == null)
                         {
                             context.MovimientosFormasPagos.Remove(m);
@@ -387,9 +404,10 @@ namespace SiinErp.Areas.Inventario.Business
                     listaDetallePagDB = context.MovimientosFormasPagos.Where(x => x.IdMovimiento == entityMov.IdMovimiento).ToList();
                     foreach (MovimientoFormaPago mfp in listaDetallePag)
                     {
-                        MovimientoFormaPago entityFormaPag = listaDetallePagDB.FirstOrDefault(x => x.IdDetFormaDePago == mfp.IdDetFormaDePago);
+                        MovimientoFormaPago entityFormaPag = listaDetallePagDB.FirstOrDefault(x => x.IdMovFormaDePago == mfp.IdMovFormaDePago);
                         if (entityFormaPag == null)
                         {
+                            mfp.IdMovFormaDePago = 0;
                             mfp.IdMovimiento = entityMov.IdMovimiento;
                             context.MovimientosFormasPagos.Add(mfp);
                             context.SaveChanges();
@@ -402,6 +420,7 @@ namespace SiinErp.Areas.Inventario.Business
                                 entityCajaDet.TipoDoc = entityMov.TipoDoc;
                                 entityCajaDet.NumDoc = entityMov.NumDoc;
                                 entityCajaDet.IdDetFormaPago = mfp.IdDetFormaDePago;
+                                entityCajaDet.IdDetCuenta = mfp.IdDetCuenta;
                                 entityCajaDet.Efectivo = mfp.Descripcion.Contains("Efectivo") ? true : false;
                                 entityCajaDet.Transaccion = 1;
                                 entityCajaDet.Valor = mfp.Valor;
@@ -417,7 +436,7 @@ namespace SiinErp.Areas.Inventario.Business
                             entityFormaPag.Valor = mfp.Valor;
                             context.SaveChanges();
 
-                            CajaDetalle entityCajaDet = context.CajaDetalle.FirstOrDefault(x => x.IdMovimiento == entityMov.IdMovimiento && x.IdCaja == entityMov.IdCaja && x.IdDetFormaPago == mfp.IdDetFormaDePago);
+                            CajaDetalle entityCajaDet = context.CajaDetalle.FirstOrDefault(x => x.IdMovimiento == entityMov.IdMovimiento && x.IdCaja == entityMov.IdCaja && x.IdDetFormaPago == mfp.IdDetFormaDePago && x.IdDetCuenta == mfp.IdDetCuenta);
                             if (entityCajaDet != null)
                             {
                                 entityCajaDet.Valor = mfp.Valor;

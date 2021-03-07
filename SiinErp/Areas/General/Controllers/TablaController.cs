@@ -24,11 +24,11 @@ namespace SiinErp.Areas.General.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetTablas(string CodTab)
+        public IActionResult GetTablasVisible()
         {
             try
             {
-                var lista = tablaBusiness.GetTablas();
+                var lista = tablaBusiness.GetTablasVisible();
                 return Ok(lista);
             }
             catch (Exception)

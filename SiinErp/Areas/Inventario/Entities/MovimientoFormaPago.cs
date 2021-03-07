@@ -19,12 +19,17 @@ namespace SiinErp.Areas.Inventario.Entities
         [Required]
         public int IdDetFormaDePago { get; set; }
 
+        public int? IdDetCuenta { get; set; }
+
         [Required]
         public decimal Valor { get; set; }
 
 
         [NotMapped]
         public string Descripcion { get; set; }
+
+        [NotMapped]
+        public string DescripcionCuenta { get; set; }
 
         [NotMapped]
         public int Orden { get; set; }

@@ -38,6 +38,11 @@
         vm.busquedaArtCodigo = true;
         vm.busquedaArtTexto = false;
         vm.quitarArticulo = quitarArticulo;
+        vm.bloquearInput = bloquearInput;
+        vm.onChangeFormaDePago = onChangeFormaDePago;
+        vm.onChangeCuenta = onChangeCuenta;
+        vm.agregarFp = agregarFp;
+        vm.quitarFp = quitarFp;
 
         vm.listBool = [{ codigo: 'true', descripcion: 'Si' }, { codigo: 'false', descripcion: 'No' }];
         vm.crearCliente = crearCliente;
@@ -67,6 +72,7 @@
             getAlmacens();
             getCajeros();
             getFormsPagos();
+            getCuentasBan();
 
             getVendedores();
             getZonas();
@@ -164,9 +170,7 @@
                     };
 
                     vm.gridOptions.data = [];
-                    for (var i = 0; i < vm.gridOptionsPag.data.length; i++) {
-                        vm.gridOptionsPag.data[i].valor = 0;
-                    }
+                    vm.gridOptionsPag.data = [];
 
 
                     var dataR = response.data;
@@ -184,19 +188,12 @@
                         vm.entityMov.modify = true;
 
                         vm.gridOptions.data = dataR.entity.listaDetalle;
+                        vm.gridOptionsPag.data = dataR.entity.listaFormaPago;
 
-                        var dataFp = dataR.entity.listaFormaPago;
-
-                        if (dataFp.length > 0) {
+                        if (vm.gridOptionsPag.data.length > 0) {
                             vm.entityMov.vrRestante = angular.copy(vm.entityMov.valorNeto);
-                        }
-
-                        for (var i = 0; i < dataFp.length; i++) {
-                            for (var j = 0; j < vm.gridOptionsPag.data.length; j++) {
-                                if (vm.gridOptionsPag.data[j].idDetFormaDePago === dataFp[i].idDetFormaDePago) {
-                                    vm.gridOptionsPag.data[j].valor = dataFp[i].valor;
-                                    vm.entityMov.vrRestante -= vm.gridOptionsPag.data[j].valor;
-                                }
+                            for (var i = 0; i < vm.gridOptionsPag.data.length; i++) {
+                                vm.entityMov.vrRestante -= vm.gridOptionsPag.data[i].valor;
                             }
                         }
                     }
@@ -303,18 +300,25 @@
                 }
             );
         }
-
+        
         function getFormsPagos() {
             var response = tabdetService.getAll(Tab.FormPago, vm.userApp.idEmpresa);
             response.then(
                 function (response) {
-                    var data = [];
+                    vm.listFormasDePago = response.data;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
 
-                    for (var i = 0; i < response.data.length; i++) {
-                        data.push({ idDetFormaDePago: response.data[i].idDetalle, descripcion: response.data[i].descripcion, valor: 0 });
-                    }
-
-                    vm.gridOptionsPag.data = data;
+        function getCuentasBan() {
+            var response = tabdetService.getAll(Tab.VenCuentas, vm.userApp.idEmpresa);
+            response.then(
+                function (response) {
+                    console.log(response.data);
+                    vm.listCuentasBan = response.data;
                 },
                 function (response) {
                     console.log(response);
@@ -435,8 +439,11 @@
                     vrCosto: $item.vrCosto,
                     pcDscto: 0,
                     pcIva: $item.pcIva,
-                    vrBruto: $item.vrVenta,
-                    vrNeto: $item.vrVenta + ($item.vrVenta * $item.pcIva / 100),
+                    incluyeIva: $item.incluyeIva,
+                    vrBruto: 0,
+                    vrNeto: 0,
+                    vrDscto: 0,
+                    vrIva: 0,
                     estado: Estados.Pendiente,
                 };
                 vm.gridOptions.data.push(entity);
@@ -501,7 +508,6 @@
                     width: 50,
                     type: 'number',
                     cellFilter: 'number: 0',
-                    enableCellEdit: false,
                 },
                 {
                     name: 'pcIva',
@@ -554,8 +560,18 @@
             onRegisterApi: function (gridApi) {
                 vm.gridApi = gridApi;
                 gridApi.edit.on.afterCellEdit($scope, function (rowEntity, colDef, newValue, oldValue) {
-                    rowEntity.vrBruto = (rowEntity.vrUnitario * rowEntity.cantidad);
-                    rowEntity.vrNeto = rowEntity.vrBruto - (rowEntity.vrBruto * rowEntity.pcDscto / 100) + (rowEntity.vrBruto * rowEntity.pcIva / 100);
+                    //rowEntity.vrBruto = (rowEntity.vrUnitario * rowEntity.cantidad);
+                    //rowEntity.vrDscto = (rowEntity.vrBruto * rowEntity.pcDscto / 100);
+                    //if (rowEntity.incluyeIva) {
+                    //    var valSinIva = parseFloat(rowEntity.vrBruto / ((rowEntity.pcIva / 100) + 1));
+                    //    rowEntity.vrIva = rowEntity.vrBruto - valSinIva;
+                    //    rowEntity.vrNeto = rowEntity.vrBruto - rowEntity.vrDscto;
+                    //}
+                    //else {
+                    //    rowEntity.vrIva = (rowEntity.vrBruto * rowEntity.pcIva / 100);
+                    //    rowEntity.vrNeto = rowEntity.vrBruto - rowEntity.vrDscto + rowEntity.vrIva;
+                    //}
+                    
                     CalcularTotales();
                 });
             },
@@ -577,14 +593,69 @@
             vm.entityMov.valorNeto = 0;
 
             for (var i = 0; i < vm.gridOptions.data.length; i++) {
-                var data = vm.gridOptions.data[i];
-                vm.entityMov.valorBruto += data.vrBruto;
-                vm.entityMov.valorDscto += data.vrBruto * data.pcDscto / 100;
-                vm.entityMov.valorIva += data.vrBruto * data.pcIva / 100;
-                vm.entityMov.valorNeto += data.vrBruto - (data.vrBruto * data.pcDscto / 100) + (data.vrBruto * data.pcIva / 100);
+                vm.gridOptions.data[i].vrBruto = (vm.gridOptions.data[i].vrUnitario * vm.gridOptions.data[i].cantidad);
+                vm.gridOptions.data[i].vrDscto = (vm.gridOptions.data[i].vrBruto * vm.gridOptions.data[i].pcDscto / 100);
+
+                if (vm.gridOptions.data[i].incluyeIva) {
+                    var valSinIva = parseFloat(vm.gridOptions.data[i].vrBruto / ((vm.gridOptions.data[i].pcIva / 100) + 1));
+                    vm.gridOptions.data[i].vrIva = vm.gridOptions.data[i].vrBruto - valSinIva;
+                    vm.gridOptions.data[i].vrNeto = vm.gridOptions.data[i].vrBruto - vm.gridOptions.data[i].vrDscto;
+                }
+                else {
+                    vm.gridOptions.data[i].vrIva = vm.gridOptions.data[i].vrBruto * vm.gridOptions.data[i].pcIva / 100;
+                    vm.gridOptions.data[i].vrNeto = vm.gridOptions.data[i].vrBruto - vm.gridOptions.data[i].vrDscto + vm.gridOptions.data[i].vrIva;
+                }
+
+                vm.entityMov.valorBruto += vm.gridOptions.data[i].vrBruto - vm.gridOptions.data[i].vrIva;
+                vm.entityMov.valorDscto += vm.gridOptions.data[i].vrDscto;
+                vm.entityMov.valorIva += vm.gridOptions.data[i].vrIva;
+                vm.entityMov.valorNeto += vm.gridOptions.data[i].vrNeto;
             }
 
             calcularFormaPago();
+        }
+
+        function bloquearInput(event) {
+            //var code = event.which || event.keyCode;
+            event.preventDefault();
+        }
+
+        function onChangeFormaDePago($item, $model) {
+            vm.entityFp = $item;
+            vm.entityCuenta = null;
+            vm.idCuenta = null;
+        }
+
+        function onChangeCuenta($item, $model) {
+            vm.entityCuenta = $item;
+        }
+
+        function agregarFp() {
+            var data = vm.gridOptionsPag.data.filter(function (e) {
+                return e.idDetFormaDePago === vm.idFormaDePago && e.idDetCuenta === vm.idCuenta;
+            });
+
+            if (data.length > 0) {
+                alert("Dato duplicado");
+            }
+            else {
+                vm.gridOptionsPag.data.push({
+                    idDetFormaDePago: vm.idFormaDePago,
+                    idDetCuenta: vm.idCuenta,
+                    descripcion: vm.entityFp.descripcion,
+                    descripcionCuenta: vm.idCuenta != null ? vm.entityCuenta.descripcion : '',
+                    valor: vm.valorFp,
+                    creadoPor: vm.userApp.nombreUsuario,
+                });
+
+                vm.idFormaDePago = null;
+                vm.entityFp = null;
+                vm.valorFp = null;
+                vm.entityCuenta = null;
+                vm.idCuenta = null;
+
+                calcularFormaPago();
+            }
         }
 
         vm.gridOptionsPag = {
@@ -605,15 +676,36 @@
                     enableCellEdit: false,
                 },
                 {
+                    name: 'descripcionCuenta',
+                    field: 'descripcionCuenta',
+                    displayName: 'Cuenta Bancaria',
+                    headerCellClass: 'bg-header',
+                    enableCellEdit: false,
+                },
+                {
                     name: 'valor',
                     field: 'valor',
                     displayName: 'Valor',
                     headerCellClass: 'bg-header',
                     cellClass: 'text-center',
-                    width: 80,
+                    width: 100,
                     type: 'number',
                     cellFilter: 'number: 0',
                 },
+                {
+                    name: 'tool',
+                    field: '',
+                    displayName: '',
+                    enableColumnMenu: false,
+                    enableFiltering: false,
+                    enableSorting: false,
+                    headerCellClass: 'bg-header',
+                    cellClass: 'text-center',
+                    cellTemplate:
+                        "<span><a href='' ng-click='grid.appScope.vm.quitarFp(row.entity)' tooltip='Quitar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<i class='fa fa-remove text-danger'></i></a></span>",
+                    width: 50,
+                }
             ],
             onRegisterApi: function (gridApi) {
                 vm.gridApiPag = gridApi;
@@ -626,6 +718,16 @@
                 });
             },
         };
+
+        function quitarFp(entity) {
+            var data = vm.gridOptionsPag.data.filter(function (e) {
+                return e.idDetFormaDePago != entity.idDetFormaDePago || e.idDetCuenta != entity.idDetCuenta;
+            });
+
+            vm.gridOptionsPag.data = data;
+
+            calcularFormaPago();
+        }
 
         function calcularFormaPago() {
             if (!vm.entityMov.modify || vm.entityMov.idDetCajero != null) {
@@ -687,16 +789,7 @@
 
         function guardar() {
             vm.listDetallePag = [];
-            var data = vm.gridOptionsPag.data;
-            var pagoTotal = 0;
-
-            for (var i = 0; i < data.length; i++) {
-                if (data[i].valor > 0) {
-                    pagoTotal += data[i].valor;
-                    vm.listDetallePag.push(data[i]);
-                }
-            }
-
+            
             if (vm.entityMov.idTercero <= 0) {
                 vm.entityMov.idTercero = null;
             }
@@ -704,7 +797,7 @@
             var data = {
                 entityMov: vm.entityMov,
                 listDetalleMov: vm.gridOptions.data,
-                listDetallePag: vm.listDetallePag,
+                listDetallePag: vm.gridOptionsPag.data,
             };
 
             if (!vm.entityMov.modify) {

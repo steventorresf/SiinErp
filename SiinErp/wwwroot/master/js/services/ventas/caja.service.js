@@ -149,6 +149,10 @@
                 [
                     { text: 'Saldo En Caja', bold: true, },
                     { text: PonerPuntosDouble(saldoEnCaja), bold: true, alignment: 'right', },
+                ],
+                [
+                    { text: 'Saldo Final', bold: true, },
+                    { text: PonerPuntosDouble(entity.saldoFinal), bold: true, alignment: 'right', },
                 ]
             );
             
@@ -158,6 +162,7 @@
                     { text: 'TipoDoc', bold: true, alignment: 'center', },
                     { text: 'NoDoc', bold: true, alignment: 'center', },
                     { text: 'Descripción', bold: true, alignment: 'center', },
+                    { text: 'CuentaBanco', bold: true, alignment: 'center', },
                     { text: 'Ingresos', bold: true, alignment: 'center', },
                     { text: 'Egresos', bold: true, alignment: 'center', },
                 ],
@@ -165,6 +170,7 @@
                     { text: '' },
                     { text: '' },
                     { text: 'Saldo Inicial', },
+                    { text: '' },
                     { text: PonerPuntosDouble(entity.saldoInicial), alignment: 'right', },
                     { text: '' },
                 ]
@@ -194,6 +200,7 @@
                         { text: d.tipoDoc, alignment: 'center', },
                         { text: d.numDoc, alignment: 'center', },
                         { text: d.transaccion >= 0 ? d.nombreFormaPago : d.comentario, },
+                        { text: d.nombreCuentaBanco, },
                         { text: ingresos, alignment: 'right', },
                         { text: egresos, alignment: 'right', },
                     ]
@@ -204,24 +211,35 @@
 
             tablaDetalle.push(
                 [
-                    { text: ' ', colSpan: 3, },
+                    { text: ' ', colSpan: 4, },
+                    {},
                     {},
                     {},
                     { text: vrIngresos > 0 ? PonerPuntosDouble(vrIngresos) : '', bold: true, alignment: 'right', },
                     { text: vrEgresos > 0 || vrEgresos < 0 ? PonerPuntosDouble(vrEgresos) : '', bold: true, alignment: 'right', },
                 ],
                 [
-                    { text: 'Saldo Total:', bold: true, alignment: 'right', colSpan: 3, },
+                    { text: 'Saldo Total:', bold: true, alignment: 'right', colSpan: 4, },
+                    {},
                     {},
                     {},
                     { text: '$ ' + (vrSaldoTotal > 0 ? PonerPuntosDouble(vrSaldoTotal) : ''), bold: true, alignment: 'right', colSpan: 2, },
                     {},
                 ],
                 [
-                    { text: 'Saldo En Caja:', bold: true, alignment: 'right', colSpan: 3, },
+                    { text: 'Saldo En Caja:', bold: true, alignment: 'right', colSpan: 4, },
+                    {},
                     {},
                     {},
                     { text: '$ ' + (vrEnCaja > 0 ? PonerPuntosDouble(vrEnCaja) : ''), bold: true, alignment: 'right', colSpan: 2, },
+                    {},
+                ],
+                [
+                    { text: 'Saldo Final:', bold: true, alignment: 'right', colSpan: 4, },
+                    {},
+                    {},
+                    {},
+                    { text: '$ ' + PonerPuntosDouble(entity.saldoFinal), bold: true, alignment: 'right', colSpan: 2, },
                     {},
                 ],
             );
@@ -293,7 +311,7 @@
                     {
                         style: 'estilo',
                         table: {
-                            widths: ['10%', '10%', '50%', '15%', '15%'],
+                            widths: ['8%', '8%', '30%', '34%', '10%', '10%'],
                             body: tablaDetalle
                         },
                         layout: {

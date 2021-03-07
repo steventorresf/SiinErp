@@ -40,8 +40,9 @@ namespace SiinErp.Areas.Inventario.Business
                                                      CodArticulo = ar.CodArticulo,
                                                      NombreArticulo = ar.NombreArticulo,
                                                      Articulo = ar,
-                                                     VrBruto = md.VrUnitario * md.Cantidad,
-                                                     VrNeto = (md.VrUnitario * md.Cantidad) - ((md.VrUnitario * md.Cantidad) * md.PcDscto / 100) + ((md.VrUnitario * md.Cantidad) * md.PcIva / 100),
+                                                     IncluyeIva = ar.IncluyeIva,
+                                                     VrBruto = md.VrBruto,
+                                                     VrNeto = md.VrNeto,
                                                  }).ToList();
                 return Lista;
             }

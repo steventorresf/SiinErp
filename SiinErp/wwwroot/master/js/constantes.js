@@ -13,6 +13,7 @@
     Turnos: 'GenTurnos',
     FormPago: 'VenFormPago',
     InvConceptos: 'InvConceptos',
+    VenCuentas: 'VenCuentas',
 }
 
 const GenTiposDoc = {
