@@ -127,7 +127,8 @@
                                                form="formApp"
                                                theme="bootstrap"
                                                required
-                                               ng-disabled="vm.entityMov.modify">
+                                               ng-disabled="vm.entityMov.modify"
+                                               on-select="vm.onChangeCajero($item, $model)">
                                         <ui-select-match placeholder="Seleccione...">{{$select.selected.descripcion}}</ui-select-match>
                                         <ui-select-choices repeat="item.idDetalle as item in vm.listCajeros | filter: $select.search">
                                             <div ng-bind-html="item.descripcion | highlight: $select.search"></div>

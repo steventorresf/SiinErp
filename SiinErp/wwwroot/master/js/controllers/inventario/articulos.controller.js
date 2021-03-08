@@ -82,6 +82,8 @@
             vm.entity.idDetTipoArticulo = angular.copy(entity.idDetTipoArticulo).toString();
             vm.entity.idDetUnidadMed = angular.copy(entity.idDetUnidadMed).toString();
             vm.entity.esLinea = angular.copy(entity.esLinea).toString();
+            vm.entity.incluyeIva = angular.copy(entity.incluyeIva).toString();
+            vm.entity.afectaInventario = angular.copy(entity.afectaInventario).toString();
             vm.entity.modificadoPor = vm.userApp.nombreUsuario;
             vm.formModify = true;
             vm.formVisible = true;

@@ -52,6 +52,7 @@
 
         vm.onChangeListaPrecios = onChangeListaPrecios;
         vm.onChangePlazoPago = onChangePlazoPago;
+        vm.onChangeCajero = onChangeCajero;
 
         vm.imprimirFact = imprimirFact;
         vm.terminarFact = terminarFact;
@@ -300,6 +301,24 @@
                 }
             );
         }
+
+        function onChangeCajero($item, $model) {
+            var response = cajaService.getIdCajaActiva(vm.entityMov.idDetCajero);
+            response.then(
+                function (response) {
+                    vm.entityMov.idCaja = response.data;
+                    if (vm.entityMov.idCaja === 0) {
+                        alert('La caja NO se encuentra Abierta.');
+                    }
+                    if (vm.entityMov.idCaja < 0) {
+                        alert('La caja se encuentra Abierta más de una vez.');
+                    }
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
         
         function getFormsPagos() {
             var response = tabdetService.getAll(Tab.FormPago, vm.userApp.idEmpresa);
@@ -348,6 +367,7 @@
                     if (response.data > 0) {
                         vm.last.idDetCajero = response.data;
                         vm.entityMov.idDetCajero = response.data;
+                        onChangeCajero();
                     }
                 },
                 function (response) {
@@ -597,12 +617,12 @@
                 vm.gridOptions.data[i].vrDscto = (vm.gridOptions.data[i].vrBruto * vm.gridOptions.data[i].pcDscto / 100);
 
                 if (vm.gridOptions.data[i].incluyeIva) {
-                    var valSinIva = parseFloat(vm.gridOptions.data[i].vrBruto / ((vm.gridOptions.data[i].pcIva / 100) + 1));
-                    vm.gridOptions.data[i].vrIva = vm.gridOptions.data[i].vrBruto - valSinIva;
+                    var valSinIva = parseFloat((vm.gridOptions.data[i].vrBruto - vm.gridOptions.data[i].vrDscto) / ((vm.gridOptions.data[i].pcIva / 100) + 1));
+                    vm.gridOptions.data[i].vrIva = vm.gridOptions.data[i].vrBruto - vm.gridOptions.data[i].vrDscto - valSinIva;
                     vm.gridOptions.data[i].vrNeto = vm.gridOptions.data[i].vrBruto - vm.gridOptions.data[i].vrDscto;
                 }
                 else {
-                    vm.gridOptions.data[i].vrIva = vm.gridOptions.data[i].vrBruto * vm.gridOptions.data[i].pcIva / 100;
+                    vm.gridOptions.data[i].vrIva = (vm.gridOptions.data[i].vrBruto - vm.gridOptions.data[i].vrDscto) * vm.gridOptions.data[i].pcIva / 100;
                     vm.gridOptions.data[i].vrNeto = vm.gridOptions.data[i].vrBruto - vm.gridOptions.data[i].vrDscto + vm.gridOptions.data[i].vrIva;
                 }
 

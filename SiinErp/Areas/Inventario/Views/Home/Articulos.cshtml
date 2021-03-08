@@ -53,7 +53,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 col-md-3">
                             <label>Unidad Medida:</label>
                             <select ng-model="vm.entity.idDetUnidadMed" form="formApp" class="form-control" required>
                                 <option ng-repeat="item in vm.listUnidadMed" value="{{ item.idDetalle }}">{{ item.descripcion }}</option>
@@ -62,6 +62,12 @@
                         <div class="col-12 col-md-3">
                             <label>Peso:</label>
                             <input type="number" class="form-control" form="formApp" ng-model="vm.entity.peso" required />
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label>Incluye Iva:</label>
+                            <select ng-model="vm.entity.incluyeIva" form="formApp" class="form-control" required>
+                                <option ng-repeat="item in vm.listBool" value="{{ item.codigo }}">{{ item.descripcion }}</option>
+                            </select>
                         </div>
                         <div class="col-12 col-md-3">
                             <label>Pc Iva:</label>
@@ -85,15 +91,21 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-12 col-md-4">
+                        <div class="col-12 col-md-3">
                             <label>Vr. Costo:</label>
                             <input type="number" class="form-control" form="formApp" ng-model="vm.entity.vrCosto" required />
                         </div>
-                        <div class="col-12 col-md-4">
+                        <div class="col-12 col-md-3">
                             <label>Vr. Venta:</label>
                             <input type="number" class="form-control" form="formApp" ng-model="vm.entity.vrVenta" required />
                         </div>
-                        <div class="col-12 col-md-4">
+                        <div class="col-12 col-md-3">
+                            <label>Afecta Inventario:</label>
+                            <select ng-model="vm.entity.afectaInventario" form="formApp" class="form-control" required>
+                                <option ng-repeat="item in vm.listBool" value="{{ item.codigo }}">{{ item.descripcion }}</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-3">
                             <label>Estado:</label>
                             <select ng-model="vm.entity.estado" form="formApp" class="form-control" required>
                                 <option ng-repeat="item in vm.listEstados" value="{{ item.codigo }}">{{ item.descripcion }}</option>
