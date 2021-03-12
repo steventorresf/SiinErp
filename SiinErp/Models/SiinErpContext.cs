@@ -44,6 +44,8 @@ namespace SiinErp.Models
 
         public virtual DbSet<Periodo> Periodos { get; set; }
 
+        public virtual DbSet<Resolucion> Resolucion { get; set; }
+
         public virtual DbSet<Tabla> Tablas { get; set; }
 
         public virtual DbSet<TablaDetalle> TablasDetalles { get; set; }        

@@ -55,6 +55,7 @@
         vm.onChangeCajero = onChangeCajero;
 
         vm.imprimirFact = imprimirFact;
+        vm.imprimirPVen = imprimirPVen;
         vm.terminarFact = terminarFact;
 
         vm.last = {
@@ -861,6 +862,10 @@
                     alert("Ha ocurrido un error inesperado.\rPuede ser que la factura no se pueda anular, porque ya tiene abono.")
                 }
             );
+        }
+
+        function imprimirPVen() {
+            movService.imprimirPVen(vm.entityMov.idMovimiento);
         }
 
         function imprimirFact() {

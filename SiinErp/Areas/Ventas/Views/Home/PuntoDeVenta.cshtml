@@ -41,8 +41,10 @@
                                         <input type="text" class="form-control" ng-model="vm.entityMov.numDoc" style="max-width:80px;" />
                                     </div>
                                     <button class="mr-2" ng-click="vm.clicAntSig('A')"><i class="fa fa-arrow-left"></i></button>
-                                    <button ng-click="vm.clicAntSig('S')"><i class="fa fa-arrow-right"></i></button>
-                                    <b ng-if="vm.entityMov.estado === 'I'" class="ml-5 text-danger">ANULADA</b>
+                                    <button class="mr-2" ng-click="vm.clicAntSig('S')"><i class="fa fa-arrow-right"></i></button>
+                                    <b ng-if="vm.entityMov.estado === 'I'" class="ml-3 mr-3 text-danger">ANULADA</b>
+                                    <button ng-if="vm.entityMov.modify" class="mr-2 btn-primary" ng-click="vm.imprimirPVen()"><i class="fa fa-print"></i> P. Venta</button>
+                                    <button ng-if="vm.entityMov.modify" class="btn-success" ng-click="vm.imprimirFact()"><i class="fa fa-print"></i> Factura</button>
                                 </form>
                             </div>
                             <div class="col-12 col-md-4 text-right">
@@ -286,8 +288,9 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <button class="btn btn-primary" ng-click="vm.imprimirFact()">Imprimir</button>
-                        <button class="btn btn-default" ng-click="vm.terminarFact()">Terminar</button>
+                        <button class="btn btn-primary" ng-click="vm.imprimirPVen()"><i class="fa fa-print"></i> P. Venta</button>
+                        <button class="btn btn-success" ng-click="vm.imprimirFact()"><i class="fa fa-print"></i> Factura</button>
+                        <button class="btn btn-default" ng-click="vm.terminarFact()"><i class="fa finished-at"></i> Terminar</button>
                     </div>
                 </div>
             </div>
