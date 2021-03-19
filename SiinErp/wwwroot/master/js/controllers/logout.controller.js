@@ -14,7 +14,7 @@
         vm.init = init;
 
         function init() {
-            $cookies.putObject('UsuApp', null);
+            $cookies.remove();
             window.location.href = url + 'Login';
         }
     }

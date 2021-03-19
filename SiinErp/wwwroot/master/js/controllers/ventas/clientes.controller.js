@@ -136,8 +136,19 @@
                 tipoTercero: TipoTercero.Cliente,
                 idEmpresa: vm.userApp.idEmpresa,
                 creadoPor: vm.userApp.nombreUsuario,
+                iva: 'true',
+                limiteCredito: 0,
+                idCuentaContable: 0,
                 estado: Estados.Activo,
             };
+
+            if (vm.listVendedores.length === 1) {
+                vm.entity.idVendedor = vm.listVendedores[0].idVendedor;
+            }
+
+            if (vm.listListaPrecios.length === 1) {
+                vm.entity.idListaPrecio = vm.listListaPrecios[0].idListaPrecio;
+            }
             
             vm.formModify = false;
             vm.formVisible = true;

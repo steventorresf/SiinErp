@@ -69,9 +69,19 @@
         function nuevo() {
             vm.entity = {
                 idEmpresa: vm.userApp.idEmpresa,
+                peso: 0,
+                stkMin: 0,
+                stkMax: 0,
+                esLinea: 'true',
+                estado: 'A',
+                afectaInventario: 'true',
                 creadoPor: vm.userApp.nombreUsuario,
                 nombreBusqueda: '-',
             };
+
+            if (vm.listUnidadMed.length === 1) {
+                vm.entity.idDetUnidadMed = vm.listUnidadMed[0].idDetalle.toString();
+            }
             
             vm.formModify = false;
             vm.formVisible = true;

@@ -16,7 +16,6 @@ namespace SiinErp.Controllers
         }
         public IActionResult CerrarSesion()
         {
-            HttpContext.Session.Clear();
             return View();
         }
 
