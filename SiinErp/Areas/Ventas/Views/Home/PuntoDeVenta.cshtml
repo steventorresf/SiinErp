@@ -306,15 +306,19 @@
             <div class="card-body">
                 <form id="formAppCli" name="formAppCli" novalidate="" class="form-horizontal">
                     <div class="form-group row">
-                        <div class="col-12 col-md-4">
+                        <div class="col-12 col-md-3">
+                            <label>C&oacute;digo:<i>*</i></label>
+                            <input type="text" class="form-control" form="formAppCli" ng-model="vm.entityCli.codTercero" onkeydown="return false" required />
+                        </div>
+                        <div class="col-12 col-md-3">
                             <label>Nit/C&eacute;dula:<i>*</i></label>
                             <input type="text" class="form-control" form="formAppCli" ng-model="vm.entityCli.nitCedula" required />
                         </div>
-                        <div class="col-12 col-md-3">
-                            <label>Dg. Verificaci&oacute;n:</label>
+                        <div class="col-12 col-md-2">
+                            <label>Dg. Verif.:</label>
                             <input type="text" class="form-control" form="formAppCli" ng-model="vm.entityCli.dgVerificacion" minlength="0" maxlength="1" />
                         </div>
-                        <div class="col-12 col-md-5">
+                        <div class="col-12 col-md-4">
                             <label>Tipo Cliente:<i>*</i></label>
                             <select ng-model="vm.entityCli.idDetTipoPersona" form="formAppCli" class="form-control" required>
                                 <option ng-repeat="item in vm.listTiposPer" value="{{ item.idDetalle }}">{{ item.descripcion }}</option>

@@ -46,6 +46,8 @@ namespace SiinErp.Models
 
         public virtual DbSet<Resolucion> Resolucion { get; set; }
 
+        public virtual DbSet<Secuencia> Secuencia { get; set; }
+
         public virtual DbSet<Tabla> Tablas { get; set; }
 
         public virtual DbSet<TablaDetalle> TablasDetalles { get; set; }        

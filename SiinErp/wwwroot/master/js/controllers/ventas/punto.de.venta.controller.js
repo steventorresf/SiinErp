@@ -5,9 +5,9 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'growl', 'GenTerceroService', 'VenListaPrecioService', 'InvArticuloService', 'InvMovimientoService', 'GenTablaDetService', 'VenCajaService', 'CarPlazoPagoService', 'VenVendedorService', 'GenDepartamentoService', 'GenCiudadService', 'CarPlazoPagoService', 'GenTipoDocService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'GenSecuenciaService', 'GenTerceroService', 'VenListaPrecioService', 'InvArticuloService', 'InvMovimientoService', 'GenTablaDetService', 'VenCajaService', 'CarPlazoPagoService', 'VenVendedorService', 'GenDepartamentoService', 'GenCiudadService', 'CarPlazoPagoService', 'GenTipoDocService'];
 
-    function AppController($location, $cookies, $scope, growl, terService, lisService, artService, movService, tabdetService, cajaService, ppaService, venService, depService, ciuService, ppaService, tipdocService) {
+    function AppController($location, $cookies, $scope, secService, terService, lisService, artService, movService, tabdetService, cajaService, ppaService, venService, depService, ciuService, ppaService, tipdocService) {
         var vm = this;
 
         vm.title = 'Home Page';
@@ -890,9 +890,20 @@
 
 
         // Cliente
+        function getStrSecuencia() {
+            var response = secService.getStrSecuencia(vm.entityCli.tipoTercero, vm.userApp.idEmpresa);
+            response.then(
+                function (response) {
+                    vm.entityCli.codTercero = response.data;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
         function crearCliente() {
             vm.entityCli = {
-                nitCedula: angular.copy(vm.entityMov.nitCedula),
                 idEmpresa: vm.userApp.idEmpresa,
                 tipoTercero: TipoTercero.Cliente,
                 iva: 'true',
@@ -901,6 +912,13 @@
                 estado: Estados.Activo,
                 creadoPor: vm.userApp.nombreUsuario,
             };
+
+            getStrSecuencia();
+
+            if (vm.listDepartamentos.length === 1) {
+                vm.entityCli.idDepartamento = vm.listDepartamentos[0].idDepartamento;
+                getCiudades();
+            }
 
             if (vm.listVendedores.length === 1) {
                 vm.entityCli.idVendedor = vm.listVendedores[0].idVendedor;
