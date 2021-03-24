@@ -84,6 +84,7 @@ namespace SiinErp.Areas.General.Business
                     context.SaveChanges();
 
                     entity.CodTercero = Util.GetPrefijoSecuencia(entitySec.Prefijo, entitySec.NoSecuencia, entitySec.Longitud);
+                    entity.NombreBusqueda = entity.CodTercero + " - " + entity.NitCedula + " - " + entity.NombreTercero;
                     entity.FechaCreacion = DateTimeOffset.Now;
                     context.Terceros.Add(entity);
                     context.SaveChanges();
@@ -108,7 +109,7 @@ namespace SiinErp.Areas.General.Business
                 ob.DgVerificacion = entity.DgVerificacion;
                 ob.IdDetTipoPersona = entity.IdDetTipoPersona;
                 ob.NombreTercero = entity.NombreTercero;
-                ob.NombreBusqueda = entity.NombreBusqueda;
+                ob.NombreBusqueda = entity.CodTercero + " - " + entity.NitCedula + " - " + entity.NombreTercero;
                 ob.IdCiudad = entity.IdCiudad;
                 ob.Direccion = entity.Direccion;
                 ob.Telefono = entity.Telefono;
