@@ -8,13 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SiinErp.Desktop.Forms.Ventas
+namespace SiinErp.Desktop
 {
-    public partial class FormPuntoDeVenta : Form
+    public partial class Form1 : Form
     {
-        public FormPuntoDeVenta()
+        public Form1()
         {
             InitializeComponent();
         }
+
     }
 }
