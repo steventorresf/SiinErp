@@ -22,12 +22,5 @@ namespace SiinErp.Model.Entities.Cartera
 
         [Required]
         public int PlazoDias { get; set; }
-
-        [Required]
-        public int IdUsuario { get; set; }
-
-        [Required]
-        [StringLength(1)]
-        public string Estado { get; set; }
     }
 }

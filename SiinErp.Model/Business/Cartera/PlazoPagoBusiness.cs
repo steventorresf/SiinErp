@@ -56,7 +56,7 @@ namespace SiinErp.Model.Business.Cartera
                 ob.Cuotas = entity.Cuotas;
                 ob.PcInicial = entity.PcInicial;
                 ob.PlazoDias = entity.PlazoDias;
-                ob.Estado = entity.Estado;
+                ob.EstadoFila = entity.EstadoFila;
                 context.SaveChanges();
             }
             catch (Exception ex)

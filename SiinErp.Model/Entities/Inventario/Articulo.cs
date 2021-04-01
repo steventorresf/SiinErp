@@ -74,12 +74,6 @@ namespace SiinErp.Model.Entities.Inventario
 
         public DateTimeOffset? FechaUPedida { get; set; }
 
-        [Required]
-        public int IdUsuario { get; set; }
-
-        [Required]
-        [StringLength(1)]
-        public string Estado { get; set; }
 
 
         [NotMapped]
@@ -90,5 +84,8 @@ namespace SiinErp.Model.Entities.Inventario
 
         [NotMapped]
         public string DescEsLinea { get; set; }
+
+        [NotMapped]
+        public bool Sel { get; set; }
     }
 }

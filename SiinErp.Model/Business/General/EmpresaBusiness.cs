@@ -1,4 +1,5 @@
 ﻿using SiinErp.Model.Abstract.General;
+using SiinErp.Model.Common;
 using SiinErp.Model.Context;
 using SiinErp.Model.Entities.General;
 using System;
@@ -23,22 +24,18 @@ namespace SiinErp.Model.Business.General
             try
             {
                 List<Empresa> Lista = (from em in context.Empresas
-                                       join ci in context.Ciudades on em.IdCiudad equals ci.IdCiudad
-                                       join de in context.Departamentos on ci.IdDepartamento equals de.IdDepartamento
                                        join re in context.TablasDetalles on em.IdDetRegimen equals re.IdDetalle
                                        select new Empresa()
                                        {
                                            IdEmpresa = em.IdEmpresa,
                                            NitEmpresa = em.NitEmpresa,
                                            RazonSocial = em.RazonSocial,
-                                           IdCiudad = em.IdCiudad,
+                                           Ciudad = em.Ciudad,
                                            Direccion = em.Direccion,
                                            Telefono = em.Telefono,
                                            CodEan = em.CodEan,
                                            Representante = em.Representante,
                                            IdDetRegimen = em.IdDetRegimen,
-                                           IdDepartamento = de.IdDepartamento,
-                                           NombreCiudad = ci.NombreCiudad + " - " + de.NombreDepartamento,
                                            NombreRegimen = re.Descripcion,
                                        }).OrderBy(x => x.RazonSocial).ToList();
                 return Lista;
@@ -54,23 +51,7 @@ namespace SiinErp.Model.Business.General
         {
             try
             {
-                List<Empresa> Lista = (from em in context.Empresas
-                                       join ci in context.Ciudades on em.IdCiudad equals ci.IdCiudad
-                                       join de in context.Departamentos on ci.IdDepartamento equals de.IdDepartamento
-                                       select new Empresa()
-                                       {
-                                           IdEmpresa = em.IdEmpresa,
-                                           NitEmpresa = em.NitEmpresa,
-                                           RazonSocial = em.RazonSocial,
-                                           IdCiudad = em.IdCiudad,
-                                           Direccion = em.Direccion,
-                                           Telefono = em.Telefono,
-                                           CodEan = em.CodEan,
-                                           Representante = em.Representante,
-                                           IdDetRegimen = em.IdDetRegimen,
-                                           IdDepartamento = de.IdDepartamento,
-                                           NombreCiudad = ci.NombreCiudad + " - " + de.NombreDepartamento,
-                                       }).OrderBy(x => x.RazonSocial).ToList();
+                List<Empresa> Lista = context.Empresas.Where(x => x.EstadoFila.Equals(Constantes.EstadoActivo)).OrderBy(x => x.RazonSocial).ToList();
                 return Lista;
             }
             catch (Exception ex)
@@ -101,7 +82,7 @@ namespace SiinErp.Model.Business.General
                 Empresa ob = context.Empresas.Find(IdEmpresa);
                 ob.RazonSocial = entity.RazonSocial;
                 ob.NitEmpresa = entity.NitEmpresa;
-                ob.IdCiudad = entity.IdCiudad;
+                ob.Ciudad = entity.Ciudad;
                 ob.Direccion = entity.Direccion;
                 ob.Telefono = entity.Telefono;
                 ob.CodEan = entity.CodEan;

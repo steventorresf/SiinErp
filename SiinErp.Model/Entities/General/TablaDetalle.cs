@@ -25,9 +25,5 @@ namespace SiinErp.Model.Entities.General
 
         [Required]
         public short Orden { get; set; }
-
-        [Required]
-        [StringLength(1)]
-        public string Estado { get; set; }
     }
 }

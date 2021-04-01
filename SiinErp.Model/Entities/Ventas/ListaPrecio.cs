@@ -19,9 +19,5 @@ namespace SiinErp.Model.Entities.Ventas
         [Required]
         [StringLength(100)]
         public string NombreLista { get; set; }
-
-        [Required]
-        [StringLength(1)]
-        public string Estado { get; set; }
     }
 }

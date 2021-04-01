@@ -43,7 +43,7 @@ namespace SiinErp.Model.Business.General
                                            Telefono = ter.Telefono,
                                            FechaCreacion = ter.FechaCreacion,
                                            CreadoPor = ter.CreadoPor,
-                                           Estado = ter.Estado,
+                                           EstadoFila = ter.EstadoFila,
                                            NombreCiudad = ciu.NombreCiudad + " - " + dep.NombreDepartamento,
                                            IdDepartamento = dep.IdDepartamento,
                                        }).OrderBy(x => x.NombreTercero).ToList();
@@ -60,7 +60,7 @@ namespace SiinErp.Model.Business.General
         {
             try
             {
-                List<Tercero> Lista = context.Terceros.Where(x => x.IdEmpresa == IdEmpresa && x.Estado.Equals(Constantes.EstadoActivo)).OrderBy(x => x.NombreTercero).ToList();
+                List<Tercero> Lista = context.Terceros.Where(x => x.IdEmpresa == IdEmpresa && x.EstadoFila.Equals(Constantes.EstadoActivo)).OrderBy(x => x.NombreTercero).ToList();
                 return Lista;
             }
             catch (Exception ex)
@@ -97,7 +97,7 @@ namespace SiinErp.Model.Business.General
                 ob.IdCiudad = entity.IdCiudad;
                 ob.Direccion = entity.Direccion;
                 ob.Telefono = entity.Telefono;
-                ob.Estado = entity.Estado;
+                ob.EstadoFila = entity.EstadoFila;
                 context.SaveChanges();
             }
             catch (Exception ex)
@@ -134,7 +134,7 @@ namespace SiinErp.Model.Business.General
                                            IdPlazoPago = pro.IdPlazoPago,
                                            CreadoPor = pro.CreadoPor,
                                            FechaCreacion = pro.FechaCreacion,
-                                           Estado = pro.Estado,
+                                           EstadoFila = pro.EstadoFila,
                                            NombreTipoPersona = tip.Descripcion,
                                            PlazoPago = pla,
                                            NombreCiudad = ciu.NombreCiudad + " - " + dep.NombreDepartamento,
@@ -153,7 +153,7 @@ namespace SiinErp.Model.Business.General
         {
             try
             {
-                List<Tercero> Lista = (from pro in context.Terceros.Where(x => x.IdEmpresa == IdEmpresa && x.TipoTercero.Equals(Constantes.Proveedor) && x.Estado.Equals(Constantes.EstadoActivo))
+                List<Tercero> Lista = (from pro in context.Terceros.Where(x => x.IdEmpresa == IdEmpresa && x.TipoTercero.Equals(Constantes.Proveedor) && x.EstadoFila.Equals(Constantes.EstadoActivo))
                                        join tip in context.TablasDetalles on pro.IdDetTipoPersona equals tip.IdDetalle
                                        join pla in context.PlazosPagos on pro.IdPlazoPago equals pla.IdPlazoPago
                                        join ciu in context.Ciudades on pro.IdCiudad equals ciu.IdCiudad
@@ -175,7 +175,7 @@ namespace SiinErp.Model.Business.General
                                            IdPlazoPago = pro.IdPlazoPago,
                                            CreadoPor = pro.CreadoPor,
                                            FechaCreacion = pro.FechaCreacion,
-                                           Estado = pro.Estado,
+                                           EstadoFila = pro.EstadoFila,
                                            NombreTipoPersona = tip.Descripcion,
                                            PlazoPago = pla,
                                            NombreCiudad = ciu.NombreCiudad + " - " + dep.NombreDepartamento,
@@ -206,7 +206,7 @@ namespace SiinErp.Model.Business.General
                 ob.Telefono = entity.Telefono;
                 ob.IdCuentaContable = entity.IdCuentaContable;
                 ob.IdPlazoPago = entity.IdPlazoPago;
-                ob.Estado = entity.Estado;
+                ob.EstadoFila = entity.EstadoFila;
                 context.SaveChanges();
             }
             catch (Exception ex)
@@ -251,7 +251,7 @@ namespace SiinErp.Model.Business.General
                                            Iva = cli.Iva,
                                            FechaCreacion = cli.FechaCreacion,
                                            CreadoPor = cli.CreadoPor,
-                                           Estado = cli.Estado,
+                                           EstadoFila = cli.EstadoFila,
                                            NombreTipoPersona = tip.Descripcion,
                                            PlazoPago = pla,
                                            NombreCiudad = ciu.NombreCiudad + " - " + dep.NombreDepartamento,
@@ -302,7 +302,7 @@ namespace SiinErp.Model.Business.General
                                       Iva = cli.Iva,
                                       FechaCreacion = cli.FechaCreacion,
                                       CreadoPor = cli.CreadoPor,
-                                      Estado = cli.Estado,
+                                      EstadoFila = cli.EstadoFila,
                                       NombreTipoPersona = tip.Descripcion,
                                       PlazoPago = pla,
                                       ListaPrecios = lip,
@@ -322,7 +322,7 @@ namespace SiinErp.Model.Business.General
         {
             try
             {
-                List<Tercero> Lista = (from cli in context.Terceros.Where(x => x.IdEmpresa == IdEmpresa && x.TipoTercero.Equals(Constantes.Cliente) && x.Estado.Equals(Constantes.EstadoActivo))
+                List<Tercero> Lista = (from cli in context.Terceros.Where(x => x.IdEmpresa == IdEmpresa && x.TipoTercero.Equals(Constantes.Cliente) && x.EstadoFila.Equals(Constantes.EstadoActivo))
                                        join tip in context.TablasDetalles on cli.IdDetTipoPersona equals tip.IdDetalle
                                        join ciu in context.Ciudades on cli.IdCiudad equals ciu.IdCiudad
                                        join dep in context.Departamentos on ciu.IdDepartamento equals dep.IdDepartamento
@@ -351,7 +351,7 @@ namespace SiinErp.Model.Business.General
                                            Iva = cli.Iva,
                                            FechaCreacion = cli.FechaCreacion,
                                            CreadoPor = cli.CreadoPor,
-                                           Estado = cli.Estado,
+                                           EstadoFila = cli.EstadoFila,
                                            NombreTipoPersona = tip.Descripcion,
                                            PlazoPago = pla,
                                            NombreCiudad = ciu.NombreCiudad + " - " + dep.NombreDepartamento,
@@ -387,7 +387,7 @@ namespace SiinErp.Model.Business.General
                 obCli.IdPadre = entity.IdPadre;
                 obCli.IdListaPrecio = entity.IdListaPrecio;
                 obCli.Iva = entity.Iva;
-                obCli.Estado = entity.Estado;
+                obCli.EstadoFila = entity.EstadoFila;
                 context.SaveChanges();
             }
             catch (Exception ex)

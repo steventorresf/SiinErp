@@ -22,17 +22,17 @@ namespace SiinErp.Model.Entities.General
         public string NitEmpresa { get; set; }
 
         [Required]
-        public int IdCiudad { get; set; }
+        [StringLength(100)]
+        public string Ciudad { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(150)]
         public string Direccion { get; set; }
 
         [Required]
         [StringLength(100)]
         public string Telefono { get; set; }
 
-        [Required]
         [StringLength(50)]
         public string CodEan { get; set; }
 
@@ -43,12 +43,6 @@ namespace SiinErp.Model.Entities.General
         [Required]
         public int IdDetRegimen { get; set; }
 
-
-        [NotMapped]
-        public int IdDepartamento { get; set; }
-
-        [NotMapped]
-        public string NombreCiudad { get; set; }
 
         [NotMapped]
         public string NombreRegimen { get; set; }

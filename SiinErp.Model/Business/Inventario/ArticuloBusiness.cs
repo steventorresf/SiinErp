@@ -51,8 +51,8 @@ namespace SiinErp.Model.Business.Inventario
                                             FechaUEntrada = ar.FechaUEntrada,
                                             FechaUPedida = ar.FechaUPedida,
                                             FechaUSalida = ar.FechaUSalida,
-                                            IdUsuario = ar.IdUsuario,
-                                            Estado = ar.Estado,
+                                            CreadoPor = ar.CreadoPor,
+                                            EstadoFila = ar.EstadoFila,
                                             NombreTipoArticulo = ta.Descripcion,
                                             NombreUnidadMed = um.Descripcion,
                                             DescEsLinea = ar.EsLinea ? "Si" : "No",
@@ -98,8 +98,8 @@ namespace SiinErp.Model.Business.Inventario
                                             FechaUEntrada = ar.FechaUEntrada,
                                             FechaUPedida = ar.FechaUPedida,
                                             FechaUSalida = ar.FechaUSalida,
-                                            IdUsuario = ar.IdUsuario,
-                                            Estado = ar.Estado,
+                                            CreadoPor = ar.CreadoPor,
+                                            EstadoFila = ar.EstadoFila,
                                             NombreTipoArticulo = ta.Descripcion,
                                             NombreUnidadMed = um.Descripcion,
                                             DescEsLinea = ar.EsLinea ? "Si" : "No",
@@ -149,8 +149,8 @@ namespace SiinErp.Model.Business.Inventario
                                        FechaUEntrada = ar.FechaUEntrada,
                                        FechaUPedida = ar.FechaUPedida,
                                        FechaUSalida = ar.FechaUSalida,
-                                       IdUsuario = ar.IdUsuario,
-                                       Estado = ar.Estado,
+                                       CreadoPor = ar.CreadoPor,
+                                       EstadoFila = ar.EstadoFila,
                                        NombreTipoArticulo = ta.Descripcion,
                                        NombreUnidadMed = um.Descripcion,
                                        DescEsLinea = ar.EsLinea ? "Si" : "No",
@@ -201,8 +201,8 @@ namespace SiinErp.Model.Business.Inventario
                                             FechaUEntrada = ar.FechaUEntrada,
                                             FechaUPedida = ar.FechaUPedida,
                                             FechaUSalida = ar.FechaUSalida,
-                                            IdUsuario = ar.IdUsuario,
-                                            Estado = ar.Estado,
+                                            CreadoPor = ar.CreadoPor,
+                                            EstadoFila = ar.EstadoFila,
                                             NombreTipoArticulo = ta.Descripcion,
                                             NombreUnidadMed = um.Descripcion,
                                             DescEsLinea = ar.EsLinea ? "Si" : "No",
@@ -277,7 +277,7 @@ namespace SiinErp.Model.Business.Inventario
                 ob.PcIva = entity.PcIva;
                 ob.StkMin = entity.StkMin;
                 ob.StkMax = entity.StkMax;
-                ob.Estado = entity.Estado;
+                ob.EstadoFila = entity.EstadoFila;
                 context.SaveChanges();
             }
             catch (Exception ex)

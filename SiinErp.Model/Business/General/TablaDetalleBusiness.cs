@@ -40,7 +40,7 @@ namespace SiinErp.Model.Business.General
             {
                 TablaDetalle ob = context.TablasDetalles.Find(IdDetalle);
                 ob.Descripcion = entity.Descripcion;
-                ob.Estado = entity.Estado;
+                ob.EstadoFila = entity.EstadoFila;
                 context.SaveChanges();
             }
             catch (Exception ex)
@@ -85,7 +85,7 @@ namespace SiinErp.Model.Business.General
             {
                 List<TablaDetalle> Lista = (from ta in context.Tablas.Where(x => x.CodTabla.Equals(CodTabla))
                                             join td in context.TablasDetalles on ta.IdTabla equals td.IdTabla
-                                            where td.IdEmpresa == IdEmpresa && td.Estado.Equals(Constantes.EstadoActivo)
+                                            where td.IdEmpresa == IdEmpresa && td.EstadoFila.Equals(Constantes.EstadoActivo)
                                             select td).OrderBy(x => x.Descripcion).OrderBy(x => x.Orden).ToList();
                 return Lista;
             }

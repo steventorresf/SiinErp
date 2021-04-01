@@ -54,7 +54,7 @@ namespace SiinErp.Model.Business.Ventas
             {
                 ListaPrecio ob = context.ListaPrecios.Find(IdListaPrecio);
                 ob.NombreLista = entity.NombreLista;
-                ob.Estado = entity.Estado;
+                ob.EstadoFila = entity.EstadoFila;
                 ob.ModificadoPor = entity.ModificadoPor;
                 ob.FechaModificado = DateTimeOffset.Now;
                 context.SaveChanges();

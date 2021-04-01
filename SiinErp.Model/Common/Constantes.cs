@@ -50,6 +50,7 @@
         public const string VenDocEgresoCaja = "EG";
 
         // Tablas generales
+        public const string TabAlmacen = "InvAlmacen";
         public const string TabCajeros = "VenCajeros";
 
         public const string APP_POLICY = "SiinErpAppPolicy";
