@@ -43,5 +43,14 @@ namespace SiinErp.Desktop
             formPuntoDeVenta.Show();
         }
 
+        private void toolStripCajas_Click(object sender, EventArgs e)
+        {
+            FormCaja formCaja = new FormCaja(this.controllerBusiness);
+            //formPuntoDeVenta.ShowDialog();
+            this.IsMdiContainer = true;
+            formCaja.MdiParent = this;
+            formCaja.Show();
+        }
+
     }
 }

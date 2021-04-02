@@ -24,7 +24,7 @@ namespace SiinErp.Model.Business.Ventas
         {
             try
             {
-                List<Caja> Lista = (from ca in context.Caja.Where(x => x.IdDetCajero == IdCajero && !x.Estado.Equals(Constantes.EstadoInactivo))
+                List<Caja> Lista = (from ca in context.Caja.Where(x => x.IdDetCajero == IdCajero && !x.EstadoFila.Equals(Constantes.EstadoInactivo))
                                     join tu in context.TablasDetalles on ca.IdTurno equals tu.IdDetalle
                                     select new Caja()
                                     {
@@ -34,12 +34,12 @@ namespace SiinErp.Model.Business.Ventas
                                         NombreTurno = tu.Descripcion,
                                         Periodo = ca.Periodo,
                                         FechaDoc = ca.FechaDoc,
-                                        sFechaDoc = ca.FechaDoc.ToString("dd-MM-yyyy"),
+                                        sFechaDoc = ca.FechaDoc.ToString("dd/MM/yyyy"),
                                         SaldoInicial = ca.SaldoInicial,
                                         SaldoFinal = ca.SaldoFinal,
                                         Comentario = ca.Comentario,
-                                        Estado = ca.Estado,
-                                        NombreEstado = ca.Estado.Equals("C") ? "Cerrada" : "Abierta",
+                                        EstadoFila = ca.EstadoFila,
+                                        NombreEstado = ca.EstadoFila.Equals("C") ? "Cerrada" : "Abierta",
                                         FechaCreacion = ca.FechaCreacion,
                                         CreadoPor = ca.CreadoPor,
                                         FechaModificado = ca.FechaModificado,
@@ -60,6 +60,7 @@ namespace SiinErp.Model.Business.Ventas
             {
                 entity.FechaDoc = DateTimeOffset.Now;
                 entity.FechaCreacion = DateTimeOffset.Now;
+                entity.FechaModificado = DateTimeOffset.Now;
                 entity.Periodo = entity.FechaDoc.ToString("yyyyMM");
                 context.Caja.Add(entity);
                 context.SaveChanges();
@@ -77,7 +78,7 @@ namespace SiinErp.Model.Business.Ventas
             {
                 Caja entity = context.Caja.Find(IdCaja);
                 entity.SaldoFinal = data.SaldoFinal;
-                entity.Estado = Constantes.EstadoCerrado;
+                entity.EstadoFila = Constantes.EstadoCerrado;
                 entity.ModificadoPor = data.ModificadoPor;
                 entity.FechaModificado = DateTimeOffset.Now;
                 context.SaveChanges();
@@ -94,7 +95,7 @@ namespace SiinErp.Model.Business.Ventas
             try
             {
                 int IdCaja = 0;
-                List<Caja> Lista = context.Caja.Where(x => x.IdDetCajero == IdCajero && x.Estado.Equals("A")).ToList();
+                List<Caja> Lista = context.Caja.Where(x => x.IdDetCajero == IdCajero && x.EstadoFila.Equals("A")).ToList();
                 if (Lista.Count > 0)
                 {
                     if (Lista.Count > 1)
@@ -116,7 +117,7 @@ namespace SiinErp.Model.Business.Ventas
         {
             try
             {
-                int? IdDetCajero = (from ca in context.Caja.Where(x => x.Estado.Equals("A") && x.IdEmpresa == IdEmpresa)
+                int? IdDetCajero = (from ca in context.Caja.Where(x => x.EstadoFila.Equals("A") && x.IdEmpresa == IdEmpresa)
                                     join cd in context.CajaDetalle on ca.IdCaja equals cd.IdCaja
                                     where cd.CreadoPor.Equals(NombreUsuario)
                                     orderby cd.FechaCreacion descending
@@ -186,7 +187,7 @@ namespace SiinErp.Model.Business.Ventas
                                                       Valor = cd.Valor,
                                                       IdDetFormaPago = cd.IdDetFormaPago,
                                                       Comentario = cd.Comentario,
-                                                      Estado = cd.Estado,
+                                                      EstadoFila = cd.EstadoFila,
                                                       TipoDoc = cd.TipoDoc,
                                                       NumDoc = cd.NumDoc,
                                                       Efectivo = cd.Efectivo,

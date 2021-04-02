@@ -42,7 +42,7 @@
         // Tipos de documento
         public const string TipoDocOrdenCompra = "OC";
         public const string TipoDocEntradaOc = "CO";
-        public const string TipoDocFacturaVenta = "FV";
+        public const string TipoDocFacturaVenta = "FA";
         public const string TipoDocTraslados = "TB";
         public const string TipoDocEntradaTraslado = "ET";
 
@@ -52,6 +52,10 @@
         // Tablas generales
         public const string TabAlmacen = "InvAlmacen";
         public const string TabCajeros = "VenCajeros";
+        public const string TabFormasDePago = "VenFormPago";
+        public const string TabCuentasBanco = "VenCuentas";
+        public const string TabTurnos = "GenTurnos";
+        public const string TabRegimens = "GenRegimen";
 
         public const string APP_POLICY = "SiinErpAppPolicy";
 

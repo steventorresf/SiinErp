@@ -38,6 +38,7 @@ namespace SiinErp.Desktop.Controllers
         public IArticuloBusiness articuloBusiness { get; }
         public IMovimientoBusiness movimientoBusiness { get; }
         public IMovimientoDetalleBusiness movimientoDetalleBusiness { get; }
+        public IMovimientoFormaPagoBusiness movimientoFormaPagoBusiness { get; }
         #endregion
 
         #region Ventas Abstract
@@ -69,8 +70,13 @@ namespace SiinErp.Desktop.Controllers
 
                 // Inventario
                 IArticuloBusiness _articuloBusiness,
+                IMovimientoBusiness _movimientoBusiness,
+                IMovimientoDetalleBusiness _movimientoDetalleBusiness,
+                IMovimientoFormaPagoBusiness _movimientoFormaPagoBusiness,
 
                 // Ventas
+                ICajaBusiness _cajaBusiness,
+                ICajaDetalleBusiness _cajaDetalleBusiness,
                 IListaPrecioBusiness _listaPrecioBusiness
             )
         {
@@ -89,7 +95,12 @@ namespace SiinErp.Desktop.Controllers
             this.usuarioBusiness = _usuarioBusiness;
 
             this.articuloBusiness = _articuloBusiness;
+            this.movimientoBusiness = _movimientoBusiness;
+            this.movimientoDetalleBusiness = _movimientoDetalleBusiness;
+            this.movimientoFormaPagoBusiness = _movimientoFormaPagoBusiness;
 
+            this.cajaBusiness = _cajaBusiness;
+            this.cajaDetalleBusiness = _cajaDetalleBusiness;
             this.listaPrecioBusiness = _listaPrecioBusiness;
         }
 

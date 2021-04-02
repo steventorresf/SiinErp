@@ -45,6 +45,9 @@ namespace SiinErp.Model.Entities.Inventario
         public decimal Peso { get; set; }
 
         [Required]
+        public bool IncluyeIva { get; set; }
+
+        [Required]
         public decimal PcIva { get; set; }
 
         [Required]
@@ -73,6 +76,9 @@ namespace SiinErp.Model.Entities.Inventario
         public DateTimeOffset? FechaUSalida { get; set; }
 
         public DateTimeOffset? FechaUPedida { get; set; }
+
+        [Required]
+        public bool AfectaInventario { get; set; }
 
 
 

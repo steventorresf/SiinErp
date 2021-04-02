@@ -38,10 +38,6 @@ namespace SiinErp.Model.Entities.Ventas
         [StringLength(500)]
         public string Comentario { get; set; }
 
-        [Required]
-        [StringLength(1)]
-        public string Estado { get; set; }
-
 
         [NotMapped]
         public string NombreEmpresa { get; set; }

@@ -45,9 +45,6 @@ namespace SiinErp.Model.Entities.General
 
         public int? IdCuentaReteFuente { get; set; }
 
-        [Required]
-        public int IdUsuario { get; set; }
-
 
         [NotMapped]
         public string NomTransaccion { get; set; }

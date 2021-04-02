@@ -34,6 +34,7 @@ namespace SiinErp.Desktop
             this.toolStripInventario = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripVentas = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripPuntoDeVenta = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripCajas = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripPrincipal.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,7 +66,8 @@ namespace SiinErp.Desktop
             // toolStripVentas
             // 
             this.toolStripVentas.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripPuntoDeVenta});
+            this.toolStripPuntoDeVenta,
+            this.toolStripCajas});
             this.toolStripVentas.Name = "toolStripVentas";
             this.toolStripVentas.Size = new System.Drawing.Size(65, 22);
             this.toolStripVentas.Text = "Ventas";
@@ -76,6 +78,13 @@ namespace SiinErp.Desktop
             this.toolStripPuntoDeVenta.Size = new System.Drawing.Size(179, 22);
             this.toolStripPuntoDeVenta.Text = "Punto De Venta";
             this.toolStripPuntoDeVenta.Click += new System.EventHandler(this.toolStripPuntoDeVenta_Click);
+            // 
+            // toolStripCajas
+            // 
+            this.toolStripCajas.Name = "toolStripCajas";
+            this.toolStripCajas.Size = new System.Drawing.Size(179, 22);
+            this.toolStripCajas.Text = "Cajas";
+            this.toolStripCajas.Click += new System.EventHandler(this.toolStripCajas_Click);
             // 
             // FormHome
             // 
@@ -104,6 +113,7 @@ namespace SiinErp.Desktop
         private System.Windows.Forms.ToolStripMenuItem toolStripInventario;
         private System.Windows.Forms.ToolStripMenuItem toolStripVentas;
         private System.Windows.Forms.ToolStripMenuItem toolStripPuntoDeVenta;
+        private System.Windows.Forms.ToolStripMenuItem toolStripCajas;
     }
 }
 

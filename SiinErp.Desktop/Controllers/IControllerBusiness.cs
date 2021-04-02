@@ -21,9 +21,14 @@ namespace SiinErp.Desktop.Controllers
 
         #region Inventario
         public IArticuloBusiness articuloBusiness { get; }
+        public IMovimientoBusiness movimientoBusiness { get; }
+        public IMovimientoDetalleBusiness movimientoDetalleBusiness { get; }
+        public IMovimientoFormaPagoBusiness movimientoFormaPagoBusiness { get; }
         #endregion
 
         #region Ventas
+        public ICajaBusiness cajaBusiness { get; }
+        public ICajaDetalleBusiness cajaDetalleBusiness { get; }
         public IListaPrecioBusiness listaPrecioBusiness { get; }
         #endregion
     }

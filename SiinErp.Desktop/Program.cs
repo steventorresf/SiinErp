@@ -39,7 +39,7 @@ namespace SiinErp.Desktop
         private static void ConfigureServices(ServiceCollection services)
         {
             //services.AddDbContext<SiinErpContext>(options => options.UseSqlServer(configuration.GetConnectionString("SiinErpDbContext")));
-            services.AddDbContext<SiinErpContext>(options => options.UseSqlServer("Data Source=(local);Initial Catalog=SiinErp;Integrated Security=True"));
+            services.AddDbContext<SiinErpContext>(options => options.UseSqlServer("Data Source=(local);Initial Catalog=SiinErpComercia;Integrated Security=True"));
             services.AddScoped<FormHome>();
             services.AddScoped<Controllers.IControllerBusiness, Controllers.ControllerBusiness>();
 
@@ -82,6 +82,7 @@ namespace SiinErp.Desktop
             services.AddScoped<Model.Abstract.Inventario.IArticuloBusiness, Model.Business.Inventario.ArticuloBusiness>();
             services.AddScoped<Model.Abstract.Inventario.IMovimientoBusiness, Model.Business.Inventario.MovimientoBusiness>();
             services.AddScoped<Model.Abstract.Inventario.IMovimientoDetalleBusiness, Model.Business.Inventario.MovimientoDetalleBusiness>();
+            services.AddScoped<Model.Abstract.Inventario.IMovimientoFormaPagoBusiness, Model.Business.Inventario.MovimientoFormaPagoBusiness>();
             #endregion
 
             #region Tesoreria Injection

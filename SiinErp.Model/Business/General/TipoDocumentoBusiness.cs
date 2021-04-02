@@ -54,7 +54,7 @@ namespace SiinErp.Model.Business.General
                                                  IdCuentaOtro = td.IdCuentaOtro,
                                                  IdCuentaReteFuente = td.IdCuentaReteFuente,
                                                  FechaCreacion = td.FechaCreacion,
-                                                 IdUsuario = td.IdUsuario,
+                                                 CreadoPor = td.CreadoPor,
                                                  NomTransaccion = td.IdDetTransaccion > 0 ? "Suma" : td.IdDetTransaccion < 0 ? "Resta" : "*No Aplica*",
                                                  NombreModulo = mo.Descripcion,
                                                  NomClaseDoc = cd.Descripcion,

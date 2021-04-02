@@ -33,7 +33,15 @@ namespace SiinErp.Model.Entities.Inventario
         [Required]
         public int IdDetAlmacen { get; set; }
 
+        public int? IdDetCajero { get; set; }
+
+        public int? IdCaja { get; set; }
+
         public int? IdDetCenCosto { get; set; }
+
+        public int? IdPlazoPago { get; set; }
+
+        public int? IdListaPrecio { get; set; }
 
         [Required]
         public short Transaccion { get; set; }
@@ -94,10 +102,6 @@ namespace SiinErp.Model.Entities.Inventario
         [Required]
         public decimal ValorSaldo { get; set; }
 
-      
-        [Required]
-        [StringLength(1)]
-        public string Estado { get; set; }
 
 
         // NotMapped
@@ -106,6 +110,9 @@ namespace SiinErp.Model.Entities.Inventario
 
         [NotMapped]
         public string NombreEmpresa { get; set; }
+
+        [NotMapped]
+        public string NitCedula { get; set; }
 
         [NotMapped]
         public string NombreTercero { get; set; }
@@ -129,6 +136,9 @@ namespace SiinErp.Model.Entities.Inventario
         public string NombreVendedor { get; set; }
 
         [NotMapped]
+        public decimal VrRestante { get; set; }
+
+        [NotMapped]
         public decimal VrPagar { get; set; }
 
         [NotMapped]
@@ -149,8 +159,7 @@ namespace SiinErp.Model.Entities.Inventario
         [NotMapped]
         public List<MovimientoDetalle> ListaDetalle { get; set; }
 
-        [NotMapped]
-        public int IdCaja { get; set; }
+        public List<MovimientoFormaPago> ListaFormaPago { get; set; }
 
         // NotMapped Object
         [NotMapped]

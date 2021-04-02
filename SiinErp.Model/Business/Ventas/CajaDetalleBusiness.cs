@@ -25,7 +25,7 @@ namespace SiinErp.Model.Business.Ventas
         {
             try
             {
-                List<CajaDetalle> Lista = (from ca in context.CajaDetalle.Where(x => x.IdCaja == IdCaja && x.Estado.Equals(Constantes.EstadoActivo))
+                List<CajaDetalle> Lista = (from ca in context.CajaDetalle.Where(x => x.IdCaja == IdCaja && x.EstadoFila.Equals(Constantes.EstadoActivo))
                                            select new CajaDetalle()
                                            {
                                                IdCajaDetalle = ca.IdCajaDetalle,
@@ -34,7 +34,7 @@ namespace SiinErp.Model.Business.Ventas
                                                Transaccion = ca.Transaccion,
                                                Valor = ca.Valor,
                                                Comentario = ca.Comentario,
-                                               Estado = ca.Estado,
+                                               EstadoFila = ca.EstadoFila,
                                                FechaCreacion = ca.FechaCreacion,
                                                CreadoPor = ca.CreadoPor,
                                                FechaModificado = ca.FechaModificado,
@@ -61,6 +61,7 @@ namespace SiinErp.Model.Business.Ventas
                     entity.TipoDoc = entityTip.TipoDoc;
                     entity.NumDoc = entityTip.NumDoc;
                     entity.FechaCreacion = DateTimeOffset.Now;
+                    entity.FechaModificado = DateTimeOffset.Now;
                     context.CajaDetalle.Add(entity);
                     context.SaveChanges();
                     tran.Commit();

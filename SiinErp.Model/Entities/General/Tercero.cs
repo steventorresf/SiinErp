@@ -37,6 +37,10 @@ namespace SiinErp.Model.Entities.General
         public string NombreTercero { get; set; }
 
         [Required]
+        [StringLength(300)]
+        public string NombreBusqueda { get; set; }
+
+        [Required]
         public int IdCiudad { get; set; }
 
         [Required]
@@ -84,5 +88,8 @@ namespace SiinErp.Model.Entities.General
 
         [NotMapped]
         public ListaPrecio ListaPrecios { get; set; }
+
+        [NotMapped]
+        public bool Sel { get; set; }
     }
 }
