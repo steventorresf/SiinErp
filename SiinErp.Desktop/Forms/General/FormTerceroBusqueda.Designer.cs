@@ -57,6 +57,7 @@ namespace SiinErp.Desktop.Forms.General
             this.DgColNitCedula,
             this.DgColNombreTercero});
             this.dgvTerceroBusqueda.Location = new System.Drawing.Point(12, 111);
+            this.dgvTerceroBusqueda.MultiSelect = false;
             this.dgvTerceroBusqueda.Name = "dgvTerceroBusqueda";
             this.dgvTerceroBusqueda.ReadOnly = true;
             this.dgvTerceroBusqueda.RowTemplate.Height = 25;

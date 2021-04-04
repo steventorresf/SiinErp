@@ -18,5 +18,19 @@ namespace SiinErp.Model.Common
             string Conversion = s.ToString();
             return Conversion;
         }
+
+        public static string GetPrefijoSecuencia(string Prefijo, int NoSecuencia, int Longitud)
+        {
+            string StrSecuencia = Prefijo;
+            int lon = Longitud - Prefijo.Length - NoSecuencia.ToString().Length;
+
+            for (int i = 1; i <= lon; i++)
+            {
+                StrSecuencia += "0";
+            }
+
+            StrSecuencia += NoSecuencia;
+            return StrSecuencia;
+        }
     }
 }

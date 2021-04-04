@@ -24,6 +24,10 @@ namespace SiinErp.Model.Entities.General
 
         [Required]
         [StringLength(50)]
+        public string CodTercero { get; set; }
+
+        [Required]
+        [StringLength(50)]
         public string NitCedula { get; set; }
 
         [StringLength(1)]

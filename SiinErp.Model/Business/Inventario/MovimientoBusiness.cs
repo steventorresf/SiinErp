@@ -183,27 +183,25 @@ namespace SiinErp.Model.Business.Inventario
                     tiposdocmov.NumDoc++;
                     context.SaveChanges();
 
+                    Resolucion resolucion = context.Resolucion.FirstOrDefault(x => x.IdEmpresa == entityMov.IdEmpresa && x.EstadoFila.Equals(Constantes.EstadoActivo));
+
                     entityMov.TipoDoc = tiposdocmov.TipoDoc;
                     entityMov.NumDoc = tiposdocmov.NumDoc;
                     entityMov.CodModulo = Constantes.ModuloVentas;
                     entityMov.Transaccion = tiposdocmov.IdDetTransaccion;
                     entityMov.Periodo = entityMov.FechaDoc.ToString("yyyyMM");
+                    entityMov.IdResolucion = resolucion.IdResolucion;
                     entityMov.EstadoFila = Constantes.EstadoActivo;
                     entityMov.FechaVencimiento = entityMov.PlazoPago == null ? entityMov.FechaDoc : entityMov.FechaDoc.AddDays(entityMov.PlazoPago.PlazoDias);
                     entityMov.FechaCreacion = DateTimeOffset.Now;
-                    entityMov.FechaModificado = DateTimeOffset.Now;
                     context.Movimientos.Add(entityMov);
                     context.SaveChanges();
 
-                    decimal vrBruto = 0, vrDscto = 0, vrIva = 0;
 
                     Movimiento obMov = context.Movimientos.FirstOrDefault(x => x.NumDoc == entityMov.NumDoc && x.TipoDoc.Equals(entityMov.TipoDoc));
                     foreach (MovimientoDetalle m in listaDetalleMov)
                     {
                         m.IdMovimiento = obMov.IdMovimiento;
-                        vrBruto += m.VrUnitario * m.Cantidad;
-                        vrDscto += m.VrUnitario * m.Cantidad * m.PcDscto / 100;
-                        vrIva += m.VrUnitario * m.Cantidad * m.PcIva / 100;
                         m.FechaCreacion = DateTimeOffset.Now;
                         m.FechaModificado = DateTimeOffset.Now;
 
@@ -218,18 +216,12 @@ namespace SiinErp.Model.Business.Inventario
                                 entityExist.IdDetAlmacen = entityMov.IdDetAlmacen;
                                 entityExist.IdArticulo = m.IdArticulo;
                                 entityExist.Existencia = m.Cantidad * -1;
-                                entityExist.CreadoPor = entityMov.CreadoPor;
-                                entityExist.ModificadoPor = entityMov.ModificadoPor;
-                                entityExist.FechaCreacion = DateTimeOffset.Now;
-                                entityExist.FechaModificado = DateTimeOffset.Now;
                                 context.Existencias.Add(entityExist);
                                 context.SaveChanges();
                             }
                             else
                             {
                                 entityExist.Existencia += m.Cantidad * -1;
-                                entityExist.ModificadoPor = entityMov.ModificadoPor;
-                                entityExist.FechaModificado = DateTimeOffset.Now;
                                 context.SaveChanges();
                             }
                         }
@@ -242,7 +234,6 @@ namespace SiinErp.Model.Business.Inventario
                         mfp.IdMovimiento = obMov.IdMovimiento;
                         mfp.FechaCreacion = DateTimeOffset.Now;
                         mfp.FechaModificado = DateTimeOffset.Now;
-
 
                         CajaDetalle entityCajaDet = new CajaDetalle();
                         entityCajaDet.IdCaja = Convert.ToInt32(entityMov.IdCaja);
@@ -261,7 +252,7 @@ namespace SiinErp.Model.Business.Inventario
                         entityCajaDet.FechaModificado = DateTimeOffset.Now;
                         ListaCajaDetalle.Add(entityCajaDet);
                     }
-                    context.MovimientosFormasPagos.AddRange(listaDetallePag);
+                    //context.MovimientosFormasPagos.AddRange(listaDetallePag);
                     context.SaveChanges();
 
                     context.MovimientosDetalles.AddRange(listaDetalleMov);
@@ -275,8 +266,6 @@ namespace SiinErp.Model.Business.Inventario
                         Tercero entityCli = context.Terceros.Find(entityMov.IdTercero);
                         entityCli.Direccion = entityMov.DireccionTercero;
                         entityCli.Telefono = entityMov.TelefonoTercero;
-                        entityCli.ModificadoPor = entityMov.ModificadoPor;
-                        entityCli.FechaModificado = DateTimeOffset.Now;
                         context.SaveChanges();
                     }
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SiinErp.Model.Entities.Ventas
 {
     [Table("Vendedor", Schema = "Ventas")]
-    public class Vendedor
+    public class Vendedor : Common.Auditoria
     {
         [Key]
         public int IdVendedor { get; set; }
@@ -30,16 +30,6 @@ namespace SiinErp.Model.Entities.Ventas
 
         [Required]
         public int IdDetZona { get; set; }
-
-        [Required]
-        public DateTimeOffset FechaCreacion { get; set; }
-
-        [Required]
-        public int IdUsuario { get; set; }
-
-        [Required]
-        [StringLength(1)]
-        public string Estado { get; set; }
 
 
         [NotMapped]

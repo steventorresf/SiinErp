@@ -27,6 +27,7 @@ namespace SiinErp.Desktop.Controllers
         public IPaisBusiness paisBusiness { get; }
         public IParametroBusiness parametroBusiness { get; }
         public IPeriodoBusiness periodoBusiness { get; }
+        public ISecuenciaBusiness secuenciaBusiness { get; }
         public ITablaBusiness tablaBusiness { get; }
         public ITablaDetalleBusiness tablaDetalleBusiness { get; }
         public ITerceroBusiness terceroBusiness { get; }
@@ -53,6 +54,9 @@ namespace SiinErp.Desktop.Controllers
 
         public ControllerBusiness
             (
+                // Cartera
+                IPlazoPagoBusiness _plazoPagoBusiness,
+
                 // General
                 ICiudadBusiness _ciudadBusiness,
                 IDepartamentoBusiness _departamentoBusiness,
@@ -62,6 +66,7 @@ namespace SiinErp.Desktop.Controllers
                 IPaisBusiness _paisBusiness,
                 IParametroBusiness _parametroBusiness,
                 IPeriodoBusiness _periodoBusiness,
+                ISecuenciaBusiness _secuenciaBusiness,
                 ITablaBusiness _tablaBusiness,
                 ITablaDetalleBusiness _tablaDetalleBusiness,
                 ITerceroBusiness _terceroBusiness,
@@ -77,9 +82,13 @@ namespace SiinErp.Desktop.Controllers
                 // Ventas
                 ICajaBusiness _cajaBusiness,
                 ICajaDetalleBusiness _cajaDetalleBusiness,
-                IListaPrecioBusiness _listaPrecioBusiness
+                IListaPrecioBusiness _listaPrecioBusiness,
+                IListaPrecioDetalleBusiness _listaPrecioDetalleBusiness,
+                IVendedorBusiness _vendedorBusiness
             )
         {
+            this.plazoPagoBusiness = _plazoPagoBusiness;
+
             this.ciudadBusiness = _ciudadBusiness;
             this.departamentoBusiness = _departamentoBusiness;
             this.empresaBusiness = _empresaBusiness;
@@ -88,6 +97,7 @@ namespace SiinErp.Desktop.Controllers
             this.paisBusiness = _paisBusiness;
             this.parametroBusiness = _parametroBusiness;
             this.periodoBusiness = _periodoBusiness;
+            this.secuenciaBusiness = _secuenciaBusiness;
             this.tablaBusiness = _tablaBusiness;
             this.tablaDetalleBusiness = _tablaDetalleBusiness;
             this.terceroBusiness = _terceroBusiness;
@@ -102,6 +112,8 @@ namespace SiinErp.Desktop.Controllers
             this.cajaBusiness = _cajaBusiness;
             this.cajaDetalleBusiness = _cajaDetalleBusiness;
             this.listaPrecioBusiness = _listaPrecioBusiness;
+            this.listaPrecioDetalleBusiness = _listaPrecioDetalleBusiness;
+            this.vendedorBusiness = _vendedorBusiness;
         }
 
     }

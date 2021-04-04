@@ -1,4 +1,5 @@
-﻿using SiinErp.Model.Abstract.General;
+﻿using SiinErp.Model.Abstract.Cartera;
+using SiinErp.Model.Abstract.General;
 using SiinErp.Model.Abstract.Inventario;
 using SiinErp.Model.Abstract.Ventas;
 using System;
@@ -11,10 +12,16 @@ namespace SiinErp.Desktop.Controllers
 {
     public interface IControllerBusiness
     {
+        #region Cartera
+        public IPlazoPagoBusiness plazoPagoBusiness { get; }
+        #endregion
+
         #region General
         public IEmpresaBusiness empresaBusiness { get; }
-        public ITerceroBusiness terceroBusiness { get; }
+        public ICiudadBusiness ciudadBusiness { get; }
+        public ISecuenciaBusiness secuenciaBusiness { get; }
         public ITablaDetalleBusiness tablaDetalleBusiness { get; }
+        public ITerceroBusiness terceroBusiness { get; }
         public ITipoDocumentoBusiness tipoDocumentoBusiness { get; }
         public IUsuarioBusiness usuarioBusiness { get; }
         #endregion
@@ -30,6 +37,8 @@ namespace SiinErp.Desktop.Controllers
         public ICajaBusiness cajaBusiness { get; }
         public ICajaDetalleBusiness cajaDetalleBusiness { get; }
         public IListaPrecioBusiness listaPrecioBusiness { get; }
+        public IListaPrecioDetalleBusiness listaPrecioDetalleBusiness { get; }
+        public IVendedorBusiness vendedorBusiness { get; }
         #endregion
     }
 }

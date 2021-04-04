@@ -24,6 +24,8 @@ namespace SiinErp.Model.Context
         public virtual DbSet<Pais> Paises { get; set; }
         public virtual DbSet<Parametro> Parametros { get; set; }
         public virtual DbSet<Periodo> Periodos { get; set; }
+        public virtual DbSet<Resolucion> Resolucion { get; set; }
+        public virtual DbSet<Secuencia> Secuencia { get; set; }
         public virtual DbSet<Tabla> Tablas { get; set; }
         public virtual DbSet<TablaDetalle> TablasDetalles { get; set; }
         public virtual DbSet<Tercero> Terceros { get; set; }

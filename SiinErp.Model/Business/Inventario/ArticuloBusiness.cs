@@ -39,6 +39,7 @@ namespace SiinErp.Model.Business.Inventario
                                             IdDetUnidadMed = ar.IdDetUnidadMed,
                                             EsLinea = ar.EsLinea,
                                             Peso = ar.Peso,
+                                            IncluyeIva = ar.IncluyeIva,
                                             PcIva = ar.PcIva,
                                             StkMin = ar.StkMin,
                                             StkMax = ar.StkMax,
@@ -47,6 +48,7 @@ namespace SiinErp.Model.Business.Inventario
                                             Existencia = ar.Existencia,
                                             IndCosto = ar.IndCosto,
                                             IndConsumo = ar.IndConsumo,
+                                            AfectaInventario = ar.AfectaInventario,
                                             FechaCreacion = ar.FechaCreacion,
                                             FechaUEntrada = ar.FechaUEntrada,
                                             FechaUPedida = ar.FechaUPedida,
@@ -86,6 +88,7 @@ namespace SiinErp.Model.Business.Inventario
                                             IdDetUnidadMed = ar.IdDetUnidadMed,
                                             EsLinea = ar.EsLinea,
                                             Peso = ar.Peso,
+                                            IncluyeIva = ar.IncluyeIva,
                                             PcIva = ar.PcIva,
                                             StkMin = ar.StkMin,
                                             StkMax = ar.StkMax,
@@ -94,6 +97,7 @@ namespace SiinErp.Model.Business.Inventario
                                             Existencia = ar.Existencia,
                                             IndCosto = ar.IndCosto,
                                             IndConsumo = ar.IndConsumo,
+                                            AfectaInventario = ar.AfectaInventario,
                                             FechaCreacion = ar.FechaCreacion,
                                             FechaUEntrada = ar.FechaUEntrada,
                                             FechaUPedida = ar.FechaUPedida,
@@ -137,6 +141,7 @@ namespace SiinErp.Model.Business.Inventario
                                        IdDetUnidadMed = ar.IdDetUnidadMed,
                                        EsLinea = ar.EsLinea,
                                        Peso = ar.Peso,
+                                       IncluyeIva = ar.IncluyeIva,
                                        PcIva = ar.PcIva,
                                        StkMin = ar.StkMin,
                                        StkMax = ar.StkMax,
@@ -145,6 +150,7 @@ namespace SiinErp.Model.Business.Inventario
                                        Existencia = ar.Existencia,
                                        IndCosto = ar.IndCosto,
                                        IndConsumo = ar.IndConsumo,
+                                       AfectaInventario = ar.AfectaInventario,
                                        FechaCreacion = ar.FechaCreacion,
                                        FechaUEntrada = ar.FechaUEntrada,
                                        FechaUPedida = ar.FechaUPedida,
@@ -189,6 +195,7 @@ namespace SiinErp.Model.Business.Inventario
                                             IdDetUnidadMed = ar.IdDetUnidadMed,
                                             EsLinea = ar.EsLinea,
                                             Peso = ar.Peso,
+                                            IncluyeIva = ar.IncluyeIva,
                                             PcIva = ar.PcIva,
                                             StkMin = ar.StkMin,
                                             StkMax = ar.StkMax,
@@ -197,6 +204,7 @@ namespace SiinErp.Model.Business.Inventario
                                             Existencia = ar.Existencia,
                                             IndCosto = ar.IndCosto,
                                             IndConsumo = ar.IndConsumo,
+                                            AfectaInventario = ar.AfectaInventario,
                                             FechaCreacion = ar.FechaCreacion,
                                             FechaUEntrada = ar.FechaUEntrada,
                                             FechaUPedida = ar.FechaUPedida,
@@ -249,6 +257,8 @@ namespace SiinErp.Model.Business.Inventario
             try
             {
                 entity.NombreBusqueda = entity.CodArticulo + " - " + entity.NombreArticulo;
+                entity.FechaCreacion = DateTimeOffset.Now;
+                entity.FechaModificado = DateTimeOffset.Now;
                 context.Articulos.Add(entity);
                 context.SaveChanges();
             }
@@ -274,10 +284,14 @@ namespace SiinErp.Model.Business.Inventario
                 ob.VrCosto = entity.VrCosto;
                 ob.VrVenta = entity.VrVenta;
                 ob.Peso = entity.Peso;
+                ob.IncluyeIva = entity.IncluyeIva;
                 ob.PcIva = entity.PcIva;
                 ob.StkMin = entity.StkMin;
                 ob.StkMax = entity.StkMax;
                 ob.EstadoFila = entity.EstadoFila;
+                ob.AfectaInventario = entity.AfectaInventario;
+                ob.ModificadoPor = entity.ModificadoPor;
+                ob.FechaModificado = DateTimeOffset.Now;
                 context.SaveChanges();
             }
             catch (Exception ex)

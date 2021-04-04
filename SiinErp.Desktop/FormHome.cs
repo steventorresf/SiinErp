@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SiinErp.Desktop.Controllers;
+using SiinErp.Desktop.Forms.General;
+using SiinErp.Desktop.Forms.Inventario;
 using SiinErp.Desktop.Forms.Ventas;
 using SiinErp.Model.Abstract.General;
 using System;
@@ -34,10 +36,28 @@ namespace SiinErp.Desktop
             }
         }
 
+        // Inventario
+        private void toolStripArticulo_Click(object sender, EventArgs e)
+        {
+            FormArticulo formArticulo = new FormArticulo(this.controllerBusiness);
+            this.IsMdiContainer = true;
+            formArticulo.MdiParent = this;
+            formArticulo.Show();
+        }
+
+
+        // Ventas
+        private void toolStripClientes_Click(object sender, EventArgs e)
+        {
+            FormTerceroCliente formTerceroCliente = new FormTerceroCliente(this.controllerBusiness);
+            this.IsMdiContainer = true;
+            formTerceroCliente.MdiParent = this;
+            formTerceroCliente.Show();
+        }
+
         private void toolStripPuntoDeVenta_Click(object sender, EventArgs e)
         {
             FormPuntoDeVenta formPuntoDeVenta = new FormPuntoDeVenta(this.controllerBusiness);
-            //formPuntoDeVenta.ShowDialog();
             this.IsMdiContainer = true;
             formPuntoDeVenta.MdiParent = this;
             formPuntoDeVenta.Show();
@@ -46,7 +66,6 @@ namespace SiinErp.Desktop
         private void toolStripCajas_Click(object sender, EventArgs e)
         {
             FormCaja formCaja = new FormCaja(this.controllerBusiness);
-            //formPuntoDeVenta.ShowDialog();
             this.IsMdiContainer = true;
             formCaja.MdiParent = this;
             formCaja.Show();

@@ -75,7 +75,9 @@ namespace SiinErp.Model.Business.General
         {
             try
             {
+                entity.NombreBusqueda = entity.CodTercero + " - " + entity.NitCedula + " - " + entity.NombreTercero;
                 entity.FechaCreacion = DateTimeOffset.Now;
+                entity.FechaModificado = DateTimeOffset.Now;
                 context.Terceros.Add(entity);
                 context.SaveChanges();
             }
@@ -236,6 +238,7 @@ namespace SiinErp.Model.Business.General
                                            IdTercero = cli.IdTercero,
                                            TipoTercero = cli.TipoTercero,
                                            IdEmpresa = cli.IdEmpresa,
+                                           CodTercero = cli.CodTercero,
                                            NitCedula = cli.NitCedula,
                                            DgVerificacion = cli.DgVerificacion,
                                            IdDetTipoPersona = cli.IdDetTipoPersona,
@@ -288,6 +291,7 @@ namespace SiinErp.Model.Business.General
                                       IdTercero = cli.IdTercero,
                                       TipoTercero = cli.TipoTercero,
                                       IdEmpresa = cli.IdEmpresa,
+                                      CodTercero = cli.CodTercero,
                                       NitCedula = cli.NitCedula,
                                       DgVerificacion = cli.DgVerificacion,
                                       IdDetTipoPersona = cli.IdDetTipoPersona,
@@ -338,6 +342,7 @@ namespace SiinErp.Model.Business.General
                                            IdTercero = cli.IdTercero,
                                            TipoTercero = cli.TipoTercero,
                                            IdEmpresa = cli.IdEmpresa,
+                                           CodTercero = cli.CodTercero,
                                            NitCedula = cli.NitCedula,
                                            DgVerificacion = cli.DgVerificacion,
                                            IdDetTipoPersona = cli.IdDetTipoPersona,
@@ -380,6 +385,7 @@ namespace SiinErp.Model.Business.General
                 obCli.NitCedula = entity.NitCedula;
                 obCli.DgVerificacion = entity.DgVerificacion;
                 obCli.NombreTercero = entity.NombreTercero;
+                obCli.NombreBusqueda = entity.CodTercero + " - " + entity.NitCedula + " - " + entity.NombreTercero;
                 obCli.IdDetTipoPersona = entity.IdDetTipoPersona;
                 obCli.Direccion = entity.Direccion;
                 obCli.EMail = entity.EMail;
@@ -394,6 +400,8 @@ namespace SiinErp.Model.Business.General
                 obCli.IdListaPrecio = entity.IdListaPrecio;
                 obCli.Iva = entity.Iva;
                 obCli.EstadoFila = entity.EstadoFila;
+                obCli.ModificadoPor = entity.ModificadoPor;
+                obCli.FechaModificado = DateTimeOffset.Now;
                 context.SaveChanges();
             }
             catch (Exception ex)

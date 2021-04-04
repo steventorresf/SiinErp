@@ -35,8 +35,8 @@ namespace SiinErp.Model.Business.Ventas
                                             Telefono = ven.Telefono,
                                             IdDetZona = ven.IdDetZona,
                                             FechaCreacion = ven.FechaCreacion,
-                                            IdUsuario = ven.IdUsuario,
-                                            Estado = ven.Estado,
+                                            CreadoPor = ven.CreadoPor,
+                                            EstadoFila = ven.EstadoFila,
                                             NombreZona = zon.Descripcion,
                                         }).OrderBy(x => x.NombreVendedor).ToList();
                 return Lista;
@@ -52,7 +52,7 @@ namespace SiinErp.Model.Business.Ventas
         {
             try
             {
-                List<Vendedor> Lista = context.Vendedores.Where(x => x.IdEmpresa == IdEmp && x.Estado.Equals(Constantes.EstadoActivo)).OrderBy(x => x.NombreVendedor).ToList();
+                List<Vendedor> Lista = context.Vendedores.Where(x => x.IdEmpresa == IdEmp && x.EstadoFila.Equals(Constantes.EstadoActivo)).OrderBy(x => x.NombreVendedor).ToList();
                 return Lista;
             }
             catch (Exception ex)
@@ -85,7 +85,7 @@ namespace SiinErp.Model.Business.Ventas
                 ob.Direccion = entity.Direccion;
                 ob.Telefono = entity.Telefono;
                 ob.IdDetZona = entity.IdDetZona;
-                ob.Estado = entity.Estado;
+                ob.EstadoFila = entity.EstadoFila;
                 context.SaveChanges();
             }
             catch (Exception ex)

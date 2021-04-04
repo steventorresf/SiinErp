@@ -56,6 +56,11 @@
         public const string TabCuentasBanco = "VenCuentas";
         public const string TabTurnos = "GenTurnos";
         public const string TabRegimens = "GenRegimen";
+        public const string TabTipoPersona = "GenTiposPer";
+        public const string TabZona = "GenZonas";
+        public const string TabTipoArticulo = "InvTiposArt";
+        public const string TabUnidadMed = "InvUnidadMed";
+        public const string TabTrans = "GenTrans";
 
         public const string APP_POLICY = "SiinErpAppPolicy";
 

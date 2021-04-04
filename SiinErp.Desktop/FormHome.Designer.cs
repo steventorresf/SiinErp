@@ -32,7 +32,9 @@ namespace SiinErp.Desktop
             this.menuStripPrincipal = new System.Windows.Forms.MenuStrip();
             this.toolStripGeneral = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripInventario = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripArticulo = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripVentas = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripClientes = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripPuntoDeVenta = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripCajas = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripPrincipal.SuspendLayout();
@@ -59,18 +61,35 @@ namespace SiinErp.Desktop
             // 
             // toolStripInventario
             // 
+            this.toolStripInventario.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripArticulo});
             this.toolStripInventario.Name = "toolStripInventario";
             this.toolStripInventario.Size = new System.Drawing.Size(86, 22);
             this.toolStripInventario.Text = "Inventario";
             // 
+            // toolStripArticulo
+            // 
+            this.toolStripArticulo.Name = "toolStripArticulo";
+            this.toolStripArticulo.Size = new System.Drawing.Size(129, 22);
+            this.toolStripArticulo.Text = "Articulos";
+            this.toolStripArticulo.Click += new System.EventHandler(this.toolStripArticulo_Click);
+            // 
             // toolStripVentas
             // 
             this.toolStripVentas.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripClientes,
             this.toolStripPuntoDeVenta,
             this.toolStripCajas});
             this.toolStripVentas.Name = "toolStripVentas";
             this.toolStripVentas.Size = new System.Drawing.Size(65, 22);
             this.toolStripVentas.Text = "Ventas";
+            // 
+            // toolStripClientes
+            // 
+            this.toolStripClientes.Name = "toolStripClientes";
+            this.toolStripClientes.Size = new System.Drawing.Size(179, 22);
+            this.toolStripClientes.Text = "Clientes";
+            this.toolStripClientes.Click += new System.EventHandler(this.toolStripClientes_Click);
             // 
             // toolStripPuntoDeVenta
             // 
@@ -114,6 +133,8 @@ namespace SiinErp.Desktop
         private System.Windows.Forms.ToolStripMenuItem toolStripVentas;
         private System.Windows.Forms.ToolStripMenuItem toolStripPuntoDeVenta;
         private System.Windows.Forms.ToolStripMenuItem toolStripCajas;
+        private System.Windows.Forms.ToolStripMenuItem toolStripClientes;
+        private System.Windows.Forms.ToolStripMenuItem toolStripArticulo;
     }
 }
 

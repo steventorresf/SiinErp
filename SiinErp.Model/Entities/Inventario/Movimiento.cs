@@ -102,6 +102,8 @@ namespace SiinErp.Model.Entities.Inventario
         [Required]
         public decimal ValorSaldo { get; set; }
 
+        public int? IdResolucion { get; set; }
+
 
 
         // NotMapped
@@ -170,6 +172,9 @@ namespace SiinErp.Model.Entities.Inventario
 
         [NotMapped]
         public Vendedor Vendedor { get; set; }
+
+        [NotMapped]
+        public Resolucion Resolucion { get; set; }
 
     }
 }

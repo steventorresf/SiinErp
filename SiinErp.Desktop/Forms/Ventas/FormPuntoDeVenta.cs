@@ -39,11 +39,19 @@ namespace SiinErp.Desktop.Forms.Ventas
 
         private void FormPuntoDeVenta_Load(object sender, EventArgs e)
         {
-            this.Limpiar();
+            this.NuevaFactura();
         }
 
-        private void TraerNumeroFactura()
+        private void NuevaFactura()
         {
+            this.ModoFact = "N";
+            this.Limpiar();
+            this.LlenarAlmacen();
+            this.LlenarCajero();
+            this.LlenarListaPrecio();
+            this.LlenarFormasDePago();
+            this.LlenarCuentasBanco();
+
             TipoDocumento entityTip = this.controllerBusiness.tipoDocumentoBusiness.GetTipoDocumento(Cookie.IdEmpresa, Constantes.TipoDocFacturaVenta);
             this.entityMov.TipoDoc = entityTip.TipoDoc;
             this.entityMov.NumDoc = entityTip.NumDoc + 1;
@@ -342,8 +350,7 @@ namespace SiinErp.Desktop.Forms.Ventas
                 MovimientoFormaPago entityFp = new MovimientoFormaPago();
                 entityFp.IdMovFormaDePago = Convert.ToInt32(r.Cells["DgColIdMovFp"].Value);
                 entityFp.IdDetFormaDePago = Convert.ToInt32(r.Cells["DgColIdDetFormaPago"].Value);
-                entityFp.IdMovimiento = this.entityMov.IdMovimiento;
-                entityFp.IdDetCuenta = Convert.ToInt32(r.Cells["DgColIdMovFp"].Value);
+                entityFp.IdDetCuenta = Convert.ToInt32(r.Cells["DgColIdDetCuenta"].Value);
                 entityFp.Descripcion = r.Cells["DgColFormaPago"].Value.ToString();
                 entityFp.DescripcionCuenta = r.Cells["DgColCuentaBancaria"].Value.ToString();
                 entityFp.Valor = Convert.ToDecimal(r.Cells["DgColValorFp"].Value.ToString());
@@ -374,9 +381,13 @@ namespace SiinErp.Desktop.Forms.Ventas
                         if(this.entityMov.IdCaja > 0)
                         {
                             this.LlenarDataObject();
-                            this.controllerBusiness.movimientoBusiness.CreateByPuntoDeVenta(data);
-                            MessageBox.Show("La factura ha sido registrada correctamente.", "¡Ok!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            this.Limpiar();
+                            int IdMov = this.controllerBusiness.movimientoBusiness.CreateByPuntoDeVenta(data);
+                            if(IdMov > 0)
+                            {
+                                MessageBox.Show("La factura ha sido registrada correctamente.", "¡Ok!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                this.Limpiar();
+                            }
+                            else { MessageBox.Show("Ha ocurrido un error inesperado.", "¡No Valido!", MessageBoxButtons.OK, MessageBoxIcon.Error); }
                         }
                         else { MessageBox.Show("La caja no se encuentra abierta.", "¡No Valido!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
                     }
@@ -398,8 +409,6 @@ namespace SiinErp.Desktop.Forms.Ventas
 
         private void Limpiar()
         {
-            this.ModoFact = "N";
-
             this.entityMov = new Movimiento();
             this.entityMov.IdEmpresa = Cookie.IdEmpresa;
             this.entityMov.CreadoPor = Cookie.NombreUsuario;
@@ -421,18 +430,76 @@ namespace SiinErp.Desktop.Forms.Ventas
             this.cboCuentaBancaria.SelectedItem = null;
             this.txtValor.Text = "";
             this.txtTotalFp.Text = "";
-
-            this.TraerNumeroFactura();
-            this.LlenarAlmacen();
-            this.LlenarCajero();
-            this.LlenarListaPrecio();
-            this.LlenarFormasDePago();
-            this.LlenarCuentasBanco();
         }
 
         private void btnNuevaFact_Click(object sender, EventArgs e)
         {
+            this.NuevaFactura();
+        }
+
+
+        private void LlenarFactura(int numDoc)
+        {
+            txtNumeroFactura.Text = numDoc.ToString();
             this.Limpiar();
+
+            JObject data = new JObject();
+            data.Add("idEmpresa", Cookie.IdEmpresa);
+            data.Add("tipoDoc", Constantes.TipoDocFacturaVenta);
+            data.Add("numDoc", numDoc);
+
+            this.entityMov = this.controllerBusiness.movimientoBusiness.GetByDocumento(data);
+            if (this.entityMov != null)
+            {
+                this.ModoFact = "E";
+                if (this.entityMov.IdTercero > 0)
+                {
+                    txtNitCedula.Text = this.entityMov.NitCedula;
+                    txtNombreCliente.Text = this.entityMov.NombreTercero;
+                    txtDireccion.Text = this.entityMov.DireccionTercero;
+                    txtTelefono.Text = this.entityMov.TelefonoTercero;
+                    dtpFecha.Value = this.entityMov.FechaDoc;
+                    cboAlmacen.SelectedValue = this.entityMov.IdDetAlmacen;
+
+                    if (this.entityMov.IdDetCajero > 0)
+                    {
+                        cboCajero.SelectedValue = this.entityMov.IdDetCajero;
+                    }
+                    if (this.entityMov.IdListaPrecio > 0)
+                    {
+                        cboListaPrecio.SelectedValue = this.entityMov.IdListaPrecio;
+                    }
+                }
+
+                foreach (MovimientoDetalle md in this.entityMov.ListaDetalle)
+                {
+                    dgvDetalleFactura.Rows.Add(md.IdDetalleMovimiento, md.IdArticulo, md.CodArticulo, md.NombreArticulo, md.Cantidad, md.VrCosto, md.VrUnitario, 0, md.Articulo.IncluyeIva, md.PcIva, 0, 0);
+                }
+                this.CalcularTotales();
+
+                foreach (MovimientoFormaPago mf in this.entityMov.ListaFormaPago)
+                {
+                    dgvFormasDePago.Rows.Add(mf.IdMovFormaDePago, mf.IdDetFormaDePago, mf.Descripcion, mf.IdDetCuenta, mf.DescripcionCuenta, mf.Valor);
+                }
+                this.CalcularTotalFp();
+            }
+            else
+            {
+                this.ModoFact = "N";
+                MessageBox.Show("El documento no existe.", "¡No Valido!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            int numDoc = Convert.ToInt32(txtNumeroFactura.Text) - 1;
+            this.LlenarFactura(numDoc);
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            int numDoc = Convert.ToInt32(txtNumeroFactura.Text) + 1;
+            this.LlenarFactura(numDoc);
         }
     }
 }
