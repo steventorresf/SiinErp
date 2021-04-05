@@ -175,16 +175,18 @@ namespace SiinErp.Desktop.Forms.Ventas
 
         private void dgvDetalleLista_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            DialogResult result = MessageBox.Show("¿Desea eliminar +el articulo '" + e.Row.Cells["ColDescripcion"].Value + "' de la lista de precio?",
+            DialogResult result = MessageBox.Show("¿Desea eliminar el articulo '" + e.Row.Cells["ColDescripcion"].Value + "' de la lista de precio?",
                                                   "¡Confirmación!",
-                                                  MessageBoxButtons.YesNoCancel,
-                                                  MessageBoxIcon.Question);
-            if(result == DialogResult.Yes)
+                                                  MessageBoxButtons.YesNo,
+                                                  MessageBoxIcon.Question,
+                                                  MessageBoxDefaultButton.Button2);
+            if (result == DialogResult.Yes)
             {
                 int IdDetalleListaPrecio = Convert.ToInt32(e.Row.Cells["ColIdDetalle"].Value);
                 this.controllerBusiness.listaPrecioDetalleBusiness.Delete(IdDetalleListaPrecio);
                 this.LlenarListaPrecio();
             }
+            else { e.Cancel = true; }
         }
     }
 }

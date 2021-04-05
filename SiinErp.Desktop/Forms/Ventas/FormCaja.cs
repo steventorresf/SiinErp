@@ -105,26 +105,44 @@ namespace SiinErp.Desktop.Forms.Ventas
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-            if (dgvCaja.CurrentRow != null)
+            DataGridViewRow r = dgvCaja.CurrentRow;
+            if (r != null)
             {
 
             }
+            else { MessageBox.Show("Seleccione un registro.", "¡No Valido!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
         }
 
         private void btnIngreso_Click(object sender, EventArgs e)
         {
-            if (cboCajero.SelectedItem != null)
+            DataGridViewRow r = dgvCaja.CurrentRow;
+            if (r != null)
             {
-
+                if (cboCajero.SelectedItem != null)
+                {
+                    Caja entityCaja = this.ListaCajas.FirstOrDefault(x => x.IdCaja == Convert.ToInt32(r.Cells["ColIdCaja"].Value));
+                    TablaDetalle entityCajero = (TablaDetalle)cboCajero.SelectedItem;
+                    FormCajaDialog formCajaDialog = new FormCajaDialog(this.controllerBusiness);
+                    formCajaDialog.CajaIngresoEgreso(entityCajero, entityCaja, "In");
+                }
             }
+            else { MessageBox.Show("Seleccione un registro.", "¡No Valido!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
         }
 
         private void btnEgreso_Click(object sender, EventArgs e)
         {
-            if (cboCajero.SelectedItem != null)
+            DataGridViewRow r = dgvCaja.CurrentRow;
+            if (r != null)
             {
-
+                if (cboCajero.SelectedItem != null)
+                {
+                    Caja entityCaja = this.ListaCajas.FirstOrDefault(x => x.IdCaja == Convert.ToInt32(r.Cells["ColIdCaja"].Value));
+                    TablaDetalle entityCajero = (TablaDetalle)cboCajero.SelectedItem;
+                    FormCajaDialog formCajaDialog = new FormCajaDialog(this.controllerBusiness);
+                    formCajaDialog.CajaIngresoEgreso(entityCajero, entityCaja, "Eg");
+                }
             }
+            else { MessageBox.Show("Seleccione un registro.", "¡No Valido!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
         }
 
     }

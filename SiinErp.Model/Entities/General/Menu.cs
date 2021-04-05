@@ -28,5 +28,8 @@ namespace SiinErp.Model.Entities.General
 
         [StringLength(15)]
         public string CodPadre { get; set; }
+
+        [NotMapped]
+        public bool Sel { get; set; }
     }
 }

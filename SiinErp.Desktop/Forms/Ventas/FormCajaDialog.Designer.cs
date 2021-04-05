@@ -42,6 +42,8 @@ namespace SiinErp.Desktop.Forms.Ventas
             this.txtCajeroAbCe = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtValorInEg = new System.Windows.Forms.TextBox();
+            this.txtSaldoEnCaja = new System.Windows.Forms.TextBox();
             this.txtTurnoInEg = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtComentarioInEg = new System.Windows.Forms.RichTextBox();
@@ -51,8 +53,6 @@ namespace SiinErp.Desktop.Forms.Ventas
             this.label9 = new System.Windows.Forms.Label();
             this.txtCajeroInEg = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.txtSaldoEnCaja = new System.Windows.Forms.TextBox();
-            this.txtValorInEg = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -188,10 +188,26 @@ namespace SiinErp.Desktop.Forms.Ventas
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             // 
+            // txtValorInEg
+            // 
+            this.txtValorInEg.Location = new System.Drawing.Point(326, 45);
+            this.txtValorInEg.Name = "txtValorInEg";
+            this.txtValorInEg.Size = new System.Drawing.Size(120, 22);
+            this.txtValorInEg.TabIndex = 4;
+            // 
+            // txtSaldoEnCaja
+            // 
+            this.txtSaldoEnCaja.Location = new System.Drawing.Point(107, 45);
+            this.txtSaldoEnCaja.Name = "txtSaldoEnCaja";
+            this.txtSaldoEnCaja.ReadOnly = true;
+            this.txtSaldoEnCaja.Size = new System.Drawing.Size(120, 22);
+            this.txtSaldoEnCaja.TabIndex = 3;
+            // 
             // txtTurnoInEg
             // 
             this.txtTurnoInEg.Location = new System.Drawing.Point(326, 21);
             this.txtTurnoInEg.Name = "txtTurnoInEg";
+            this.txtTurnoInEg.ReadOnly = true;
             this.txtTurnoInEg.Size = new System.Drawing.Size(120, 22);
             this.txtTurnoInEg.TabIndex = 2;
             // 
@@ -265,20 +281,6 @@ namespace SiinErp.Desktop.Forms.Ventas
             this.label10.Size = new System.Drawing.Size(45, 14);
             this.label10.TabIndex = 0;
             this.label10.Text = "Cajero:";
-            // 
-            // txtSaldoEnCaja
-            // 
-            this.txtSaldoEnCaja.Location = new System.Drawing.Point(107, 45);
-            this.txtSaldoEnCaja.Name = "txtSaldoEnCaja";
-            this.txtSaldoEnCaja.Size = new System.Drawing.Size(120, 22);
-            this.txtSaldoEnCaja.TabIndex = 3;
-            // 
-            // txtValorInEg
-            // 
-            this.txtValorInEg.Location = new System.Drawing.Point(326, 45);
-            this.txtValorInEg.Name = "txtValorInEg";
-            this.txtValorInEg.Size = new System.Drawing.Size(120, 22);
-            this.txtValorInEg.TabIndex = 4;
             // 
             // FormCajaDialog
             // 

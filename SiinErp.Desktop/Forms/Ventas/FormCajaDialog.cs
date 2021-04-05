@@ -78,6 +78,8 @@ namespace SiinErp.Desktop.Forms.Ventas
             this.entityCaja = _entityCaja;
             this.tipo = _tipo;
             txtCajeroInEg.Text = this.entityCajero.Descripcion;
+            txtTurnoInEg.Text = this.entityCaja.NombreTurno;
+            txtSaldoEnCaja.Text = this.controllerBusiness.cajaBusiness.GetSaldoEnCajaActual(this.entityCaja.IdCaja).ToString("N2");
             groupBox1.Visible = false;
             groupBox2.Location = new Point(12, 12);
             this.Size = new Size(515, 284);
@@ -144,7 +146,31 @@ namespace SiinErp.Desktop.Forms.Ventas
 
         private void btnGuardarInEg_Click(object sender, EventArgs e)
         {
-            
+            string NoValido = "";
+            if (txtValorInEg.Text.Trim().Equals("")) { NoValido += "Digite el valor.\r"; }
+            if (txtComentarioInEg.Text.Trim().Equals("")) { NoValido += "Digite un comentario.\r"; }
+            if (NoValido.Equals(""))
+            {
+                CajaDetalle entityDet = new CajaDetalle();
+                entityDet.IdCaja = this.entityCaja.IdCaja;
+                entityDet.TipoDoc = this.tipo.ToUpper();
+                entityDet.Efectivo = true;
+                entityDet.IdMovimiento = null;
+                entityDet.IdDetFormaPago = null;
+                entityDet.IdDetCuenta = null;
+                entityDet.Valor = Convert.ToDecimal(txtValorInEg.Text.Trim());
+                entityDet.Comentario = txtComentarioInEg.Text.Trim();
+                entityDet.CreadoPor = Cookie.NombreUsuario;
+                entityDet.ModificadoPor = Cookie.NombreUsuario;
+                entityDet.EstadoFila = Constantes.EstadoActivo;
+                entityDet.FechaCreacion = DateTimeOffset.Now;
+                entityDet.FechaModificado = DateTimeOffset.Now;
+
+                this.controllerBusiness.cajaDetalleBusiness.Create(entityDet);
+                MessageBox.Show("La operación se ha realizado correctamente.", "¡No Valido!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
+            else { MessageBox.Show(NoValido, "¡No Valido!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
         }
     }
 }

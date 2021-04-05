@@ -60,6 +60,7 @@ namespace SiinErp.Model.Business.Ventas
                     context.SaveChanges();
                     entity.TipoDoc = entityTip.TipoDoc;
                     entity.NumDoc = entityTip.NumDoc;
+                    entity.Transaccion = entityTip.IdDetTransaccion;
                     entity.FechaCreacion = DateTimeOffset.Now;
                     entity.FechaModificado = DateTimeOffset.Now;
                     context.CajaDetalle.Add(entity);

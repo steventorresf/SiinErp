@@ -78,9 +78,11 @@ namespace SiinErp.Desktop.Forms.General
             this.ColDescripcion});
             this.dgvDetalleMenu.Location = new System.Drawing.Point(6, 50);
             this.dgvDetalleMenu.Name = "dgvDetalleMenu";
+            this.dgvDetalleMenu.ReadOnly = true;
             this.dgvDetalleMenu.RowTemplate.Height = 25;
             this.dgvDetalleMenu.Size = new System.Drawing.Size(382, 250);
             this.dgvDetalleMenu.TabIndex = 0;
+            this.dgvDetalleMenu.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvDetalleMenu_UserDeletingRow);
             // 
             // ColIdMenuUsuario
             // 

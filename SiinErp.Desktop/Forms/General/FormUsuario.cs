@@ -1,5 +1,6 @@
 ﻿using SiinErp.Desktop.Common;
 using SiinErp.Desktop.Controllers;
+using SiinErp.Model.Common;
 using SiinErp.Model.Entities.General;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,7 @@ namespace SiinErp.Desktop.Forms.General
             this.index = this.ListaUsuarios.Count;
             txtNombreCompleto.Text = "";
             txtNombreUsuario.Text = "";
+            this.txtNombreUsuario.Enabled = true;
             this.btnAgregar.Enabled = false;
             dgvDetalleMenu.Rows.Clear();
         }
@@ -124,7 +126,41 @@ namespace SiinErp.Desktop.Forms.General
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
+            FormMenuBusqueda formMenuBusqueda = new FormMenuBusqueda(this.controllerBusiness);
+            List<Menu> ListaMenu = formMenuBusqueda.GetMenuAgregar(this.entityUsuario);
+            if(ListaMenu.Count > 0)
+            {
+                List<MenuUsuario> ListaMenuUsuario = new List<MenuUsuario>();
+                foreach(Menu m in ListaMenu)
+                {
+                    MenuUsuario entity = new MenuUsuario();
+                    entity.IdMenu = m.IdMenu;
+                    entity.IdUsuario = this.entityUsuario.IdUsuario;
+                    entity.EstadoFila = Constantes.EstadoActivo;
+                    entity.CreadoPor = Cookie.NombreUsuario;
+                    entity.ModificadoPor = Cookie.NombreUsuario;
+                    entity.FechaCreacion = DateTimeOffset.Now;
+                    entity.FechaModificado = DateTimeOffset.Now;
+                    ListaMenuUsuario.Add(entity);
+                }
+                this.controllerBusiness.menuUsuarioBusiness.Creates(ListaMenuUsuario);
+                this.LlenarUsuario();
+            }
+        }
 
+        private void dgvDetalleMenu_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            DialogResult result = MessageBox.Show("¿Desea eliminar el permiso '" + e.Row.Cells["ColDescripcion"].Value + "'?",
+                                                  "¡Confirmación!",
+                                                  MessageBoxButtons.YesNo,
+                                                  MessageBoxIcon.Question,
+                                                  MessageBoxDefaultButton.Button2);
+            if(result == DialogResult.Yes)
+            {
+                int IdMenuUsuario = Convert.ToInt32(e.Row.Cells["ColIdMenuUsuario"].Value);
+                this.controllerBusiness.menuUsuarioBusiness.Delete(IdMenuUsuario);
+            }
+            else { e.Cancel = true; }
         }
     }
 }

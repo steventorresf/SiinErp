@@ -35,12 +35,18 @@ namespace SiinErp.Desktop.Forms.General
             this.DgColNitCedula = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DgColNombreTercero = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnAceptar = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTerceroBusqueda)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtBusquedaTercero
             // 
-            this.txtBusquedaTercero.Location = new System.Drawing.Point(12, 83);
+            this.txtBusquedaTercero.Location = new System.Drawing.Point(20, 21);
             this.txtBusquedaTercero.Name = "txtBusquedaTercero";
             this.txtBusquedaTercero.Size = new System.Drawing.Size(197, 22);
             this.txtBusquedaTercero.TabIndex = 0;
@@ -56,7 +62,7 @@ namespace SiinErp.Desktop.Forms.General
             this.DgColIdTercero,
             this.DgColNitCedula,
             this.DgColNombreTercero});
-            this.dgvTerceroBusqueda.Location = new System.Drawing.Point(12, 111);
+            this.dgvTerceroBusqueda.Location = new System.Drawing.Point(20, 21);
             this.dgvTerceroBusqueda.MultiSelect = false;
             this.dgvTerceroBusqueda.Name = "dgvTerceroBusqueda";
             this.dgvTerceroBusqueda.ReadOnly = true;
@@ -88,7 +94,7 @@ namespace SiinErp.Desktop.Forms.General
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(265, 374);
+            this.btnAceptar.Location = new System.Drawing.Point(24, 21);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(92, 32);
             this.btnAceptar.TabIndex = 2;
@@ -96,21 +102,51 @@ namespace SiinErp.Desktop.Forms.General
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.txtBusquedaTercero);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(621, 62);
+            this.groupBox1.TabIndex = 3;
+            this.groupBox1.TabStop = false;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.dgvTerceroBusqueda);
+            this.groupBox2.Location = new System.Drawing.Point(12, 80);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(660, 289);
+            this.groupBox2.TabIndex = 4;
+            this.groupBox2.TabStop = false;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.btnAceptar);
+            this.groupBox3.Location = new System.Drawing.Point(12, 375);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(660, 63);
+            this.groupBox3.TabIndex = 5;
+            this.groupBox3.TabStop = false;
+            // 
             // FormTerceroBusqueda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(645, 450);
-            this.Controls.Add(this.btnAceptar);
-            this.Controls.Add(this.dgvTerceroBusqueda);
-            this.Controls.Add(this.txtBusquedaTercero);
+            this.ClientSize = new System.Drawing.Size(684, 450);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "FormTerceroBusqueda";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormTerceroBusqueda";
             ((System.ComponentModel.ISupportInitialize)(this.dgvTerceroBusqueda)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -122,5 +158,8 @@ namespace SiinErp.Desktop.Forms.General
         private System.Windows.Forms.DataGridViewTextBoxColumn DgColIdTercero;
         private System.Windows.Forms.DataGridViewTextBoxColumn DgColNitCedula;
         private System.Windows.Forms.DataGridViewTextBoxColumn DgColNombreTercero;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox3;
     }
 }

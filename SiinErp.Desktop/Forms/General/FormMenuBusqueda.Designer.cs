@@ -31,19 +31,21 @@ namespace SiinErp.Desktop.Forms.General
         {
             this.btnAceptar = new System.Windows.Forms.Button();
             this.dgvMenuBusqueda = new System.Windows.Forms.DataGridView();
-            this.DgColIdMenu = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColIdMenu = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColSel = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.DgColDescripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMenuBusqueda)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(180, 275);
+            this.btnAceptar.Location = new System.Drawing.Point(180, 257);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(92, 32);
+            this.btnAceptar.Size = new System.Drawing.Size(92, 30);
             this.btnAceptar.TabIndex = 4;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // dgvMenuBusqueda
             // 
@@ -52,23 +54,32 @@ namespace SiinErp.Desktop.Forms.General
             this.dgvMenuBusqueda.BackgroundColor = System.Drawing.Color.White;
             this.dgvMenuBusqueda.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMenuBusqueda.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.DgColIdMenu,
+            this.ColIdMenu,
+            this.ColSel,
             this.DgColDescripcion});
-            this.dgvMenuBusqueda.Location = new System.Drawing.Point(12, 12);
+            this.dgvMenuBusqueda.Location = new System.Drawing.Point(12, 11);
             this.dgvMenuBusqueda.MultiSelect = false;
             this.dgvMenuBusqueda.Name = "dgvMenuBusqueda";
-            this.dgvMenuBusqueda.ReadOnly = true;
             this.dgvMenuBusqueda.RowTemplate.Height = 25;
             this.dgvMenuBusqueda.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvMenuBusqueda.Size = new System.Drawing.Size(436, 257);
+            this.dgvMenuBusqueda.Size = new System.Drawing.Size(436, 240);
             this.dgvMenuBusqueda.TabIndex = 3;
+            this.dgvMenuBusqueda.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMenuBusqueda_CellEndEdit);
             // 
-            // DgColIdMenu
+            // ColIdMenu
             // 
-            this.DgColIdMenu.HeaderText = "IdMenu";
-            this.DgColIdMenu.Name = "DgColIdMenu";
-            this.DgColIdMenu.ReadOnly = true;
-            this.DgColIdMenu.Visible = false;
+            this.ColIdMenu.HeaderText = "IdMenu";
+            this.ColIdMenu.Name = "ColIdMenu";
+            this.ColIdMenu.ReadOnly = true;
+            this.ColIdMenu.Visible = false;
+            // 
+            // ColSel
+            // 
+            this.ColSel.HeaderText = "";
+            this.ColSel.Name = "ColSel";
+            this.ColSel.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ColSel.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.ColSel.Width = 60;
             // 
             // DgColDescripcion
             // 
@@ -79,11 +90,12 @@ namespace SiinErp.Desktop.Forms.General
             // 
             // FormMenuBusqueda
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(465, 323);
+            this.ClientSize = new System.Drawing.Size(465, 307);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.dgvMenuBusqueda);
+            this.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "FormMenuBusqueda";
             this.Text = "FormMenuBusqueda";
             ((System.ComponentModel.ISupportInitialize)(this.dgvMenuBusqueda)).EndInit();
@@ -95,7 +107,8 @@ namespace SiinErp.Desktop.Forms.General
 
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.DataGridView dgvMenuBusqueda;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DgColIdMenu;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColIdMenu;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn ColSel;
         private System.Windows.Forms.DataGridViewTextBoxColumn DgColDescripcion;
     }
 }
