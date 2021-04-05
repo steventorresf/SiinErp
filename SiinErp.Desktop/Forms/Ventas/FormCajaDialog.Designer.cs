@@ -46,17 +46,15 @@ namespace SiinErp.Desktop.Forms.Ventas
             this.label6 = new System.Windows.Forms.Label();
             this.txtComentarioInEg = new System.Windows.Forms.RichTextBox();
             this.btnGuardarInEg = new System.Windows.Forms.Button();
-            this.txtValorInEg = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
-            this.label7 = new System.Windows.Forms.Label();
+            this.lblInEg = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.txtCajeroInEg = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.txtSaldoEnCaja = new System.Windows.Forms.TextBox();
+            this.txtValorInEg = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtValorInEg)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -83,14 +81,14 @@ namespace SiinErp.Desktop.Forms.Ventas
             this.txtSaldoFinalAbCe.Location = new System.Drawing.Point(327, 45);
             this.txtSaldoFinalAbCe.Name = "txtSaldoFinalAbCe";
             this.txtSaldoFinalAbCe.Size = new System.Drawing.Size(120, 22);
-            this.txtSaldoFinalAbCe.TabIndex = 12;
+            this.txtSaldoFinalAbCe.TabIndex = 4;
             // 
             // txtSaldoInicialAbCe
             // 
             this.txtSaldoInicialAbCe.Location = new System.Drawing.Point(107, 45);
             this.txtSaldoInicialAbCe.Name = "txtSaldoInicialAbCe";
             this.txtSaldoInicialAbCe.Size = new System.Drawing.Size(120, 22);
-            this.txtSaldoInicialAbCe.TabIndex = 11;
+            this.txtSaldoInicialAbCe.TabIndex = 3;
             // 
             // label5
             // 
@@ -106,7 +104,7 @@ namespace SiinErp.Desktop.Forms.Ventas
             this.txtComentarioAbCe.Location = new System.Drawing.Point(107, 74);
             this.txtComentarioAbCe.Name = "txtComentarioAbCe";
             this.txtComentarioAbCe.Size = new System.Drawing.Size(339, 108);
-            this.txtComentarioAbCe.TabIndex = 9;
+            this.txtComentarioAbCe.TabIndex = 5;
             this.txtComentarioAbCe.Text = "";
             // 
             // btnGuardarAbCe
@@ -114,7 +112,7 @@ namespace SiinErp.Desktop.Forms.Ventas
             this.btnGuardarAbCe.Location = new System.Drawing.Point(107, 188);
             this.btnGuardarAbCe.Name = "btnGuardarAbCe";
             this.btnGuardarAbCe.Size = new System.Drawing.Size(120, 27);
-            this.btnGuardarAbCe.TabIndex = 8;
+            this.btnGuardarAbCe.TabIndex = 6;
             this.btnGuardarAbCe.Text = "Guardar";
             this.btnGuardarAbCe.UseVisualStyleBackColor = true;
             this.btnGuardarAbCe.Click += new System.EventHandler(this.btnGuardarAbCe_Click);
@@ -143,7 +141,7 @@ namespace SiinErp.Desktop.Forms.Ventas
             this.cboTurnoAbCe.Location = new System.Drawing.Point(326, 21);
             this.cboTurnoAbCe.Name = "cboTurnoAbCe";
             this.cboTurnoAbCe.Size = new System.Drawing.Size(121, 22);
-            this.cboTurnoAbCe.TabIndex = 3;
+            this.cboTurnoAbCe.TabIndex = 2;
             // 
             // label2
             // 
@@ -160,7 +158,7 @@ namespace SiinErp.Desktop.Forms.Ventas
             this.txtCajeroAbCe.Name = "txtCajeroAbCe";
             this.txtCajeroAbCe.ReadOnly = true;
             this.txtCajeroAbCe.Size = new System.Drawing.Size(120, 22);
-            this.txtCajeroAbCe.TabIndex = 1;
+            this.txtCajeroAbCe.TabIndex = 0;
             // 
             // label1
             // 
@@ -173,13 +171,13 @@ namespace SiinErp.Desktop.Forms.Ventas
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.txtValorInEg);
+            this.groupBox2.Controls.Add(this.txtSaldoEnCaja);
             this.groupBox2.Controls.Add(this.txtTurnoInEg);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.txtComentarioInEg);
             this.groupBox2.Controls.Add(this.btnGuardarInEg);
-            this.groupBox2.Controls.Add(this.txtValorInEg);
-            this.groupBox2.Controls.Add(this.numericUpDown4);
-            this.groupBox2.Controls.Add(this.label7);
+            this.groupBox2.Controls.Add(this.lblInEg);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.txtCajeroInEg);
@@ -195,7 +193,7 @@ namespace SiinErp.Desktop.Forms.Ventas
             this.txtTurnoInEg.Location = new System.Drawing.Point(326, 21);
             this.txtTurnoInEg.Name = "txtTurnoInEg";
             this.txtTurnoInEg.Size = new System.Drawing.Size(120, 22);
-            this.txtTurnoInEg.TabIndex = 11;
+            this.txtTurnoInEg.TabIndex = 2;
             // 
             // label6
             // 
@@ -211,7 +209,7 @@ namespace SiinErp.Desktop.Forms.Ventas
             this.txtComentarioInEg.Location = new System.Drawing.Point(107, 74);
             this.txtComentarioInEg.Name = "txtComentarioInEg";
             this.txtComentarioInEg.Size = new System.Drawing.Size(339, 108);
-            this.txtComentarioInEg.TabIndex = 9;
+            this.txtComentarioInEg.TabIndex = 5;
             this.txtComentarioInEg.Text = "";
             // 
             // btnGuardarInEg
@@ -219,32 +217,19 @@ namespace SiinErp.Desktop.Forms.Ventas
             this.btnGuardarInEg.Location = new System.Drawing.Point(107, 188);
             this.btnGuardarInEg.Name = "btnGuardarInEg";
             this.btnGuardarInEg.Size = new System.Drawing.Size(120, 27);
-            this.btnGuardarInEg.TabIndex = 8;
+            this.btnGuardarInEg.TabIndex = 6;
             this.btnGuardarInEg.Text = "Guardar";
             this.btnGuardarInEg.UseVisualStyleBackColor = true;
+            this.btnGuardarInEg.Click += new System.EventHandler(this.btnGuardarInEg_Click);
             // 
-            // txtValorInEg
+            // lblInEg
             // 
-            this.txtValorInEg.Location = new System.Drawing.Point(326, 46);
-            this.txtValorInEg.Name = "txtValorInEg";
-            this.txtValorInEg.Size = new System.Drawing.Size(120, 22);
-            this.txtValorInEg.TabIndex = 7;
-            // 
-            // numericUpDown4
-            // 
-            this.numericUpDown4.Location = new System.Drawing.Point(107, 46);
-            this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Size = new System.Drawing.Size(120, 22);
-            this.numericUpDown4.TabIndex = 6;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(248, 48);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(72, 14);
-            this.label7.TabIndex = 5;
-            this.label7.Text = "Vr. Ingreso:";
+            this.lblInEg.AutoSize = true;
+            this.lblInEg.Location = new System.Drawing.Point(248, 48);
+            this.lblInEg.Name = "lblInEg";
+            this.lblInEg.Size = new System.Drawing.Size(68, 14);
+            this.lblInEg.TabIndex = 5;
+            this.lblInEg.Text = "Vr.Ingreso:";
             // 
             // label8
             // 
@@ -270,7 +255,7 @@ namespace SiinErp.Desktop.Forms.Ventas
             this.txtCajeroInEg.Name = "txtCajeroInEg";
             this.txtCajeroInEg.ReadOnly = true;
             this.txtCajeroInEg.Size = new System.Drawing.Size(120, 22);
-            this.txtCajeroInEg.TabIndex = 1;
+            this.txtCajeroInEg.TabIndex = 0;
             // 
             // label10
             // 
@@ -280,6 +265,20 @@ namespace SiinErp.Desktop.Forms.Ventas
             this.label10.Size = new System.Drawing.Size(45, 14);
             this.label10.TabIndex = 0;
             this.label10.Text = "Cajero:";
+            // 
+            // txtSaldoEnCaja
+            // 
+            this.txtSaldoEnCaja.Location = new System.Drawing.Point(107, 45);
+            this.txtSaldoEnCaja.Name = "txtSaldoEnCaja";
+            this.txtSaldoEnCaja.Size = new System.Drawing.Size(120, 22);
+            this.txtSaldoEnCaja.TabIndex = 3;
+            // 
+            // txtValorInEg
+            // 
+            this.txtValorInEg.Location = new System.Drawing.Point(326, 45);
+            this.txtValorInEg.Name = "txtValorInEg";
+            this.txtValorInEg.Size = new System.Drawing.Size(120, 22);
+            this.txtValorInEg.TabIndex = 4;
             // 
             // FormCajaDialog
             // 
@@ -297,8 +296,6 @@ namespace SiinErp.Desktop.Forms.Ventas
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtValorInEg)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -319,9 +316,7 @@ namespace SiinErp.Desktop.Forms.Ventas
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.RichTextBox txtComentarioInEg;
         private System.Windows.Forms.Button btnGuardarInEg;
-        private System.Windows.Forms.NumericUpDown txtValorInEg;
-        private System.Windows.Forms.NumericUpDown numericUpDown4;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblInEg;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtCajeroInEg;
@@ -329,5 +324,7 @@ namespace SiinErp.Desktop.Forms.Ventas
         private System.Windows.Forms.TextBox txtTurnoInEg;
         private System.Windows.Forms.TextBox txtSaldoFinalAbCe;
         private System.Windows.Forms.TextBox txtSaldoInicialAbCe;
+        private System.Windows.Forms.TextBox txtSaldoEnCaja;
+        private System.Windows.Forms.TextBox txtValorInEg;
     }
 }

@@ -114,21 +114,21 @@ namespace SiinErp.Desktop.Forms.Inventario
             this.cboAfectaInv.Location = new System.Drawing.Point(131, 224);
             this.cboAfectaInv.Name = "cboAfectaInv";
             this.cboAfectaInv.Size = new System.Drawing.Size(151, 22);
-            this.cboAfectaInv.TabIndex = 32;
+            this.cboAfectaInv.TabIndex = 17;
             // 
             // txtStockMax
             // 
             this.txtStockMax.Location = new System.Drawing.Point(404, 140);
             this.txtStockMax.Name = "txtStockMax";
             this.txtStockMax.Size = new System.Drawing.Size(142, 22);
-            this.txtStockMax.TabIndex = 31;
+            this.txtStockMax.TabIndex = 12;
             // 
             // txtStockMin
             // 
             this.txtStockMin.Location = new System.Drawing.Point(131, 140);
             this.txtStockMin.Name = "txtStockMin";
             this.txtStockMin.Size = new System.Drawing.Size(151, 22);
-            this.txtStockMin.TabIndex = 30;
+            this.txtStockMin.TabIndex = 11;
             // 
             // label14
             // 
@@ -153,7 +153,7 @@ namespace SiinErp.Desktop.Forms.Inventario
             this.txtPeso.Location = new System.Drawing.Point(131, 112);
             this.txtPeso.Name = "txtPeso";
             this.txtPeso.Size = new System.Drawing.Size(151, 22);
-            this.txtPeso.TabIndex = 27;
+            this.txtPeso.TabIndex = 9;
             // 
             // label13
             // 
@@ -169,7 +169,7 @@ namespace SiinErp.Desktop.Forms.Inventario
             this.txtIVA.Location = new System.Drawing.Point(404, 168);
             this.txtIVA.Name = "txtIVA";
             this.txtIVA.Size = new System.Drawing.Size(142, 22);
-            this.txtIVA.TabIndex = 25;
+            this.txtIVA.TabIndex = 14;
             // 
             // label3
             // 
@@ -185,14 +185,14 @@ namespace SiinErp.Desktop.Forms.Inventario
             this.txtVenta.Location = new System.Drawing.Point(404, 196);
             this.txtVenta.Name = "txtVenta";
             this.txtVenta.Size = new System.Drawing.Size(142, 22);
-            this.txtVenta.TabIndex = 22;
+            this.txtVenta.TabIndex = 16;
             // 
             // txtCosto
             // 
             this.txtCosto.Location = new System.Drawing.Point(131, 196);
             this.txtCosto.Name = "txtCosto";
             this.txtCosto.Size = new System.Drawing.Size(151, 22);
-            this.txtCosto.TabIndex = 21;
+            this.txtCosto.TabIndex = 15;
             // 
             // cboEstado
             // 
@@ -200,7 +200,7 @@ namespace SiinErp.Desktop.Forms.Inventario
             this.cboEstado.Location = new System.Drawing.Point(404, 224);
             this.cboEstado.Name = "cboEstado";
             this.cboEstado.Size = new System.Drawing.Size(142, 22);
-            this.cboEstado.TabIndex = 20;
+            this.cboEstado.TabIndex = 18;
             // 
             // cboEsLinea
             // 
@@ -208,7 +208,7 @@ namespace SiinErp.Desktop.Forms.Inventario
             this.cboEsLinea.Location = new System.Drawing.Point(404, 112);
             this.cboEsLinea.Name = "cboEsLinea";
             this.cboEsLinea.Size = new System.Drawing.Size(142, 22);
-            this.cboEsLinea.TabIndex = 19;
+            this.cboEsLinea.TabIndex = 10;
             // 
             // cboIVA
             // 
@@ -216,7 +216,7 @@ namespace SiinErp.Desktop.Forms.Inventario
             this.cboIVA.Location = new System.Drawing.Point(131, 168);
             this.cboIVA.Name = "cboIVA";
             this.cboIVA.Size = new System.Drawing.Size(151, 22);
-            this.cboIVA.TabIndex = 18;
+            this.cboIVA.TabIndex = 13;
             // 
             // cboUnidadMed
             // 
@@ -224,14 +224,14 @@ namespace SiinErp.Desktop.Forms.Inventario
             this.cboUnidadMed.Location = new System.Drawing.Point(131, 84);
             this.cboUnidadMed.Name = "cboUnidadMed";
             this.cboUnidadMed.Size = new System.Drawing.Size(151, 22);
-            this.cboUnidadMed.TabIndex = 17;
+            this.cboUnidadMed.TabIndex = 7;
             // 
             // txtNombreArticulo
             // 
             this.txtNombreArticulo.Location = new System.Drawing.Point(131, 56);
             this.txtNombreArticulo.Name = "txtNombreArticulo";
             this.txtNombreArticulo.Size = new System.Drawing.Size(415, 22);
-            this.txtNombreArticulo.TabIndex = 16;
+            this.txtNombreArticulo.TabIndex = 6;
             // 
             // cboTipoArticulo
             // 
@@ -239,21 +239,21 @@ namespace SiinErp.Desktop.Forms.Inventario
             this.cboTipoArticulo.Location = new System.Drawing.Point(404, 84);
             this.cboTipoArticulo.Name = "cboTipoArticulo";
             this.cboTipoArticulo.Size = new System.Drawing.Size(142, 22);
-            this.cboTipoArticulo.TabIndex = 15;
+            this.cboTipoArticulo.TabIndex = 8;
             // 
             // txtReferencia
             // 
             this.txtReferencia.Location = new System.Drawing.Point(404, 28);
             this.txtReferencia.Name = "txtReferencia";
             this.txtReferencia.Size = new System.Drawing.Size(142, 22);
-            this.txtReferencia.TabIndex = 13;
+            this.txtReferencia.TabIndex = 5;
             // 
             // txtCodigo
             // 
             this.txtCodigo.Location = new System.Drawing.Point(131, 28);
             this.txtCodigo.Name = "txtCodigo";
             this.txtCodigo.Size = new System.Drawing.Size(151, 22);
-            this.txtCodigo.TabIndex = 12;
+            this.txtCodigo.TabIndex = 4;
             // 
             // label12
             // 
@@ -359,7 +359,7 @@ namespace SiinErp.Desktop.Forms.Inventario
             this.btnSiguiente.Location = new System.Drawing.Point(61, 12);
             this.btnSiguiente.Name = "btnSiguiente";
             this.btnSiguiente.Size = new System.Drawing.Size(48, 33);
-            this.btnSiguiente.TabIndex = 5;
+            this.btnSiguiente.TabIndex = 1;
             this.btnSiguiente.UseVisualStyleBackColor = true;
             this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
             // 
@@ -368,7 +368,7 @@ namespace SiinErp.Desktop.Forms.Inventario
             this.btnAnterior.Location = new System.Drawing.Point(12, 12);
             this.btnAnterior.Name = "btnAnterior";
             this.btnAnterior.Size = new System.Drawing.Size(48, 33);
-            this.btnAnterior.TabIndex = 4;
+            this.btnAnterior.TabIndex = 0;
             this.btnAnterior.UseVisualStyleBackColor = true;
             this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
             // 
@@ -386,7 +386,7 @@ namespace SiinErp.Desktop.Forms.Inventario
             this.btnGuardar.Location = new System.Drawing.Point(131, 21);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(88, 27);
-            this.btnGuardar.TabIndex = 0;
+            this.btnGuardar.TabIndex = 19;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
@@ -396,7 +396,7 @@ namespace SiinErp.Desktop.Forms.Inventario
             this.btnBuscar.Location = new System.Drawing.Point(169, 12);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(48, 33);
-            this.btnBuscar.TabIndex = 9;
+            this.btnBuscar.TabIndex = 2;
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
@@ -405,7 +405,7 @@ namespace SiinErp.Desktop.Forms.Inventario
             this.btnNuevo.Location = new System.Drawing.Point(223, 12);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(48, 33);
-            this.btnNuevo.TabIndex = 8;
+            this.btnNuevo.TabIndex = 3;
             this.btnNuevo.UseVisualStyleBackColor = true;
             this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 

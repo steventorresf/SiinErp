@@ -39,8 +39,28 @@ namespace SiinErp.Model.Business.General
             try
             {
                 TablaDetalle ob = context.TablasDetalles.Find(IdDetalle);
-                ob.Descripcion = entity.Descripcion;
-                ob.EstadoFila = entity.EstadoFila;
+                if (!string.IsNullOrEmpty(entity.Codigo))
+                {
+                    ob.Codigo = entity.Codigo;
+                }
+
+                if (!string.IsNullOrEmpty(entity.Descripcion))
+                {
+                    ob.Descripcion = entity.Descripcion;
+                }
+
+                if (entity.Orden >= 0)
+                {
+                    ob.Orden = entity.Orden;
+                }
+
+                if (!string.IsNullOrEmpty(entity.EstadoFila))
+                {
+                    ob.EstadoFila = entity.EstadoFila;
+                }
+
+                ob.ModificadoPor = entity.ModificadoPor;
+                ob.FechaModificado = DateTimeOffset.Now;
                 context.SaveChanges();
             }
             catch (Exception ex)

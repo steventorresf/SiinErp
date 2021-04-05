@@ -26,15 +26,21 @@ namespace SiinErp.Desktop.Forms.Inventario
             this.ListaArticulos = new List<Articulo>();
         }
 
-        private void LlenarArticulo(int IdListaPrecio)
+        private void LlenarArticulo(int IdListaPrecio, string Tipo)
         {
-            if(IdListaPrecio > 0)
+            if(IdListaPrecio > 0 && Tipo.Equals("1"))
             {
                 this.ListaArticulos = this.controllerBusiness.articuloBusiness.GetArticulosByIdListaPrecio(IdListaPrecio);
             }
-            else
+
+            if (IdListaPrecio < 0 && Tipo.Equals("2"))
             {
                 this.ListaArticulos = this.controllerBusiness.articuloBusiness.GetArticulos(Cookie.IdEmpresa);
+            }
+
+            if (IdListaPrecio > 0 && Tipo.Equals("3"))
+            {
+                this.ListaArticulos = this.controllerBusiness.articuloBusiness.GetArticulosNotByIdListaPrecio(IdListaPrecio);
             }
 
             foreach (Articulo ar in this.ListaArticulos)
@@ -46,7 +52,7 @@ namespace SiinErp.Desktop.Forms.Inventario
 
         public List<Articulo> GetListaArticulos(int IdListaPrecio)
         {
-            this.LlenarArticulo(IdListaPrecio);
+            this.LlenarArticulo(IdListaPrecio, "1");
             this.btnAceptar.Visible = false;
             this.ShowDialog();
             return ListaArticulos.Where(x => x.Sel).ToList();
@@ -80,12 +86,20 @@ namespace SiinErp.Desktop.Forms.Inventario
         public Articulo GetArticuloSeleccionado()
         {
             this.Articulo = null;
-            this.LlenarArticulo(-1);
+            this.LlenarArticulo(-1, "2");
             this.DgColSel.Visible = false;
             this.btnAgregar.Visible = false;
             this.btnAceptar.Location = this.btnAgregar.Location;
             this.ShowDialog();
             return this.Articulo;
+        }
+
+        public List<Articulo> GetListaArticulosNot(int IdListaPrecio)
+        {
+            this.LlenarArticulo(IdListaPrecio, "3");
+            this.btnAceptar.Visible = false;
+            this.ShowDialog();
+            return ListaArticulos.Where(x => x.Sel).ToList();
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)

@@ -6,9 +6,8 @@ namespace SiinErp.Model.Abstract.General
     public interface ITablaBusiness
     {
         void Create(Tabla entity);
-
         void Update(int IdTabla, Tabla entity);
-
         List<Tabla> GetTablas();
+        List<Tabla> GetTablasVisible();
     }
 }

@@ -83,6 +83,9 @@ namespace SiinErp.Model.Entities.Inventario
 
 
         [NotMapped]
+        public int IdListaPrecioDetalle { get; set; }
+
+        [NotMapped]
         public string NombreTipoArticulo { get; set; }
 
         [NotMapped]

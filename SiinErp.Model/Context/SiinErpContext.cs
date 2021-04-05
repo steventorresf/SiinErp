@@ -20,6 +20,8 @@ namespace SiinErp.Model.Context
         public virtual DbSet<Departamento> Departamentos { get; set; }
         public virtual DbSet<Empresa> Empresas { get; set; }
         public virtual DbSet<Error> Errores { get; set; }
+        public virtual DbSet<Menu> Menu { get; set; }
+        public virtual DbSet<MenuUsuario> MenuUsuario { get; set; }
         public virtual DbSet<Modulo> Modulos { get; set; }
         public virtual DbSet<Pais> Paises { get; set; }
         public virtual DbSet<Parametro> Parametros { get; set; }

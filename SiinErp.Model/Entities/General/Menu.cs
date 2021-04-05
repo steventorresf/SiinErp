@@ -3,29 +3,30 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace SiinErp.Model.Entities.General
 {
-    [Table("Tabla", Schema = "General")]
-    public class Tabla : Common.Auditoria
+    [Table("Menu", Schema = "General")]
+    public class Menu : Common.Auditoria
     {
         [Key]
-        public int IdTabla { get; set; }
+        public int IdMenu { get; set; }
 
         [Required]
         [StringLength(15)]
-        public string CodTabla { get; set; }
-
-        [Required]
-        [StringLength(10)]
-        public string CodModulo { get; set; }
+        public string Codigo { get; set; }
 
         [Required]
         [StringLength(50)]
-        public string Descripcion { get; set; }
+        public string Nombre { get; set; }
 
         [Required]
-        public bool Visible { get; set; }
+        [StringLength(100)]
+        public string Descripcion { get; set; }
+
+        [StringLength(15)]
+        public string CodPadre { get; set; }
     }
 }

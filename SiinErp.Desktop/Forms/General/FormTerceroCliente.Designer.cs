@@ -122,7 +122,7 @@ namespace SiinErp.Desktop.Forms.General
             this.cboEstado.Location = new System.Drawing.Point(582, 194);
             this.cboEstado.Name = "cboEstado";
             this.cboEstado.Size = new System.Drawing.Size(150, 22);
-            this.cboEstado.TabIndex = 31;
+            this.cboEstado.TabIndex = 20;
             // 
             // label15
             // 
@@ -139,7 +139,7 @@ namespace SiinErp.Desktop.Forms.General
             this.cboIVA.Location = new System.Drawing.Point(582, 166);
             this.cboIVA.Name = "cboIVA";
             this.cboIVA.Size = new System.Drawing.Size(64, 22);
-            this.cboIVA.TabIndex = 32;
+            this.cboIVA.TabIndex = 17;
             // 
             // label7
             // 
@@ -155,14 +155,14 @@ namespace SiinErp.Desktop.Forms.General
             this.txtCorreo.Location = new System.Drawing.Point(125, 138);
             this.txtCorreo.Name = "txtCorreo";
             this.txtCorreo.Size = new System.Drawing.Size(355, 22);
-            this.txtCorreo.TabIndex = 23;
+            this.txtCorreo.TabIndex = 14;
             // 
             // txtLimiteCredito
             // 
             this.txtLimiteCredito.Location = new System.Drawing.Point(758, 166);
             this.txtLimiteCredito.Name = "txtLimiteCredito";
             this.txtLimiteCredito.Size = new System.Drawing.Size(134, 22);
-            this.txtLimiteCredito.TabIndex = 28;
+            this.txtLimiteCredito.TabIndex = 18;
             // 
             // cboCuentaContable
             // 
@@ -170,7 +170,7 @@ namespace SiinErp.Desktop.Forms.General
             this.cboCuentaContable.Location = new System.Drawing.Point(125, 194);
             this.cboCuentaContable.Name = "cboCuentaContable";
             this.cboCuentaContable.Size = new System.Drawing.Size(162, 22);
-            this.cboCuentaContable.TabIndex = 30;
+            this.cboCuentaContable.TabIndex = 19;
             // 
             // label16
             // 
@@ -186,14 +186,14 @@ namespace SiinErp.Desktop.Forms.General
             this.txtTelefono.Location = new System.Drawing.Point(582, 82);
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(310, 22);
-            this.txtTelefono.TabIndex = 22;
+            this.txtTelefono.TabIndex = 11;
             // 
             // txtDireccion
             // 
             this.txtDireccion.Location = new System.Drawing.Point(125, 110);
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(355, 22);
-            this.txtDireccion.TabIndex = 21;
+            this.txtDireccion.TabIndex = 12;
             // 
             // cboZona
             // 
@@ -201,7 +201,7 @@ namespace SiinErp.Desktop.Forms.General
             this.cboZona.Location = new System.Drawing.Point(582, 110);
             this.cboZona.Name = "cboZona";
             this.cboZona.Size = new System.Drawing.Size(310, 22);
-            this.cboZona.TabIndex = 20;
+            this.cboZona.TabIndex = 13;
             // 
             // label17
             // 
@@ -218,7 +218,7 @@ namespace SiinErp.Desktop.Forms.General
             this.cboMunicipio.Location = new System.Drawing.Point(125, 82);
             this.cboMunicipio.Name = "cboMunicipio";
             this.cboMunicipio.Size = new System.Drawing.Size(355, 22);
-            this.cboMunicipio.TabIndex = 19;
+            this.cboMunicipio.TabIndex = 10;
             // 
             // cboPlazoPago
             // 
@@ -226,7 +226,7 @@ namespace SiinErp.Desktop.Forms.General
             this.cboPlazoPago.Location = new System.Drawing.Point(582, 54);
             this.cboPlazoPago.Name = "cboPlazoPago";
             this.cboPlazoPago.Size = new System.Drawing.Size(310, 22);
-            this.cboPlazoPago.TabIndex = 17;
+            this.cboPlazoPago.TabIndex = 9;
             // 
             // cboListaPrecio
             // 
@@ -234,7 +234,7 @@ namespace SiinErp.Desktop.Forms.General
             this.cboListaPrecio.Location = new System.Drawing.Point(125, 166);
             this.cboListaPrecio.Name = "cboListaPrecio";
             this.cboListaPrecio.Size = new System.Drawing.Size(355, 22);
-            this.cboListaPrecio.TabIndex = 22;
+            this.cboListaPrecio.TabIndex = 16;
             // 
             // label14
             // 
@@ -251,14 +251,14 @@ namespace SiinErp.Desktop.Forms.General
             this.cboVendedor.Location = new System.Drawing.Point(582, 138);
             this.cboVendedor.Name = "cboVendedor";
             this.cboVendedor.Size = new System.Drawing.Size(310, 22);
-            this.cboVendedor.TabIndex = 23;
+            this.cboVendedor.TabIndex = 15;
             // 
             // txtNombreCliente
             // 
             this.txtNombreCliente.Location = new System.Drawing.Point(125, 54);
             this.txtNombreCliente.Name = "txtNombreCliente";
             this.txtNombreCliente.Size = new System.Drawing.Size(355, 22);
-            this.txtNombreCliente.TabIndex = 16;
+            this.txtNombreCliente.TabIndex = 8;
             // 
             // label13
             // 
@@ -275,21 +275,21 @@ namespace SiinErp.Desktop.Forms.General
             this.cboTipoCliente.Location = new System.Drawing.Point(758, 26);
             this.cboTipoCliente.Name = "cboTipoCliente";
             this.cboTipoCliente.Size = new System.Drawing.Size(134, 22);
-            this.cboTipoCliente.TabIndex = 15;
+            this.cboTipoCliente.TabIndex = 7;
             // 
             // txtDgVerif
             // 
             this.txtDgVerif.Location = new System.Drawing.Point(582, 26);
             this.txtDgVerif.Name = "txtDgVerif";
             this.txtDgVerif.Size = new System.Drawing.Size(64, 22);
-            this.txtDgVerif.TabIndex = 14;
+            this.txtDgVerif.TabIndex = 6;
             // 
             // txtNitCedula
             // 
             this.txtNitCedula.Location = new System.Drawing.Point(338, 26);
             this.txtNitCedula.Name = "txtNitCedula";
             this.txtNitCedula.Size = new System.Drawing.Size(142, 22);
-            this.txtNitCedula.TabIndex = 13;
+            this.txtNitCedula.TabIndex = 5;
             // 
             // txtCodigo
             // 
@@ -297,7 +297,7 @@ namespace SiinErp.Desktop.Forms.General
             this.txtCodigo.Name = "txtCodigo";
             this.txtCodigo.ReadOnly = true;
             this.txtCodigo.Size = new System.Drawing.Size(117, 22);
-            this.txtCodigo.TabIndex = 12;
+            this.txtCodigo.TabIndex = 4;
             // 
             // label12
             // 
@@ -403,7 +403,7 @@ namespace SiinErp.Desktop.Forms.General
             this.btnGuardar.Location = new System.Drawing.Point(125, 21);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(84, 30);
-            this.btnGuardar.TabIndex = 2;
+            this.btnGuardar.TabIndex = 21;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
@@ -413,7 +413,7 @@ namespace SiinErp.Desktop.Forms.General
             this.btnSiguiente.Location = new System.Drawing.Point(66, 12);
             this.btnSiguiente.Name = "btnSiguiente";
             this.btnSiguiente.Size = new System.Drawing.Size(48, 33);
-            this.btnSiguiente.TabIndex = 5;
+            this.btnSiguiente.TabIndex = 1;
             this.btnSiguiente.UseVisualStyleBackColor = true;
             this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
             // 
@@ -422,7 +422,7 @@ namespace SiinErp.Desktop.Forms.General
             this.btnAnterior.Location = new System.Drawing.Point(12, 12);
             this.btnAnterior.Name = "btnAnterior";
             this.btnAnterior.Size = new System.Drawing.Size(48, 33);
-            this.btnAnterior.TabIndex = 4;
+            this.btnAnterior.TabIndex = 0;
             this.btnAnterior.UseVisualStyleBackColor = true;
             this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
             // 
@@ -440,7 +440,7 @@ namespace SiinErp.Desktop.Forms.General
             this.btnNuevo.Location = new System.Drawing.Point(206, 12);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(48, 33);
-            this.btnNuevo.TabIndex = 6;
+            this.btnNuevo.TabIndex = 3;
             this.btnNuevo.UseVisualStyleBackColor = true;
             this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 
@@ -449,7 +449,7 @@ namespace SiinErp.Desktop.Forms.General
             this.btnBuscar.Location = new System.Drawing.Point(152, 12);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(48, 33);
-            this.btnBuscar.TabIndex = 7;
+            this.btnBuscar.TabIndex = 2;
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 

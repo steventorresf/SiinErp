@@ -31,12 +31,15 @@ namespace SiinErp.Desktop
         {
             this.menuStripPrincipal = new System.Windows.Forms.MenuStrip();
             this.toolStripGeneral = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripTablas = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripInventario = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripArticulo = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripVentas = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripClientes = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripPuntoDeVenta = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripCajas = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripListaDePrecio = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripUsuario = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripPrincipal.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,9 +58,19 @@ namespace SiinErp.Desktop
             // 
             // toolStripGeneral
             // 
+            this.toolStripGeneral.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripTablas,
+            this.toolStripUsuario});
             this.toolStripGeneral.Name = "toolStripGeneral";
             this.toolStripGeneral.Size = new System.Drawing.Size(69, 22);
             this.toolStripGeneral.Text = "General";
+            // 
+            // toolStripTablas
+            // 
+            this.toolStripTablas.Name = "toolStripTablas";
+            this.toolStripTablas.Size = new System.Drawing.Size(131, 22);
+            this.toolStripTablas.Text = "Tablas";
+            this.toolStripTablas.Click += new System.EventHandler(this.toolStripTablas_Click);
             // 
             // toolStripInventario
             // 
@@ -79,7 +92,8 @@ namespace SiinErp.Desktop
             this.toolStripVentas.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripClientes,
             this.toolStripPuntoDeVenta,
-            this.toolStripCajas});
+            this.toolStripCajas,
+            this.toolStripListaDePrecio});
             this.toolStripVentas.Name = "toolStripVentas";
             this.toolStripVentas.Size = new System.Drawing.Size(65, 22);
             this.toolStripVentas.Text = "Ventas";
@@ -87,23 +101,37 @@ namespace SiinErp.Desktop
             // toolStripClientes
             // 
             this.toolStripClientes.Name = "toolStripClientes";
-            this.toolStripClientes.Size = new System.Drawing.Size(179, 22);
+            this.toolStripClientes.Size = new System.Drawing.Size(185, 22);
             this.toolStripClientes.Text = "Clientes";
             this.toolStripClientes.Click += new System.EventHandler(this.toolStripClientes_Click);
             // 
             // toolStripPuntoDeVenta
             // 
             this.toolStripPuntoDeVenta.Name = "toolStripPuntoDeVenta";
-            this.toolStripPuntoDeVenta.Size = new System.Drawing.Size(179, 22);
+            this.toolStripPuntoDeVenta.Size = new System.Drawing.Size(185, 22);
             this.toolStripPuntoDeVenta.Text = "Punto De Venta";
             this.toolStripPuntoDeVenta.Click += new System.EventHandler(this.toolStripPuntoDeVenta_Click);
             // 
             // toolStripCajas
             // 
             this.toolStripCajas.Name = "toolStripCajas";
-            this.toolStripCajas.Size = new System.Drawing.Size(179, 22);
+            this.toolStripCajas.Size = new System.Drawing.Size(185, 22);
             this.toolStripCajas.Text = "Cajas";
             this.toolStripCajas.Click += new System.EventHandler(this.toolStripCajas_Click);
+            // 
+            // toolStripListaDePrecio
+            // 
+            this.toolStripListaDePrecio.Name = "toolStripListaDePrecio";
+            this.toolStripListaDePrecio.Size = new System.Drawing.Size(185, 22);
+            this.toolStripListaDePrecio.Text = "Listas De Precios";
+            this.toolStripListaDePrecio.Click += new System.EventHandler(this.toolStripListaDePrecio_Click);
+            // 
+            // toolStripUsuario
+            // 
+            this.toolStripUsuario.Name = "toolStripUsuario";
+            this.toolStripUsuario.Size = new System.Drawing.Size(131, 22);
+            this.toolStripUsuario.Text = "Usuarios";
+            this.toolStripUsuario.Click += new System.EventHandler(this.toolStripUsuario_Click);
             // 
             // FormHome
             // 
@@ -135,6 +163,9 @@ namespace SiinErp.Desktop
         private System.Windows.Forms.ToolStripMenuItem toolStripCajas;
         private System.Windows.Forms.ToolStripMenuItem toolStripClientes;
         private System.Windows.Forms.ToolStripMenuItem toolStripArticulo;
+        private System.Windows.Forms.ToolStripMenuItem toolStripTablas;
+        private System.Windows.Forms.ToolStripMenuItem toolStripListaDePrecio;
+        private System.Windows.Forms.ToolStripMenuItem toolStripUsuario;
     }
 }
 

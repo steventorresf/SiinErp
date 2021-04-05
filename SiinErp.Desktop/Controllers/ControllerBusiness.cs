@@ -23,6 +23,7 @@ namespace SiinErp.Desktop.Controllers
         public IDepartamentoBusiness departamentoBusiness { get; }
         public IEmpresaBusiness empresaBusiness { get; }
         public IErrorBusiness errorBusiness { get; }
+        public IMenuUsuarioBusiness menuUsuarioBusiness { get; }
         public IModuloBusiness moduloBusiness { get; }
         public IPaisBusiness paisBusiness { get; }
         public IParametroBusiness parametroBusiness { get; }
@@ -62,6 +63,7 @@ namespace SiinErp.Desktop.Controllers
                 IDepartamentoBusiness _departamentoBusiness,
                 IEmpresaBusiness _empresaBusiness,
                 IErrorBusiness _errorBusiness,
+                IMenuUsuarioBusiness _menuUsuarioBusiness,
                 IModuloBusiness _moduloBusiness,
                 IPaisBusiness _paisBusiness,
                 IParametroBusiness _parametroBusiness,
@@ -93,6 +95,7 @@ namespace SiinErp.Desktop.Controllers
             this.departamentoBusiness = _departamentoBusiness;
             this.empresaBusiness = _empresaBusiness;
             this.errorBusiness = _errorBusiness;
+            this.menuUsuarioBusiness = _menuUsuarioBusiness;
             this.moduloBusiness = _moduloBusiness;
             this.paisBusiness = _paisBusiness;
             this.parametroBusiness = _parametroBusiness;

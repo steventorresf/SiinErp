@@ -36,6 +36,23 @@ namespace SiinErp.Desktop
             }
         }
 
+        // General
+        private void toolStripTablas_Click(object sender, EventArgs e)
+        {
+            FormTablaDetalle formTablaDetalle = new FormTablaDetalle(this.controllerBusiness);
+            this.IsMdiContainer = true;
+            formTablaDetalle.MdiParent = this;
+            formTablaDetalle.Show();
+        }
+
+        private void toolStripUsuario_Click(object sender, EventArgs e)
+        {
+            FormUsuario formUsuario = new FormUsuario(this.controllerBusiness);
+            this.IsMdiContainer = true;
+            formUsuario.MdiParent = this;
+            formUsuario.Show();
+        }
+
         // Inventario
         private void toolStripArticulo_Click(object sender, EventArgs e)
         {
@@ -47,6 +64,14 @@ namespace SiinErp.Desktop
 
 
         // Ventas
+        private void toolStripListaDePrecio_Click(object sender, EventArgs e)
+        {
+            FormListaPrecio formListaPrecio = new FormListaPrecio(this.controllerBusiness);
+            this.IsMdiContainer = true;
+            formListaPrecio.MdiParent = this;
+            formListaPrecio.Show();
+        }
+
         private void toolStripClientes_Click(object sender, EventArgs e)
         {
             FormTerceroCliente formTerceroCliente = new FormTerceroCliente(this.controllerBusiness);

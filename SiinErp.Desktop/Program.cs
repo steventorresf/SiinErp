@@ -67,6 +67,7 @@ namespace SiinErp.Desktop
             services.AddScoped<Model.Abstract.General.IDepartamentoBusiness, Model.Business.General.DepartamentoBusiness>();
             services.AddScoped<Model.Abstract.General.IEmpresaBusiness, Model.Business.General.EmpresaBusiness>();
             services.AddScoped<Model.Abstract.General.IErrorBusiness, Model.Business.General.ErrorBusiness>();
+            services.AddScoped<Model.Abstract.General.IMenuUsuarioBusiness, Model.Business.General.MenuUsuarioBusiness>();
             services.AddScoped<Model.Abstract.General.IModuloBusiness, Model.Business.General.ModuloBusiness>();
             services.AddScoped<Model.Abstract.General.IPaisBusiness, Model.Business.General.PaisBusiness>();
             services.AddScoped<Model.Abstract.General.IParametroBusiness, Model.Business.General.ParametroBusiness>();

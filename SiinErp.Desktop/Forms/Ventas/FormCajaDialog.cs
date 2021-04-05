@@ -83,8 +83,14 @@ namespace SiinErp.Desktop.Forms.Ventas
             this.Size = new Size(515, 284);
             switch (this.tipo)
             {
-                case "In": groupBox2.Text = "Ingreso a caja"; break;
-                case "Eg": groupBox2.Text = "Egreso de caja"; break;
+                case "In":
+                    groupBox2.Text = "Ingreso a caja";
+                    lblInEg.Text = "Vr. Ingreso";
+                    break;
+                case "Eg":
+                    groupBox2.Text = "Egreso de caja";
+                    lblInEg.Text = "Vr. Egreso";
+                    break;
             }
 
             this.ShowDialog();
@@ -134,6 +140,11 @@ namespace SiinErp.Desktop.Forms.Ventas
                 else { MessageBox.Show(NoValido, "¡No Valido!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
             }
 
+        }
+
+        private void btnGuardarInEg_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

@@ -34,7 +34,7 @@ namespace SiinErp.Model.Business.Ventas
                                                       VrUnitario = ld.VrUnitario,
                                                       PcDscto = ld.PcDscto,
                                                       Articulo = ar,
-                                                  }).OrderBy(x => x.IdArticulo).ToList();
+                                                  }).OrderByDescending(x => x.IdDetalleListaPrecio).ToList();
                 return Lista;
             }
             catch (Exception ex)
@@ -90,6 +90,20 @@ namespace SiinErp.Model.Business.Ventas
             }
         }
 
+        public void Creates(List<ListaPrecioDetalle> Listado)
+        {
+            try
+            {
+                context.ListaPreciosDetalles.AddRange(Listado);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                errorBusiness.Create("CreatesListaPrecioDetalle", ex.Message, null);
+                throw;
+            }
+            }
+
         public void Update(int IdListaPrecioDetalle, ListaPrecioDetalle entity)
         {
             try
@@ -98,6 +112,8 @@ namespace SiinErp.Model.Business.Ventas
                 ob.IdArticulo = entity.IdArticulo;
                 ob.VrUnitario = entity.VrUnitario;
                 ob.PcDscto = entity.PcDscto;
+                ob.ModificadoPor = entity.ModificadoPor;
+                ob.FechaModificado = DateTimeOffset.Now;
                 context.SaveChanges();
             }
             catch (Exception ex)

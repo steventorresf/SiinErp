@@ -19,7 +19,9 @@ namespace SiinErp.Desktop.Controllers
         #region General
         public IEmpresaBusiness empresaBusiness { get; }
         public ICiudadBusiness ciudadBusiness { get; }
+        public IMenuUsuarioBusiness menuUsuarioBusiness { get; }
         public ISecuenciaBusiness secuenciaBusiness { get; }
+        public ITablaBusiness tablaBusiness { get; }
         public ITablaDetalleBusiness tablaDetalleBusiness { get; }
         public ITerceroBusiness terceroBusiness { get; }
         public ITipoDocumentoBusiness tipoDocumentoBusiness { get; }

@@ -67,7 +67,6 @@ namespace SiinErp.Model.Business.Inventario
                 throw;
             }
         }
-
         public List<Articulo> GetArticulosByIdListaPrecio(int IdListaPrecio)
         {
             try
@@ -76,6 +75,57 @@ namespace SiinErp.Model.Business.Inventario
                                         join ar in context.Articulos on lp.IdArticulo equals ar.IdArticulo
                                         join ta in context.TablasDetalles on ar.IdDetTipoArticulo equals ta.IdDetalle
                                         join um in context.TablasDetalles on ar.IdDetUnidadMed equals um.IdDetalle
+                                        select new Articulo()
+                                        {
+                                            IdListaPrecioDetalle = lp.IdDetalleListaPrecio,
+                                            IdArticulo = ar.IdArticulo,
+                                            IdEmpresa = ar.IdEmpresa,
+                                            CodArticulo = ar.CodArticulo,
+                                            Referencia = ar.Referencia,
+                                            NombreArticulo = ar.NombreArticulo,
+                                            NombreBusqueda = ar.NombreBusqueda,
+                                            IdDetTipoArticulo = ar.IdDetTipoArticulo,
+                                            IdDetUnidadMed = ar.IdDetUnidadMed,
+                                            EsLinea = ar.EsLinea,
+                                            Peso = ar.Peso,
+                                            IncluyeIva = ar.IncluyeIva,
+                                            PcIva = ar.PcIva,
+                                            StkMin = ar.StkMin,
+                                            StkMax = ar.StkMax,
+                                            VrVenta = ar.VrVenta,
+                                            VrCosto = ar.VrCosto,
+                                            Existencia = ar.Existencia,
+                                            IndCosto = ar.IndCosto,
+                                            IndConsumo = ar.IndConsumo,
+                                            AfectaInventario = ar.AfectaInventario,
+                                            FechaCreacion = ar.FechaCreacion,
+                                            FechaUEntrada = ar.FechaUEntrada,
+                                            FechaUPedida = ar.FechaUPedida,
+                                            FechaUSalida = ar.FechaUSalida,
+                                            CreadoPor = ar.CreadoPor,
+                                            EstadoFila = ar.EstadoFila,
+                                            NombreTipoArticulo = ta.Descripcion,
+                                            NombreUnidadMed = um.Descripcion,
+                                            DescEsLinea = ar.EsLinea ? "Si" : "No",
+                                        }).OrderByDescending(x => x.IdListaPrecioDetalle).ToList();
+                return Lista;
+            }
+            catch (Exception ex)
+            {
+                errorBusiness.Create("GetArticulosByIdListaPrecio", ex.Message, null);
+                throw;
+            }
+        }
+        public List<Articulo> GetArticulosNotByIdListaPrecio(int IdListaPrecio)
+        {
+            try
+            {
+                List<Articulo> Lista = (from ar in context.Articulos
+                                        join ta in context.TablasDetalles on ar.IdDetTipoArticulo equals ta.IdDetalle
+                                        join um in context.TablasDetalles on ar.IdDetUnidadMed equals um.IdDetalle
+                                        join lp in context.ListaPreciosDetalles.Where(x => x.IdListaPrecio == IdListaPrecio) on ar.IdArticulo equals lp.IdArticulo into LeftJoin
+                                        from LF in LeftJoin.DefaultIfEmpty()
+                                        where LF == null
                                         select new Articulo()
                                         {
                                             IdArticulo = ar.IdArticulo,
@@ -116,7 +166,6 @@ namespace SiinErp.Model.Business.Inventario
                 throw;
             }
         }
-
         public Articulo GetByCodigoListaP(JObject data)
         {
             try
@@ -169,7 +218,6 @@ namespace SiinErp.Model.Business.Inventario
                 throw;
             }
         }
-
         public List<Articulo> GetByPrefixListaP(JObject data)
         {
             try
@@ -228,7 +276,6 @@ namespace SiinErp.Model.Business.Inventario
                 throw;
             }
         }
-
         public List<Articulo> GetArticulosByAlmacenPrefix(int IdDetAlm, int IdEmp, string Prefix)
         {
             try
@@ -251,7 +298,6 @@ namespace SiinErp.Model.Business.Inventario
                 throw;
             }
         }
-
         public void Create(Articulo entity)
         {
             try
@@ -268,7 +314,6 @@ namespace SiinErp.Model.Business.Inventario
                 throw;
             }
         }
-
         public void Update(int IdArticulo, Articulo entity)
         {
             try

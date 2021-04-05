@@ -70,5 +70,28 @@ namespace SiinErp.Model.Business.General
                 throw;
             }
         }
+
+        public List<Tabla> GetTablasVisible()
+        {
+            try
+            {
+                List<Tabla> Lista = (from ta in context.Tablas.Where(x => x.Visible)
+                                     join mo in context.Modulos on ta.CodModulo equals mo.CodModulo
+                                     select new Tabla()
+                                     {
+                                         IdTabla = ta.IdTabla,
+                                         CodModulo = ta.CodModulo,
+                                         CodTabla = ta.CodTabla,
+                                         Descripcion = ta.Descripcion,
+                                     }).OrderBy(x => x.Descripcion).OrderBy(x => x.CodModulo).ToList();
+                return Lista;
+            }
+            catch (Exception ex)
+            {
+                errorBusiness.Create("GetTablas", ex.Message, null);
+                throw;
+            }
+        }
+
     }
 }
