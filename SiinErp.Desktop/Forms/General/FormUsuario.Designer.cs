@@ -60,9 +60,9 @@ namespace SiinErp.Desktop.Forms.General
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(313, 21);
+            this.btnAgregar.Location = new System.Drawing.Point(298, 21);
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(75, 23);
+            this.btnAgregar.Size = new System.Drawing.Size(90, 23);
             this.btnAgregar.TabIndex = 1;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = true;
@@ -122,9 +122,9 @@ namespace SiinErp.Desktop.Forms.General
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(313, 48);
+            this.btnGuardar.Location = new System.Drawing.Point(298, 48);
             this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(75, 23);
+            this.btnGuardar.Size = new System.Drawing.Size(90, 23);
             this.btnGuardar.TabIndex = 2;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;

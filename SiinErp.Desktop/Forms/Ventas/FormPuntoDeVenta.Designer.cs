@@ -60,6 +60,20 @@ namespace SiinErp.Desktop.Forms.Ventas
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnAgregarArticulo = new System.Windows.Forms.Button();
             this.dgvDetalleFactura = new System.Windows.Forms.DataGridView();
+            this.DgColIdDetalleMov = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DgColIdArticulo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DgColCodArticulo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DgColDescripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DgColCantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DgColVrCosto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DgColVrUnit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DgColPcDscto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DgColVrDscto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DgColIncluyeIVA = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DgColPcIVA = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DgColVrIVA = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DgColVrBruto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DgColVrNeto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnImprimirFact = new System.Windows.Forms.Button();
             this.btnImprimirPv = new System.Windows.Forms.Button();
@@ -94,20 +108,6 @@ namespace SiinErp.Desktop.Forms.Ventas
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.btnAnular = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
-            this.DgColIdDetalleMov = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DgColIdArticulo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DgColCodArticulo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DgColDescripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DgColCantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DgColVrCosto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DgColVrUnit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DgColPcDscto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DgColVrDscto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DgColIncluyeIVA = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DgColPcIVA = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DgColVrIVA = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DgColVrBruto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DgColVrNeto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalleFactura)).BeginInit();
@@ -338,9 +338,9 @@ namespace SiinErp.Desktop.Forms.Ventas
             // 
             // btnAgregarArticulo
             // 
-            this.btnAgregarArticulo.Location = new System.Drawing.Point(965, 18);
+            this.btnAgregarArticulo.Location = new System.Drawing.Point(953, 18);
             this.btnAgregarArticulo.Name = "btnAgregarArticulo";
-            this.btnAgregarArticulo.Size = new System.Drawing.Size(138, 28);
+            this.btnAgregarArticulo.Size = new System.Drawing.Size(150, 28);
             this.btnAgregarArticulo.TabIndex = 21;
             this.btnAgregarArticulo.Text = "Agregar Articulo(s)";
             this.btnAgregarArticulo.UseVisualStyleBackColor = true;
@@ -376,6 +376,128 @@ namespace SiinErp.Desktop.Forms.Ventas
             this.dgvDetalleFactura.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDetalleFactura_CellEndEdit);
             this.dgvDetalleFactura.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgvDetalleFactura_RowsRemoved);
             // 
+            // DgColIdDetalleMov
+            // 
+            this.DgColIdDetalleMov.HeaderText = "IdDetalleMov";
+            this.DgColIdDetalleMov.Name = "DgColIdDetalleMov";
+            this.DgColIdDetalleMov.ReadOnly = true;
+            this.DgColIdDetalleMov.Visible = false;
+            // 
+            // DgColIdArticulo
+            // 
+            this.DgColIdArticulo.HeaderText = "IdArticulo";
+            this.DgColIdArticulo.Name = "DgColIdArticulo";
+            this.DgColIdArticulo.ReadOnly = true;
+            this.DgColIdArticulo.Visible = false;
+            // 
+            // DgColCodArticulo
+            // 
+            this.DgColCodArticulo.HeaderText = "Código";
+            this.DgColCodArticulo.MinimumWidth = 6;
+            this.DgColCodArticulo.Name = "DgColCodArticulo";
+            this.DgColCodArticulo.ReadOnly = true;
+            this.DgColCodArticulo.Width = 150;
+            // 
+            // DgColDescripcion
+            // 
+            this.DgColDescripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.DgColDescripcion.HeaderText = "Descripción";
+            this.DgColDescripcion.MinimumWidth = 6;
+            this.DgColDescripcion.Name = "DgColDescripcion";
+            this.DgColDescripcion.ReadOnly = true;
+            // 
+            // DgColCantidad
+            // 
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.Format = "N2";
+            dataGridViewCellStyle8.NullValue = "0";
+            this.DgColCantidad.DefaultCellStyle = dataGridViewCellStyle8;
+            this.DgColCantidad.HeaderText = "Cant";
+            this.DgColCantidad.MinimumWidth = 6;
+            this.DgColCantidad.Name = "DgColCantidad";
+            this.DgColCantidad.Width = 60;
+            // 
+            // DgColVrCosto
+            // 
+            this.DgColVrCosto.HeaderText = "VrCosto";
+            this.DgColVrCosto.Name = "DgColVrCosto";
+            this.DgColVrCosto.ReadOnly = true;
+            this.DgColVrCosto.Visible = false;
+            // 
+            // DgColVrUnit
+            // 
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle9.Format = "N2";
+            this.DgColVrUnit.DefaultCellStyle = dataGridViewCellStyle9;
+            this.DgColVrUnit.HeaderText = "VrUnit";
+            this.DgColVrUnit.MinimumWidth = 6;
+            this.DgColVrUnit.Name = "DgColVrUnit";
+            this.DgColVrUnit.Width = 125;
+            // 
+            // DgColPcDscto
+            // 
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DgColPcDscto.DefaultCellStyle = dataGridViewCellStyle10;
+            this.DgColPcDscto.HeaderText = "Dscto";
+            this.DgColPcDscto.MinimumWidth = 6;
+            this.DgColPcDscto.Name = "DgColPcDscto";
+            this.DgColPcDscto.Width = 50;
+            // 
+            // DgColVrDscto
+            // 
+            this.DgColVrDscto.HeaderText = "VrDscto";
+            this.DgColVrDscto.Name = "DgColVrDscto";
+            this.DgColVrDscto.ReadOnly = true;
+            this.DgColVrDscto.Visible = false;
+            // 
+            // DgColIncluyeIVA
+            // 
+            this.DgColIncluyeIVA.HeaderText = "IncluyeIVA";
+            this.DgColIncluyeIVA.Name = "DgColIncluyeIVA";
+            this.DgColIncluyeIVA.ReadOnly = true;
+            this.DgColIncluyeIVA.Visible = false;
+            // 
+            // DgColPcIVA
+            // 
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DgColPcIVA.DefaultCellStyle = dataGridViewCellStyle11;
+            this.DgColPcIVA.HeaderText = "IVA";
+            this.DgColPcIVA.MinimumWidth = 6;
+            this.DgColPcIVA.Name = "DgColPcIVA";
+            this.DgColPcIVA.ReadOnly = true;
+            this.DgColPcIVA.Width = 50;
+            // 
+            // DgColVrIVA
+            // 
+            this.DgColVrIVA.HeaderText = "VrIVA";
+            this.DgColVrIVA.Name = "DgColVrIVA";
+            this.DgColVrIVA.ReadOnly = true;
+            this.DgColVrIVA.Visible = false;
+            // 
+            // DgColVrBruto
+            // 
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle12.Format = "N2";
+            dataGridViewCellStyle12.NullValue = "0";
+            this.DgColVrBruto.DefaultCellStyle = dataGridViewCellStyle12;
+            this.DgColVrBruto.HeaderText = "VrBruto";
+            this.DgColVrBruto.MinimumWidth = 6;
+            this.DgColVrBruto.Name = "DgColVrBruto";
+            this.DgColVrBruto.ReadOnly = true;
+            this.DgColVrBruto.Width = 125;
+            // 
+            // DgColVrNeto
+            // 
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle13.Format = "N2";
+            dataGridViewCellStyle13.NullValue = "0";
+            this.DgColVrNeto.DefaultCellStyle = dataGridViewCellStyle13;
+            this.DgColVrNeto.HeaderText = "VrNeto";
+            this.DgColVrNeto.MinimumWidth = 6;
+            this.DgColVrNeto.Name = "DgColVrNeto";
+            this.DgColVrNeto.ReadOnly = true;
+            this.DgColVrNeto.Width = 125;
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.btnImprimirFact);
@@ -393,43 +515,43 @@ namespace SiinErp.Desktop.Forms.Ventas
             // 
             // btnImprimirFact
             // 
-            this.btnImprimirFact.Location = new System.Drawing.Point(528, 18);
+            this.btnImprimirFact.Location = new System.Drawing.Point(531, 16);
             this.btnImprimirFact.Name = "btnImprimirFact";
-            this.btnImprimirFact.Size = new System.Drawing.Size(48, 33);
+            this.btnImprimirFact.Size = new System.Drawing.Size(46, 36);
             this.btnImprimirFact.TabIndex = 6;
             this.btnImprimirFact.UseVisualStyleBackColor = true;
             // 
             // btnImprimirPv
             // 
-            this.btnImprimirPv.Location = new System.Drawing.Point(479, 18);
+            this.btnImprimirPv.Location = new System.Drawing.Point(482, 16);
             this.btnImprimirPv.Name = "btnImprimirPv";
-            this.btnImprimirPv.Size = new System.Drawing.Size(48, 33);
+            this.btnImprimirPv.Size = new System.Drawing.Size(46, 36);
             this.btnImprimirPv.TabIndex = 5;
             this.btnImprimirPv.UseVisualStyleBackColor = true;
             // 
             // btnNuevaFact
             // 
-            this.btnNuevaFact.Location = new System.Drawing.Point(430, 18);
+            this.btnNuevaFact.Location = new System.Drawing.Point(433, 16);
             this.btnNuevaFact.Name = "btnNuevaFact";
-            this.btnNuevaFact.Size = new System.Drawing.Size(48, 33);
+            this.btnNuevaFact.Size = new System.Drawing.Size(46, 36);
             this.btnNuevaFact.TabIndex = 4;
             this.btnNuevaFact.UseVisualStyleBackColor = true;
             this.btnNuevaFact.Click += new System.EventHandler(this.btnNuevaFact_Click);
             // 
             // btnSiguiente
             // 
-            this.btnSiguiente.Location = new System.Drawing.Point(327, 18);
+            this.btnSiguiente.Location = new System.Drawing.Point(330, 16);
             this.btnSiguiente.Name = "btnSiguiente";
-            this.btnSiguiente.Size = new System.Drawing.Size(48, 33);
+            this.btnSiguiente.Size = new System.Drawing.Size(46, 36);
             this.btnSiguiente.TabIndex = 3;
             this.btnSiguiente.UseVisualStyleBackColor = true;
             this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
             // 
             // btnAnterior
             // 
-            this.btnAnterior.Location = new System.Drawing.Point(278, 18);
+            this.btnAnterior.Location = new System.Drawing.Point(278, 16);
             this.btnAnterior.Name = "btnAnterior";
-            this.btnAnterior.Size = new System.Drawing.Size(48, 33);
+            this.btnAnterior.Size = new System.Drawing.Size(46, 36);
             this.btnAnterior.TabIndex = 2;
             this.btnAnterior.UseVisualStyleBackColor = true;
             this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
@@ -552,7 +674,7 @@ namespace SiinErp.Desktop.Forms.Ventas
             // 
             this.btnAgregrFp.Location = new System.Drawing.Point(422, 39);
             this.btnAgregrFp.Name = "btnAgregrFp";
-            this.btnAgregrFp.Size = new System.Drawing.Size(87, 23);
+            this.btnAgregrFp.Size = new System.Drawing.Size(102, 23);
             this.btnAgregrFp.TabIndex = 25;
             this.btnAgregrFp.Text = "Agregar Fp";
             this.btnAgregrFp.UseVisualStyleBackColor = true;
@@ -605,7 +727,7 @@ namespace SiinErp.Desktop.Forms.Ventas
             // 
             this.txtValor.Location = new System.Drawing.Point(422, 16);
             this.txtValor.Name = "txtValor";
-            this.txtValor.Size = new System.Drawing.Size(87, 22);
+            this.txtValor.Size = new System.Drawing.Size(102, 22);
             this.txtValor.TabIndex = 19;
             // 
             // dgvFormasDePago
@@ -663,10 +785,10 @@ namespace SiinErp.Desktop.Forms.Ventas
             // 
             // DgColValorFp
             // 
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle8.Format = "N2";
-            dataGridViewCellStyle8.NullValue = "0";
-            this.DgColValorFp.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle14.Format = "N2";
+            dataGridViewCellStyle14.NullValue = "0";
+            this.DgColValorFp.DefaultCellStyle = dataGridViewCellStyle14;
             this.DgColValorFp.HeaderText = "Valor";
             this.DgColValorFp.Name = "DgColValorFp";
             this.DgColValorFp.Width = 125;
@@ -683,9 +805,9 @@ namespace SiinErp.Desktop.Forms.Ventas
             // 
             // btnAnular
             // 
-            this.btnAnular.Location = new System.Drawing.Point(1013, 21);
+            this.btnAnular.Location = new System.Drawing.Point(1006, 21);
             this.btnAnular.Name = "btnAnular";
-            this.btnAnular.Size = new System.Drawing.Size(75, 28);
+            this.btnAnular.Size = new System.Drawing.Size(82, 28);
             this.btnAnular.TabIndex = 20;
             this.btnAnular.Text = "Anular";
             this.btnAnular.UseVisualStyleBackColor = true;
@@ -694,133 +816,11 @@ namespace SiinErp.Desktop.Forms.Ventas
             // 
             this.btnGuardar.Location = new System.Drawing.Point(20, 21);
             this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(75, 28);
+            this.btnGuardar.Size = new System.Drawing.Size(87, 28);
             this.btnGuardar.TabIndex = 19;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
-            // 
-            // DgColIdDetalleMov
-            // 
-            this.DgColIdDetalleMov.HeaderText = "IdDetalleMov";
-            this.DgColIdDetalleMov.Name = "DgColIdDetalleMov";
-            this.DgColIdDetalleMov.ReadOnly = true;
-            this.DgColIdDetalleMov.Visible = false;
-            // 
-            // DgColIdArticulo
-            // 
-            this.DgColIdArticulo.HeaderText = "IdArticulo";
-            this.DgColIdArticulo.Name = "DgColIdArticulo";
-            this.DgColIdArticulo.ReadOnly = true;
-            this.DgColIdArticulo.Visible = false;
-            // 
-            // DgColCodArticulo
-            // 
-            this.DgColCodArticulo.HeaderText = "Código";
-            this.DgColCodArticulo.MinimumWidth = 6;
-            this.DgColCodArticulo.Name = "DgColCodArticulo";
-            this.DgColCodArticulo.ReadOnly = true;
-            this.DgColCodArticulo.Width = 150;
-            // 
-            // DgColDescripcion
-            // 
-            this.DgColDescripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.DgColDescripcion.HeaderText = "Descripción";
-            this.DgColDescripcion.MinimumWidth = 6;
-            this.DgColDescripcion.Name = "DgColDescripcion";
-            this.DgColDescripcion.ReadOnly = true;
-            // 
-            // DgColCantidad
-            // 
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.Format = "N2";
-            dataGridViewCellStyle9.NullValue = "0";
-            this.DgColCantidad.DefaultCellStyle = dataGridViewCellStyle9;
-            this.DgColCantidad.HeaderText = "Cant";
-            this.DgColCantidad.MinimumWidth = 6;
-            this.DgColCantidad.Name = "DgColCantidad";
-            this.DgColCantidad.Width = 60;
-            // 
-            // DgColVrCosto
-            // 
-            this.DgColVrCosto.HeaderText = "VrCosto";
-            this.DgColVrCosto.Name = "DgColVrCosto";
-            this.DgColVrCosto.ReadOnly = true;
-            this.DgColVrCosto.Visible = false;
-            // 
-            // DgColVrUnit
-            // 
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle10.Format = "N2";
-            this.DgColVrUnit.DefaultCellStyle = dataGridViewCellStyle10;
-            this.DgColVrUnit.HeaderText = "VrUnit";
-            this.DgColVrUnit.MinimumWidth = 6;
-            this.DgColVrUnit.Name = "DgColVrUnit";
-            this.DgColVrUnit.Width = 125;
-            // 
-            // DgColPcDscto
-            // 
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DgColPcDscto.DefaultCellStyle = dataGridViewCellStyle11;
-            this.DgColPcDscto.HeaderText = "Dscto";
-            this.DgColPcDscto.MinimumWidth = 6;
-            this.DgColPcDscto.Name = "DgColPcDscto";
-            this.DgColPcDscto.Width = 50;
-            // 
-            // DgColVrDscto
-            // 
-            this.DgColVrDscto.HeaderText = "VrDscto";
-            this.DgColVrDscto.Name = "DgColVrDscto";
-            this.DgColVrDscto.ReadOnly = true;
-            this.DgColVrDscto.Visible = false;
-            // 
-            // DgColIncluyeIVA
-            // 
-            this.DgColIncluyeIVA.HeaderText = "IncluyeIVA";
-            this.DgColIncluyeIVA.Name = "DgColIncluyeIVA";
-            this.DgColIncluyeIVA.ReadOnly = true;
-            this.DgColIncluyeIVA.Visible = false;
-            // 
-            // DgColPcIVA
-            // 
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DgColPcIVA.DefaultCellStyle = dataGridViewCellStyle12;
-            this.DgColPcIVA.HeaderText = "IVA";
-            this.DgColPcIVA.MinimumWidth = 6;
-            this.DgColPcIVA.Name = "DgColPcIVA";
-            this.DgColPcIVA.ReadOnly = true;
-            this.DgColPcIVA.Width = 50;
-            // 
-            // DgColVrIVA
-            // 
-            this.DgColVrIVA.HeaderText = "VrIVA";
-            this.DgColVrIVA.Name = "DgColVrIVA";
-            this.DgColVrIVA.ReadOnly = true;
-            this.DgColVrIVA.Visible = false;
-            // 
-            // DgColVrBruto
-            // 
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle13.Format = "N2";
-            dataGridViewCellStyle13.NullValue = "0";
-            this.DgColVrBruto.DefaultCellStyle = dataGridViewCellStyle13;
-            this.DgColVrBruto.HeaderText = "VrBruto";
-            this.DgColVrBruto.MinimumWidth = 6;
-            this.DgColVrBruto.Name = "DgColVrBruto";
-            this.DgColVrBruto.ReadOnly = true;
-            this.DgColVrBruto.Width = 125;
-            // 
-            // DgColVrNeto
-            // 
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle14.Format = "N2";
-            dataGridViewCellStyle14.NullValue = "0";
-            this.DgColVrNeto.DefaultCellStyle = dataGridViewCellStyle14;
-            this.DgColVrNeto.HeaderText = "VrNeto";
-            this.DgColVrNeto.MinimumWidth = 6;
-            this.DgColVrNeto.Name = "DgColVrNeto";
-            this.DgColVrNeto.ReadOnly = true;
-            this.DgColVrNeto.Width = 125;
             // 
             // FormPuntoDeVenta
             // 

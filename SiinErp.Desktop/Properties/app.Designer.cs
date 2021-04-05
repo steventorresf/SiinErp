@@ -23,15 +23,12 @@ namespace SiinErp.Desktop.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(local);Initial Catalog=SiinErp;Integrated Security=True")]
         public string SiinErpDbContext {
             get {
                 return ((string)(this["SiinErpDbContext"]));
-            }
-            set {
-                this["SiinErpDbContext"] = value;
             }
         }
     }

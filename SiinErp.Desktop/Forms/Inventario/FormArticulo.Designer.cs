@@ -358,7 +358,7 @@ namespace SiinErp.Desktop.Forms.Inventario
             // 
             this.btnSiguiente.Location = new System.Drawing.Point(61, 12);
             this.btnSiguiente.Name = "btnSiguiente";
-            this.btnSiguiente.Size = new System.Drawing.Size(48, 33);
+            this.btnSiguiente.Size = new System.Drawing.Size(46, 36);
             this.btnSiguiente.TabIndex = 1;
             this.btnSiguiente.UseVisualStyleBackColor = true;
             this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
@@ -367,7 +367,7 @@ namespace SiinErp.Desktop.Forms.Inventario
             // 
             this.btnAnterior.Location = new System.Drawing.Point(12, 12);
             this.btnAnterior.Name = "btnAnterior";
-            this.btnAnterior.Size = new System.Drawing.Size(48, 33);
+            this.btnAnterior.Size = new System.Drawing.Size(46, 36);
             this.btnAnterior.TabIndex = 0;
             this.btnAnterior.UseVisualStyleBackColor = true;
             this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
@@ -385,7 +385,7 @@ namespace SiinErp.Desktop.Forms.Inventario
             // 
             this.btnGuardar.Location = new System.Drawing.Point(131, 21);
             this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(88, 27);
+            this.btnGuardar.Size = new System.Drawing.Size(96, 27);
             this.btnGuardar.TabIndex = 19;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
@@ -395,7 +395,7 @@ namespace SiinErp.Desktop.Forms.Inventario
             // 
             this.btnBuscar.Location = new System.Drawing.Point(169, 12);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(48, 33);
+            this.btnBuscar.Size = new System.Drawing.Size(46, 36);
             this.btnBuscar.TabIndex = 2;
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
@@ -404,7 +404,7 @@ namespace SiinErp.Desktop.Forms.Inventario
             // 
             this.btnNuevo.Location = new System.Drawing.Point(223, 12);
             this.btnNuevo.Name = "btnNuevo";
-            this.btnNuevo.Size = new System.Drawing.Size(48, 33);
+            this.btnNuevo.Size = new System.Drawing.Size(46, 36);
             this.btnNuevo.TabIndex = 3;
             this.btnNuevo.UseVisualStyleBackColor = true;
             this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);

@@ -1,9 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using SiinErp.Desktop.Common;
 using SiinErp.Desktop.Controllers;
 using SiinErp.Desktop.Forms.General;
 using SiinErp.Desktop.Forms.Inventario;
 using SiinErp.Desktop.Forms.Ventas;
 using SiinErp.Model.Abstract.General;
+using SiinErp.Model.Entities.General;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,7 +34,8 @@ namespace SiinErp.Desktop
             string Respuesta = form.IniciarSesion();
             if (Respuesta.Equals("TodoOkey"))
             {
-                
+                List<Menu> ListaMenu = this.controllerBusiness.menuUsuarioBusiness.GetGrupoMenuByIdUsuario(Cookie.IdUsu);
+                InicializarMenu(ListaMenu);
             }
         }
 

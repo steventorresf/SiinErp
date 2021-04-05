@@ -28,6 +28,19 @@ namespace SiinErp.Desktop.Forms.General
         {
             InitializeComponent();
             this.controllerBusiness = _controllerBusiness;
+
+            this.btnAnterior.BackgroundImage = Util.GetImage(AppSettings.IconoAnterior);
+            this.btnAnterior.BackgroundImageLayout = ImageLayout.Zoom;
+
+            this.btnSiguiente.BackgroundImage = Util.GetImage(AppSettings.IconoSiguiente);
+            this.btnSiguiente.BackgroundImageLayout = ImageLayout.Zoom;
+
+            this.btnNuevo.BackgroundImage = Util.GetImage(AppSettings.IconoNuevo);
+            this.btnNuevo.BackgroundImageLayout = ImageLayout.Zoom;
+
+            this.btnGuardar.Image = Util.GetBitmap(AppSettings.IconoGuardar);
+            this.btnGuardar.ImageAlign = ContentAlignment.MiddleLeft;
+            this.btnGuardar.TextAlign = ContentAlignment.MiddleRight;
         }
 
         private void FormUsuario_Load(object sender, EventArgs e)

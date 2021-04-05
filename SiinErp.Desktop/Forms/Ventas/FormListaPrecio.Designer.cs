@@ -92,7 +92,7 @@ namespace SiinErp.Desktop.Forms.Ventas
             // 
             this.btnGuardar.Location = new System.Drawing.Point(398, 20);
             this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(75, 23);
+            this.btnGuardar.Size = new System.Drawing.Size(83, 23);
             this.btnGuardar.TabIndex = 2;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;

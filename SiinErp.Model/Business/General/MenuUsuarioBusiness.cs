@@ -73,6 +73,35 @@ namespace SiinErp.Model.Business.General
             }
         }
 
+        public List<Menu> GetGrupoMenuByIdUsuario(int IdUsuario)
+        {
+            try
+            {
+                List<Menu> ListaMenu = (from mu in context.MenuUsuario.Where(x => x.IdUsuario == IdUsuario)
+                                        join me in context.Menu on mu.IdMenu equals me.IdMenu
+                                        select new Menu()
+                                        {
+                                            IdMenu = me.IdMenu,
+                                            Codigo = me.Codigo,
+                                            Nombre = me.Nombre,
+                                            Descripcion = me.Descripcion,
+                                            CodPadre = me.CodPadre,
+                                            Orden = me.Orden,
+                                        }).ToList();
+                List<Menu> Lista = ListaMenu.Where(x => x.CodPadre == null).OrderBy(x => x.Orden).ToList();
+                foreach(Menu m in Lista)
+                {
+                    m.ListaMenu = ListaMenu.Where(x => x.CodPadre == m.Codigo).OrderBy(x => x.Orden).ToList();
+                }
+                return Lista;
+            }
+            catch (Exception ex)
+            {
+                errorBusiness.Create("GetNotAllByIdUsuario", ex.Message, null);
+                throw;
+            }
+        }
+
         public List<Menu> GetNotAllByIdUsuario(int IdUsuario)
         {
             try

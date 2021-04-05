@@ -110,9 +110,9 @@ namespace SiinErp.Desktop.Forms.General
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Location = new System.Drawing.Point(12, 51);
+            this.groupBox2.Location = new System.Drawing.Point(12, 54);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(927, 228);
+            this.groupBox2.Size = new System.Drawing.Size(927, 229);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             // 
@@ -402,7 +402,7 @@ namespace SiinErp.Desktop.Forms.General
             // 
             this.btnGuardar.Location = new System.Drawing.Point(125, 21);
             this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(84, 30);
+            this.btnGuardar.Size = new System.Drawing.Size(98, 30);
             this.btnGuardar.TabIndex = 21;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
@@ -412,7 +412,7 @@ namespace SiinErp.Desktop.Forms.General
             // 
             this.btnSiguiente.Location = new System.Drawing.Point(66, 12);
             this.btnSiguiente.Name = "btnSiguiente";
-            this.btnSiguiente.Size = new System.Drawing.Size(48, 33);
+            this.btnSiguiente.Size = new System.Drawing.Size(46, 36);
             this.btnSiguiente.TabIndex = 1;
             this.btnSiguiente.UseVisualStyleBackColor = true;
             this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
@@ -421,7 +421,7 @@ namespace SiinErp.Desktop.Forms.General
             // 
             this.btnAnterior.Location = new System.Drawing.Point(12, 12);
             this.btnAnterior.Name = "btnAnterior";
-            this.btnAnterior.Size = new System.Drawing.Size(48, 33);
+            this.btnAnterior.Size = new System.Drawing.Size(46, 36);
             this.btnAnterior.TabIndex = 0;
             this.btnAnterior.UseVisualStyleBackColor = true;
             this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
@@ -429,7 +429,7 @@ namespace SiinErp.Desktop.Forms.General
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.btnGuardar);
-            this.groupBox4.Location = new System.Drawing.Point(12, 285);
+            this.groupBox4.Location = new System.Drawing.Point(12, 289);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(927, 60);
             this.groupBox4.TabIndex = 4;
@@ -439,7 +439,7 @@ namespace SiinErp.Desktop.Forms.General
             // 
             this.btnNuevo.Location = new System.Drawing.Point(206, 12);
             this.btnNuevo.Name = "btnNuevo";
-            this.btnNuevo.Size = new System.Drawing.Size(48, 33);
+            this.btnNuevo.Size = new System.Drawing.Size(46, 36);
             this.btnNuevo.TabIndex = 3;
             this.btnNuevo.UseVisualStyleBackColor = true;
             this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
@@ -448,7 +448,7 @@ namespace SiinErp.Desktop.Forms.General
             // 
             this.btnBuscar.Location = new System.Drawing.Point(152, 12);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(48, 33);
+            this.btnBuscar.Size = new System.Drawing.Size(46, 36);
             this.btnBuscar.TabIndex = 2;
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
@@ -457,7 +457,7 @@ namespace SiinErp.Desktop.Forms.General
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(951, 357);
+            this.ClientSize = new System.Drawing.Size(951, 361);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.btnNuevo);
             this.Controls.Add(this.btnSiguiente);
