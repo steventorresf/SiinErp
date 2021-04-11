@@ -29,13 +29,13 @@ namespace SiinErp.Desktop.Forms.Ventas
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.txtNumeroFactura = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -408,10 +408,10 @@ namespace SiinErp.Desktop.Forms.Ventas
             // 
             // DgColCantidad
             // 
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.Format = "N2";
-            dataGridViewCellStyle8.NullValue = "0";
-            this.DgColCantidad.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.Format = "N2";
+            dataGridViewCellStyle1.NullValue = "0";
+            this.DgColCantidad.DefaultCellStyle = dataGridViewCellStyle1;
             this.DgColCantidad.HeaderText = "Cant";
             this.DgColCantidad.MinimumWidth = 6;
             this.DgColCantidad.Name = "DgColCantidad";
@@ -426,9 +426,9 @@ namespace SiinErp.Desktop.Forms.Ventas
             // 
             // DgColVrUnit
             // 
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle9.Format = "N2";
-            this.DgColVrUnit.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "N2";
+            this.DgColVrUnit.DefaultCellStyle = dataGridViewCellStyle2;
             this.DgColVrUnit.HeaderText = "VrUnit";
             this.DgColVrUnit.MinimumWidth = 6;
             this.DgColVrUnit.Name = "DgColVrUnit";
@@ -436,8 +436,8 @@ namespace SiinErp.Desktop.Forms.Ventas
             // 
             // DgColPcDscto
             // 
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DgColPcDscto.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DgColPcDscto.DefaultCellStyle = dataGridViewCellStyle3;
             this.DgColPcDscto.HeaderText = "Dscto";
             this.DgColPcDscto.MinimumWidth = 6;
             this.DgColPcDscto.Name = "DgColPcDscto";
@@ -459,8 +459,8 @@ namespace SiinErp.Desktop.Forms.Ventas
             // 
             // DgColPcIVA
             // 
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DgColPcIVA.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DgColPcIVA.DefaultCellStyle = dataGridViewCellStyle4;
             this.DgColPcIVA.HeaderText = "IVA";
             this.DgColPcIVA.MinimumWidth = 6;
             this.DgColPcIVA.Name = "DgColPcIVA";
@@ -476,10 +476,10 @@ namespace SiinErp.Desktop.Forms.Ventas
             // 
             // DgColVrBruto
             // 
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle12.Format = "N2";
-            dataGridViewCellStyle12.NullValue = "0";
-            this.DgColVrBruto.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle5.Format = "N2";
+            dataGridViewCellStyle5.NullValue = "0";
+            this.DgColVrBruto.DefaultCellStyle = dataGridViewCellStyle5;
             this.DgColVrBruto.HeaderText = "VrBruto";
             this.DgColVrBruto.MinimumWidth = 6;
             this.DgColVrBruto.Name = "DgColVrBruto";
@@ -488,10 +488,10 @@ namespace SiinErp.Desktop.Forms.Ventas
             // 
             // DgColVrNeto
             // 
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle13.Format = "N2";
-            dataGridViewCellStyle13.NullValue = "0";
-            this.DgColVrNeto.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle6.Format = "N2";
+            dataGridViewCellStyle6.NullValue = "0";
+            this.DgColVrNeto.DefaultCellStyle = dataGridViewCellStyle6;
             this.DgColVrNeto.HeaderText = "VrNeto";
             this.DgColVrNeto.MinimumWidth = 6;
             this.DgColVrNeto.Name = "DgColVrNeto";
@@ -520,6 +520,7 @@ namespace SiinErp.Desktop.Forms.Ventas
             this.btnImprimirFact.Size = new System.Drawing.Size(46, 36);
             this.btnImprimirFact.TabIndex = 6;
             this.btnImprimirFact.UseVisualStyleBackColor = true;
+            this.btnImprimirFact.Click += new System.EventHandler(this.btnImprimirFact_Click);
             // 
             // btnImprimirPv
             // 
@@ -785,10 +786,10 @@ namespace SiinErp.Desktop.Forms.Ventas
             // 
             // DgColValorFp
             // 
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle14.Format = "N2";
-            dataGridViewCellStyle14.NullValue = "0";
-            this.DgColValorFp.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle7.Format = "N2";
+            dataGridViewCellStyle7.NullValue = "0";
+            this.DgColValorFp.DefaultCellStyle = dataGridViewCellStyle7;
             this.DgColValorFp.HeaderText = "Valor";
             this.DgColValorFp.Name = "DgColValorFp";
             this.DgColValorFp.Width = 125;

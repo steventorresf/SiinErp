@@ -3,6 +3,7 @@ using SiinErp.Desktop.Common;
 using SiinErp.Desktop.Controllers;
 using SiinErp.Desktop.Forms.General;
 using SiinErp.Desktop.Forms.Inventario;
+using SiinErp.Desktop.Reportes;
 using SiinErp.Model.Common;
 using SiinErp.Model.Entities.General;
 using SiinErp.Model.Entities.Inventario;
@@ -512,6 +513,12 @@ namespace SiinErp.Desktop.Forms.Ventas
         {
             int numDoc = Convert.ToInt32(txtNumeroFactura.Text) + 1;
             this.LlenarFactura(numDoc);
+        }
+
+        private void btnImprimirFact_Click(object sender, EventArgs e)
+        {
+            FormReporte formReporte = new FormReporte(this.controllerBusiness);
+            formReporte.RptNumeroFactura(1);
         }
     }
 }

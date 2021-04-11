@@ -1,0 +1,2236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="SiinErpDataSet">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>e163531b-d806-4520-adf7-72c71c9121a2</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="DtNumeroFactura">
+      <Query>
+        <DataSourceName>SiinErpDataSet</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="IdFactura">
+          <DataField>IdFactura</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="RazonSocial">
+          <DataField>RazonSocial</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NitEmpresa">
+          <DataField>NitEmpresa</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DireccionEmpresa">
+          <DataField>DireccionEmpresa</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TelefonoEmpresa">
+          <DataField>TelefonoEmpresa</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CiudadEmpresa">
+          <DataField>CiudadEmpresa</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Representante">
+          <DataField>Representante</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TipoDoc">
+          <DataField>TipoDoc</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NumDoc">
+          <DataField>NumDoc</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CodigoCliente">
+          <DataField>CodigoCliente</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NitCliente">
+          <DataField>NitCliente</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NombreCliente">
+          <DataField>NombreCliente</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DireccionCliente">
+          <DataField>DireccionCliente</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CiudadCliente">
+          <DataField>CiudadCliente</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TelefonoCliente">
+          <DataField>TelefonoCliente</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FechaFactura">
+          <DataField>FechaFactura</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PlazoPago">
+          <DataField>PlazoPago</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FechaVencimiento">
+          <DataField>FechaVencimiento</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="DescripcionArticulo">
+          <DataField>DescripcionArticulo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Cantidad">
+          <DataField>Cantidad</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="PcIva">
+          <DataField>PcIva</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="VrUnitario">
+          <DataField>VrUnitario</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="VrNeto">
+          <DataField>VrNeto</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="ValorBruto">
+          <DataField>ValorBruto</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="ValorDscto">
+          <DataField>ValorDscto</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="ValorIva">
+          <DataField>ValorIva</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="ValorNeto">
+          <DataField>ValorNeto</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="NoResolucion">
+          <DataField>NoResolucion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FechaResolucion">
+          <DataField>FechaResolucion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="RangoResolucion">
+          <DataField>RangoResolucion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>SiinErpDataSet</rd:DataSetName>
+        <rd:SchemaPath>C:\Repositorios\SiinErp\SiinErp.Desktop\Reportes\SiinErpDataSet.xsd</rd:SchemaPath>
+        <rd:TableName>Sp_NumeroFactura</rd:TableName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:TableAdapterName>Sp_NumeroFacturaTableAdapter</rd:TableAdapterName>
+      </rd:DataSetInfo>
+    </DataSet>
+  </DataSets>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <ReportItems>
+          <Tablix Name="Tablix6">
+            <TablixBody>
+              <TablixColumns>
+                <TablixColumn>
+                  <Width>11.16904cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.8cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.2cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.2cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.2cm</Width>
+                </TablixColumn>
+              </TablixColumns>
+              <TablixRows>
+                <TablixRow>
+                  <Height>0.6cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox156">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>DESCRIPCION</Value>
+                                  <Style>
+                                    <FontFamily>Arial Narrow</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox156</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>White</Color>
+                            </RightBorder>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox158">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>CANTIDAD</Value>
+                                  <Style>
+                                    <FontFamily>Arial Narrow</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox158</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <LeftBorder>
+                              <Color>White</Color>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>White</Color>
+                            </RightBorder>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox160">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>% IVA</Value>
+                                  <Style>
+                                    <FontFamily>Arial Narrow</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox160</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>White</Color>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>White</Color>
+                            </RightBorder>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox162">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>VALOR UNIT</Value>
+                                  <Style>
+                                    <FontFamily>Arial Narrow</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox162</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>White</Color>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>White</Color>
+                            </RightBorder>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox164">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>SUBTOTAL</Value>
+                                  <Style>
+                                    <FontFamily>Arial Narrow</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox164</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>White</Color>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                            </RightBorder>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.6cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="DescripcionArticulo">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!DescripcionArticulo.Value</Value>
+                                  <Style>
+                                    <FontFamily>Arial Narrow</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>DescripcionArticulo</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Cantidad">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Cantidad.Value</Value>
+                                  <Style>
+                                    <FontFamily>Arial Narrow</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Cantidad</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="PcIva">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!PcIva.Value</Value>
+                                  <Style>
+                                    <FontFamily>Arial Narrow</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>PcIva</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="VrUnitario">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!VrUnitario.Value</Value>
+                                  <Style>
+                                    <FontFamily>Arial Narrow</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>VrUnitario</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="ValorNeto1">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!ValorNeto.Value</Value>
+                                  <Style>
+                                    <FontFamily>Arial Narrow</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>ValorNeto1</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+              </TablixRows>
+            </TablixBody>
+            <TablixColumnHierarchy>
+              <TablixMembers>
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+              </TablixMembers>
+            </TablixColumnHierarchy>
+            <TablixRowHierarchy>
+              <TablixMembers>
+                <TablixMember>
+                  <KeepWithGroup>After</KeepWithGroup>
+                </TablixMember>
+                <TablixMember>
+                  <Group Name="Detalles" />
+                </TablixMember>
+              </TablixMembers>
+            </TablixRowHierarchy>
+            <DataSetName>DtNumeroFactura</DataSetName>
+            <Top>0.03528cm</Top>
+            <Left>0.42356cm</Left>
+            <Height>1.2cm</Height>
+            <Width>18.56904cm</Width>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Tablix>
+        </ReportItems>
+        <Height>0.48959in</Height>
+        <Style />
+      </Body>
+      <Width>19.70766cm</Width>
+      <Page>
+        <PageHeader>
+          <Height>5.61891cm</Height>
+          <PrintOnFirstPage>true</PrintOnFirstPage>
+          <ReportItems>
+            <Textbox Name="RazonSocial">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!RazonSocial.Value, "DtNumeroFactura")</Value>
+                      <Style>
+                        <FontFamily>Arial Narrow</FontFamily>
+                        <FontSize>9pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>RazonSocial</rd:DefaultName>
+              <Height>0.6cm</Height>
+              <Width>6.33801cm</Width>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Rectangle Name="Rectangle6">
+              <ReportItems>
+                <Rectangle Name="Rectangle7">
+                  <KeepTogether>true</KeepTogether>
+                  <Top>1.90583cm</Top>
+                  <Left>15.20271cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3cm</Width>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
+                </Rectangle>
+                <Textbox Name="Textbox131">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!FechaFactura.Value, "DtNumeroFactura")</Value>
+                          <Style>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>9pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox130</rd:DefaultName>
+                  <Top>1.90583cm</Top>
+                  <Left>15.20271cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3cm</Width>
+                  <ZIndex>1</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Rectangle Name="Rectangle8">
+                  <KeepTogether>true</KeepTogether>
+                  <Top>2.54111cm</Top>
+                  <Left>15.20271cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3cm</Width>
+                  <ZIndex>2</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
+                </Rectangle>
+                <Textbox Name="Textbox132">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!PlazoPago.Value, "DtNumeroFactura")</Value>
+                          <Style>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>9pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox130</rd:DefaultName>
+                  <Top>2.54111cm</Top>
+                  <Left>15.20271cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3cm</Width>
+                  <ZIndex>3</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Rectangle Name="Rectangle9">
+                  <KeepTogether>true</KeepTogether>
+                  <Top>3.17639cm</Top>
+                  <Left>15.20271cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3cm</Width>
+                  <ZIndex>4</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
+                </Rectangle>
+                <Textbox Name="Textbox133">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!FechaVencimiento.Value, "DtNumeroFactura")</Value>
+                          <Style>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>9pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox130</rd:DefaultName>
+                  <Top>3.17639cm</Top>
+                  <Left>15.20271cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3cm</Width>
+                  <ZIndex>5</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Rectangle Name="Rectangle10">
+                  <KeepTogether>true</KeepTogether>
+                  <Top>1.90583cm</Top>
+                  <Left>12.16743cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3cm</Width>
+                  <ZIndex>6</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
+                </Rectangle>
+                <Textbox Name="Textbox134">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>Fecha Factura:</Value>
+                          <Style>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>9pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox130</rd:DefaultName>
+                  <Top>1.90583cm</Top>
+                  <Left>12.16743cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3cm</Width>
+                  <ZIndex>7</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Rectangle Name="Rectangle11">
+                  <KeepTogether>true</KeepTogether>
+                  <Top>2.54111cm</Top>
+                  <Left>12.16743cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3cm</Width>
+                  <ZIndex>8</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
+                </Rectangle>
+                <Textbox Name="Textbox135">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>Plazo Pago:</Value>
+                          <Style>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>9pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox130</rd:DefaultName>
+                  <Top>2.54111cm</Top>
+                  <Left>12.16743cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3cm</Width>
+                  <ZIndex>9</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Rectangle Name="Rectangle12">
+                  <KeepTogether>true</KeepTogether>
+                  <Top>3.17639cm</Top>
+                  <Left>12.16743cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3cm</Width>
+                  <ZIndex>10</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
+                </Rectangle>
+                <Textbox Name="Textbox136">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>Fecha Vencimiento:</Value>
+                          <Style>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>9pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox130</rd:DefaultName>
+                  <Top>3.17639cm</Top>
+                  <Left>12.16743cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3cm</Width>
+                  <ZIndex>11</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Rectangle Name="Rectangle13">
+                  <ReportItems>
+                    <Textbox Name="Textbox138">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Datos del paciente</Value>
+                              <Style>
+                                <FontFamily>Arial Narrow</FontFamily>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox130</rd:DefaultName>
+                      <Left>0.04951cm</Left>
+                      <Height>0.6cm</Height>
+                      <Width>18.54257cm</Width>
+                      <Style>
+                        <Border>
+                          <Style>None</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                  <KeepTogether>true</KeepTogether>
+                  <Height>0.6cm</Height>
+                  <Width>18.59208cm</Width>
+                  <ZIndex>12</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
+                </Rectangle>
+                <Rectangle Name="Rectangle14">
+                  <ReportItems>
+                    <Textbox Name="Textbox137">
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=First(Fields!NombreCliente.Value, "DtNumeroFactura")</Value>
+                              <Style>
+                                <FontFamily>Arial Narrow</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox130</rd:DefaultName>
+                      <Top>0.02646cm</Top>
+                      <Height>0.6cm</Height>
+                      <Width>11.84494cm</Width>
+                      <Style>
+                        <Border>
+                          <Style>None</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                  <KeepTogether>true</KeepTogether>
+                  <Top>1.2441cm</Top>
+                  <Left>0.28721cm</Left>
+                  <Height>0.62646cm</Height>
+                  <Width>11.84494cm</Width>
+                  <ZIndex>13</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
+                </Rectangle>
+                <Rectangle Name="Rectangle15">
+                  <KeepTogether>true</KeepTogether>
+                  <Top>0.63528cm</Top>
+                  <Left>15.54667cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>2.65604cm</Width>
+                  <ZIndex>14</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
+                </Rectangle>
+                <Textbox Name="Textbox139">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!NumDoc.Value, "DtNumeroFactura")</Value>
+                          <Style>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>12pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Center</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox130</rd:DefaultName>
+                  <Top>0.63528cm</Top>
+                  <Left>15.54667cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>2.65604cm</Width>
+                  <ZIndex>15</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Rectangle Name="Rectangle16">
+                  <KeepTogether>true</KeepTogether>
+                  <Top>1.27056cm</Top>
+                  <Left>15.20271cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3cm</Width>
+                  <ZIndex>16</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
+                </Rectangle>
+                <Textbox Name="Textbox140">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value />
+                          <Style>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>9pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox130</rd:DefaultName>
+                  <Top>1.27056cm</Top>
+                  <Left>15.20271cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3cm</Width>
+                  <ZIndex>17</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Rectangle Name="Rectangle17">
+                  <KeepTogether>true</KeepTogether>
+                  <Top>1.27056cm</Top>
+                  <Left>12.16743cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3cm</Width>
+                  <ZIndex>18</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
+                </Rectangle>
+                <Textbox Name="Textbox141">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value />
+                          <Style>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>9pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox130</rd:DefaultName>
+                  <Top>1.27056cm</Top>
+                  <Left>12.16743cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3cm</Width>
+                  <ZIndex>19</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Rectangle Name="Rectangle18">
+                  <KeepTogether>true</KeepTogether>
+                  <Top>0.63528cm</Top>
+                  <Left>12.16743cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3.34396cm</Width>
+                  <ZIndex>20</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
+                </Rectangle>
+                <Textbox Name="Textbox142">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>Factura Venta No.</Value>
+                          <Style>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>12pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox130</rd:DefaultName>
+                  <Top>0.63528cm</Top>
+                  <Left>12.16743cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3.34396cm</Width>
+                  <ZIndex>21</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Rectangle Name="Rectangle19">
+                  <KeepTogether>true</KeepTogether>
+                  <Top>1.90583cm</Top>
+                  <Left>7.54998cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>4.58217cm</Width>
+                  <ZIndex>22</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
+                </Rectangle>
+                <Textbox Name="Textbox143">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!TelefonoCliente.Value, "DtNumeroFactura")</Value>
+                          <Style>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>9pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox130</rd:DefaultName>
+                  <Top>1.90583cm</Top>
+                  <Left>7.54998cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>4.58217cm</Width>
+                  <ZIndex>23</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Rectangle Name="Rectangle20">
+                  <KeepTogether>true</KeepTogether>
+                  <Top>1.90583cm</Top>
+                  <Left>6.81125cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>0.70346cm</Width>
+                  <ZIndex>24</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
+                </Rectangle>
+                <Textbox Name="Textbox144">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>TEL:</Value>
+                          <Style>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>9pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox130</rd:DefaultName>
+                  <Top>1.90583cm</Top>
+                  <Left>6.81125cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>0.70346cm</Width>
+                  <ZIndex>25</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Rectangle Name="Rectangle21">
+                  <KeepTogether>true</KeepTogether>
+                  <Top>1.90583cm</Top>
+                  <Left>0.28721cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>6.48876cm</Width>
+                  <ZIndex>26</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
+                </Rectangle>
+                <Textbox Name="Textbox145">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!DireccionCliente.Value, "DtNumeroFactura")</Value>
+                          <Style>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>9pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox130</rd:DefaultName>
+                  <Top>1.90583cm</Top>
+                  <Left>0.28721cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>6.48876cm</Width>
+                  <ZIndex>27</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Rectangle Name="Rectangle22">
+                  <KeepTogether>true</KeepTogether>
+                  <Top>2.54111cm</Top>
+                  <Left>0.28721cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>6.48876cm</Width>
+                  <ZIndex>28</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
+                </Rectangle>
+                <Textbox Name="Textbox146">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!CiudadCliente.Value, "DtNumeroFactura")</Value>
+                          <Style>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>9pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox130</rd:DefaultName>
+                  <Top>2.54111cm</Top>
+                  <Left>0.28721cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>6.48876cm</Width>
+                  <ZIndex>29</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Rectangle Name="Rectangle23">
+                  <KeepTogether>true</KeepTogether>
+                  <Top>3.17639cm</Top>
+                  <Left>0.28721cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>6.48876cm</Width>
+                  <ZIndex>30</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
+                </Rectangle>
+                <Textbox Name="Textbox147">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!NitCliente.Value, "DtNumeroFactura")</Value>
+                          <Style>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>9pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox130</rd:DefaultName>
+                  <Top>3.17639cm</Top>
+                  <Left>0.28721cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>6.48876cm</Width>
+                  <ZIndex>31</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Rectangle Name="Rectangle24">
+                  <KeepTogether>true</KeepTogether>
+                  <Top>3.17639cm</Top>
+                  <Left>9.16235cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>2.9698cm</Width>
+                  <ZIndex>32</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
+                </Rectangle>
+                <Textbox Name="Textbox148">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!CodigoCliente.Value, "DtNumeroFactura")</Value>
+                          <Style>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>9pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox130</rd:DefaultName>
+                  <Top>3.17639cm</Top>
+                  <Left>9.16235cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>2.9698cm</Width>
+                  <ZIndex>33</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Rectangle Name="Rectangle25">
+                  <KeepTogether>true</KeepTogether>
+                  <Top>3.17639cm</Top>
+                  <Left>6.81125cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>2.31583cm</Width>
+                  <ZIndex>34</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
+                </Rectangle>
+                <Textbox Name="Textbox149">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>Codigo Cliente:</Value>
+                          <Style>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>9pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox130</rd:DefaultName>
+                  <Top>3.17639cm</Top>
+                  <Left>6.81125cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>2.31583cm</Width>
+                  <ZIndex>35</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+              </ReportItems>
+              <KeepTogether>true</KeepTogether>
+              <Top>1.55227cm</Top>
+              <Left>0.45002cm</Left>
+              <Height>3.83407cm</Height>
+              <Width>18.59208cm</Width>
+              <ZIndex>1</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <TopBorder>
+                  <Color>Black</Color>
+                  <Style>Double</Style>
+                </TopBorder>
+                <BottomBorder>
+                  <Color>Black</Color>
+                  <Style>Double</Style>
+                </BottomBorder>
+                <LeftBorder>
+                  <Color>Black</Color>
+                  <Style>Double</Style>
+                </LeftBorder>
+                <RightBorder>
+                  <Color>Black</Color>
+                  <Style>Double</Style>
+                </RightBorder>
+              </Style>
+            </Rectangle>
+            <Textbox Name="NitEmpresa">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!NitEmpresa.Value, "DtNumeroFactura")</Value>
+                      <Style>
+                        <FontFamily>Arial Narrow</FontFamily>
+                        <FontSize>9pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <Top>0cm</Top>
+              <Left>6.37328cm</Left>
+              <Height>0.6cm</Height>
+              <Width>7.51814cm</Width>
+              <ZIndex>2</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="TelefonoEmpresa">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!TelefonoEmpresa.Value, "DtNumeroFactura")</Value>
+                      <Style>
+                        <FontFamily>Arial Narrow</FontFamily>
+                        <FontSize>9pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>TelefonoEmpresa</rd:DefaultName>
+              <Top>0cm</Top>
+              <Left>13.9267cm</Left>
+              <Height>0.6cm</Height>
+              <Width>5.78096cm</Width>
+              <ZIndex>3</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Representante">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!Representante.Value, "DtNumeroFactura")</Value>
+                      <Style>
+                        <FontFamily>Arial Narrow</FontFamily>
+                        <FontSize>9pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Representante</rd:DefaultName>
+              <Top>0.65241cm</Top>
+              <Height>0.6cm</Height>
+              <Width>6.33801cm</Width>
+              <ZIndex>4</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="DireccionEmpresa">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!DireccionEmpresa.Value, "DtNumeroFactura")</Value>
+                      <Style>
+                        <FontFamily>Arial Narrow</FontFamily>
+                        <FontSize>9pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>DireccionEmpresa</rd:DefaultName>
+              <Top>0.65241cm</Top>
+              <Left>6.37328cm</Left>
+              <Height>0.6cm</Height>
+              <Width>7.51814cm</Width>
+              <ZIndex>5</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+          </ReportItems>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </PageHeader>
+        <PageFooter>
+          <Height>4.42828cm</Height>
+          <PrintOnFirstPage>true</PrintOnFirstPage>
+          <ReportItems>
+            <Rectangle Name="Rectangle1">
+              <ReportItems>
+                <Textbox Name="Textbox15">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>VALOR BRUTO</Value>
+                          <Style>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>9pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox15</rd:DefaultName>
+                  <Top>0.14111cm</Top>
+                  <Left>1.82223cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3.42604cm</Width>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="Textbox16">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>VALOR DSCTO</Value>
+                          <Style>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>9pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox15</rd:DefaultName>
+                  <Top>0.14111cm</Top>
+                  <Left>5.42516cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3.42604cm</Width>
+                  <ZIndex>1</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="Textbox17">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>VALOR NETO</Value>
+                          <Style>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>9pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox15</rd:DefaultName>
+                  <Top>0.14111cm</Top>
+                  <Left>12.5771cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3.42604cm</Width>
+                  <ZIndex>2</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="Textbox18">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>VALOR IVA</Value>
+                          <Style>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>9pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox15</rd:DefaultName>
+                  <Top>0.14111cm</Top>
+                  <Left>9.02759cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3.42604cm</Width>
+                  <ZIndex>3</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="ValorBruto">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!ValorBruto.Value, "DtNumeroFactura")</Value>
+                          <Style>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>9pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>ValorBruto</rd:DefaultName>
+                  <Top>0.77639cm</Top>
+                  <Left>1.82223cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3.42604cm</Width>
+                  <ZIndex>4</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="ValorDscto">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!ValorDscto.Value, "DtNumeroFactura")</Value>
+                          <Style>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>9pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>ValorDscto</rd:DefaultName>
+                  <Top>0.74993cm</Top>
+                  <Left>5.42516cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3.42604cm</Width>
+                  <ZIndex>5</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="ValorIva">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!ValorIva.Value, "DtNumeroFactura")</Value>
+                          <Style>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>9pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>ValorIva</rd:DefaultName>
+                  <Top>0.77639cm</Top>
+                  <Left>9.00113cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3.42604cm</Width>
+                  <ZIndex>6</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="ValorNeto">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!ValorNeto.Value, "DtNumeroFactura")</Value>
+                          <Style>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>9pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>ValorNeto</rd:DefaultName>
+                  <Top>0.77639cm</Top>
+                  <Left>12.60356cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3.42604cm</Width>
+                  <ZIndex>7</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+              </ReportItems>
+              <KeepTogether>true</KeepTogether>
+              <Top>0.03528cm</Top>
+              <Left>0.42356cm</Left>
+              <Height>1.65334cm</Height>
+              <Width>18.61854cm</Width>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+              </Style>
+            </Rectangle>
+            <Rectangle Name="Rectangle2">
+              <ReportItems>
+                <Rectangle Name="Rectangle3">
+                  <ReportItems>
+                    <Textbox Name="Textbox23">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>RESOLUCION DIAN No.</Value>
+                              <Style>
+                                <FontFamily>Arial Narrow</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox23</rd:DefaultName>
+                      <Top>0.26458cm</Top>
+                      <Left>0.12007cm</Left>
+                      <Height>0.6cm</Height>
+                      <Width>4.01219cm</Width>
+                      <Style>
+                        <Border>
+                          <Style>None</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                    <Textbox Name="NoResolucion">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=First(Fields!NoResolucion.Value, "DtNumeroFactura")</Value>
+                              <Style>
+                                <FontFamily>Arial Narrow</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>NoResolucion</rd:DefaultName>
+                      <Top>0.26458cm</Top>
+                      <Left>4.13226cm</Left>
+                      <Height>0.6cm</Height>
+                      <Width>2.91451cm</Width>
+                      <ZIndex>1</ZIndex>
+                      <Style>
+                        <Border>
+                          <Style>None</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                    <Textbox Name="Textbox25">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>FECHA</Value>
+                              <Style>
+                                <FontFamily>Arial Narrow</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox25</rd:DefaultName>
+                      <Top>0.26458cm</Top>
+                      <Left>7.04677cm</Left>
+                      <Height>0.6cm</Height>
+                      <Width>1.65333cm</Width>
+                      <ZIndex>2</ZIndex>
+                      <Style>
+                        <Border>
+                          <Style>None</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                    <Textbox Name="FechaResolucion">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=First(Fields!FechaResolucion.Value, "DtNumeroFactura")</Value>
+                              <Style>
+                                <FontFamily>Arial Narrow</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>FechaResolucion</rd:DefaultName>
+                      <Top>0.26458cm</Top>
+                      <Left>8.80594cm</Left>
+                      <Height>0.6cm</Height>
+                      <Width>2.23617cm</Width>
+                      <ZIndex>3</ZIndex>
+                      <Style>
+                        <Border>
+                          <Style>None</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                    <Textbox Name="Textbox27">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>AUTORIZADA POR COMPUTADOR DEL</Value>
+                              <Style>
+                                <FontFamily>Arial Narrow</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox27</rd:DefaultName>
+                      <Top>1.04097cm</Top>
+                      <Left>0.10177cm</Left>
+                      <Height>0.6cm</Height>
+                      <Width>6.945cm</Width>
+                      <ZIndex>4</ZIndex>
+                      <Style>
+                        <Border>
+                          <Style>None</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                    <Textbox Name="RangoResolucion">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=First(Fields!RangoResolucion.Value, "DtNumeroFactura")</Value>
+                              <Style>
+                                <FontFamily>Arial Narrow</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>RangoResolucion</rd:DefaultName>
+                      <Top>1.04097cm</Top>
+                      <Left>7.04677cm</Left>
+                      <Height>0.6cm</Height>
+                      <Width>3.99533cm</Width>
+                      <ZIndex>5</ZIndex>
+                      <Style>
+                        <Border>
+                          <Style>None</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                  <KeepTogether>true</KeepTogether>
+                  <Top>0.08975cm</Top>
+                  <Left>6.61528cm</Left>
+                  <Height>1.94938cm</Height>
+                  <Width>11.70766cm</Width>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
+                </Rectangle>
+              </ReportItems>
+              <KeepTogether>true</KeepTogether>
+              <Top>1.86501cm</Top>
+              <Left>0.42356cm</Left>
+              <Height>2.24578cm</Height>
+              <Width>18.61854cm</Width>
+              <ZIndex>1</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+              </Style>
+            </Rectangle>
+          </ReportItems>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </PageFooter>
+        <PageHeight>27.94cm</PageHeight>
+        <PageWidth>21.59cm</PageWidth>
+        <LeftMargin>1cm</LeftMargin>
+        <RightMargin>1cm</RightMargin>
+        <TopMargin>1cm</TopMargin>
+        <BottomMargin>1cm</BottomMargin>
+        <ColumnSpacing>0.13cm</ColumnSpacing>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>d4249b32-b02f-4062-8bd9-e724922edb4e</rd:ReportID>
+</Report>

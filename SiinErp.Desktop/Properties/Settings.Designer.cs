@@ -13,11 +13,11 @@ namespace SiinErp.Desktop.Properties {
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.8.1.0")]
-    internal sealed partial class app : global::System.Configuration.ApplicationSettingsBase {
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
-        private static app defaultInstance = ((app)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new app())));
+        private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
         
-        public static app Default {
+        public static Settings Default {
             get {
                 return defaultInstance;
             }
@@ -25,7 +25,8 @@ namespace SiinErp.Desktop.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(local);Initial Catalog=SiinErp;Integrated Security=True")]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(local);Initial Catalog=SiinErpComercia;Integrated Security=True")]
         public string SiinErpDbContext {
             get {
                 return ((string)(this["SiinErpDbContext"]));

@@ -62,7 +62,7 @@ namespace SiinErp.Web.Controllers.Inventario
                 Movimiento entityMov = data["entityMov"].ToObject<Movimiento>();
                 List<MovimientoDetalle> listDetalleMov = data["listDetalleMov"].ToObject<List<MovimientoDetalle>>();
                 List<MovimientoFormaPago> listDetallePag = data["listDetallePag"].ToObject<List<MovimientoFormaPago>>();
-                int id = _Business.CreateByPuntoDeVenta(entityMov, listDetalleMov, listDetallePag);
+                int id = _Business.CreateByPuntoDeVenta(data);
                 return Ok(id);
             }
             catch (Exception)
@@ -78,7 +78,7 @@ namespace SiinErp.Web.Controllers.Inventario
             {
                 Movimiento entityMov = data["entityMov"].ToObject<Movimiento>();
                 List<MovimientoDetalle> listDetalleMov = data["listDetalleMov"].ToObject<List<MovimientoDetalle>>();
-                _Business.CreateByFacturaDeVenta(entityMov, listDetalleMov);
+                _Business.CreateByFacturaDeVenta(data);
                 return Ok(entityMov);
             }
             catch (Exception)
@@ -173,7 +173,7 @@ namespace SiinErp.Web.Controllers.Inventario
         {
             try
             {
-                int IdDetAlmacen = _Business.GetLastAlmacenByUsu(usuario, empresa);
+                int IdDetAlmacen = 0;//_Business.GetLastAlmacenByUsu(usuario, empresa);
                 return Ok(IdDetAlmacen);
             }
             catch (Exception)

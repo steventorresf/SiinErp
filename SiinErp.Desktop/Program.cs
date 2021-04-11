@@ -38,8 +38,7 @@ namespace SiinErp.Desktop
 
         private static void ConfigureServices(ServiceCollection services)
         {
-            //services.AddDbContext<SiinErpContext>(options => options.UseSqlServer(configuration.GetConnectionString("SiinErpDbContext")));
-            services.AddDbContext<SiinErpContext>(options => options.UseSqlServer("Data Source=(local);Initial Catalog=SiinErpComercia;Integrated Security=True"));
+            services.AddDbContext<SiinErpContext>(options => options.UseSqlServer(Properties.Settings.Default.SiinErpDbContext));
             services.AddScoped<FormHome>();
             services.AddScoped<Controllers.IControllerBusiness, Controllers.ControllerBusiness>();
 
@@ -98,6 +97,8 @@ namespace SiinErp.Desktop
             services.AddScoped<Model.Abstract.Ventas.IListaPrecioDetalleBusiness, Model.Business.Ventas.ListaPrecioDetalleBusiness>();
             services.AddScoped<Model.Abstract.Ventas.IVendedorBusiness, Model.Business.Ventas.VendedorBusiness>();
             #endregion
+
+            services.AddScoped<Model.Abstract.Reportes.IReporteBusiness, Model.Business.Reportes.ReporteBusiness>();
         }
 
     }

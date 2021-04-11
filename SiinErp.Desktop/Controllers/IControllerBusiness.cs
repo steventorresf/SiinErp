@@ -1,6 +1,7 @@
 ﻿using SiinErp.Model.Abstract.Cartera;
 using SiinErp.Model.Abstract.General;
 using SiinErp.Model.Abstract.Inventario;
+using SiinErp.Model.Abstract.Reportes;
 using SiinErp.Model.Abstract.Ventas;
 using System;
 using System.Collections.Generic;
@@ -42,5 +43,8 @@ namespace SiinErp.Desktop.Controllers
         public IListaPrecioDetalleBusiness listaPrecioDetalleBusiness { get; }
         public IVendedorBusiness vendedorBusiness { get; }
         #endregion
+
+
+        public IReporteBusiness reporteBusiness { get; }
     }
 }
