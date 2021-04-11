@@ -34,6 +34,7 @@ namespace SiinErp.Desktop
         private void InitializeComponent()
         {
             this.menuStripPrincipal = new System.Windows.Forms.MenuStrip();
+            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.SuspendLayout();
             // 
             // menuStripPrincipal
@@ -118,6 +119,8 @@ namespace SiinErp.Desktop
 
             return eventHandler;
         }
+
+        private System.Drawing.Printing.PrintDocument printDocument1;
     }
 }
 
