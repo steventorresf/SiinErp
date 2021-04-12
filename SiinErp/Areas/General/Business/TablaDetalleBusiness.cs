@@ -41,8 +41,11 @@ namespace SiinErp.Areas.General.Business
             {
                 SiinErpContext context = new SiinErpContext();
                 TablaDetalle ob = context.TablasDetalles.Find(IdDetalle);
+                ob.Codigo = entity.Codigo;
                 ob.Descripcion = entity.Descripcion;
                 ob.Estado = entity.Estado;
+                ob.ModificadoPor = entity.ModificadoPor;
+                ob.FechaModificado = DateTimeOffset.Now;
                 context.SaveChanges();
             }
             catch (Exception ex)
@@ -89,9 +92,9 @@ namespace SiinErp.Areas.General.Business
             {
                 SiinErpContext context = new SiinErpContext();
                 List<TablaDetalle> Lista = (from ta in context.Tablas.Where(x => x.CodTabla.Equals(CodTabla))
-                                             join td in context.TablasDetalles on ta.IdTabla equals td.IdTabla
-                                             where td.IdEmpresa == IdEmpresa && td.Estado.Equals(Constantes.EstadoActivo)
-                                             select td).OrderBy(x => x.Descripcion).OrderBy(x => x.Orden).ToList();
+                                            join td in context.TablasDetalles on ta.IdTabla equals td.IdTabla
+                                            where td.IdEmpresa == IdEmpresa && td.Estado.Equals(Constantes.EstadoActivo)
+                                            select td).OrderBy(x => x.Descripcion).OrderBy(x => x.Orden).ToList();
                 return Lista;
             }
             catch (Exception ex)

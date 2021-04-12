@@ -39,6 +39,7 @@ namespace SiinErp.Areas.Cartera.Business
         {
             try
             {
+                entity.FechaCreacion = DateTimeOffset.Now;
                 SiinErpContext context = new SiinErpContext();
                 context.PlazosPagos.Add(entity);
                 context.SaveChanges();
@@ -61,6 +62,8 @@ namespace SiinErp.Areas.Cartera.Business
                 ob.PcInicial = entity.PcInicial;
                 ob.PlazoDias = entity.PlazoDias;
                 ob.Estado = entity.Estado;
+                ob.ModificadoPor = entity.ModificadoPor;
+                ob.FechaModificado = DateTimeOffset.Now;
                 context.SaveChanges();
             }
             catch (Exception ex)

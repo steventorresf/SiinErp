@@ -12,6 +12,6 @@ namespace SiinErp.Areas.General.Abstract
 
         void Update(int IdTabla, Tabla entity);
 
-        List<Tabla> GetTablas();
+        List<Tabla> GetTablasVisible();
     }
 }

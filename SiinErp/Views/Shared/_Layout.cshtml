@@ -106,69 +106,68 @@
                     </div>
                 </div>
                 <!-- Sidebar Navidation Menus--><span class="heading">Principal</span>
-                <ul class="list-unstyled">
+                <ul id="OpMenu" class="list-unstyled" hidden="hidden">
                     <li><a href="@Url.Content("~/")Home"> <i class="icon-home"></i>Home </a></li>
-                    <li>
+                    <li ng-if="vm.userApp.menu.includes('|GEN|')">
                         <a href="#Gen" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-calendar-o"></i>General </a>
                         <ul id="Gen" class="collapse list-unstyled ">
-                            <li><a href="@Url.Content("~/")General/Home/Empresas">Empresas</a></li>
-                            <li><a href="@Url.Content("~/")General/Home/Tablas">Tablas</a></li>
-                            <li><a href="@Url.Content("~/")General/Home/TiposDocumento">TiposDocumento</a></li>
-                            <li><a href="@Url.Content("~/")General/Home/Parametros">Parametros</a></li>
-                            <li><a href="@Url.Content("~/")General/Home/Terceros">Terceros</a></li>
-                            <li><a href="@Url.Content("~/")General/Home/Periodos">Periodos</a></li>
-                            <li><a href="@Url.Content("~/")General/Home/DptosCiudads">Ciudades</a></li>
-                            <li><a href="@Url.Content("~/")General/Home/Usuarios">Usuarios</a></li>
+                            <li ng-if="vm.userApp.menu.includes('|GEN_EMP|')"><a href="@Url.Content("~/")General/Home/Empresas">Empresas</a></li>
+                            <li ng-if="vm.userApp.menu.includes('|GEN_TAB|')"><a href="@Url.Content("~/")General/Home/Tablas">Tablas</a></li>
+                            <li ng-if="vm.userApp.menu.includes('|GEN_TDO|')"><a href="@Url.Content("~/")General/Home/TiposDocumento">TiposDocumento</a></li>
+                            <li ng-if="vm.userApp.menu.includes('|GEN_PAR|')"><a href="@Url.Content("~/")General/Home/Parametros">Parametros</a></li>
+                            <li ng-if="vm.userApp.menu.includes('|GEN_TER|')"><a href="@Url.Content("~/")General/Home/Terceros">Terceros</a></li>
+                            <li ng-if="vm.userApp.menu.includes('|GEN_PER|')"><a href="@Url.Content("~/")General/Home/Periodos">Periodos</a></li>
+                            <li ng-if="vm.userApp.menu.includes('|GEN_CIU|')"><a href="@Url.Content("~/")General/Home/DptosCiudads">Ciudades</a></li>
+                            <li ng-if="vm.userApp.menu.includes('|GEN_USU|')"><a href="@Url.Content("~/")General/Home/Usuarios">Usuarios</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li ng-if="vm.userApp.menu.includes('|COM|')">
                         <a href="#Comp" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-shopping-cart"></i>Compras </a>
                         <ul id="Comp" class="collapse list-unstyled ">
-                            <li><a href="@Url.Content("~/")Compras/Home/Proveedores">Proveedores</a></li>
-                            <li><a href="@Url.Content("~/")Compras/Home/Ordenes">Ordenes</a></li>
+                            <li ng-if="vm.userApp.menu.includes('|COM_PRO|')"><a href="@Url.Content("~/")Compras/Home/Proveedores">Proveedores</a></li>
+                            <li ng-if="vm.userApp.menu.includes('|COM_ORD|')"><a href="@Url.Content("~/")Compras/Home/Ordenes">Ordenes</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li ng-if="vm.userApp.menu.includes('|INV|')">
                         <a href="#Inv" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-bookmark"></i>Inventario </a>
                         <ul id="Inv" class="collapse list-unstyled ">
-                            <li><a href="@Url.Content("~/")Inventario/Home/Articulos">Articulos</a></li>
-                            <li><a href="@Url.Content("~/")Inventario/Home/EntradasPorCompra">Entradas Por Compra</a></li>
-                            <li><a href="@Url.Content("~/")Inventario/Home/Movimientos">Movimientos</a></li>
+                            <li ng-if="vm.userApp.menu.includes('|INV_ART|')"><a href="@Url.Content("~/")Inventario/Home/Articulos">Articulos</a></li>
+                            <li ng-if="vm.userApp.menu.includes('|INV_ENT|')"><a href="@Url.Content("~/")Inventario/Home/EntradasPorCompra">Entradas Por Compra</a></li>
+                            <li ng-if="vm.userApp.menu.includes('|INV_MOV|')"><a href="@Url.Content("~/")Inventario/Home/Movimientos">Movimientos</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li ng-if="vm.userApp.menu.includes('|VEN|')">
                         <a href="#Ven" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-money"></i>Ventas </a>
                         <ul id="Ven" class="collapse list-unstyled ">
-                            <li><a href="@Url.Content("~/")Ventas/Home/ListaPrecios">ListaPrecios</a></li>
-                            <li><a href="@Url.Content("~/")Ventas/Home/Vendedores">Vendedores</a></li>
-                            <li><a href="@Url.Content("~/")Ventas/Home/Clientes">Clientes</a></li>
-                            <li><a href="@Url.Content("~/")Ventas/Home/PuntoDeVenta">PuntoDeVenta</a></li>
-                            <li><a href="@Url.Content("~/")Ventas/Home/Facturar">Facturar</a></li>
-                            <li><a href="@Url.Content("~/")Ventas/Home/Caja">Cajas</a></li>
+                            <li ng-if="vm.userApp.menu.includes('|VEN_LPR|')"><a href="@Url.Content("~/")Ventas/Home/ListaPrecios">ListaPrecios</a></li>
+                            <li ng-if="vm.userApp.menu.includes('|VEN_VEN|')"><a href="@Url.Content("~/")Ventas/Home/Vendedores">Vendedores</a></li>
+                            <li ng-if="vm.userApp.menu.includes('|VEN_CLI|')"><a href="@Url.Content("~/")Ventas/Home/Clientes">Clientes</a></li>
+                            <li ng-if="vm.userApp.menu.includes('|VEN_PVE|')"><a href="@Url.Content("~/")Ventas/Home/PuntoDeVenta">PuntoDeVenta</a></li>
+                            <li ng-if="vm.userApp.menu.includes('|VEN_FAC|')"><a href="@Url.Content("~/")Ventas/Home/Facturar">Facturar</a></li>
+                            <li ng-if="vm.userApp.menu.includes('|VEN_CAJ|')"><a href="@Url.Content("~/")Ventas/Home/Caja">Cajas</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li ng-if="vm.userApp.menu.includes('|CAR|')">
                         <a href="#Car" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-shopping-bag"></i>Cartera </a>
                         <ul id="Car" class="collapse list-unstyled ">
-                            <li><a href="@Url.Content("~/")Cartera/Home/PlazosPago">PlazosPago</a></li>
-                            <li><a href="@Url.Content("~/")Cartera/Home/Conceptos">Conceptos</a></li>
-                            <li><a href="@Url.Content("~/")Cartera/Home/Movimientos">Movimientos</a></li>
+                            <li ng-if="vm.userApp.menu.includes('|CAR_PPA|')"><a href="@Url.Content("~/")Cartera/Home/PlazosPago">PlazosPago</a></li>
+                            <li ng-if="vm.userApp.menu.includes('|CAR_CON|')"><a href="@Url.Content("~/")Cartera/Home/Conceptos">Conceptos</a></li>
+                            <li ng-if="vm.userApp.menu.includes('|CAR_MOV|')"><a href="@Url.Content("~/")Cartera/Home/Movimientos">Movimientos</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li ng-if="vm.userApp.menu.includes('|TES|')">
                         <a href="#Tes" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Tesoreria </a>
                         <ul id="Tes" class="collapse list-unstyled ">
-                            <li><a href="@Url.Content("~/")Tesoreria/Home/Pagos">Pagos a proveedores</a></li>
+                            <li ng-if="vm.userApp.menu.includes('|TES_PPR|')"><a href="@Url.Content("~/")Tesoreria/Home/Pagos">Pagos a proveedores</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li ng-if="vm.userApp.menu.includes('|CON|')">
                         <a href="#Con" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-dollar"></i>Contabilidad </a>
                         <ul id="Con" class="collapse list-unstyled ">
-                            <li><a href="@Url.Content("~/")Contabilidad/Home/TiposContab">Tipos Doc Contables</a></li>
-                            <li><a href="@Url.Content("~/")Contabilidad/Home/Retenciones">Conceptos Retencion</a></li>
-                            <li><a href="@Url.Content("~/")Contabilidad/Home/PlanDeCuentas">Plan De Cuentas</a></li>
-                            <li><a href="@Url.Content("~/")Contabilidad/Home/Comprobantes">Comprobantes</a></li>
-
+                            <li ng-if="vm.userApp.menu.includes('|CON_TDC|')"><a href="@Url.Content("~/")Contabilidad/Home/TiposContab">Tipos Doc Contables</a></li>
+                            <li ng-if="vm.userApp.menu.includes('|CON_CRE|')"><a href="@Url.Content("~/")Contabilidad/Home/Retenciones">Conceptos Retencion</a></li>
+                            <li ng-if="vm.userApp.menu.includes('|CON_PCU|')"><a href="@Url.Content("~/")Contabilidad/Home/PlanDeCuentas">Plan De Cuentas</a></li>
+                            <li ng-if="vm.userApp.menu.includes('|CON_COM|')"><a href="@Url.Content("~/")Contabilidad/Home/Comprobantes">Comprobantes</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -183,7 +182,7 @@
 
                 <script src="~/js/basic.min.js"></script>
                 <link rel="stylesheet" href="~/css/basic.min.css" />
-                <script src="~/master/js/services/services.min.js"></script>
+                <script src="~/master/js/services/services.js"></script>
                 @*<script src="~/master/js/services/tesoreria/pagos.service.js"></script>*@
              
                 <!--      <script src="~/master/js/services/inventario/*.js"></script>
@@ -227,6 +226,10 @@
                         </div>
                     </div>
                 </footer>
+
+                <script>
+                    $("#OpMenu").removeAttr('hidden');
+                </script>
             </div>
         </div>
     </div>

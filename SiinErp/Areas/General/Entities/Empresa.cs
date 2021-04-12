@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SiinErp.Areas.General.Entities
 {
     [Table("Empresa", Schema = "General")]
-    public class Empresa
+    public class Empresa : Utiles.Auditoria
     {
         [Key]
         public int IdEmpresa { get; set; }
@@ -22,10 +22,11 @@ namespace SiinErp.Areas.General.Entities
         public string NitEmpresa { get; set; }
 
         [Required]
-        public int IdCiudad { get; set; }
+        [StringLength(100)]
+        public string Ciudad { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(150)]
         public string Direccion { get; set; }
 
         [Required]
@@ -44,11 +45,6 @@ namespace SiinErp.Areas.General.Entities
         public int IdDetRegimen { get; set; }
 
 
-        [NotMapped]
-        public int IdDepartamento { get; set; }
-
-        [NotMapped]
-        public string NombreCiudad { get; set; }
 
         [NotMapped]
         public string NombreRegimen { get; set; }

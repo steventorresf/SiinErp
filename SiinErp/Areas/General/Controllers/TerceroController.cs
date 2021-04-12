@@ -139,12 +139,41 @@ namespace SiinErp.Areas.General.Controllers
         #endregion
 
         #region Clientes
+        [HttpPost("CliReturn")]
+        public IActionResult CreateCliAndReturn([FromBody] Tercero entity)
+        {
+            try
+            {
+                terceroBusiness.Create(entity);
+                
+                return Ok(true);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         [HttpGet("Cli/{IdEmp}")]
         public IActionResult GetClientes(int IdEmp)
         {
             try
             {
                 var lista = terceroBusiness.GetClientes(IdEmp);
+                return Ok(lista);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost("CliByPrefix")]
+        public IActionResult GetClientesByPrefix([FromBody] JObject data)
+        {
+            try
+            {
+                var lista = terceroBusiness.GetClientesByPrefix(data);
                 return Ok(lista);
             }
             catch (Exception)

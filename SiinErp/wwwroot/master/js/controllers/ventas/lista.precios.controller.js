@@ -26,6 +26,7 @@
         vm.modoDet = false;
         vm.refreshArticulo = refreshArticulo;
         vm.eliminarDet = eliminarDet;
+        vm.updateDet = updateDet;
         vm.agregarArticulo = agregarArticulo;
         vm.regresarDet = regresarDet;
         $scope.eliminarDet = eliminarDet;
@@ -49,8 +50,8 @@
         function refreshArticulo(prefix) {
             if (prefix.length > 2) {
                 var data = {
-                    IdEmp: vm.userApp.idEmpresa,
-                    Prefix: prefix,
+                    idEmpresa: vm.userApp.idEmpresa,
+                    prefix: prefix,
                 };
 
                 var response = artService.getAllByPrefix(data);
@@ -196,6 +197,7 @@
                     }
                 );
             }
+            else { alert('El articulo ya ha sido agregado previamente.'); }
         }
 
         vm.gridOptionsDet = {
@@ -209,10 +211,19 @@
             enableFiltering: true,
             columnDefs: [
                 {
+                    name: 'articulo.codArticulo',
+                    field: 'articulo.codArticulo',
+                    displayName: 'Código',
+                    headerCellClass: 'bg-header',
+                    enableCellEdit: false,
+                    width: 250,
+                },
+                {
                     name: 'articulo.nombreArticulo',
                     field: 'articulo.nombreArticulo',
                     displayName: 'Nombre Articulo',
                     headerCellClass: 'bg-header',
+                    enableCellEdit: false,
                 },
                 {
                     name: 'vrUnitario',
@@ -220,6 +231,8 @@
                     displayName: 'Vr Unitario',
                     headerCellClass: 'bg-header',
                     cellClass: 'text-center',
+                    type: 'number',
+                    cellFilter: 'number: 0',
                     width: 120,
                 },
                 {
@@ -228,6 +241,8 @@
                     displayName: '% Dscto',
                     headerCellClass: 'bg-header',
                     cellClass: 'text-center',
+                    type: 'number',
+                    cellFilter: 'number: 0',
                     width: 120,
                 },
                 {
@@ -237,6 +252,7 @@
                     enableColumnMenu: false,
                     enableFiltering: false,
                     enableSorting: false,
+                    enableCellEdit: false,
                     cellClass: 'text-center',
                     cellTemplate:
                         "<span><a href='' ng-click='grid.appScope.eliminarDet(row.entity)' tooltip='Editar' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
@@ -246,8 +262,23 @@
             ],
             onRegisterApi: function (gridApi) {
                 vm.gridApiDet = gridApi;
+                gridApi.edit.on.afterCellEdit($scope, function (rowEntity, colDef, newValue, oldValue) {
+                    updateDet(rowEntity);
+                });
             },
         };
+
+        function updateDet(entity) {
+            var response = lisdetService.update(entity.idDetalleListaPrecio, entity);
+            response.then(
+                function (response) {
+
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
 
         function eliminarDet(entity) {
             var response = lisdetService.remove(entity.idDetalleListaPrecio);

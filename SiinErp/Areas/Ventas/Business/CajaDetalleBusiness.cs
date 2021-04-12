@@ -34,6 +34,7 @@ namespace SiinErp.Areas.Ventas.Business
                                                IdCajaDetalle = ca.IdCajaDetalle,
                                                IdCaja = ca.IdCaja,
                                                IdDetFormaPago = ca.IdDetFormaPago,
+                                               IdDetCuenta = ca.IdDetCuenta,
                                                Transaccion = ca.Transaccion,
                                                Valor = ca.Valor,
                                                Comentario = ca.Comentario,

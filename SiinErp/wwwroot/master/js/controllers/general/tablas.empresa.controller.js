@@ -76,6 +76,14 @@
             enableFiltering: true,
             columnDefs: [
                 {
+                    name: 'codigo',
+                    field: 'codigo',
+                    displayName: 'Código',
+                    headerCellClass: 'bg-header',
+                    enableCellEdit: false,
+                    width: 100,
+                },
+                {
                     name: 'descripcion',
                     field: 'descripcion',
                     displayName: 'Descripción',

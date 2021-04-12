@@ -31,15 +31,19 @@
             <div class="card-body">
                 <form id="formApp" name="formApp" novalidate="" class="form-horizontal">
                     <div class="form-group row">
-                        <div class="col-12 col-md-4">
+                        <div class="col-12 col-md-3">
+                            <label>C&oacute;digo:<i>*</i></label>
+                            <input type="text" class="form-control" form="formApp" ng-model="vm.entity.codTercero" onkeydown="return false" required />
+                        </div>
+                        <div class="col-12 col-md-3">
                             <label>Nit/C&eacute;dula:<i>*</i></label>
                             <input type="text" class="form-control" form="formApp" ng-model="vm.entity.nitCedula" required />
                         </div>
-                        <div class="col-12 col-md-3">
-                            <label>Dg. Verificaci&oacute;n:</label>
+                        <div class="col-12 col-md-2">
+                            <label>Dg. Verif.:</label>
                             <input type="text" class="form-control" form="formApp" ng-model="vm.entity.dgVerificacion" minlength="0" maxlength="1" />
                         </div>
-                        <div class="col-12 col-md-5">
+                        <div class="col-12 col-md-4">
                             <label>Tipo Cliente:<i>*</i></label>
                             <select ng-model="vm.entity.idDetTipoPersona" form="formApp" class="form-control" required>
                                 <option ng-repeat="item in vm.listTiposPer" value="{{ item.idDetalle }}">{{ item.descripcion }}</option>
@@ -64,7 +68,6 @@
                             <ui-select ng-model="vm.entity.idDepartamento"
                                        form="formApp"
                                        theme="bootstrap"
-                                       tabindex="7"
                                        required
                                        on-select="vm.getCiudades()">
                                 <ui-select-match placeholder="Seleccione un departamento...">{{$select.selected.nombreDepartamento}}</ui-select-match>
@@ -78,7 +81,6 @@
                             <ui-select ng-model="vm.entity.idCiudad"
                                        form="formApp"
                                        theme="bootstrap"
-                                       tabindex="7"
                                        required>
                                 <ui-select-match placeholder="Seleccione una ciudad...">{{$select.selected.nombreCiudad}}</ui-select-match>
                                 <ui-select-choices repeat="item.idCiudad as item in vm.listCiudades | filter: $select.search">
@@ -121,7 +123,6 @@
                             <ui-select ng-model="vm.entity.idVendedor"
                                        form="formApp"
                                        theme="bootstrap"
-                                       tabindex="7"
                                        required>
                                 <ui-select-match placeholder="Seleccione un vendedor...">{{$select.selected.nombreVendedor}}</ui-select-match>
                                 <ui-select-choices repeat="item.idVendedor as item in vm.listVendedores | filter: $select.search">
@@ -134,7 +135,6 @@
                             <ui-select ng-model="vm.entity.idListaPrecio"
                                        form="formApp"
                                        theme="bootstrap"
-                                       tabindex="7"
                                        required>
                                 <ui-select-match placeholder="Seleccione una lista de precio...">{{$select.selected.nombreLista}}</ui-select-match>
                                 <ui-select-choices repeat="item.idListaPrecio as item in vm.listListaPrecios | filter: $select.search">

@@ -5,9 +5,9 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$cookies', '$scope', 'GenTerceroService', 'CarPlazoPagoService', 'VenVendedorService', 'VenListaPrecioService', 'GenTablaDetService', 'GenDepartamentoService', 'GenCiudadService'];
+    AppController.$inject = ['$location', '$cookies', '$scope', 'GenSecuenciaService', 'GenTerceroService', 'CarPlazoPagoService', 'VenVendedorService', 'VenListaPrecioService', 'GenTablaDetService', 'GenDepartamentoService', 'GenCiudadService'];
 
-    function AppController($location, $cookies, $scope, terService, ppaService, venService, lisService, tabdetService, depService, ciuService) {
+    function AppController($location, $cookies, $scope, secService, terService, ppaService, venService, lisService, tabdetService, depService, ciuService) {
         var vm = this;
 
         vm.title = 'Home Page';
@@ -38,6 +38,18 @@
             response.then(
                 function (response) {
                     vm.gridOptions.data = response.data;
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
+
+        function getStrSecuencia() {
+            var response = secService.getStrSecuencia(vm.entity.tipoTercero, vm.userApp.idEmpresa);
+            response.then(
+                function (response) {
+                    vm.entity.codTercero = response.data;
                 },
                 function (response) {
                     console.log(response);
@@ -135,9 +147,27 @@
             vm.entity = {
                 tipoTercero: TipoTercero.Cliente,
                 idEmpresa: vm.userApp.idEmpresa,
-                idUsuario: vm.userApp.idUsu,
+                creadoPor: vm.userApp.nombreUsuario,
+                iva: 'true',
+                limiteCredito: 0,
+                idCuentaContable: 0,
                 estado: Estados.Activo,
             };
+
+            getStrSecuencia();
+
+            if (vm.listDepartamentos.length === 1) {
+                vm.entity.idDepartamento = vm.listDepartamentos[0].idDepartamento;
+                getCiudades();
+            }
+
+            if (vm.listVendedores.length === 1) {
+                vm.entity.idVendedor = vm.listVendedores[0].idVendedor;
+            }
+
+            if (vm.listListaPrecios.length === 1) {
+                vm.entity.idListaPrecio = vm.listListaPrecios[0].idListaPrecio;
+            }
             
             vm.formModify = false;
             vm.formVisible = true;
@@ -156,6 +186,8 @@
         }
 
         function guardar() {
+            vm.entity.nombreBusqueda = '.';
+
             var response = null;
             if (vm.formModify) { response = terService.updateCli(vm.entity.idTercero, vm.entity); }
             else { response = terService.create(vm.entity); }
@@ -185,6 +217,13 @@
             enableColumnMenus: false,
             enableFiltering: true,
             columnDefs: [
+                {
+                    name: 'codTercero',
+                    field: 'codTercero',
+                    displayName: 'Código',
+                    headerCellClass: 'bg-header',
+                    width: 120,
+                },
                 {
                     name: 'nitCedula',
                     field: 'nitCedula',

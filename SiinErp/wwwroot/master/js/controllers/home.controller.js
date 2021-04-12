@@ -11,6 +11,7 @@
         var vm = this;
 
         vm.title = 'Home Page';
+        vm.userApp = angular.copy($cookies.getObject('UsuApp'));
         vm.init = init;
 
         function init() {

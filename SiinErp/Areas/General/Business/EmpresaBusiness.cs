@@ -24,24 +24,20 @@ namespace SiinErp.Areas.General.Business
             {
                 SiinErpContext context = new SiinErpContext();
                 List<Empresa> Lista = (from em in context.Empresas
-                                        join ci in context.Ciudades on em.IdCiudad equals ci.IdCiudad
-                                        join de in context.Departamentos on ci.IdDepartamento equals de.IdDepartamento
-                                        join re in context.TablasDetalles on em.IdDetRegimen equals re.IdDetalle
-                                        select new Empresa()
-                                        {
-                                            IdEmpresa = em.IdEmpresa,
-                                            NitEmpresa = em.NitEmpresa,
-                                            RazonSocial = em.RazonSocial,
-                                            IdCiudad = em.IdCiudad,
-                                            Direccion = em.Direccion,
-                                            Telefono = em.Telefono,
-                                            CodEan = em.CodEan,
-                                            Representante = em.Representante,
-                                            IdDetRegimen = em.IdDetRegimen,
-                                            IdDepartamento = de.IdDepartamento,
-                                            NombreCiudad = ci.NombreCiudad + " - " + de.NombreDepartamento,
-                                            NombreRegimen = re.Descripcion,
-                                        }).OrderBy(x => x.RazonSocial).ToList();
+                                       join re in context.TablasDetalles on em.IdDetRegimen equals re.IdDetalle
+                                       select new Empresa()
+                                       {
+                                           IdEmpresa = em.IdEmpresa,
+                                           NitEmpresa = em.NitEmpresa,
+                                           RazonSocial = em.RazonSocial,
+                                           Ciudad = em.Ciudad,
+                                           Direccion = em.Direccion,
+                                           Telefono = em.Telefono,
+                                           CodEan = em.CodEan,
+                                           Representante = em.Representante,
+                                           IdDetRegimen = em.IdDetRegimen,
+                                           NombreRegimen = re.Descripcion,
+                                       }).OrderBy(x => x.RazonSocial).ToList();
                 return Lista;
             }
             catch (Exception ex)
@@ -56,23 +52,7 @@ namespace SiinErp.Areas.General.Business
             try
             {
                 SiinErpContext context = new SiinErpContext();
-                List<Empresa> Lista = (from em in context.Empresas
-                                        join ci in context.Ciudades on em.IdCiudad equals ci.IdCiudad
-                                        join de in context.Departamentos on ci.IdDepartamento equals de.IdDepartamento
-                                        select new Empresa()
-                                        {
-                                            IdEmpresa = em.IdEmpresa,
-                                            NitEmpresa = em.NitEmpresa,
-                                            RazonSocial = em.RazonSocial,
-                                            IdCiudad = em.IdCiudad,
-                                            Direccion = em.Direccion,
-                                            Telefono = em.Telefono,
-                                            CodEan = em.CodEan,
-                                            Representante = em.Representante,
-                                            IdDetRegimen = em.IdDetRegimen,
-                                            IdDepartamento = de.IdDepartamento,
-                                            NombreCiudad = ci.NombreCiudad + " - " + de.NombreDepartamento,
-                                        }).OrderBy(x => x.RazonSocial).ToList();
+                List<Empresa> Lista = context.Empresas.OrderBy(x => x.RazonSocial).ToList();
                 return Lista;
             }
             catch (Exception ex)
@@ -86,6 +66,7 @@ namespace SiinErp.Areas.General.Business
         {
             try
             {
+                entity.FechaCreacion = DateTimeOffset.Now;
                 SiinErpContext context = new SiinErpContext();
                 context.Empresas.Add(entity);
                 context.SaveChanges();
@@ -105,12 +86,14 @@ namespace SiinErp.Areas.General.Business
                 Empresa ob = context.Empresas.Find(IdEmpresa);
                 ob.RazonSocial = entity.RazonSocial;
                 ob.NitEmpresa = entity.NitEmpresa;
-                ob.IdCiudad = entity.IdCiudad;
+                ob.Ciudad = entity.Ciudad;
                 ob.Direccion = entity.Direccion;
                 ob.Telefono = entity.Telefono;
                 ob.CodEan = entity.CodEan;
                 ob.Representante = entity.Representante;
                 ob.IdDetRegimen = entity.IdDetRegimen;
+                ob.ModificadoPor = entity.ModificadoPor;
+                ob.FechaModificado = DateTimeOffset.Now;
                 context.SaveChanges();
             }
             catch (Exception ex)

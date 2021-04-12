@@ -27,20 +27,22 @@ namespace SiinErp.Areas.Ventas.Business
             {
                 SiinErpContext context = new SiinErpContext();
                 List<Vendedor> Lista = (from ven in context.Vendedores.Where(x => x.IdEmpresa == IdEmp)
-                                          join zon in context.TablasDetalles on ven.IdDetZona equals zon.IdDetalle
-                                          select new Vendedor()
-                                          {
-                                              IdVendedor = ven.IdVendedor,
-                                              IdEmpresa = ven.IdEmpresa,
-                                              NombreVendedor = ven.NombreVendedor,
-                                              Direccion = ven.Direccion,
-                                              Telefono = ven.Telefono,
-                                              IdDetZona = ven.IdDetZona,
-                                              FechaCreacion = ven.FechaCreacion,
-                                              IdUsuario = ven.IdUsuario,
-                                              Estado = ven.Estado,
-                                              NombreZona = zon.Descripcion,
-                                          }).OrderBy(x => x.NombreVendedor).ToList();
+                                        join zon in context.TablasDetalles on ven.IdDetZona equals zon.IdDetalle
+                                        select new Vendedor()
+                                        {
+                                            IdVendedor = ven.IdVendedor,
+                                            IdEmpresa = ven.IdEmpresa,
+                                            NombreVendedor = ven.NombreVendedor,
+                                            Direccion = ven.Direccion,
+                                            Telefono = ven.Telefono,
+                                            IdDetZona = ven.IdDetZona,
+                                            FechaCreacion = ven.FechaCreacion,
+                                            CreadoPor = ven.CreadoPor,
+                                            FechaModificado = ven.FechaModificado,
+                                            ModificadoPor = ven.ModificadoPor,
+                                            Estado = ven.Estado,
+                                            NombreZona = zon.Descripcion,
+                                        }).OrderBy(x => x.NombreVendedor).ToList();
                 return Lista;
             }
             catch (Exception ex)

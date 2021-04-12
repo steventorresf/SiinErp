@@ -47,7 +47,7 @@ namespace SiinErp.Utiles
         // Tipos de documento
         public const string TipoDocOrdenCompra = "OC";
         public const string TipoDocEntradaOc = "CO";
-        public const string TipoDocFacturaVenta = "FV";
+        public const string TipoDocFacturaVenta = "FA";
         public const string TipoDocTraslados = "TB";
         public const string TipoDocEntradaTraslado = "ET";
 

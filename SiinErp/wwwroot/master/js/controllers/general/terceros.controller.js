@@ -35,7 +35,6 @@
             getDepartamentos();
         }
 
-
         function getAll() {
             var response = terService.getAll(vm.userApp.idEmpresa);
             response.then(
@@ -47,7 +46,7 @@
                 }
             );
         }
-
+        
         function getTiposPersona() {
             var response = tabdetService.getAll(Tab.TiposPer, vm.userApp.idEmpresa);
             response.then(

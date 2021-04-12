@@ -191,8 +191,10 @@ namespace SiinErp.Areas.Ventas.Business
                                }).FirstOrDefault();
 
                 List<CajaDetalle> ListaDetalle = (from cd in context.CajaDetalle.Where(x => x.IdCaja == IdCaja)
-                                                  join fp in context.TablasDetalles on cd.IdDetFormaPago equals fp.IdDetalle into joined
-                                                  from j in joined.DefaultIfEmpty()
+                                                  join fp in context.TablasDetalles on cd.IdDetFormaPago equals fp.IdDetalle into JoinedFp
+                                                  from Lfp in JoinedFp.DefaultIfEmpty()
+                                                  join cu in context.TablasDetalles on cd.IdDetCuenta equals cu.IdDetalle into JoinedCu
+                                                  from Lcu in JoinedCu.DefaultIfEmpty()
                                                   select new CajaDetalle()
                                                   {
                                                       IdCajaDetalle = cd.IdCajaDetalle,
@@ -202,12 +204,14 @@ namespace SiinErp.Areas.Ventas.Business
                                                       Transaccion = cd.Transaccion,
                                                       Valor = cd.Valor,
                                                       IdDetFormaPago = cd.IdDetFormaPago,
+                                                      IdDetCuenta = cd.IdDetCuenta,
                                                       Comentario = cd.Comentario,
                                                       Estado = cd.Estado,
                                                       TipoDoc = cd.TipoDoc,
                                                       NumDoc = cd.NumDoc,
                                                       Efectivo = cd.Efectivo,
-                                                      NombreFormaPago = j == null ? (cd.TipoDoc.Equals(Constantes.VenDocEgresoCaja) ? "Egresos" : "Ingresos") : j.Descripcion,
+                                                      NombreFormaPago = Lfp == null ? (cd.TipoDoc.Equals(Constantes.VenDocEgresoCaja) ? "Egresos" : "Ingresos") : Lfp.Descripcion,
+                                                      NombreCuentaBanco = Lcu == null ? "" : Lcu.Descripcion,
                                                   }).ToList();
 
                 entity.ListaDetalle = ListaDetalle;

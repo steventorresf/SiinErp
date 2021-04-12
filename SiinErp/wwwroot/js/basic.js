@@ -17239,6 +17239,7 @@ angular.module('ui.utils',  [
         'ui.grid.selection',
         'ui.grid.autoResize',
         'ui.grid.edit',
+        'ui.grid.cellNav',
         'ngSanitize',
         'ui.select',
         'ngCookies',
@@ -17679,13 +17680,14 @@ const Tab = {
     Turnos: 'GenTurnos',
     FormPago: 'VenFormPago',
     InvConceptos: 'InvConceptos',
+    VenCuentas: 'VenCuentas',
 }
 
 const GenTiposDoc = {
     OrdenCompra: 'OC',
     OrdenVenta: 'OV',
     ReciboCaja: 'RC',
-    FacturaVenta: 'FV',
+    FacturaVenta: 'FA',
 };
 
 const InvTiposDoc = {

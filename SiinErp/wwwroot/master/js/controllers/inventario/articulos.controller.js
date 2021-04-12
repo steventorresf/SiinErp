@@ -69,10 +69,19 @@
         function nuevo() {
             vm.entity = {
                 idEmpresa: vm.userApp.idEmpresa,
+                peso: 0,
+                stkMin: 0,
+                stkMax: 0,
+                esLinea: 'true',
+                estado: 'A',
+                afectaInventario: 'true',
                 creadoPor: vm.userApp.nombreUsuario,
-                idUsuario: vm.userApp.idUsu,
                 nombreBusqueda: '-',
             };
+
+            if (vm.listUnidadMed.length === 1) {
+                vm.entity.idDetUnidadMed = vm.listUnidadMed[0].idDetalle.toString();
+            }
             
             vm.formModify = false;
             vm.formVisible = true;
@@ -83,6 +92,9 @@
             vm.entity.idDetTipoArticulo = angular.copy(entity.idDetTipoArticulo).toString();
             vm.entity.idDetUnidadMed = angular.copy(entity.idDetUnidadMed).toString();
             vm.entity.esLinea = angular.copy(entity.esLinea).toString();
+            vm.entity.incluyeIva = angular.copy(entity.incluyeIva).toString();
+            vm.entity.afectaInventario = angular.copy(entity.afectaInventario).toString();
+            vm.entity.modificadoPor = vm.userApp.nombreUsuario;
             vm.formModify = true;
             vm.formVisible = true;
         }

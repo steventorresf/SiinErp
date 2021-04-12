@@ -5,17 +5,15 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$location', '$scope', '$cookies', 'GenEmpresaService', 'GenDepartamentoService', 'GenCiudadService', 'GenTablaDetService'];
+    AppController.$inject = ['$location', '$scope', '$cookies', 'GenEmpresaService', 'GenTablaDetService'];
 
-    function AppController($location, $scope, $cookies, empService, depService, ciuService, tabdetService) {
+    function AppController($location, $scope, $cookies, empService, tabdetService) {
         var vm = this;
 
         vm.title = 'Home Page';
         vm.userApp = angular.copy($cookies.getObject('UsuApp'));
         vm.init = init;
         vm.getEmpresas = getEmpresas;
-        vm.onChangeDepartamento = onChangeDepartamento;
-        vm.getCiudades = getCiudades;
         vm.nuevo = nuevo;
         vm.editar = editar;
         vm.guardar = guardar;
@@ -24,7 +22,6 @@
 
         function init() {
             getEmpresas();
-            getDepartamentos();
             getRegimens();
         }
 
@@ -33,35 +30,6 @@
             response.then(
                 function (response) {
                     vm.gridOptions.data = response.data;
-                },
-                function (response) {
-                    console.log(response);
-                }
-            );
-        }
-
-        function getDepartamentos() {
-            var response = depService.getAll();
-            response.then(
-                function (response) {
-                    vm.listDepartamentos = response.data;
-                },
-                function (response) {
-                    console.log(response);
-                }
-            );
-        }
-
-        function onChangeDepartamento() {
-            vm.entity.idCiudad = null;
-            getCiudades();
-        }
-
-        function getCiudades() {
-            var response = ciuService.getAll(vm.entity.idDepartamento);
-            response.then(
-                function (response) {
-                    vm.listCiudades = response.data;
                 },
                 function (response) {
                     console.log(response);
@@ -83,15 +51,17 @@
 
 
         function nuevo() {
-            vm.entity = {};
+            vm.entity = {
+                creadoPor: vm.userApp.nombreUsuario,
+            };
             vm.formModify = false;
             vm.formVisible = true;
         }
 
         function editar(entity) {
             vm.entity = angular.copy(entity);
-            getCiudades();
             vm.entity.idDetRegimen = angular.copy(entity.idDetRegimen).toString();
+            vm.entity.modificadoPor = vm.userApp.nombreUsuario;
             vm.formModify = true;
             vm.formVisible = true;
         }
@@ -141,9 +111,9 @@
                     width: 300,
                 },
                 {
-                    name: 'nombreCiudad',
-                    field: 'nombreCiudad',
-                    displayName: 'Nombre Ciudad',
+                    name: 'ciudad',
+                    field: 'ciudad',
+                    displayName: 'Ciudad',
                     headerCellClass: 'bg-header',
                     cellClass: 'text-center',
                     width: 300,

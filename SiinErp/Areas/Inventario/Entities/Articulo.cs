@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SiinErp.Areas.Inventario.Entities
 {
     [Table("Articulo", Schema = "Inventario")]
-    public class Articulo
+    public class Articulo : Utiles.Auditoria
     {
         [Key]
         public int IdArticulo { get; set; }
@@ -48,6 +48,9 @@ namespace SiinErp.Areas.Inventario.Entities
         public decimal PcIva { get; set; }
 
         [Required]
+        public bool IncluyeIva { get; set; }
+
+        [Required]
         public decimal StkMin { get; set; }
 
         [Required]
@@ -73,12 +76,9 @@ namespace SiinErp.Areas.Inventario.Entities
         public DateTimeOffset? FechaUSalida { get; set; }
 
         public DateTimeOffset? FechaUPedida { get; set; }
-
+        
         [Required]
-        public DateTimeOffset FechaCreacion { get; set; }
-
-        [Required]
-        public int IdUsuario { get; set; }
+        public bool AfectaInventario { get; set; }
 
         [Required]
         [StringLength(1)]

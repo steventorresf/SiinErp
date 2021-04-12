@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
+using Newtonsoft.Json.Linq;
+using SiinErp.Areas.Cartera.Entities;
 using SiinErp.Areas.Compras.Entities;
 using SiinErp.Areas.General.Abstract;
 using SiinErp.Areas.General.Business;
@@ -17,10 +19,14 @@ namespace SiinErp.Areas.Inventario.Business
 {
     public class MovimientoBusiness : IMovimientoBusiness
     {
+        private readonly IMovimientoDetalleBusiness movimientoDetalleBusiness;
+        private readonly IMovimientoFormaPagoBusiness movimientoFormaPagoBusiness;
         private readonly IErrorBusiness errorBusiness;
 
         public MovimientoBusiness()
         {
+            movimientoDetalleBusiness = new MovimientoDetalleBusiness();
+            movimientoFormaPagoBusiness = new MovimientoFormaPagoBusiness();
             errorBusiness = new ErrorBusiness();
         }
 
@@ -167,10 +173,14 @@ namespace SiinErp.Areas.Inventario.Business
             }
         }
 
-        public int CreateByPuntoDeVenta(Movimiento entityMov, List<MovimientoDetalle> listaDetalleMov, List<MovimientoFormaPago> listaDetallePag)
+        public int CreateByPuntoDeVenta(JObject data)
         {
             try
             {
+                Movimiento entityMov = data["entityMov"].ToObject<Movimiento>();
+                List<MovimientoDetalle> listaDetalleMov = data["listDetalleMov"].ToObject<List<MovimientoDetalle>>();
+                List<MovimientoFormaPago> listaDetallePag = data["listDetallePag"].ToObject<List<MovimientoFormaPago>>();
+
                 SiinErpContext context = new SiinErpContext();
                 using (var transaccion = context.Database.BeginTransaction())
                 {
@@ -178,12 +188,14 @@ namespace SiinErp.Areas.Inventario.Business
                     tiposdocmov.NumDoc++;
                     context.SaveChanges();
 
+                    Resolucion resolucion = context.Resolucion.FirstOrDefault(x => x.IdEmpresa == entityMov.IdEmpresa && x.Estado.Equals(Constantes.EstadoActivo));
+
                     entityMov.TipoDoc = tiposdocmov.TipoDoc;
                     entityMov.NumDoc = tiposdocmov.NumDoc;
                     entityMov.CodModulo = Constantes.ModuloVentas;
                     entityMov.Transaccion = tiposdocmov.IdDetTransaccion;
                     entityMov.Periodo = entityMov.FechaDoc.ToString("yyyyMM");
-                    entityMov.IdDetCenCosto = null;
+                    entityMov.IdResolucion = resolucion.IdResolucion;
                     entityMov.Estado = Constantes.EstadoActivo;
                     entityMov.FechaVencimiento = entityMov.PlazoPago == null ? entityMov.FechaDoc : entityMov.FechaDoc.AddDays(entityMov.PlazoPago.PlazoDias);
                     entityMov.FechaCreacion = DateTimeOffset.Now;
@@ -199,6 +211,27 @@ namespace SiinErp.Areas.Inventario.Business
                         vrBruto += m.VrUnitario * m.Cantidad;
                         vrDscto += m.VrUnitario * m.Cantidad * m.PcDscto / 100;
                         vrIva += m.VrUnitario * m.Cantidad * m.PcIva / 100;
+
+                        Articulo entityArt = context.Articulos.Find(m.IdArticulo);
+                        if (entityArt.AfectaInventario)
+                        {
+                            ArticuloExistencia entityExist = context.Existencias.FirstOrDefault(x => x.IdArticulo == m.IdArticulo && x.IdDetAlmacen == entityMov.IdDetAlmacen);
+                            if (entityExist == null)
+                            {
+                                entityExist = new ArticuloExistencia();
+                                entityExist.IdEmpresa = entityMov.IdEmpresa;
+                                entityExist.IdDetAlmacen = entityMov.IdDetAlmacen;
+                                entityExist.IdArticulo = m.IdArticulo;
+                                entityExist.Existencia = m.Cantidad * -1;
+                                context.Existencias.Add(entityExist);
+                                context.SaveChanges();
+                            }
+                            else
+                            {
+                                entityExist.Existencia += m.Cantidad * -1;
+                                context.SaveChanges();
+                            }
+                        }
                     }
 
                     List<CajaDetalle> ListaCajaDetalle = new List<CajaDetalle>();
@@ -207,12 +240,14 @@ namespace SiinErp.Areas.Inventario.Business
                     {
                         mfp.IdMovimiento = obMov.IdMovimiento;
 
+
                         CajaDetalle entityCajaDet = new CajaDetalle();
-                        entityCajaDet.IdCaja = entityMov.IdCaja;
+                        entityCajaDet.IdCaja = Convert.ToInt32(entityMov.IdCaja);
                         entityCajaDet.IdMovimiento = obMov.IdMovimiento;
                         entityCajaDet.TipoDoc = obMov.TipoDoc;
                         entityCajaDet.NumDoc = obMov.NumDoc;
                         entityCajaDet.IdDetFormaPago = mfp.IdDetFormaDePago;
+                        entityCajaDet.IdDetCuenta = mfp.IdDetCuenta;
                         entityCajaDet.Efectivo = mfp.Descripcion.Contains("Efectivo") ? true : false;
                         entityCajaDet.Transaccion = 1;
                         entityCajaDet.Valor = mfp.Valor;
@@ -230,6 +265,14 @@ namespace SiinErp.Areas.Inventario.Business
                     context.CajaDetalle.AddRange(ListaCajaDetalle);
                     context.SaveChanges();
 
+                    if(entityMov.IdTercero != null)
+                    {
+                        Tercero entityCli = context.Terceros.Find(entityMov.IdTercero);
+                        entityCli.Direccion = entityMov.DireccionTercero;
+                        entityCli.Telefono = entityMov.TelefonoTercero;
+                        context.SaveChanges();
+                    }
+
                     transaccion.Commit();
 
                     return obMov.IdMovimiento;
@@ -242,10 +285,200 @@ namespace SiinErp.Areas.Inventario.Business
             }
         }
 
-        public void CreateByFacturaDeVenta(Movimiento entityMov, List<MovimientoDetalle> listaDetalleMov)
+        public int UpdateByPuntoDeVenta(JObject data)
         {
             try
             {
+                Movimiento entityMov = data["entityMov"].ToObject<Movimiento>();
+                List<MovimientoDetalle> listaDetalleMov = data["listDetalleMov"].ToObject<List<MovimientoDetalle>>();
+                List<MovimientoFormaPago> listaDetallePag = data["listDetallePag"].ToObject<List<MovimientoFormaPago>>();
+
+                SiinErpContext context = new SiinErpContext();
+                using (var transaccion = context.Database.BeginTransaction())
+                {
+                    Movimiento entityMovBD = context.Movimientos.Find(entityMov.IdMovimiento);
+                    entityMovBD.IdTercero = entityMov.IdTercero;
+                    entityMovBD.IdPlazoPago = entityMov.IdPlazoPago;
+                    entityMovBD.IdListaPrecio = entityMov.IdListaPrecio;
+                    entityMovBD.FechaDoc = entityMov.FechaDoc;
+                    entityMovBD.Periodo = entityMov.FechaDoc.ToString("yyyyMM");
+                    entityMovBD.FechaVencimiento = entityMov.PlazoPago == null ? entityMov.FechaDoc : entityMov.FechaDoc.AddDays(entityMov.PlazoPago.PlazoDias);
+                    entityMovBD.ValorBruto = entityMov.ValorBruto;
+                    entityMovBD.ValorDscto = entityMov.ValorDscto;
+                    entityMovBD.ValorIva = entityMov.ValorIva;
+                    entityMovBD.ValorNeto = entityMov.ValorNeto;
+                    entityMovBD.ModificadoPor = entityMov.ModificadoPor;
+                    entityMovBD.FechaModificado = DateTimeOffset.Now;
+                    context.SaveChanges();
+
+                    List<MovimientoDetalle> listaDetalleMovBD = context.MovimientosDetalles.Where(x => x.IdMovimiento == entityMov.IdMovimiento).ToList();
+                    foreach (MovimientoDetalle m in listaDetalleMovBD)
+                    {
+                        MovimientoDetalle entityDetalle = listaDetalleMov.FirstOrDefault(x => x.IdDetalleMovimiento == m.IdDetalleMovimiento);
+                        if (entityDetalle == null)
+                        {
+                            context.MovimientosDetalles.Remove(m);
+                            context.SaveChanges();
+
+                            Articulo entityArt = context.Articulos.Find(m.IdArticulo);
+                            if (entityArt.AfectaInventario)
+                            {
+                                ArticuloExistencia entityExist = context.Existencias.FirstOrDefault(x => x.IdArticulo == m.IdArticulo && x.IdDetAlmacen == entityMov.IdDetAlmacen);
+                                if (entityExist != null)
+                                {
+                                    entityExist.Existencia += m.Cantidad;
+                                    context.SaveChanges();
+                                }
+                            }
+                        }
+                    }
+
+                    listaDetalleMovBD = context.MovimientosDetalles.Where(x => x.IdMovimiento == entityMov.IdMovimiento).ToList();
+                    foreach (MovimientoDetalle m in listaDetalleMov)
+                    {
+                        Articulo entityArt = context.Articulos.Find(m.IdArticulo);
+                        MovimientoDetalle entityDetalle = listaDetalleMovBD.FirstOrDefault(x => x.IdDetalleMovimiento == m.IdDetalleMovimiento);
+                        if (entityDetalle == null)
+                        {
+                            m.IdMovimiento = entityMov.IdMovimiento;
+                            context.MovimientosDetalles.Add(m);
+                            context.SaveChanges();
+
+                            if (entityArt.AfectaInventario)
+                            {
+                                ArticuloExistencia entityExist = context.Existencias.FirstOrDefault(x => x.IdArticulo == m.IdArticulo && x.IdDetAlmacen == entityMov.IdDetAlmacen);
+                                if (entityExist == null)
+                                {
+                                    entityExist = new ArticuloExistencia();
+                                    entityExist.IdEmpresa = entityMov.IdEmpresa;
+                                    entityExist.IdDetAlmacen = entityMov.IdDetAlmacen;
+                                    entityExist.IdArticulo = m.IdArticulo;
+                                    entityExist.Existencia = m.Cantidad * entityMov.Transaccion;
+                                    context.Existencias.Add(entityExist);
+                                    context.SaveChanges();
+                                }
+                                else
+                                {
+                                    entityExist.Existencia += m.Cantidad * entityMov.Transaccion;
+                                    context.SaveChanges();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (entityArt.AfectaInventario)
+                            {
+                                ArticuloExistencia entityExist = context.Existencias.FirstOrDefault(x => x.IdArticulo == m.IdArticulo && x.IdDetAlmacen == entityMov.IdDetAlmacen);
+                                if (entityExist != null)
+                                {
+                                    entityExist.Existencia += entityDetalle.Cantidad - m.Cantidad;
+                                    context.SaveChanges();
+                                }
+                            }
+
+                            entityDetalle.Cantidad = m.Cantidad;
+                            entityDetalle.PcDscto = m.PcDscto;
+                            entityDetalle.PcIva = m.PcIva;
+                            entityDetalle.VrUnitario = m.VrUnitario;
+                            entityDetalle.VrCosto = m.VrCosto;
+                            entityDetalle.VrBruto = m.VrBruto;
+                            entityDetalle.VrNeto = m.VrNeto;
+                            context.SaveChanges();
+                        }
+                    }
+
+                    List<MovimientoFormaPago> listaDetallePagDB = context.MovimientosFormasPagos.Where(x => x.IdMovimiento == entityMov.IdMovimiento).ToList();
+                    foreach (MovimientoFormaPago m in listaDetallePagDB)
+                    {
+                        MovimientoFormaPago entityFormaPag = listaDetallePag.FirstOrDefault(x => x.IdMovFormaDePago == m.IdMovFormaDePago && x.Valor > 0);
+                        if (entityFormaPag == null)
+                        {
+                            context.MovimientosFormasPagos.Remove(m);
+                            context.SaveChanges();
+
+                            CajaDetalle entityCajaDet = context.CajaDetalle.FirstOrDefault(x => x.IdMovimiento == m.IdMovimiento && x.IdCaja == entityMov.IdCaja && x.IdDetFormaPago == m.IdDetFormaDePago);
+                            if (entityCajaDet != null)
+                            {
+                                context.CajaDetalle.Remove(entityCajaDet);
+                                context.SaveChanges();
+                            }
+                        }
+                    }
+
+                    listaDetallePagDB = context.MovimientosFormasPagos.Where(x => x.IdMovimiento == entityMov.IdMovimiento).ToList();
+                    foreach (MovimientoFormaPago mfp in listaDetallePag)
+                    {
+                        MovimientoFormaPago entityFormaPag = listaDetallePagDB.FirstOrDefault(x => x.IdMovFormaDePago == mfp.IdMovFormaDePago);
+                        if (entityFormaPag == null)
+                        {
+                            mfp.IdMovFormaDePago = 0;
+                            mfp.IdMovimiento = entityMov.IdMovimiento;
+                            context.MovimientosFormasPagos.Add(mfp);
+                            context.SaveChanges();
+
+                            if(entityMov.IdCaja != null)
+                            {
+                                CajaDetalle entityCajaDet = new CajaDetalle();
+                                entityCajaDet.IdCaja = Convert.ToInt32(entityMov.IdCaja);
+                                entityCajaDet.IdMovimiento = entityMov.IdMovimiento;
+                                entityCajaDet.TipoDoc = entityMov.TipoDoc;
+                                entityCajaDet.NumDoc = entityMov.NumDoc;
+                                entityCajaDet.IdDetFormaPago = mfp.IdDetFormaDePago;
+                                entityCajaDet.IdDetCuenta = mfp.IdDetCuenta;
+                                entityCajaDet.Efectivo = mfp.Descripcion.Contains("Efectivo") ? true : false;
+                                entityCajaDet.Transaccion = 1;
+                                entityCajaDet.Valor = mfp.Valor;
+                                entityCajaDet.Estado = Constantes.EstadoActivo;
+                                entityCajaDet.FechaCreacion = DateTimeOffset.Now;
+                                entityCajaDet.CreadoPor = entityMov.ModificadoPor;
+                                context.CajaDetalle.Add(entityCajaDet);
+                                context.SaveChanges();
+                            }
+                        }
+                        else
+                        {
+                            entityFormaPag.Valor = mfp.Valor;
+                            context.SaveChanges();
+
+                            CajaDetalle entityCajaDet = context.CajaDetalle.FirstOrDefault(x => x.IdMovimiento == entityMov.IdMovimiento && x.IdCaja == entityMov.IdCaja && x.IdDetFormaPago == mfp.IdDetFormaDePago && x.IdDetCuenta == mfp.IdDetCuenta);
+                            if (entityCajaDet != null)
+                            {
+                                entityCajaDet.Valor = mfp.Valor;
+                                entityCajaDet.ModificadoPor = entityMov.ModificadoPor;
+                                entityCajaDet.FechaModificado = DateTimeOffset.Now;
+                                context.SaveChanges();
+                            }
+                        }
+                    }
+
+                    if (entityMov.IdTercero != null)
+                    {
+                        Tercero entityCli = context.Terceros.Find(entityMov.IdTercero);
+                        entityCli.NombreTercero = entityMov.NombreTercero;
+                        entityCli.Direccion = entityMov.DireccionTercero;
+                        entityCli.Telefono = entityMov.TelefonoTercero;
+                        context.SaveChanges();
+                    }
+
+                    transaccion.Commit();
+
+                    return entityMov.IdMovimiento;
+                }
+            }
+            catch (Exception ex)
+            {
+                errorBusiness.Create("UpdateMovimientoByPuntoVenta", ex.Message, null);
+                throw;
+            }
+        }
+
+        public void CreateByFacturaDeVenta(JObject data)
+        {
+            try
+            {
+                Movimiento entityMov = data["entityMov"].ToObject<Movimiento>();
+                List<MovimientoDetalle> listaDetalleMov = data["listDetalleMov"].ToObject<List<MovimientoDetalle>>();
+
                 SiinErpContext context = new SiinErpContext();
                 using (var transaccion = context.Database.BeginTransaction())
                 {
@@ -292,6 +525,43 @@ namespace SiinErp.Areas.Inventario.Business
             }
         }
 
+        public Movimiento GetByDocumento(JObject data)
+        {
+            try
+            {
+                int IdEmpresa = data["idEmpresa"].ToObject<int>();
+                string TipoDoc = data["tipoDoc"].ToObject<string>();
+                int NumDoc = data["numDoc"].ToObject<int>();
+
+                SiinErpContext context = new SiinErpContext();
+                Movimiento entityMov = context.Movimientos.FirstOrDefault(x => x.NumDoc == NumDoc && x.TipoDoc.Equals(TipoDoc) && x.IdEmpresa == IdEmpresa);
+
+                if (entityMov != null)
+                {
+                    entityMov.VrRestante = entityMov.ValorNeto;
+                    entityMov.sFechaFormatted = entityMov.FechaDoc.ToString("MM/dd/yyyy");
+                    if (entityMov.IdTercero != null)
+                    {
+                        Tercero entityTer = context.Terceros.Find(entityMov.IdTercero);
+                        entityMov.NitCedula = entityTer.NitCedula;
+                        entityMov.NombreTercero = entityTer.NombreTercero;
+                        entityMov.DireccionTercero = entityTer.Direccion;
+                        entityMov.TelefonoTercero = entityTer.Telefono;
+                    }
+
+                    entityMov.ListaDetalle = movimientoDetalleBusiness.GetMovimientosDetalles(entityMov.IdMovimiento);
+                    entityMov.ListaFormaPago = movimientoFormaPagoBusiness.GetMovimientoFormasPago(entityMov.IdMovimiento);
+                }
+
+                return entityMov;
+            }
+            catch(Exception ex)
+            {
+                errorBusiness.Create("GetByDocumento", ex.Message, null);
+                throw;
+            }
+        }
+
 
         public List<Movimiento> GetMovimientosByModificable(int IdEmp)
         {
@@ -333,7 +603,7 @@ namespace SiinErp.Areas.Inventario.Business
                 SiinErpContext context = new SiinErpContext();
                 List<Movimiento> Lista = (from mov in context.Movimientos.Where(x => x.IdEmpresa == IdEmp && x.TipoDoc.Equals(Constantes.TipoDocFacturaVenta) && x.FechaDoc >= FechaIni && x.FechaDoc <= FechaFin && x.Estado.Equals(Constantes.EstadoActivo))
                                           join cli in context.Terceros on mov.IdTercero equals cli.IdTercero
-                                          join ppa in context.PlazosPagos on cli.IdPlazoPago equals ppa.IdPlazoPago
+                                          join ppa in context.PlazosPagos on mov.IdPlazoPago equals ppa.IdPlazoPago
                                           join tip in context.TiposDocumentos on mov.TipoDoc equals tip.TipoDoc
                                           join alm in context.TablasDetalles on mov.IdDetAlmacen equals alm.IdDetalle
                                           select new Movimiento()
@@ -347,6 +617,7 @@ namespace SiinErp.Areas.Inventario.Business
                                               IdTercero = mov.IdTercero,
                                               IdDetAlmacen = mov.IdDetAlmacen,
                                               IdDetCenCosto = mov.IdDetCenCosto,
+                                              IdPlazoPago = mov.IdPlazoPago,
                                               IdDetConcepto = mov.IdDetConcepto,
                                               NombreAlmacen = alm.Descripcion,
                                               ValorNeto = mov.ValorNeto,
@@ -513,6 +784,7 @@ namespace SiinErp.Areas.Inventario.Business
                 {
                     Empresa entityEmpresa = context.Empresas.Find(entity.IdEmpresa);
                     entity.NombreEmpresa = entityEmpresa.RazonSocial;
+                    entity.Empresa = entityEmpresa;
                 }
 
                 if(entity.IdDetAlmacen > 0)
@@ -533,16 +805,30 @@ namespace SiinErp.Areas.Inventario.Business
                     entity.NombreCentroCosto = entityCentroCosto.Descripcion;
                 }
 
+                if(entity.IdPlazoPago != null && entity.IdPlazoPago > 0)
+                {
+                    PlazoPago entityPlago = context.PlazosPagos.Find(entity.IdPlazoPago);
+                    entity.PlazoPago = entityPlago;
+                }
+
                 if (entity.IdTercero != null && entity.IdTercero > 0)
                 {
-                    TablaDetalle entityTercero = context.TablasDetalles.Find(entity.IdTercero);
-                    entity.NombreTercero = entityTercero.Descripcion;
+                    Tercero entityTercero = context.Terceros.Find(entity.IdTercero);
+                    entityTercero.NombreCiudad = context.Ciudades.Find(entityTercero.IdCiudad).NombreCiudad;
+                    entity.NombreTercero = entityTercero.NombreTercero;
+                    entity.Tercero = entityTercero;
                 }
 
                 if (entity.IdVendedor != null && entity.IdVendedor > 0)
                 {
                     Vendedor entityVendedor = context.Vendedores.Find(entity.IdVendedor);
                     entity.NombreVendedor = entityVendedor.NombreVendedor;
+                }
+
+                if(entity.IdResolucion != null && entity.IdResolucion > 0)
+                {
+                    entity.Resolucion = context.Resolucion.Find(entity.IdResolucion);
+                    entity.Resolucion.sFecha = entity.Resolucion.Fecha.ToString("yyyy-MM-dd");
                 }
 
                 entity.ListaDetalle = (from d in context.MovimientosDetalles.Where(x => x.IdMovimiento == IdMov)

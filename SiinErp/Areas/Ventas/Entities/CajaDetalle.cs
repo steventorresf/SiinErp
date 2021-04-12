@@ -27,6 +27,8 @@ namespace SiinErp.Areas.Ventas.Entities
 
         public int? IdDetFormaPago { get; set; }
 
+        public int? IdDetCuenta { get; set; }
+
         [Required]
         public bool Efectivo { get; set; }
 
@@ -46,5 +48,8 @@ namespace SiinErp.Areas.Ventas.Entities
 
         [NotMapped]
         public string NombreFormaPago { get; set; }
+
+        [NotMapped]
+        public string NombreCuentaBanco { get; set; }
     }
 }

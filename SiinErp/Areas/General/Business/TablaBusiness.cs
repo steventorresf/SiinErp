@@ -51,20 +51,20 @@ namespace SiinErp.Areas.General.Business
             }
         }
 
-        public List<Tabla> GetTablas()
+        public List<Tabla> GetTablasVisible()
         {
             try
             {
                 SiinErpContext context = new SiinErpContext();
-                List<Tabla> Lista = (from ta in context.Tablas
-                                      join mo in context.Modulos on ta.CodModulo equals mo.CodModulo
-                                      select new Tabla()
-                                      {
-                                          IdTabla = ta.IdTabla,
-                                          CodModulo = ta.CodModulo,
-                                          CodTabla = ta.CodTabla,
-                                          Descripcion = ta.Descripcion,
-                                      }).OrderBy(x => x.Descripcion).OrderBy(x => x.CodModulo).ToList();
+                List<Tabla> Lista = (from ta in context.Tablas.Where(x => x.Visible)
+                                     join mo in context.Modulos on ta.CodModulo equals mo.CodModulo
+                                     select new Tabla()
+                                     {
+                                         IdTabla = ta.IdTabla,
+                                         CodModulo = ta.CodModulo,
+                                         CodTabla = ta.CodTabla,
+                                         Descripcion = ta.Descripcion,
+                                     }).OrderBy(x => x.Descripcion).OrderBy(x => x.CodModulo).ToList();
                 return Lista;
             }
             catch (Exception ex)

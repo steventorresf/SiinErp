@@ -13,13 +13,14 @@
     Turnos: 'GenTurnos',
     FormPago: 'VenFormPago',
     InvConceptos: 'InvConceptos',
+    VenCuentas: 'VenCuentas',
 }
 
 const GenTiposDoc = {
     OrdenCompra: 'OC',
     OrdenVenta: 'OV',
     ReciboCaja: 'RC',
-    FacturaVenta: 'FV',
+    FacturaVenta: 'FA',
 };
 
 const InvTiposDoc = {

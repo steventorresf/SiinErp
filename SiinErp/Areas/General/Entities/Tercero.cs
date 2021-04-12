@@ -24,6 +24,10 @@ namespace SiinErp.Areas.General.Entities
 
         [Required]
         [StringLength(50)]
+        public string CodTercero { get; set; }
+
+        [Required]
+        [StringLength(50)]
         public string NitCedula { get; set; }
 
         [StringLength(1)]
@@ -35,6 +39,10 @@ namespace SiinErp.Areas.General.Entities
         [Required]
         [StringLength(200)]
         public string NombreTercero { get; set; }
+
+        [Required]
+        [StringLength(300)]
+        public string NombreBusqueda { get; set; }
 
         [Required]
         public int IdCiudad { get; set; }

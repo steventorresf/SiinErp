@@ -925,6 +925,94 @@
 
     angular
         .module('app')
+        .factory('MenuUsuarioService', MenuUsuarioService);
+
+    MenuUsuarioService.$inject = ['$http', '$q'];
+
+    function MenuUsuarioService($http, $q) {
+        var nameSpace = '/General/api/MenuUsuario/';
+        var service = {
+            setMenuUsuario: setMenuUsuario,
+            getAllByIdUsuario: getAllByIdUsuario,
+            getNotAllByIdUsuario: getNotAllByIdUsuario,
+            create: create,
+            remove: remove
+        };
+
+        return service;
+
+        function setMenuUsuario(idUsu) {
+            return $http.get(nameSpace + 'GetMenu/' + idUsu)
+                .then(
+                    function (response) {
+                        $("#MenuId").html(response.data);
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getAllByIdUsuario(idUsu) {
+            return $http.get(nameSpace + idUsu)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getNotAllByIdUsuario(idUsu) {
+            return $http.get(nameSpace + 'Not/' + idUsu)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function create(data) {
+            return $http.post(nameSpace, data)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function remove(idMenuUsu) {
+            return $http.delete(nameSpace + idMenuUsu)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+    }
+})();
+(function () {
+    'use strict';
+
+    angular
+        .module('app')
         .factory('GenModuloService', GenModuloService);
 
     GenModuloService.$inject = ['$http', '$q'];
@@ -1194,6 +1282,80 @@
 
     angular
         .module('app')
+        .factory('GenSecuenciaService', GenSecuenciaService);
+
+    GenSecuenciaService.$inject = ['$http', '$q'];
+
+    function GenSecuenciaService($http, $q) {
+        var nameSpace = '/General/api/Secuencia/';
+
+        var service = {
+            getStrSecuencia: getStrSecuencia,
+            getAll: getAll,
+            create: create,
+            update: update,
+        };
+
+        return service;
+
+        function getStrSecuencia(prefijo, idEmpresa) {
+            return $http.get(nameSpace + 'GetSec/' + prefijo + '/' + idEmpresa)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getAll(idDep) {
+            return $http.get(nameSpace + idDep)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function create(data) {
+            return $http.post(nameSpace, data)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function update(id, data) {
+            return $http.put(nameSpace + id, data)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+    }
+})();
+(function () {
+    'use strict';
+
+    angular
+        .module('app')
         .factory('GenTablaService', GenTablaService);
 
     GenTablaService.$inject = ['$http', '$q'];
@@ -1360,6 +1522,7 @@
             updatePro: updatePro,
 
             getAllCli: getAllCli,
+            getCliByPrefix: getCliByPrefix,
             getCliByIden: getCliByIden,
             getActCli: getActCli,
             updateCli: updateCli,
@@ -1475,6 +1638,19 @@
 
         function getCliByIden(data) {
             return $http.post(nameSpace + 'CliByIden/', data)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getCliByPrefix(data) {
+            return $http.post(nameSpace + 'CliByPrefix/', data)
                 .then(
                     function (response) {
                         return response;
@@ -1731,6 +1907,7 @@
 
         var service = {
             getAll: getAll,
+            getAllByPrefix: getAllByPrefix,
             getByCodigoAndListaP: getByCodigoAndListaP,
             GetByPrefixListaP: GetByPrefixListaP,
             getAllByAlmPrefix: getAllByAlmPrefix,
@@ -1742,6 +1919,19 @@
 
         function getAll(idEmp) {
             return $http.get(nameSpace + idEmp)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getAllByPrefix(data) {
+            return $http.post(nameSpace + 'ByPrefix/', data)
                 .then(
                     function (response) {
                         return response;
@@ -1833,17 +2023,19 @@
 
         var service = {
             getAll: getAll,
+            getByDocumento: getByDocumento,
             getLastAlm: getLastAlm,
             getAct: getAct,
             create: create,
             createByEntradaCompra: createByEntradaCompra,
             createByPuntoDeVenta: createByPuntoDeVenta,
+            updateByPuntoDeVenta: updateByPuntoDeVenta,
             createByFacturaDeVenta: createByFacturaDeVenta,
             update: update,
             remove: remove,
             getPendientesTercero: getPendientesTercero,
             imprimir: imprimir,
-            imprimirFC: imprimirFC,
+            imprimirPVen: imprimirPVen,
             imprimirFA: imprimirFA,
         };
 
@@ -1851,6 +2043,19 @@
 
         function getAll(idEmp, modulo, fechaIni, FechaFin) {
             return $http.get(nameSpace + idEmp + '/' + modulo + '/' + fechaIni + '/' + FechaFin)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function getByDocumento(data) {
+            return $http.post(nameSpace + 'ByDoc/', data)
                 .then(
                     function (response) {
                         return response;
@@ -1940,6 +2145,19 @@
                 );
         }
 
+        function updateByPuntoDeVenta(data) {
+            return $http.put(nameSpace + 'ByPuntoDeVenta/', data)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
         function createByFacturaDeVenta(data) {
             return $http.post(nameSpace + 'ByFacturaDeVenta/', data)
                 .then(
@@ -1991,11 +2209,11 @@
                 );
         }
 
-        function imprimirFC(id) {
+        function imprimirPVen(id) {
             return $http.get(nameSpace + '/Imp/' + id)
                 .then(
                     function (response) {
-                        fnImprimirFC(response.data);
+                        fnImprimirPVen(response.data);
                     },
                     function (errResponse) {
                         return $q.reject(errResponse);
@@ -2234,7 +2452,13 @@
                                 ],
                             ]
                         },
-                        layout: 'noBorders',
+                        layout: {
+                            defaultBorder: false,
+                            paddingLeft: function (i, node) { return 0; },
+                            paddingRight: function (i, node) { return 0; },
+                            paddingTop: function (i, node) { return 0; },
+                            paddingBottom: function (i, node) { return 0; },
+                        },
                         margin: [0, 0, 0, 15],
                     },
                     {
@@ -2256,7 +2480,13 @@
                                 ],
                             ]
                         },
-                        layout: 'noBorders',
+                        layout: {
+                            defaultBorder: false,
+                            paddingLeft: function (i, node) { return 0; },
+                            paddingRight: function (i, node) { return 0; },
+                            paddingTop: function (i, node) { return 0; },
+                            paddingBottom: function (i, node) { return 0; },
+                        },
                         margin: [0, 0, 0, 15],
                     },
                     {
@@ -2268,6 +2498,10 @@
                         layout: {
                             hLineColor: 'lightgray',
                             vLineColor: 'lightgray',
+                            paddingLeft: function (i, node) { return 0; },
+                            paddingRight: function (i, node) { return 0; },
+                            paddingTop: function (i, node) { return 0; },
+                            paddingBottom: function (i, node) { return 0; },
                         },
                         margin: [0, 0, 0, 15],
                     },
@@ -2288,7 +2522,13 @@
                                 ]
                             ]
                         },
-                        layout: 'noBorders',
+                        layout: {
+                            defaultBorder: false,
+                            paddingLeft: function (i, node) { return 0; },
+                            paddingRight: function (i, node) { return 0; },
+                            paddingTop: function (i, node) { return 0; },
+                            paddingBottom: function (i, node) { return 0; },
+                        },
                         margin: [0, 0, 0, 15],
                     },
                 ],
@@ -2312,8 +2552,8 @@
                 [
                     { text: 'Código', bold: true, alignment: 'left', },
                     { text: 'Articulo', bold: true, alignment: 'left', },
-                    { text: 'Cant', bold: true, alignment: 'left', },
-                    { text: 'VrNeto', bold: true, alignment: 'left', },
+                    { text: 'Cant', bold: true, alignment: 'center', },
+                    { text: 'VrNeto', bold: true, alignment: 'right', },
                 ]
             ];
 
@@ -2325,8 +2565,8 @@
                     [
                         { text: d.codArticulo },
                         { text: d.nombreArticulo },
-                        { text: d.cantidad, alignment: 'center', },
-                        { text: d.vrNeto, alignment: 'right', },
+                        { text: PonerPuntosDouble(d.cantidad), alignment: 'center', },
+                        { text: PonerPuntosDouble(d.vrNeto), alignment: 'right', },
                     ]
                 );
 
@@ -2338,67 +2578,95 @@
 
             var Documento = {
                 pageSize: 'A4',
-                //header: function (currentPage, pageCount, pageSize) {
-                //    return [
-                //        {
-                //            text: 'Página ' + currentPage.toString() + '/' + pageCount,
-                //            alignment: 'right',
-                //            margin: [0, 15, 40, 0],
-                //            style: 'estilo',
-                //        },
-                //    ]
-                //},
+                header: function (currentPage, pageCount, pageSize) {
+                    return [
+                        {
+                            text: 'Página ' + currentPage.toString() + '/' + pageCount,
+                            alignment: 'right',
+                            margin: [0, 15, 35, 0],
+                            style: 'estilo',
+                        },
+                    ]
+                },
                 content: [
                     {
                         style: 'estilo',
                         table: {
-                            widths: ['20%', '40%', '20%', '20%'],
+                            widths: ['40%', '30%', '30%'],
                             body: [
                                 [
-                                    {
-                                        text: entity.nombreEmpresa,
-                                        colSpan: 4,
-                                        alignment: 'center',
-                                        bold: true,
-                                        margin: [0, 0, 0, 15],
-                                    },
-                                    {},
-                                    {},
-                                    {},
+                                    { text: entity.empresa.razonSocial, },
+                                    { text: 'NIT  ' + entity.empresa.nitEmpresa, },
+                                    { text: 'TEL  ' + entity.empresa.telefono, },
                                 ],
                                 [
-                                    { text: 'Fecha:', bold: true },
-                                    { text: entity.sFechaFormatted },
-                                    { text: 'No. ' + entity.tipoDoc, bold: true },
-                                    { text: entity.numDoc },
-                                ],
-                                [
-                                    { text: 'Usuario:', bold: true },
-                                    { text: entity.creadoPor, colSpan: 3 },
-                                    {},
+                                    { text: entity.empresa.representante, },
+                                    { text: entity.empresa.direccion, colSpan: 2, },
                                     {},
                                 ],
                             ]
                         },
-                        layout: 'noBorders',
-                        margin: [0, 0, 0, 15],
+                        layout: {
+                            defaultBorder: false,
+                            paddingLeft: function (i, node) { return 2; },
+                            paddingRight: function (i, node) { return 2; },
+                            paddingTop: function (i, node) { return 2; },
+                            paddingBottom: function (i, node) { return 2; },
+                        },
+                        margin: [0, 0, 0, 2],
                     },
                     {
                         style: 'estilo',
                         table: {
-                            widths: ['25%', '75%'],
+                            widths: ['40%', '20%', '20%', '20%'],
                             body: [
                                 [
-                                    { text: 'Cliente:', bold: true },
-                                    { text: entity.nombreTercero },
+                                    { text: 'Datos Del Cliente', bold: true, alignment: 'center', colSpan: 4, },
+                                    {}, {}, {},
                                 ],
                                 [
-                                    { text: 'Vendedor:', bold: true },
-                                    entity.nombreVendedor,
+                                    { text: entity.tercero === null ? '' : entity.tercero.nombreTercero, colSpan: 2, },
+                                    {},
+                                    { text: 'Factura No. ', bold: true, },
+                                    { text: entity.numDoc, bold: true, },
+                                ],
+                                [
+                                    { text: entity.tercero === null ? '' : entity.tercero.nitCedula, },
+                                    { text: entity.tercero === null ? '' : 'Tel:  ' + entity.tercero.telefono },
+                                    { text: 'Fecha Factura' },
+                                    { text: entity.sFechaFormatted },
+                                ],
+                                [
+                                    { text: entity.tercero === null ? '' : entity.tercero.direccion, colSpan: 2, },
+                                    {},
+                                    { text: 'Plazo De Pago' },
+                                    { text: entity.plazoPago === null ? '' : entity.plazoPago.descripcion },
+                                ],
+                                [
+                                    { text: entity.tercero === null ? '' : entity.tercero.nombreCiudad, colSpan: 2, },
+                                    {},
+                                    { text: 'Fecha Vence' },
+                                    { text: entity.sFechaVen },
                                 ],
                             ]
                         },
-                        layout: 'noBorders',
+                        layout: {
+                            hLineColor: 'lightgray',
+                            vLineColor: 'lightgray',
+                            //hLineWidth: function (i, node) {
+                            //    if (i === 0 || i === node.table.body.length) {
+                            //        return 0;
+                            //    }
+                            //    return (i === node.table.headerRows) ? 2 : 1;
+                            //},
+                            //vLineWidth: function (i) {
+                            //    return 0;
+                            //},
+                            paddingLeft: function (i, node) { return 2; },
+                            paddingRight: function (i, node) { return 2; },
+                            paddingTop: function (i, node) { return 2; },
+                            paddingBottom: function (i, node) { return 2; },
+                        },
                         margin: [0, 0, 0, 15],
                     },
                     {
@@ -2410,39 +2678,234 @@
                         layout: {
                             hLineColor: 'lightgray',
                             vLineColor: 'lightgray',
+                            paddingLeft: function (i, node) { return 2; },
+                            paddingRight: function (i, node) { return 2; },
+                            paddingTop: function (i, node) { return 2; },
+                            paddingBottom: function (i, node) { return 2; },
                         },
                         margin: [0, 0, 0, 15],
                     },
                     {
                         style: 'estilo',
                         table: {
-                            widths: ['85%', '15%'],
+                            widths: ['25%', '25%', '25%', '25%'],
                             body: [
-                                //[
-                                //    { text: 'SubTotal:', bold: true, alignment: 'right', },
-                                //    { text: '$ ' + vrBruto, bold: true, },
-                                //],
-                                //[
-                                //    { text: 'Dscto:', bold: true, alignment: 'right', },
-                                //    { text: '$ ' + pcDscto, bold: true, },
-                                //],
-                                //[
-                                //    { text: 'Iva:', bold: true, alignment: 'right', },
-                                //    { text: '$ ' + pcIva, bold: true, },
-                                //],
                                 [
-                                    { text: 'Total:', bold: true, alignment: 'right', },
-                                    { text: '$ ' + vrNeto, bold: true, alignment: 'right', },
+                                    { text: 'SubTotal:  $' + PonerPuntosDouble(entity.valorBruto), alignment: 'left', },
+                                    { text: 'Dscto:  $' + PonerPuntosDouble(entity.valorDscto), alignment: 'left', },
+                                    { text: 'Iva:  $' + PonerPuntosDouble(entity.valorIva), alignment: 'left', },
+                                    { text: 'Total:  $' + PonerPuntosDouble(entity.valorNeto), alignment: 'left', },
+                                ],
+                            ]
+                        },
+                        layout: {
+                            defaultBorder: false,
+                            paddingLeft: function (i, node) { return 0; },
+                            paddingRight: function (i, node) { return 0; },
+                            paddingTop: function (i, node) { return 0; },
+                            paddingBottom: function (i, node) { return 0; },
+                        },
+                        margin: [0, 0, 0, 45],
+                    },
+                    {
+                        style: 'estilo',
+                        table: {
+                            widths: ['30%', '70%'],
+                            body: [
+                                [
+                                    { text: '___________________________________', alignment: 'left', },
+                                    { text: 'RESOLUCION DIAN No  ' + entity.resolucion.noResolucion + '   FECHA  ' + entity.resolucion.sFecha, alignment: 'center', },
+                                ],
+                                [
+                                    { text: 'Acepto', alignment: 'left', },
+                                    { text: 'AUTORIZADA POR COMPUTADOR DEL ' + entity.resolucion.numeroInicio + ' AL ' + entity.resolucion.numeroFin, alignment: 'center', },
+                                ],
+                                [
+                                    { text: ' ', },
+                                    { text: 'SOMOS RESPONSABLES DE IVA', bold: true, alignment: 'center', },
                                 ]
                             ]
                         },
-                        layout: 'noBorders',
-                        margin: [0, 0, 0, 15],
+                        layout: {
+                            defaultBorder: false,
+                            paddingLeft: function (i, node) { return 0; },
+                            paddingRight: function (i, node) { return 0; },
+                            paddingTop: function (i, node) { return 0; },
+                            paddingBottom: function (i, node) { return 0; },
+                        },
+                        margin: [0, 0, 0, 5],
                     },
                 ],
                 styles: {
                     estilo: {
                         fontSize: 9,
+                    },
+                },
+            };
+
+            pdfMake.createPdf(Documento).open();
+        }
+
+        function fnImprimirPVen(entity) {
+            var data = entity.listaDetalle;
+
+            var tablaDet = [
+                [
+                    { text: 'NOMBREPRODUCTO', bold: true, alignment: 'left', colSpan: 2, },
+                    {},
+                ]
+            ];
+
+            var pcDscto = 0, pcIva = 0, vrBruto = 0, vrNeto = 0;
+
+            for (var i = 0; i < data.length; i++) {
+                var d = data[i];
+                tablaDet.push(
+                    [
+                        { text: d.nombreArticulo, colSpan: 2 },
+                        {},
+                    ],
+                    [
+                        { text: PonerPuntosDouble(d.cantidad), alignment: 'center', },
+                        { text: PonerPuntosDouble(d.vrNeto), alignment: 'right', },
+                    ]
+                );
+
+                pcDscto += d.pcDscto;
+                pcIva += d.pcIva;
+                vrBruto += d.vrBruto;
+                vrNeto += d.vrNeto;
+            }
+
+            var Documento = {
+                pageSize: {
+                    width: 110,
+                    height: 'auto'
+                },
+                //pageSize: 'A8',
+                pageMargins: [10, 10, 10, 10],
+                content: [
+                    {
+                        style: 'estilo',
+                        table: {
+                            widths: ['100%'],
+                            body: [
+                                [
+                                    { text: entity.nombreEmpresa, alignment: 'center', },
+                                ],
+                                [
+                                    { text: entity.empresa.nitEmpresa, alignment: 'center', },
+                                ],
+                                [
+                                    { text: entity.empresa.direccion, alignment: 'center', },
+                                ],
+                                [
+                                    { text: 'FACTURA DE VENTA', alignment: 'center', },
+                                ],
+                                [
+                                    { text: entity.numDoc + ' ' + entity.sFechaFormatted, alignment: 'center', },
+                                ],
+                                [
+                                    { text: entity.tercero === null ? '' : 'FACT A: ' + entity.tercero.nitCedula, alignment: 'center', },
+                                ],
+                            ]
+                        },
+                        layout: {
+                            defaultBorder: false,
+                            paddingLeft: function (i, node) { return 0; },
+                            paddingRight: function (i, node) { return 0; },
+                            paddingTop: function (i, node) { return 0; },
+                            paddingBottom: function (i, node) { return 0; },
+                        },
+                        margin: [0, 0, 0, 5],
+                    },
+                    {
+                        style: 'estilo',
+                        table: {
+                            widths: ['30%', '70%'],
+                            body: tablaDet
+                        },
+                        layout: {
+                            //hLineColor: 'lightgray',
+                            //vLineColor: 'noBorders',
+                            defaultBorder: false,
+                            paddingLeft: function (i, node) { return 0; },
+                            paddingRight: function (i, node) { return 0; },
+                            paddingTop: function (i, node) { return 0; },
+                            paddingBottom: function (i, node) { return 0; },
+                        },
+                        margin: [0, 0, 0, 5],
+                    },
+                    {
+                        style: 'estilo',
+                        table: {
+                            widths: ['70%', '30%'],
+                            body: [
+                                [
+                                    { text: 'SubTotal:', alignment: 'right', },
+                                    { text: '$ ' + PonerPuntosDouble(entity.valorBruto), alignment: 'right', },
+                                ],
+                                [
+                                    { text: 'Dscto:', alignment: 'right', },
+                                    { text: '$ ' + PonerPuntosDouble(entity.valorDscto), alignment: 'right', },
+                                ],
+                                [
+                                    { text: 'Iva:', alignment: 'right', },
+                                    { text: '$ ' + PonerPuntosDouble(entity.valorIva), alignment: 'right', },
+                                ],
+                                [
+                                    { text: 'Total:', alignment: 'right', },
+                                    { text: '$ ' + PonerPuntosDouble(entity.valorNeto), alignment: 'right', },
+                                ]
+                            ]
+                        },
+                        layout: {
+                            defaultBorder: false,
+                            paddingLeft: function (i, node) { return 0; },
+                            paddingRight: function (i, node) { return 0; },
+                            paddingTop: function (i, node) { return 0; },
+                            paddingBottom: function (i, node) { return 0; },
+                        },
+                        margin: [0, 0, 0, 5],
+                    },
+                    {
+                        style: 'estilo',
+                        table: {
+                            widths: ['100%'],
+                            body: [
+                                [
+                                    { text: 'RESOLUCION DIAN No.', alignment: 'center', },
+                                ],
+                                [
+                                    { text: entity.resolucion.noResolucion, alignment: 'center', },
+                                ],
+                                [
+                                    { text: 'FECHA  ' + entity.resolucion.sFecha, alignment: 'center', },
+                                ],
+                                [
+                                    { text: 'AUTORIZADA POR COMPUTADOR', alignment: 'center', },
+                                ],
+                                [
+                                    { text: 'DEL ' + entity.resolucion.numeroInicio + ' AL ' + entity.resolucion.numeroFin, alignment: 'center', },
+                                ],
+                                [
+                                    { text: 'SOMOS RESPONSABLES DE IVA', bold: true, alignment: 'center', },
+                                ]
+                            ]
+                        },
+                        layout: {
+                            defaultBorder: false,
+                            paddingLeft: function (i, node) { return 0; },
+                            paddingRight: function (i, node) { return 0; },
+                            paddingTop: function (i, node) { return 0; },
+                            paddingBottom: function (i, node) { return 0; },
+                        },
+                        margin: [0, 0, 0, 5],
+                    },
+                ],
+                styles: {
+                    estilo: {
+                        fontSize: 4,
                     },
                 },
             };
@@ -2724,6 +3187,10 @@
                 [
                     { text: 'Saldo En Caja', bold: true, },
                     { text: PonerPuntosDouble(saldoEnCaja), bold: true, alignment: 'right', },
+                ],
+                [
+                    { text: 'Saldo Final', bold: true, },
+                    { text: PonerPuntosDouble(entity.saldoFinal), bold: true, alignment: 'right', },
                 ]
             );
             
@@ -2733,6 +3200,7 @@
                     { text: 'TipoDoc', bold: true, alignment: 'center', },
                     { text: 'NoDoc', bold: true, alignment: 'center', },
                     { text: 'Descripción', bold: true, alignment: 'center', },
+                    { text: 'CuentaBanco', bold: true, alignment: 'center', },
                     { text: 'Ingresos', bold: true, alignment: 'center', },
                     { text: 'Egresos', bold: true, alignment: 'center', },
                 ],
@@ -2740,6 +3208,7 @@
                     { text: '' },
                     { text: '' },
                     { text: 'Saldo Inicial', },
+                    { text: '' },
                     { text: PonerPuntosDouble(entity.saldoInicial), alignment: 'right', },
                     { text: '' },
                 ]
@@ -2769,6 +3238,7 @@
                         { text: d.tipoDoc, alignment: 'center', },
                         { text: d.numDoc, alignment: 'center', },
                         { text: d.transaccion >= 0 ? d.nombreFormaPago : d.comentario, },
+                        { text: d.nombreCuentaBanco, },
                         { text: ingresos, alignment: 'right', },
                         { text: egresos, alignment: 'right', },
                     ]
@@ -2779,24 +3249,35 @@
 
             tablaDetalle.push(
                 [
-                    { text: ' ', colSpan: 3, },
+                    { text: ' ', colSpan: 4, },
+                    {},
                     {},
                     {},
                     { text: vrIngresos > 0 ? PonerPuntosDouble(vrIngresos) : '', bold: true, alignment: 'right', },
                     { text: vrEgresos > 0 || vrEgresos < 0 ? PonerPuntosDouble(vrEgresos) : '', bold: true, alignment: 'right', },
                 ],
                 [
-                    { text: 'Saldo Total:', bold: true, alignment: 'right', colSpan: 3, },
+                    { text: 'Saldo Total:', bold: true, alignment: 'right', colSpan: 4, },
+                    {},
                     {},
                     {},
                     { text: '$ ' + (vrSaldoTotal > 0 ? PonerPuntosDouble(vrSaldoTotal) : ''), bold: true, alignment: 'right', colSpan: 2, },
                     {},
                 ],
                 [
-                    { text: 'Saldo En Caja:', bold: true, alignment: 'right', colSpan: 3, },
+                    { text: 'Saldo En Caja:', bold: true, alignment: 'right', colSpan: 4, },
+                    {},
                     {},
                     {},
                     { text: '$ ' + (vrEnCaja > 0 ? PonerPuntosDouble(vrEnCaja) : ''), bold: true, alignment: 'right', colSpan: 2, },
+                    {},
+                ],
+                [
+                    { text: 'Saldo Final:', bold: true, alignment: 'right', colSpan: 4, },
+                    {},
+                    {},
+                    {},
+                    { text: '$ ' + PonerPuntosDouble(entity.saldoFinal), bold: true, alignment: 'right', colSpan: 2, },
                     {},
                 ],
             );
@@ -2868,7 +3349,7 @@
                     {
                         style: 'estilo',
                         table: {
-                            widths: ['10%', '10%', '50%', '15%', '15%'],
+                            widths: ['8%', '8%', '30%', '34%', '10%', '10%'],
                             body: tablaDetalle
                         },
                         layout: {
