@@ -16,7 +16,9 @@
         vm.formModify = false;
         vm.entity = {
             clave: '.',
-            estado: 'A',
+            estadoFila: 'A',
+            creadoPor: vm.userApp.nombreUsuario,
+            modificadoPor: vm.userApp.nombreUsuario,
         };
 
         vm.userApp = angular.copy($cookies.getObject('UsuApp'));
@@ -53,7 +55,9 @@
         function nuevo() {
             vm.entity = {
                 clave: '.',
-                estado: 'A',
+                estadoFila: 'A',
+                creadoPor: vm.userApp.nombreUsuario,
+                modificadoPor: vm.userApp.nombreUsuario,
             };
 
             vm.formModify = false;
@@ -63,6 +67,7 @@
 
         function editar(entity) {
             vm.entity = angular.copy(entity);
+            vm.entity.modificadoPor = vm.userApp.nombreUsuario;
             vm.formModify = true;
             vm.gridVisible = false;
             vm.formVisible = true;
@@ -91,8 +96,9 @@
 
         function inactivarUsu(entity) {
             var data = {
-                IdUsuario: entity.idUsuario,
-                Estado: 'I',
+                idUsuario: entity.idUsuario,
+                estadoFila: 'I',
+                modificadoPor: vm.userApp.nombreUsuario,
             }
 
             var response = usuService.upEstado(data);
@@ -108,8 +114,9 @@
 
         function activarUsu(entity) {
             var data = {
-                IdUsuario: entity.idUsuario,
-                Estado: 'A',
+                idUsuario: entity.idUsuario,
+                estadoFila: 'A',
+                modificadoPor: vm.userApp.nombreUsuario,
             }
 
             var response = usuService.upEstado(data);
@@ -250,6 +257,9 @@
             var data = {
                 idMenu: vm.idMenu,
                 idUsuario: vm.entityUsu.idUsuario,
+                estadoFila: 'A',
+                creadoPor: vm.userApp.nombreUsuario,
+                modificadoPor: vm.userApp.nombreUsuario,
             };
 
             var response = menusuService.create(data);

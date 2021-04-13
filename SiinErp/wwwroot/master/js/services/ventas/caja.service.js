@@ -14,6 +14,7 @@
             getAll: getAll,
             create: create,
             update: update,
+            anular: anular,
             getIdCajaActiva: getIdCajaActiva,
             getLastIdDetCajeroByUsu: getLastIdDetCajeroByUsu,
             getSaldoEnCajaActual: getSaldoEnCajaActual,
@@ -50,6 +51,19 @@
 
         function update(id, data) {
             return $http.put(nameSpace + id, data)
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function anular(data) {
+            return $http.put(nameSpace + 'An/', data)
                 .then(
                     function (response) {
                         return response;

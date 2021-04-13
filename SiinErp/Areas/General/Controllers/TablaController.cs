@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using SiinErp.Model.Abstract.General;
+using SiinErp.Model.Common;
+using SiinErp.Model.Entities.General;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using SiinErp.Areas.General.Abstract;
-using SiinErp.Areas.General.Business;
-using SiinErp.Areas.General.Entities;
-using SiinErp.Utiles;
 
 namespace SiinErp.Areas.General.Controllers
 {
@@ -18,9 +17,9 @@ namespace SiinErp.Areas.General.Controllers
     {
         private readonly ITablaBusiness tablaBusiness;
 
-        public TablaController()
+        public TablaController(ITablaBusiness _tablaBusiness)
         {
-            tablaBusiness = new TablaBusiness();
+            this.tablaBusiness = _tablaBusiness;
         }
 
         [HttpGet]

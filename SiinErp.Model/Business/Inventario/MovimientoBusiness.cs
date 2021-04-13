@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
+using SiinErp.Model.Entities.Cartera;
 
 namespace SiinErp.Model.Business.Inventario
 {
@@ -768,6 +769,7 @@ namespace SiinErp.Model.Business.Inventario
                 {
                     Empresa entityEmpresa = context.Empresas.Find(entity.IdEmpresa);
                     entity.NombreEmpresa = entityEmpresa.RazonSocial;
+                    entity.Empresa = entityEmpresa;
                 }
 
                 if (entity.IdDetAlmacen > 0)
@@ -788,16 +790,30 @@ namespace SiinErp.Model.Business.Inventario
                     entity.NombreCentroCosto = entityCentroCosto.Descripcion;
                 }
 
+                if (entity.IdPlazoPago != null && entity.IdPlazoPago > 0)
+                {
+                    PlazoPago entityPlago = context.PlazosPagos.Find(entity.IdPlazoPago);
+                    entity.PlazoPago = entityPlago;
+                }
+
                 if (entity.IdTercero != null && entity.IdTercero > 0)
                 {
                     Tercero entityTercero = context.Terceros.Find(entity.IdTercero);
+                    entityTercero.NombreCiudad = context.Ciudades.Find(entityTercero.IdCiudad).NombreCiudad;
                     entity.NombreTercero = entityTercero.NombreTercero;
+                    entity.Tercero = entityTercero;
                 }
 
                 if (entity.IdVendedor != null && entity.IdVendedor > 0)
                 {
                     Vendedor entityVendedor = context.Vendedores.Find(entity.IdVendedor);
                     entity.NombreVendedor = entityVendedor.NombreVendedor;
+                }
+
+                if (entity.IdResolucion != null && entity.IdResolucion > 0)
+                {
+                    entity.Resolucion = context.Resolucion.Find(entity.IdResolucion);
+                    entity.Resolucion.sFecha = entity.Resolucion.Fecha.ToString("yyyy-MM-dd");
                 }
 
                 entity.ListaDetalle = (from d in context.MovimientosDetalles.Where(x => x.IdMovimiento == IdMov)

@@ -5,11 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
-using SiinErp.Areas.Tesoreria.Entities;
-using SiinErp.Areas.Tesoreria.Business;
-
+using SiinErp.Model.Abstract.Tesoreria;
+using SiinErp.Model.Entities.Tesoreria;
 using SiinErp.Utiles;
-using SiinErp.Areas.Tesoreria.Abstract;
 
 namespace SiinErp.Areas.Tesoreria.Controllers
 {
@@ -20,9 +18,9 @@ namespace SiinErp.Areas.Tesoreria.Controllers
     {
         private readonly IPagoBusiness pagoBusiness;
 
-        public PagoController()
+        public PagoController(IPagoBusiness _pagoBusines)
         {
-            pagoBusiness = new PagoBusiness();
+            this.pagoBusiness = _pagoBusines;
         }
 
         [HttpGet("{IdEmp}/{FechaIni}/{FechaFin}")]

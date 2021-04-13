@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using SiinErp.Model.Abstract.General;
+using SiinErp.Model.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using SiinErp.Areas.General.Abstract;
-using SiinErp.Areas.General.Business;
-using SiinErp.Utiles;
 
 namespace SiinErp.Areas.General.Controllers
 {
@@ -17,9 +16,9 @@ namespace SiinErp.Areas.General.Controllers
     {
         private readonly IModuloBusiness moduloBusiness;
 
-        public ModuloController()
+        public ModuloController(IModuloBusiness _moduloBusiness)
         {
-            moduloBusiness = new ModuloBusiness();
+            this.moduloBusiness = _moduloBusiness;
         }
 
         [HttpGet]

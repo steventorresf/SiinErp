@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SiinErp.Areas.General.Abstract;
-using SiinErp.Areas.General.Business;
-using SiinErp.Areas.General.Entities;
-using SiinErp.Utiles;
+using SiinErp.Model.Abstract.General;
+using SiinErp.Model.Common;
+using SiinErp.Model.Entities.General;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +17,9 @@ namespace SiinErp.Areas.General.Controllers
     {
         private readonly IMenuUsuarioBusiness menuUsuarioBusiness;
 
-        public MenuUsuarioController()
+        public MenuUsuarioController(IMenuUsuarioBusiness _menuUsuarioBusiness)
         {
-            menuUsuarioBusiness = new MenuUsuarioBusiness();
+            this.menuUsuarioBusiness = _menuUsuarioBusiness;
         }
 
 
@@ -67,11 +66,11 @@ namespace SiinErp.Areas.General.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] MenuUsuario entity)
+        public IActionResult Creates([FromBody] List<MenuUsuario> Listado)
         {
             try
             {
-                menuUsuarioBusiness.Create(entity);
+                menuUsuarioBusiness.Creates(Listado);
                 return Ok(true);
             }
             catch (Exception ex)

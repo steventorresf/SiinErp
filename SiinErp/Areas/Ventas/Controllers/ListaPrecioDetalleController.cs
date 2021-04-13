@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
-using SiinErp.Areas.Ventas.Abstract;
-using SiinErp.Areas.Ventas.Business;
-using SiinErp.Areas.Ventas.Entities;
+using SiinErp.Model.Abstract.Ventas;
+using SiinErp.Model.Entities.Ventas;
 using SiinErp.Utiles;
 
 namespace SiinErp.Areas.Ventas.Controllers
@@ -19,9 +18,9 @@ namespace SiinErp.Areas.Ventas.Controllers
     {
         private readonly IListaPrecioDetalleBusiness listaPrecioDetalleBusiness;
 
-        public ListaPrecioDetalleController()
+        public ListaPrecioDetalleController(IListaPrecioDetalleBusiness _listaPrecioDetalleBusiness)
         {
-            listaPrecioDetalleBusiness = new ListaPrecioDetalleBusiness();
+            this.listaPrecioDetalleBusiness = _listaPrecioDetalleBusiness;
         }
 
         [HttpGet("{IdListaD}")]

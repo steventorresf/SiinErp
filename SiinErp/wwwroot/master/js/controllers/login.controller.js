@@ -40,6 +40,7 @@
         }
 
         function loginUsu() {
+            console.log(vm.entity);
             var response = usuService.Login(vm.entity);
             response.then(
                 function (response) {

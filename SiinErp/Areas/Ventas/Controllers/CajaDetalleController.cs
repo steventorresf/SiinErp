@@ -4,9 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SiinErp.Areas.Ventas.Abstract;
-using SiinErp.Areas.Ventas.Business;
-using SiinErp.Areas.Ventas.Entities;
+using SiinErp.Model.Abstract.Ventas;
+using SiinErp.Model.Entities.Ventas;
 using SiinErp.Utiles;
 
 namespace SiinErp.Areas.Ventas.Controllers
@@ -18,9 +17,9 @@ namespace SiinErp.Areas.Ventas.Controllers
     {
         private readonly ICajaDetalleBusiness cajaDetalleBusiness;
 
-        public CajaDetalleController()
+        public CajaDetalleController(ICajaDetalleBusiness _cajaDetalleBusiness)
         {
-            cajaDetalleBusiness = new CajaDetalleBusiness();
+            this.cajaDetalleBusiness = _cajaDetalleBusiness;
         }
 
         [HttpPost("Create")]

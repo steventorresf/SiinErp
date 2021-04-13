@@ -1,17 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using SiinErp.Areas.Compras.Entities;
-using SiinErp.Areas.Cartera.Entities;
-using SiinErp.Areas.General.Entities;
-using SiinErp.Areas.Inventario.Entities;
+using SiinErp.Model.Entities.Cartera;
+using SiinErp.Model.Entities.Compras;
+using SiinErp.Model.Entities.Contabilidad;
+using SiinErp.Model.Entities.General;
+using SiinErp.Model.Entities.Inventario;
+using SiinErp.Model.Entities.Tesoreria;
+using SiinErp.Model.Entities.Ventas;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using SiinErp.Areas.Ventas.Entities;
-using SiinErp.Areas.Tesoreria.Entities;
-using SiinErp.Areas.Contabilidad.Entities;
 
 namespace SiinErp.Models
 {

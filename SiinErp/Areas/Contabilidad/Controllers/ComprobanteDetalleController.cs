@@ -4,8 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SiinErp.Areas.Contabilidad.Abstract;
-using SiinErp.Areas.Contabilidad.Business;
+using SiinErp.Model.Abstract.Contabilidad;
 using SiinErp.Utiles;
 
 namespace SiinErp.Areas.Contabilidad.Controllers
@@ -17,9 +16,9 @@ namespace SiinErp.Areas.Contabilidad.Controllers
     {
         private readonly IComprobanteDetalleBusiness comprobanteDetalleBusiness;
 
-        public ComprobanteDetalleController()
+        public ComprobanteDetalleController(IComprobanteDetalleBusiness _comprobanteDetalleBusiness)
         {
-            comprobanteDetalleBusiness = new ComprobanteDetalleBusiness();
+            this.comprobanteDetalleBusiness = _comprobanteDetalleBusiness;
         }
 
         [HttpGet("{IdComp}")]

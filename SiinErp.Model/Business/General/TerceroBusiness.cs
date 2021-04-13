@@ -273,6 +273,58 @@ namespace SiinErp.Model.Business.General
             }
         }
 
+        public List<Tercero> GetClienteListById(int IdTercero)
+        {
+            try
+            {
+                List<Tercero> Lista = (from cli in context.Terceros.Where(x => x.IdTercero == IdTercero)
+                                       join tip in context.TablasDetalles on cli.IdDetTipoPersona equals tip.IdDetalle
+                                       join ciu in context.Ciudades on cli.IdCiudad equals ciu.IdCiudad
+                                       join dep in context.Departamentos on ciu.IdDepartamento equals dep.IdDepartamento
+                                       join zon in context.TablasDetalles on cli.IdDetZona equals zon.IdDetalle
+                                       join pla in context.PlazosPagos on cli.IdPlazoPago equals pla.IdPlazoPago
+                                       join lip in context.ListaPrecios on cli.IdListaPrecio equals lip.IdListaPrecio
+                                       select new Tercero()
+                                       {
+                                           IdTercero = cli.IdTercero,
+                                           TipoTercero = cli.TipoTercero,
+                                           IdEmpresa = cli.IdEmpresa,
+                                           CodTercero = cli.CodTercero,
+                                           NitCedula = cli.NitCedula,
+                                           DgVerificacion = cli.DgVerificacion,
+                                           IdDetTipoPersona = cli.IdDetTipoPersona,
+                                           NombreTercero = cli.NombreTercero,
+                                           NombreBusqueda = cli.NombreBusqueda,
+                                           Direccion = cli.Direccion,
+                                           EMail = cli.EMail,
+                                           IdCiudad = cli.IdCiudad,
+                                           Telefono = cli.Telefono,
+                                           IdDetZona = cli.IdDetZona,
+                                           IdVendedor = cli.IdVendedor,
+                                           IdCuentaContable = cli.IdCuentaContable,
+                                           IdPlazoPago = cli.IdPlazoPago,
+                                           LimiteCredito = cli.LimiteCredito,
+                                           IdPadre = cli.IdPadre,
+                                           IdListaPrecio = cli.IdListaPrecio,
+                                           Iva = cli.Iva,
+                                           FechaCreacion = cli.FechaCreacion,
+                                           CreadoPor = cli.CreadoPor,
+                                           EstadoFila = cli.EstadoFila,
+                                           NombreTipoPersona = tip.Descripcion,
+                                           PlazoPago = pla,
+                                           ListaPrecios = lip,
+                                           NombreCiudad = ciu.NombreCiudad + " - " + dep.NombreDepartamento,
+                                           IdDepartamento = dep.IdDepartamento,
+                                       }).ToList();
+                return Lista;
+            }
+            catch (Exception ex)
+            {
+                errorBusiness.Create("GetClienteListById", ex.Message, null);
+                throw;
+            }
+        }
+
         public Tercero GetClienteByIden(JObject data)
         {
             try

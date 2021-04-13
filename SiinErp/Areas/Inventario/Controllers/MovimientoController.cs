@@ -5,13 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
-using SiinErp.Areas.Compras.Entities;
-using SiinErp.Areas.General.Abstract;
-using SiinErp.Areas.General.Business;
-using SiinErp.Areas.Inventario.Abstract;
-using SiinErp.Areas.Inventario.Business;
-using SiinErp.Areas.Inventario.Entities;
-using SiinErp.Areas.Ventas.Entities;
+using SiinErp.Model.Abstract.General;
+using SiinErp.Model.Abstract.Inventario;
+using SiinErp.Model.Entities.Compras;
+using SiinErp.Model.Entities.Inventario;
 using SiinErp.Utiles;
 
 namespace SiinErp.Areas.Inventario.Controllers
@@ -21,13 +18,13 @@ namespace SiinErp.Areas.Inventario.Controllers
     [Area(Constantes.Area_Inventario)]
     public class MovimientoController : ControllerBase
     {
-        private IMovimientoBusiness movimientoBusiness;
-        private ITerceroBusiness terceroBusiness;
+        private readonly IMovimientoBusiness movimientoBusiness;
+        private readonly ITerceroBusiness terceroBusiness;
 
-        public MovimientoController()
+        public MovimientoController(IMovimientoBusiness _movimientoBusiness, ITerceroBusiness _terceroBusiness)
         {
-            movimientoBusiness = new MovimientoBusiness();
-            terceroBusiness = new TerceroBusiness();
+            this.movimientoBusiness = _movimientoBusiness;
+            this.terceroBusiness = _terceroBusiness;
         }
 
         [HttpPost]

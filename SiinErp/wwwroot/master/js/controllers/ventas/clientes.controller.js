@@ -148,10 +148,11 @@
                 tipoTercero: TipoTercero.Cliente,
                 idEmpresa: vm.userApp.idEmpresa,
                 creadoPor: vm.userApp.nombreUsuario,
+                modificadoPor: vm.userApp.nombreUsuario,
                 iva: 'true',
                 limiteCredito: 0,
                 idCuentaContable: 0,
-                estado: Estados.Activo,
+                estadoFila: Estados.Activo,
             };
 
             getStrSecuencia();
@@ -179,6 +180,7 @@
             vm.entity.idPlazoPago = angular.copy(entity.idPlazoPago).toString();
             vm.entity.idDetZona = angular.copy(entity.idDetZona).toString();
             vm.entity.iva = angular.copy(entity.iva).toString();
+            vm.entity.modificadoPor = vm.userApp.nombreUsuario;
             
             getCiudades();
             vm.formModify = true;

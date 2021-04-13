@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
-using SiinErp.Areas.Contabilidad.Abstract;
-using SiinErp.Areas.Contabilidad.Business;
-using SiinErp.Areas.Contabilidad.Entities;
+using SiinErp.Model.Abstract.Contabilidad;
+using SiinErp.Model.Entities.Contabilidad;
 using SiinErp.Utiles;
 
 namespace SiinErp.Areas.Contabilidad.Controllers
@@ -19,9 +18,9 @@ namespace SiinErp.Areas.Contabilidad.Controllers
     {
         private readonly IRetencionBusiness retencionBusiness;
 
-        public RetencionController()
+        public RetencionController(IRetencionBusiness _retencionBusiness)
         {
-            retencionBusiness = new RetencionBusiness();
+            this.retencionBusiness = _retencionBusiness;
         }
 
         [HttpGet("{IdEmp}")]

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SiinErp.Configuration;
 using SiinErp.Models;
 
 namespace SiinErp
@@ -25,6 +26,8 @@ namespace SiinErp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllersWithViews().AddNewtonsoftJson();
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -39,8 +42,12 @@ namespace SiinErp
                 options.Cookie.IsEssential = true;
             });
 
-            services.AddDbContext<SiinErpContext>();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            
+            services.AddDbContextInjection(Configuration);
+            services.AddBusinessInjection();
+            services.AddHttpContextAccessor();
+            services.AddMvc(options => options.EnableEndpointRouting = false)
+                    .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddDistributedMemoryCache();
             //services.AddWebOptimizer();
         }
@@ -62,19 +69,48 @@ namespace SiinErp
             app.UseHttpsRedirection();
             app.UseStatusCodePages();
             app.UseStaticFiles();
+            if (!env.IsDevelopment())
+            {
+                //app.UseSpaStaticFiles();
+            }
             app.UseCookiePolicy();
-
+            
             app.UseAuthentication();
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default_area",
+                    pattern: "{area:exists}/{controller}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller}/{action=Index}/{id?}");
+            });
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
+                routes.MapAreaRoute(
+                    name: "General_default_Tablas",
+                    areaName: "General_Tablas",
+                    template: "General/{controller=Home}/{action=Tablas}/{id?}");
+
+                routes.MapAreaRoute(
                     name: "areas",
+                    areaName: "areas",
                     template: "{area:exists}/{controller=Login}/{action=Index}");
 
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Login}/{action=Index}/{id?}");
+
+                //routes.MapRoute(
+                //    name: "areas",
+                //    template: "{area:exists}/{controller=Login}/{action=Index}");
+
+                //routes.MapRoute(
+                //    name: "default",
+                //    template: "{controller=Login}/{action=Index}/{id?}");
             });
         }
     }

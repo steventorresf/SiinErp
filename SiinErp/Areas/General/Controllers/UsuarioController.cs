@@ -1,14 +1,13 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
+using SiinErp.Model.Abstract.General;
+using SiinErp.Model.Common;
+using SiinErp.Model.Entities.General;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
-using SiinErp.Areas.General.Abstract;
-using SiinErp.Areas.General.Business;
-using SiinErp.Areas.General.Entities;
-using SiinErp.Utiles;
 
 namespace SiinErp.Areas.General.Controllers
 {
@@ -20,10 +19,10 @@ namespace SiinErp.Areas.General.Controllers
         private readonly IUsuarioBusiness usuarioBusiness;
         private readonly IMenuUsuarioBusiness menuUsuarioBusiness;
 
-        public UsuarioController()
+        public UsuarioController(IUsuarioBusiness _usuarioBusiness, IMenuUsuarioBusiness _menuUsuarioBusiness)
         {
-            usuarioBusiness = new UsuarioBusiness();
-            menuUsuarioBusiness = new MenuUsuarioBusiness();
+            this.usuarioBusiness = _usuarioBusiness;
+            this.menuUsuarioBusiness = _menuUsuarioBusiness;
         }
 
         [HttpPost("Login")]
@@ -38,7 +37,7 @@ namespace SiinErp.Areas.General.Controllers
                     int IdEmp = data["idEmp"].ToObject<int>();
                     string Usu = data["nomUsu"].ToObject<string>();
                     string Con = data["clave"].ToObject<string>();
-                    string Clave = Util.EncriptarMD5(Con);
+                    string Clave = Seguridad.EncriptarMD5(Con);
 
                     Usuario obUsu = usuarioBusiness.GetByUsuario(Usu, Clave);
                     if (obUsu != null)
@@ -66,7 +65,7 @@ namespace SiinErp.Areas.General.Controllers
                 dataCookie.Respuesta = respuesta;
                 return Ok(dataCookie);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw;
             }

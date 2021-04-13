@@ -4,9 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SiinErp.Areas.Cartera.Abstract;
-using SiinErp.Areas.Cartera.Business;
-using SiinErp.Areas.Cartera.Entities;
+using SiinErp.Model.Abstract.Cartera;
+using SiinErp.Model.Entities.Cartera;
 using SiinErp.Utiles;
 
 namespace SiinErp.Areas.Cartera.Controllers
@@ -16,11 +15,11 @@ namespace SiinErp.Areas.Cartera.Controllers
     [Area(Constantes.Area_Cartera)]
     public class ConceptoController : ControllerBase
     {
-        private readonly IConceptoBusiness BusinessCon;
+        private readonly IConceptoBusiness conceptoBusiness;
 
-        public ConceptoController()
+        public ConceptoController(IConceptoBusiness _conceptoBusiness)
         {
-            BusinessCon = new ConceptoBusiness();
+            this.conceptoBusiness = _conceptoBusiness;
         }
 
         [HttpGet("{IdEmp}")]
@@ -28,7 +27,7 @@ namespace SiinErp.Areas.Cartera.Controllers
         {
             try
             {
-                var lista = BusinessCon.GetConceptos(IdEmp);
+                var lista = conceptoBusiness.GetConceptos(IdEmp);
                 return Ok(lista);
             }
             catch (Exception)
@@ -42,7 +41,7 @@ namespace SiinErp.Areas.Cartera.Controllers
         {
             try
             {
-                var lista = BusinessCon.GetConceptosByTipoDoc(IdTipoDoc);
+                var lista = conceptoBusiness.GetConceptosByTipoDoc(IdTipoDoc);
                 return Ok(lista);
             }
             catch (Exception)
@@ -56,7 +55,7 @@ namespace SiinErp.Areas.Cartera.Controllers
         {
             try
             {
-                BusinessCon.Create(entity);
+                conceptoBusiness.Create(entity);
                 return Ok(true);
             }
             catch (Exception)
@@ -70,7 +69,7 @@ namespace SiinErp.Areas.Cartera.Controllers
         {
             try
             {
-                BusinessCon.Update(IdCon, entity);
+                conceptoBusiness.Update(IdCon, entity);
                 return Ok(true);
             }
             catch (Exception)

@@ -27,6 +27,7 @@
         vm.guardarIngreso = guardarIngreso;
         vm.imprimir = imprimir;
         vm.imprimirCaja = imprimirCaja;
+        vm.anularApertura = anularApertura;
 
         vm.modoDet = false;
 
@@ -97,7 +98,8 @@
                 idTurno: null,
                 saldoInicial: null,
                 creadoPor: vm.userApp.nombreUsuario,
-                estado: 'A',
+                modificadoPor: vm.userApp.nombreUsuario,
+                estadoFila: 'A',
             };
 
             vm.gridVisible = false;
@@ -109,7 +111,7 @@
             vm.entity = angular.copy(entity);
             vm.entity.saldoFinal = null;
             vm.entity.modificadoPor = vm.userApp.nombreUsuario;
-            vm.entity.estado = 'C';
+            vm.entity.estadoFila = 'C';
 
             vm.gridVisible = false;
             vm.formOpen = false;
@@ -190,8 +192,9 @@
                         efectivo: true,
                         saldoEnCaja: response.data,
                         transaccion: 1,
-                        estado: 'A',
+                        estadoFila: 'A',
                         creadoPor: vm.userApp.nombreUsuario,
+                        modificadoPor: vm.userApp.nombreUsuario,
                     };
 
                     vm.gridVisible = false;
@@ -233,8 +236,9 @@
                         efectivo: true,
                         saldoEnCaja: response.data,
                         transaccion: -1,
-                        estado: 'A',
+                        estadoFila: 'A',
                         creadoPor: vm.userApp.nombreUsuario,
+                        modificadoPor: vm.userApp.nombreUsuario,
                     };
 
                     vm.gridVisible = false;
@@ -321,21 +325,44 @@
                     headerCellClass: 'bg-header',
                     cellClass: 'text-center',
                     cellTemplate:
-                        "<span ng-if='row.entity.estado === \"C\"'><a href='' ng-click='grid.appScope.vm.imprimir(row.entity)' data-toggle='tooltip' title='Imprimir' tooltip='Imprimir' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<span><a href='' ng-click='grid.appScope.vm.imprimir(row.entity)' data-toggle='tooltip' title='Imprimir' tooltip='Imprimir' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
                         "<i class='fa fa-print text-success'></i></a></span>" +
-                        "<span ng-if='row.entity.estado === \"A\"' class='ml-1'><a href='' ng-click='grid.appScope.vm.cerrarCaja(row.entity)' title='Cerrar Caja' tooltip='Cerrar Caja' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<span ng-if='row.entity.estadoFila === \"A\"' class='ml-1'><a href='' ng-click='grid.appScope.vm.cerrarCaja(row.entity)' title='Cerrar Caja' tooltip='Cerrar Caja' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
                         "<i class='fa fa-window-close text-info'></i></a></span>" +
-                        "<span ng-if='row.entity.estado === \"A\"' class='ml-1'><a href='' ng-click='grid.appScope.vm.egresoCaja(row.entity)' title='Egreso' tooltip='Egreso' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
-                        "<i class='fa fa-sign-out text-danger'></i></a></span>" +
-                        "<span ng-if='row.entity.estado === \"A\"' class='ml-1'><a href='' ng-click='grid.appScope.vm.ingresoCaja(row.entity)' title='Ingreso' tooltip='Ingreso' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
-                        "<i class='fa fa-sign-in text-success'></i></a></span>",
-                    width: 80,
+                        "<span ng-if='row.entity.estadoFila === \"A\"' class='ml-1'><a href='' ng-click='grid.appScope.vm.egresoCaja(row.entity)' title='Egreso' tooltip='Egreso' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<i class='fa fa-sign-out text-primary'></i></a></span>" +
+                        "<span ng-if='row.entity.estadoFila === \"A\"' class='ml-1'><a href='' ng-click='grid.appScope.vm.ingresoCaja(row.entity)' title='Ingreso' tooltip='Ingreso' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<i class='fa fa-sign-in text-success'></i></a></span>" +
+                        "<span ng-if='row.entity.estadoFila === \"A\"' class='ml-5'><a href='' ng-click='grid.appScope.vm.anularApertura(row.entity)' title='Anular' tooltip='Anular' tooltip-trigger='mouseenter' tooltip-placeholder='top'>" +
+                        "<i class='fa fa-trash text-danger'></i></a></span>",
+                    width: 200,
                 }
             ],
             onRegisterApi: function (gridApi) {
                 vm.gridApi = gridApi;
             },
         };
+
+        function anularApertura(entity) {
+            var response = cajaService.anular(entity);
+            response.then(
+                function (response) {
+                    var dato = response.data;
+                    switch (dato) {
+                        case "1":
+                            alert('¡La apertura de la caja ha sido anulada.!');
+                            getAll();
+                            break;
+                        case "-1":
+                            alert("La apertura de la caja no se puede anular, porque tiene movimientos.");
+                            break;
+                    }
+                },
+                function (response) {
+                    console.log(response);
+                }
+            );
+        }
 
     }
 })();

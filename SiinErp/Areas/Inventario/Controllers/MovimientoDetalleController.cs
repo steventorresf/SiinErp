@@ -4,9 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SiinErp.Areas.Inventario.Abstract;
-using SiinErp.Areas.Inventario.Business;
-using SiinErp.Areas.Inventario.Entities;
+using SiinErp.Model.Abstract.Inventario;
+using SiinErp.Model.Entities.Inventario;
 using SiinErp.Utiles;
 
 namespace SiinErp.Areas.Inventario.Controllers
@@ -16,11 +15,11 @@ namespace SiinErp.Areas.Inventario.Controllers
     [Area(Constantes.Area_Inventario)]
     public class MovimientoDetalleController : ControllerBase
     {
-        private IMovimientoDetalleBusiness BusinessMovDet;
+        private readonly IMovimientoDetalleBusiness movimientoDetalleBusiness;
 
-        public MovimientoDetalleController()
+        public MovimientoDetalleController(IMovimientoDetalleBusiness _movimientoDetalleBusiness)
         {
-            BusinessMovDet = new MovimientoDetalleBusiness();
+            this.movimientoDetalleBusiness = _movimientoDetalleBusiness;
         }
 
         [HttpGet("{IdMov}")]
@@ -28,7 +27,7 @@ namespace SiinErp.Areas.Inventario.Controllers
         {
             try
             {
-                var lista = BusinessMovDet.GetMovimientosDetalles(IdMov);
+                var lista = movimientoDetalleBusiness.GetMovimientosDetalles(IdMov);
                 return Ok(lista);
             }
             catch (Exception ex)
@@ -42,7 +41,7 @@ namespace SiinErp.Areas.Inventario.Controllers
         {
             try
             {
-                BusinessMovDet.Create(entity);
+                movimientoDetalleBusiness.Create(entity);
                 return Ok(true);
             }
             catch (Exception ex)

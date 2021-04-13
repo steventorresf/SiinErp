@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using SiinErp.Model.Abstract.General;
+using SiinErp.Model.Common;
+using SiinErp.Model.Entities.General;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using SiinErp.Areas.General.Abstract;
-using SiinErp.Areas.General.Business;
-using SiinErp.Areas.General.Entities;
-using SiinErp.Utiles;
 
 namespace SiinErp.Areas.General.Controllers
 {
@@ -18,9 +17,9 @@ namespace SiinErp.Areas.General.Controllers
     {
         private readonly IPaisBusiness paisBusiness;
 
-        public PaisController()
+        public PaisController(IPaisBusiness _paisBusiness)
         {
-            paisBusiness = new PaisBusiness();
+            this.paisBusiness = _paisBusiness;
         }
 
         [HttpGet]
@@ -28,7 +27,7 @@ namespace SiinErp.Areas.General.Controllers
         {
             try
             {
-                var lista = paisBusiness.GetPaises();
+                var lista = paisBusiness.GetAll();
                 return Ok(lista);
             }
             catch (Exception)

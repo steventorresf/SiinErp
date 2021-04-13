@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SiinErp.Areas.General.Abstract;
-using SiinErp.Areas.General.Business;
-using SiinErp.Utiles;
+using SiinErp.Model.Abstract.General;
+using SiinErp.Model.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +16,9 @@ namespace SiinErp.Areas.General.Controllers
     {
         private readonly ISecuenciaBusiness secuenciaBusiness;
 
-        public SecuenciaController()
+        public SecuenciaController(ISecuenciaBusiness _secuenciaBusiness)
         {
-            secuenciaBusiness = new SecuenciaBusiness();
+            this.secuenciaBusiness = _secuenciaBusiness;
         }
 
 

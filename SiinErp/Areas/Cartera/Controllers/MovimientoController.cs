@@ -5,11 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
-using SiinErp.Areas.Cartera.Abstract;
-using SiinErp.Areas.Cartera.Business;
-using SiinErp.Areas.Cartera.Entities;
-using SiinErp.Areas.Inventario.Entities;
-using SiinErp.Areas.Ventas.Entities;
+using SiinErp.Model.Abstract.Cartera;
+using SiinErp.Model.Entities.Cartera;
+using SiinErp.Model.Entities.Inventario;
 using SiinErp.Utiles;
 
 namespace SiinErp.Areas.Cartera.Controllers
@@ -19,11 +17,11 @@ namespace SiinErp.Areas.Cartera.Controllers
     [Area(Constantes.Area_Cartera)]
     public class MovimientoController : ControllerBase
     {
-        private readonly IMovimientoCarBusiness BusinessMov;
+        private readonly IMovimientoCarBusiness movimientoCarBusiness;
 
-        public MovimientoController()
+        public MovimientoController(IMovimientoCarBusiness _movimientoCarBusiness)
         {
-            BusinessMov = new MovimientoCarBusiness();
+            this.movimientoCarBusiness = _movimientoCarBusiness;
         }
 
         [HttpPost]
@@ -34,7 +32,7 @@ namespace SiinErp.Areas.Cartera.Controllers
                 MovimientoCar entity = data["entity"].ToObject<MovimientoCar>();
                 List<Movimiento> listDetalleFac = data["listDetalleFac"].ToObject<List<Movimiento>>();
 
-                BusinessMov.Create(entity, listDetalleFac);
+                movimientoCarBusiness.Create(entity, listDetalleFac);
                 return Ok(true);
             }
             catch (Exception)
@@ -48,7 +46,7 @@ namespace SiinErp.Areas.Cartera.Controllers
         {
             try
             {
-                var lista = BusinessMov.GetAll(IdEmpresa, Convert.ToDateTime(FechaIni), Convert.ToDateTime(FechaFin));
+                var lista = movimientoCarBusiness.GetAll(IdEmpresa, Convert.ToDateTime(FechaIni), Convert.ToDateTime(FechaFin));
                 return Ok(lista);
             }
             catch (Exception)
@@ -62,7 +60,7 @@ namespace SiinErp.Areas.Cartera.Controllers
         {
             try
             {
-                BusinessMov.Anular(IdMov, NomUsu);
+                movimientoCarBusiness.Anular(IdMov, NomUsu);
                 return Ok(true);
             }
             catch (Exception)

@@ -4,9 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SiinErp.Areas.Cartera.Abstract;
-using SiinErp.Areas.Cartera.Business;
-using SiinErp.Areas.Cartera.Entities;
+using SiinErp.Model.Abstract.Cartera;
+using SiinErp.Model.Entities.Cartera;
 using SiinErp.Utiles;
 
 namespace SiinErp.Areas.Cartera.Controllers
@@ -16,11 +15,11 @@ namespace SiinErp.Areas.Cartera.Controllers
     [Area(Constantes.Area_Cartera)]
     public class PlazoPagoController : ControllerBase
     {
-        private readonly IPlazoPagoBusiness BusinessPlazo;
+        private readonly IPlazoPagoBusiness plazoPagoBusiness;
 
-        public PlazoPagoController()
+        public PlazoPagoController(IPlazoPagoBusiness _plazoPagoBusiness)
         {
-            BusinessPlazo = new PlazoPagoBusiness();
+            this.plazoPagoBusiness = _plazoPagoBusiness;
         }
 
         [HttpGet("{IdEmp}")]
@@ -28,7 +27,7 @@ namespace SiinErp.Areas.Cartera.Controllers
         {
             try
             {
-                var lista = BusinessPlazo.GetPlazosPagos(IdEmp);
+                var lista = plazoPagoBusiness.GetPlazosPagos(IdEmp);
                 return Ok(lista);
             }
             catch (Exception)
@@ -42,7 +41,7 @@ namespace SiinErp.Areas.Cartera.Controllers
         {
             try
             {
-                BusinessPlazo.Create(entity);
+                plazoPagoBusiness.Create(entity);
                 return Ok("Ok");
             }
             catch (Exception)
@@ -56,7 +55,7 @@ namespace SiinErp.Areas.Cartera.Controllers
         {
             try
             {
-                BusinessPlazo.Update(IdPlazo, entity);
+                plazoPagoBusiness.Update(IdPlazo, entity);
                 return Ok("Ok");
             }
             catch (Exception)

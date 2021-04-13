@@ -69,10 +69,13 @@
 
 
         function nuevo() {
-            vm.entity = {};
-            vm.entity.idEmpresa = vm.userApp.idEmpresa;
-            vm.entity.creadoPor = vm.userApp.nombreUsuario;
-            vm.entity.estado = 'A';
+            vm.entity = {
+                idEmpresa: vm.userApp.idEmpresa,
+                estadoFila: 'A',
+                creadoPor: vm.userApp.nombreUsuario,
+                modificadoPor: vm.userApp.nombreUsuario,
+            };
+            
             vm.formModify = false;
             vm.formVisible = true;
         }
@@ -157,8 +160,13 @@
 
         function verDetalle(entity) {
             vm.entity = angular.copy(entity);
-            vm.entityDet = {};
-            vm.entityDet.idListaPrecio = angular.copy(entity.idListaPrecio);
+            vm.entityDet = {
+                idListaPrecio: angular.copy(entity.idListaPrecio),
+                estadoFila: 'A',
+                creadoPor: vm.userApp.nombreUsuario,
+                modificadoPor: vm.userApp.nombreUsuario,
+            };
+            
             vm.listArticulos = [];
             getDetalle();
             vm.modoDet = true;

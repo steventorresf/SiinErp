@@ -16,7 +16,9 @@
         vm.formModifyDet = false;
         vm.entityTab = {
             idEmpresa: vm.userApp.idEmpresa,
-            creadoPor: vm.userApp.idUsu,
+            estadoFila: 'A',
+            creadoPor: vm.userApp.nombreUsuario,
+            modificadoPor: vm.userApp.nombreUsuario,
         };
 
         vm.init = init;
@@ -154,6 +156,7 @@
             vm.entityDet.idEmpresa = vm.userApp.idEmpresa;
             vm.entityDet.estado = 'A';
             vm.entityDet.creadoPor = vm.userApp.nombreUsuario;
+            vm.entityDet.modificadoPor = vm.userApp.nombreUsuario;
             vm.formModifyDet = false;
             vm.formVisibleDet = true;
         }

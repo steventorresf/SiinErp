@@ -68,7 +68,11 @@
         }
 
         function nuevo() {
-            vm.entity = {};
+            vm.entity = {
+                estadoFila: 'A',
+                creadoPor: vm.userApp.nombreUsuario,
+                modificadoPor: vm.userApp.nombreUsuario,
+            };
             vm.formModify = false;
             vm.formVisible = true;
         }
@@ -76,7 +80,8 @@
         function editar(entity) {
             vm.entity = angular.copy(entity);
             vm.entity.idPais = angular.copy(entity.idPais).toString();
-            console.log(vm.entity);
+            vm.entity.modificadoPor = vm.userApp.nombreUsuario;
+
             vm.formModify = true;
             vm.formVisible = true;
         }
@@ -201,6 +206,7 @@
 
         function getCiudades(entity) {
             vm.entity = angular.copy(entity);
+            vm.entity.modificadoPor = vm.userApp.nombreUsuario;
             vm.modoCiu = true;
             getAllCiu();
         }
@@ -218,14 +224,21 @@
         }
 
         function nuevoCiu() {
-            vm.entityCiu = {};
-            vm.entityCiu.idDepartamento = angular.copy(vm.entity.idDepartamento);
+            vm.entityCiu = {
+                idDepartamento: angular.copy(vm.entity.idDepartamento),
+                estadoFila: 'A',
+                creadoPor: vm.userApp.nombreUsuario,
+                modificadoPor: vm.userApp.nombreUsuario,
+            };
+            
             vm.formModifyCiu = false;
             vm.formVisibleCiu = true;
         }
 
         function editarCiu(entity) {
             vm.entityCiu = angular.copy(entity);
+            vm.entityCiu.modificadoPor = vm.userApp.nombreUsuario;
+
             vm.formModifyCiu = true;
             vm.formVisibleCiu = true;
         }

@@ -4,9 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SiinErp.Areas.Ventas.Abstract;
-using SiinErp.Areas.Ventas.Business;
-using SiinErp.Areas.Ventas.Entities;
+using SiinErp.Model.Abstract.Ventas;
+using SiinErp.Model.Entities.Ventas;
 using SiinErp.Utiles;
 
 namespace SiinErp.Areas.Ventas.Controllers
@@ -18,9 +17,9 @@ namespace SiinErp.Areas.Ventas.Controllers
     {
         private readonly ICajaBusiness cajaBusiness;
 
-        public CajaController()
+        public CajaController(ICajaBusiness _cajaBusiness)
         {
-            cajaBusiness = new CajaBusiness();
+            this.cajaBusiness = _cajaBusiness;
         }
 
         [HttpGet("{IdCajero}")]
@@ -58,6 +57,20 @@ namespace SiinErp.Areas.Ventas.Controllers
             {
                 cajaBusiness.Update(IdCaja, entity);
                 return Ok(true);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPut("An")]
+        public IActionResult Anular([FromBody] Caja entity)
+        {
+            try
+            {
+                string Any = cajaBusiness.Anular(entity);
+                return Ok(Any);
             }
             catch (Exception)
             {

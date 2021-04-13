@@ -4,9 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SiinErp.Areas.Compras.Abstract;
-using SiinErp.Areas.Compras.Business;
-using SiinErp.Areas.Compras.Entities;
+using SiinErp.Model.Abstract.Compras;
+using SiinErp.Model.Entities.Compras;
 using SiinErp.Utiles;
 
 namespace SiinErp.Areas.Compras.Controllers
@@ -18,9 +17,9 @@ namespace SiinErp.Areas.Compras.Controllers
     {
         private readonly IOrdenBusiness ordenBusiness;
 
-        public OrdenController()
+        public OrdenController(IOrdenBusiness _ordenBusiness)
         {
-            ordenBusiness = new OrdenBusiness();
+            this.ordenBusiness = _ordenBusiness;
         }
 
         [HttpGet("{IdEmp}/{FechaIni}/{FechaFin}")]

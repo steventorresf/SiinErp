@@ -5,9 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
-using SiinErp.Areas.Contabilidad.Abstract;
-using SiinErp.Areas.Contabilidad.Business;
-using SiinErp.Areas.Contabilidad.Entities;
+using SiinErp.Model.Abstract.Contabilidad;
 using SiinErp.Utiles;
 
 namespace SiinErp.Areas.Contabilidad.Controllers
@@ -19,9 +17,9 @@ namespace SiinErp.Areas.Contabilidad.Controllers
     {
         private readonly IComprobanteBusiness comprobanteBusiness;
 
-        public ComprobanteController()
+        public ComprobanteController(IComprobanteBusiness _comprobanteBusiness)
         {
-            comprobanteBusiness = new ComprobanteBusiness();
+            this.comprobanteBusiness = _comprobanteBusiness;
         }
 
         [HttpGet("{IdEmp}/{FechaI}/{FechaF}")]

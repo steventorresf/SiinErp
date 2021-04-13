@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
-using SiinErp.Areas.Inventario.Abstract;
-using SiinErp.Areas.Inventario.Business;
-using SiinErp.Areas.Inventario.Entities;
+using SiinErp.Model.Abstract.Inventario;
+using SiinErp.Model.Entities.Inventario;
 using SiinErp.Utiles;
 
 namespace SiinErp.Areas.Inventario.Controllers
@@ -17,11 +16,11 @@ namespace SiinErp.Areas.Inventario.Controllers
     [Area(Constantes.Area_Inventario)]
     public class ArticuloController : ControllerBase
     {
-        private readonly IArticuloBusiness BusinessArt;
+        private readonly IArticuloBusiness articuloBusiness;
 
-        public ArticuloController()
+        public ArticuloController(IArticuloBusiness _articuloBusiness)
         {
-            BusinessArt = new ArticuloBusiness();
+            this.articuloBusiness = _articuloBusiness;
         }
 
         [HttpGet("{IdEmp}")]
@@ -29,7 +28,7 @@ namespace SiinErp.Areas.Inventario.Controllers
         {
             try
             {
-                var lista = BusinessArt.GetArticulos(IdEmp);
+                var lista = articuloBusiness.GetArticulos(IdEmp);
                 return Ok(lista);
             }
             catch (Exception)
@@ -43,7 +42,7 @@ namespace SiinErp.Areas.Inventario.Controllers
         {
             try
             {
-                var lista = BusinessArt.GetAllByPrefix(data);
+                var lista = "";// articuloBusiness.GetAllByPrefix(data);
                 return Ok(lista);
             }
             catch (Exception)
@@ -57,7 +56,7 @@ namespace SiinErp.Areas.Inventario.Controllers
         {
             try
             {
-                var entity = BusinessArt.GetByCodigoListaP(data);
+                var entity = articuloBusiness.GetByCodigoListaP(data);
                 return Ok(entity);
             }
             catch (Exception)
@@ -71,7 +70,7 @@ namespace SiinErp.Areas.Inventario.Controllers
         {
             try
             {
-                var lista = BusinessArt.GetByPrefixListaP(data);
+                var lista = articuloBusiness.GetByPrefixListaP(data);
                 return Ok(lista);
             }
             catch (Exception)
@@ -89,7 +88,7 @@ namespace SiinErp.Areas.Inventario.Controllers
                 int IdEmp = data["IdEmp"].ToObject<int>();
                 string Prefix = data["Prefix"].ToObject<string>();
 
-                var lista = BusinessArt.GetArticulosByAlmacenPrefix(IdDetAlm, IdEmp, Prefix);
+                var lista = articuloBusiness.GetArticulosByAlmacenPrefix(IdDetAlm, IdEmp, Prefix);
                 return Ok(lista);
             }
             catch (Exception)
@@ -103,7 +102,7 @@ namespace SiinErp.Areas.Inventario.Controllers
         {
             try
             {
-                BusinessArt.Create(entity);
+                articuloBusiness.Create(entity);
                 return Ok(true);
             }
             catch (Exception)
@@ -117,7 +116,7 @@ namespace SiinErp.Areas.Inventario.Controllers
         {
             try
             {
-                BusinessArt.Update(IdArt, entity);
+                articuloBusiness.Update(IdArt, entity);
                 return Ok(true);
             }
             catch (Exception)

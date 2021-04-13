@@ -90,6 +90,29 @@ namespace SiinErp.Model.Business.Ventas
             }
         }
 
+        public string Anular(Caja data)
+        {
+            try
+            {
+                bool Any = context.CajaDetalle.Where(x => x.IdCaja == data.IdCaja && x.EstadoFila.Equals(Constantes.EstadoInactivo)).Any();
+                if (!Any)
+                {
+                    Caja entity = context.Caja.Find(data.IdCaja);
+                    entity.EstadoFila = Constantes.EstadoInactivo;
+                    entity.ModificadoPor = data.ModificadoPor;
+                    entity.FechaModificado = DateTimeOffset.Now;
+                    context.SaveChanges();
+                    return "1";
+                }
+                else{ return "-1"; }
+            }
+            catch (Exception ex)
+            {
+                errorBusiness.Create("AnularAperturaCaja", ex.Message, null);
+                throw;
+            }
+        }
+
         public int GetIdCajaActiva(int IdCajero)
         {
             try

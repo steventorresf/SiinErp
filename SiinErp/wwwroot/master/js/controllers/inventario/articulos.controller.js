@@ -73,9 +73,10 @@
                 stkMin: 0,
                 stkMax: 0,
                 esLinea: 'true',
-                estado: 'A',
+                estadoFila: 'A',
                 afectaInventario: 'true',
                 creadoPor: vm.userApp.nombreUsuario,
+                modificadoPor: vm.userApp.nombreUsuario,
                 nombreBusqueda: '-',
             };
 

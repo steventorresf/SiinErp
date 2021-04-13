@@ -187,7 +187,7 @@
 
         // Impresión
         function imprimir(id) {
-            return $http.get(nameSpace + '/Imp/' + id)
+            return $http.get(nameSpace + 'Imp/' + id)
                 .then(
                     function (response) {
                         fnImprimirMov(response.data);
@@ -199,7 +199,7 @@
         }
 
         function imprimirPVen(id) {
-            return $http.get(nameSpace + '/Imp/' + id)
+            return $http.get(nameSpace + 'Imp/' + id)
                 .then(
                     function (response) {
                         fnImprimirPVen(response.data);
@@ -211,7 +211,7 @@
         }
 
         function imprimirFA(id) {
-            return $http.get(nameSpace + '/Imp/' + id)
+            return $http.get(nameSpace + 'Imp/' + id)
                 .then(
                     function (response) {
                         fnImprimirFA(response.data);
@@ -227,11 +227,11 @@
 
             var tablaDet = [
                 [
-                    { text: 'Código', bold: true, alignment: 'center', },
-                    { text: 'NombreArticulo', bold: true, alignment: 'center', },
-                    { text: 'Cant', bold: true, alignment: 'center', },
-                    { text: 'VrUnit', bold: true, alignment: 'center', },
-                    { text: 'VrNeto', bold: true, alignment: 'center', },
+                    { text: 'DESCRIPCIÓN', bold: true, alignment: 'left', },
+                    { text: 'CANTIDAD', bold: true, alignment: 'right', },
+                    { text: '% IVA', bold: true, alignment: 'center', },
+                    { text: 'VALOR UNIT', bold: true, alignment: 'right', },
+                    { text: 'SUBTOTAL', bold: true, alignment: 'right', },
                 ]
             ];
 
@@ -241,9 +241,9 @@
                 var d = data[i];
                 tablaDet.push(
                     [
-                        { text: d.codArticulo },
                         { text: d.nombreArticulo },
-                        { text: d.cantidad, alignment: 'center', },
+                        { text: d.cantidad, alignment: 'right', },
+                        { text: d.pcIva, alignment: 'center', },
                         { text: d.vrUnitario, alignment: 'right', },
                         { text: d.vrNeto, alignment: 'right', },
                     ]
@@ -257,16 +257,16 @@
 
             var Documento = {
                 //footer: function (currentPage, pageCount) { return currentPage.toString() + ' of ' + pageCount; },
-                header: function (currentPage, pageCount, pageSize) {
-                    return [
-                        {
-                            text: 'Página ' + currentPage.toString() + '/' + pageCount,
-                            alignment: 'right',
-                            margin: [0, 15, 40, 0],
-                            style: 'estilo8',
-                        },
-                    ]
-                },
+                //header: function (currentPage, pageCount, pageSize) {
+                //    return [
+                //        {
+                //            text: 'Página ' + currentPage.toString() + '/' + pageCount,
+                //            alignment: 'right',
+                //            margin: [0, 15, 40, 0],
+                //            style: 'estilo8',
+                //        },
+                //    ]
+                //},
                 content: [
                     {
                         style: 'estilo8',
@@ -324,7 +324,7 @@
                     {
                         style: 'estilo8',
                         table: {
-                            widths: ['20%', '50%', '10%', '10%', '10%'],
+                            widths: ['60%', '10%', '10%', '10%', '10%'],
                             body: tablaDet
                         },
                         layout: {
@@ -539,10 +539,11 @@
 
             var tablaDet = [
                 [
-                    { text: 'Código', bold: true, alignment: 'left', },
-                    { text: 'Articulo', bold: true, alignment: 'left', },
-                    { text: 'Cant', bold: true, alignment: 'center', },
-                    { text: 'VrNeto', bold: true, alignment: 'right', },
+                    { text: 'DESCRIPCIÓN', bold: true, alignment: 'left', },
+                    { text: 'CANTIDAD', bold: true, alignment: 'right', },
+                    { text: '% IVA', bold: true, alignment: 'center', },
+                    { text: 'VALOR UNIT', bold: true, alignment: 'right', },
+                    { text: 'SUBTOTAL', bold: true, alignment: 'right', },
                 ]
             ];
 
@@ -552,9 +553,10 @@
                 var d = data[i];
                 tablaDet.push(
                     [
-                        { text: d.codArticulo },
                         { text: d.nombreArticulo },
-                        { text: PonerPuntosDouble(d.cantidad), alignment: 'center', },
+                        { text: PonerPuntosDouble(d.cantidad), alignment: 'right', },
+                        { text: d.pcIva, alignment: 'center', },
+                        { text: PonerPuntosDouble(d.vrUnitario), alignment: 'right', },
                         { text: PonerPuntosDouble(d.vrNeto), alignment: 'right', },
                     ]
                 );
@@ -567,16 +569,16 @@
 
             var Documento = {
                 pageSize: 'A4',
-                header: function (currentPage, pageCount, pageSize) {
-                    return [
-                        {
-                            text: 'Página ' + currentPage.toString() + '/' + pageCount,
-                            alignment: 'right',
-                            margin: [0, 15, 35, 0],
-                            style: 'estilo',
-                        },
-                    ]
-                },
+                //header: function (currentPage, pageCount, pageSize) {
+                //    return [
+                //        {
+                //            text: 'Página ' + currentPage.toString() + '/' + pageCount,
+                //            alignment: 'right',
+                //            margin: [0, 15, 35, 0],
+                //            style: 'estilo',
+                //        },
+                //    ]
+                //},
                 content: [
                     {
                         style: 'estilo',
@@ -607,10 +609,11 @@
                     {
                         style: 'estilo',
                         table: {
+                            headerRows: 1,
                             widths: ['40%', '20%', '20%', '20%'],
                             body: [
                                 [
-                                    { text: 'Datos Del Cliente', bold: true, alignment: 'center', colSpan: 4, },
+                                    { text: 'DATOS DEL CLIENTE', bold: true, alignment: 'center', colSpan: 4, },
                                     {}, {}, {},
                                 ],
                                 [
@@ -639,18 +642,20 @@
                                 ],
                             ]
                         },
+                        //layout: 'headerLineOnly',
                         layout: {
-                            hLineColor: 'lightgray',
-                            vLineColor: 'lightgray',
-                            //hLineWidth: function (i, node) {
-                            //    if (i === 0 || i === node.table.body.length) {
-                            //        return 0;
-                            //    }
-                            //    return (i === node.table.headerRows) ? 2 : 1;
-                            //},
-                            //vLineWidth: function (i) {
-                            //    return 0;
-                            //},
+                            //hLineColor: 'lightgray',
+                            //vLineColor: 'lightgray',
+                            hLineWidth: function (i, node) {
+                                if (i === 0 || i === 1) {
+                                    return 1;
+                                }
+                                //return (i === node.table.headerRows) ? 2 : 1;
+                            },
+                            vLineWidth: function (i) {
+                                console.log(i);
+                                return 0;
+                            },
                             paddingLeft: function (i, node) { return 2; },
                             paddingRight: function (i, node) { return 2; },
                             paddingTop: function (i, node) { return 2; },
@@ -661,12 +666,24 @@
                     {
                         style: 'estilo',
                         table: {
-                            widths: ['25%', '50%', '10%', '15%'],
+                            headerRows: 1,
+                            widths: ['55%', '10%', '8%', '13.5%', '13.5%'],
                             body: tablaDet
                         },
+                        //layout: 'headerLineOnly',
                         layout: {
-                            hLineColor: 'lightgray',
-                            vLineColor: 'lightgray',
+                            //hLineColor: 'lightgray',
+                            //vLineColor: 'lightgray',
+                            hLineWidth: function (i, node) {
+                                if (i === 0 || i === 1) {
+                                    return 1;
+                                }
+                                //return (i === node.table.headerRows) ? 2 : 1;
+                            },
+                            vLineWidth: function (i) {
+                                console.log(i);
+                                return 0;
+                            },
                             paddingLeft: function (i, node) { return 2; },
                             paddingRight: function (i, node) { return 2; },
                             paddingTop: function (i, node) { return 2; },
@@ -680,10 +697,16 @@
                             widths: ['25%', '25%', '25%', '25%'],
                             body: [
                                 [
-                                    { text: 'SubTotal:  $' + PonerPuntosDouble(entity.valorBruto), alignment: 'left', },
-                                    { text: 'Dscto:  $' + PonerPuntosDouble(entity.valorDscto), alignment: 'left', },
-                                    { text: 'Iva:  $' + PonerPuntosDouble(entity.valorIva), alignment: 'left', },
-                                    { text: 'Total:  $' + PonerPuntosDouble(entity.valorNeto), alignment: 'left', },
+                                    { text: 'SUBTOTAL', alignment: 'right', },
+                                    { text: 'DSCTO', alignment: 'right', },
+                                    { text: 'IVA', alignment: 'right', },
+                                    { text: 'TOTAL', alignment: 'right', },
+                                ],
+                                [
+                                    { text: '$ ' + PonerPuntosDouble(entity.valorBruto), alignment: 'right', },
+                                    { text: '$ ' + PonerPuntosDouble(entity.valorDscto), alignment: 'right', },
+                                    { text: '$ ' + PonerPuntosDouble(entity.valorIva), alignment: 'right', },
+                                    { text: '$ ' + PonerPuntosDouble(entity.valorNeto), alignment: 'right', },
                                 ],
                             ]
                         },
@@ -740,7 +763,7 @@
 
             var tablaDet = [
                 [
-                    { text: 'NOMBREPRODUCTO', bold: true, alignment: 'left', colSpan: 2, },
+                    { text: 'NOMBRE PRODUCTO', bold: true, alignment: 'left', colSpan: 2, },
                     {},
                 ]
             ];
@@ -796,6 +819,12 @@
                                 ],
                                 [
                                     { text: entity.tercero === null ? '' : 'FACT A: ' + entity.tercero.nitCedula, alignment: 'center', },
+                                ],
+                                [
+                                    { text: entity.tercero === null ? '' : entity.tercero.nombreTercero, alignment: 'center', },
+                                ],
+                                [
+                                    { text: entity.tercero === null ? '' : entity.tercero.direccion, alignment: 'center', },
                                 ],
                             ]
                         },

@@ -26,6 +26,7 @@
             valorNeto: 0,
             vrRestante: 0,
             creadoPor: vm.userApp.nombreUsuario,
+            modificadoPor: vm.userApp.nombreUsuario,
             modify: false,
         };
 
@@ -173,6 +174,7 @@
                         idDetAlmacen: angular.copy(vm.last.idDetAlmacen),
                         idDetCajero: angular.copy(vm.last.idDetCajero),
                         creadoPor: vm.userApp.nombreUsuario,
+                        modificadoPor: vm.userApp.nombreUsuario,
                         vrRestante: 0,
                         modify: false,
                     };
@@ -205,6 +207,8 @@
                                 vm.entityMov.vrRestante -= vm.gridOptionsPag.data[i].valor;
                             }
                         }
+
+                        CalcularTotales();
                     }
                 },
                 function (response) {
@@ -477,7 +481,9 @@
                     vrNeto: 0,
                     vrDscto: 0,
                     vrIva: 0,
-                    estado: Estados.Pendiente,
+                    estadoFila: Estados.Pendiente,
+                    creadoPor: vm.userApp.nombreUsuario,
+                    modificadoPor: vm.userApp.nombreUsuario,
                 };
                 vm.gridOptions.data.push(entity);
                 vm.entityMov.idArticulo = null;
@@ -679,6 +685,7 @@
                     descripcionCuenta: vm.idCuenta != null ? vm.entityCuenta.descripcion : '',
                     valor: vm.valorFp,
                     creadoPor: vm.userApp.nombreUsuario,
+                    modificadoPor: vm.userApp.nombreUsuario,
                 });
 
                 vm.idFormaDePago = null;
@@ -911,6 +918,7 @@
                 idCuentaContable: 0,
                 estado: Estados.Activo,
                 creadoPor: vm.userApp.nombreUsuario,
+                modificadoPor: vm.userApp.nombreUsuario,
             };
 
             getStrSecuencia();
