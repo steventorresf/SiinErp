@@ -172,7 +172,7 @@ namespace SiinErp.Areas.General.Controllers
         {
             try
             {
-                var lista = "";// terceroBusiness.GetClientesByPrefix(data);
+                var lista = terceroBusiness.GetClientesByPrefix(data);
                 return Ok(lista);
             }
             catch (Exception)

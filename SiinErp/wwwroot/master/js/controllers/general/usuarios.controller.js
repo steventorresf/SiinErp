@@ -11,6 +11,7 @@
         
         var vm = this;
 
+        vm.userApp = angular.copy($cookies.getObject('UsuApp'));
         vm.title = 'Home Page';
         vm.formVisible = false;
         vm.formModify = false;
@@ -21,7 +22,6 @@
             modificadoPor: vm.userApp.nombreUsuario,
         };
 
-        vm.userApp = angular.copy($cookies.getObject('UsuApp'));
         vm.init = init;
         vm.getAll = getAll;
         vm.nuevo = nuevo;
@@ -254,13 +254,15 @@
         }
 
         function agregarMenuUsuario() {
-            var data = {
-                idMenu: vm.idMenu,
-                idUsuario: vm.entityUsu.idUsuario,
-                estadoFila: 'A',
-                creadoPor: vm.userApp.nombreUsuario,
-                modificadoPor: vm.userApp.nombreUsuario,
-            };
+            var data = [
+                {
+                    idMenu: vm.idMenu,
+                    idUsuario: vm.entityUsu.idUsuario,
+                    estadoFila: 'A',
+                    creadoPor: vm.userApp.nombreUsuario,
+                    modificadoPor: vm.userApp.nombreUsuario,
+                }
+            ];
 
             var response = menusuService.create(data);
             response.then(

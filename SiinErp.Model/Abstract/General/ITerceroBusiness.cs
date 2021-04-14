@@ -16,6 +16,7 @@ namespace SiinErp.Model.Abstract.General
         List<Tercero> GetClientes(int IdEmpresa);
         List<Tercero> GetClienteListById(int IdTercero);
         Tercero GetClienteByIden(JObject data);
+        List<Tercero> GetClientesByPrefix(JObject data);
         List<Tercero> GetClientesActivos(int IdEmpresa);
         void UpdateCliente(int IdCliente, Tercero entity);
     }

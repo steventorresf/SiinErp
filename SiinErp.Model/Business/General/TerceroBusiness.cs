@@ -379,6 +379,69 @@ namespace SiinErp.Model.Business.General
             }
         }
 
+        public List<Tercero> GetClientesByPrefix(JObject data)
+        {
+            try
+            {
+                int IdEmpresa = data["idEmpresa"].ToObject<int>();
+                string Prefix = data["prefix"].ToObject<string>();
+
+                string[] ListPrefix = Prefix.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+
+                List<Tercero> Lista = (from cli in context.Terceros.Where(x => x.IdEmpresa == IdEmpresa && x.TipoTercero.Equals(Constantes.Cliente) && x.NombreBusqueda.Contains(ListPrefix[0]))
+                                       join tip in context.TablasDetalles on cli.IdDetTipoPersona equals tip.IdDetalle
+                                       join ciu in context.Ciudades on cli.IdCiudad equals ciu.IdCiudad
+                                       join dep in context.Departamentos on ciu.IdDepartamento equals dep.IdDepartamento
+                                       join zon in context.TablasDetalles on cli.IdDetZona equals zon.IdDetalle
+                                       join pla in context.PlazosPagos on cli.IdPlazoPago equals pla.IdPlazoPago
+                                       join lip in context.ListaPrecios on cli.IdListaPrecio equals lip.IdListaPrecio
+                                       select new Tercero()
+                                       {
+                                           IdTercero = cli.IdTercero,
+                                           TipoTercero = cli.TipoTercero,
+                                           IdEmpresa = cli.IdEmpresa,
+                                           CodTercero = cli.CodTercero,
+                                           NitCedula = cli.NitCedula,
+                                           DgVerificacion = cli.DgVerificacion,
+                                           IdDetTipoPersona = cli.IdDetTipoPersona,
+                                           NombreTercero = cli.NombreTercero,
+                                           NombreBusqueda = cli.NombreBusqueda,
+                                           Direccion = cli.Direccion,
+                                           EMail = cli.EMail,
+                                           IdCiudad = cli.IdCiudad,
+                                           Telefono = cli.Telefono,
+                                           IdDetZona = cli.IdDetZona,
+                                           IdVendedor = cli.IdVendedor,
+                                           IdCuentaContable = cli.IdCuentaContable,
+                                           IdPlazoPago = cli.IdPlazoPago,
+                                           LimiteCredito = cli.LimiteCredito,
+                                           IdPadre = cli.IdPadre,
+                                           IdListaPrecio = cli.IdListaPrecio,
+                                           Iva = cli.Iva,
+                                           FechaCreacion = cli.FechaCreacion,
+                                           CreadoPor = cli.CreadoPor,
+                                           EstadoFila = cli.EstadoFila,
+                                           NombreTipoPersona = tip.Descripcion,
+                                           PlazoPago = pla,
+                                           ListaPrecios = lip,
+                                           NombreCiudad = ciu.NombreCiudad + " - " + dep.NombreDepartamento,
+                                           IdDepartamento = dep.IdDepartamento,
+                                       }).ToList();
+
+                for (int i = 1; i < ListPrefix.Length; i++)
+                {
+                    Lista = Lista.Where(x => x.NombreBusqueda.Contains(ListPrefix[i])).ToList();
+                }
+
+                return Lista.OrderBy(x => x.NombreBusqueda).ToList();
+            }
+            catch (Exception ex)
+            {
+                errorBusiness.Create("GetClientesByPrefix", ex.Message, null);
+                throw;
+            }
+        }
+
         public List<Tercero> GetClientesActivos(int IdEmpresa)
         {
             try

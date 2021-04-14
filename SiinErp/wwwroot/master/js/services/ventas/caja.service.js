@@ -152,8 +152,10 @@
                 );
 
                 saldoTotal += d.valor;
-                saldoEnCaja += d.nombreFormaPago.includes('Efectivo') || d.valor < 0 || d.nombreFormaPago.includes('Ingresos') ? d.valor : 0;
+                saldoEnCaja += d.nombreFormaPago.toUpperCase().includes('EFECTIVO') || d.valor < 0 || d.nombreFormaPago.toUpperCase().includes('INGRESOS') ? d.valor : 0;
             }
+
+            var diferencia = saldoEnCaja - entity.saldoFinal;
 
             tablaResumen.push(
                 [
@@ -167,6 +169,10 @@
                 [
                     { text: 'Saldo Final', bold: true, },
                     { text: PonerPuntosDouble(entity.saldoFinal), bold: true, alignment: 'right', },
+                ],
+                [
+                    { text: 'Diferencia', bold: true, },
+                    { text: PonerPuntosDouble(diferencia), bold: true, alignment: 'right', },
                 ]
             );
             
@@ -256,6 +262,14 @@
                     { text: '$ ' + PonerPuntosDouble(entity.saldoFinal), bold: true, alignment: 'right', colSpan: 2, },
                     {},
                 ],
+                [
+                    { text: 'Diferencia:', bold: true, alignment: 'right', colSpan: 4, },
+                    {},
+                    {},
+                    {},
+                    { text: '$ ' + PonerPuntosDouble(diferencia), bold: true, alignment: 'right', colSpan: 2, },
+                    {},
+                ]
             );
 
             var Documento = {
