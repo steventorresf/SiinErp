@@ -421,7 +421,7 @@ namespace SiinErp.Model.Business.Inventario
                                 entityCajaDet.NumDoc = entityMov.NumDoc;
                                 entityCajaDet.IdDetFormaPago = mfp.IdDetFormaDePago;
                                 entityCajaDet.IdDetCuenta = mfp.IdDetCuenta;
-                                entityCajaDet.Efectivo = mfp.Descripcion.Contains("Efectivo") ? true : false;
+                                entityCajaDet.Efectivo = mfp.Descripcion.Contains("EFECTIVO") ? true : false;
                                 entityCajaDet.Transaccion = 1;
                                 entityCajaDet.Valor = mfp.Valor;
                                 entityCajaDet.EstadoFila = Constantes.EstadoActivo;
