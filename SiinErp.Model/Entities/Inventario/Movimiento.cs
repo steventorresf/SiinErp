@@ -161,6 +161,7 @@ namespace SiinErp.Model.Entities.Inventario
         [NotMapped]
         public List<MovimientoDetalle> ListaDetalle { get; set; }
 
+        [NotMapped]
         public List<MovimientoFormaPago> ListaFormaPago { get; set; }
 
         // NotMapped Object

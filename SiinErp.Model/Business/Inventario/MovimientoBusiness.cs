@@ -195,6 +195,7 @@ namespace SiinErp.Model.Business.Inventario
                     entityMov.EstadoFila = Constantes.EstadoActivo;
                     entityMov.FechaVencimiento = entityMov.PlazoPago == null ? entityMov.FechaDoc : entityMov.FechaDoc.AddDays(entityMov.PlazoPago.PlazoDias);
                     entityMov.FechaCreacion = DateTimeOffset.Now;
+                    entityMov.FechaModificado = DateTimeOffset.Now;
                     context.Movimientos.Add(entityMov);
                     context.SaveChanges();
 
@@ -260,10 +261,11 @@ namespace SiinErp.Model.Business.Inventario
                         entityCajaDet.FechaModificado = DateTimeOffset.Now;
                         ListaCajaDetalle.Add(entityCajaDet);
                     }
-                    //context.MovimientosFormasPagos.AddRange(listaDetallePag);
-                    context.SaveChanges();
 
                     context.MovimientosDetalles.AddRange(listaDetalleMov);
+                    context.SaveChanges();
+
+                    context.MovimientosFormasPagos.AddRange(listaDetallePag);
                     context.SaveChanges();
 
                     context.CajaDetalle.AddRange(ListaCajaDetalle);
