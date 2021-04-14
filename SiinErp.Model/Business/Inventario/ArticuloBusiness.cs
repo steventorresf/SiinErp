@@ -67,6 +67,63 @@ namespace SiinErp.Model.Business.Inventario
                 throw;
             }
         }
+        public List<Articulo> GetAllByPrefix(JObject data)
+        {
+            try
+            {
+                int IdEmpresa = data["idEmpresa"].ToObject<int>();
+                string Prefix = data["prefix"].ToObject<string>();
+
+                string[] ListPrefix = Prefix.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+
+                List<Articulo> Lista = (from ar in context.Articulos.Where(x => x.IdEmpresa == IdEmpresa && x.NombreBusqueda.Contains(ListPrefix[0]))
+                                        join ta in context.TablasDetalles on ar.IdDetTipoArticulo equals ta.IdDetalle
+                                        join um in context.TablasDetalles on ar.IdDetUnidadMed equals um.IdDetalle
+                                        select new Articulo()
+                                        {
+                                            IdArticulo = ar.IdArticulo,
+                                            IdEmpresa = ar.IdEmpresa,
+                                            CodArticulo = ar.CodArticulo,
+                                            Referencia = ar.Referencia,
+                                            NombreArticulo = ar.NombreArticulo,
+                                            NombreBusqueda = ar.NombreBusqueda,
+                                            IdDetTipoArticulo = ar.IdDetTipoArticulo,
+                                            IdDetUnidadMed = ar.IdDetUnidadMed,
+                                            EsLinea = ar.EsLinea,
+                                            Peso = ar.Peso,
+                                            PcIva = ar.PcIva,
+                                            IncluyeIva = ar.IncluyeIva,
+                                            StkMin = ar.StkMin,
+                                            StkMax = ar.StkMax,
+                                            VrVenta = ar.VrVenta,
+                                            VrCosto = ar.VrCosto,
+                                            Existencia = ar.Existencia,
+                                            IndCosto = ar.IndCosto,
+                                            IndConsumo = ar.IndConsumo,
+                                            FechaCreacion = ar.FechaCreacion,
+                                            FechaUEntrada = ar.FechaUEntrada,
+                                            FechaUPedida = ar.FechaUPedida,
+                                            FechaUSalida = ar.FechaUSalida,
+                                            CreadoPor = ar.CreadoPor,
+                                            EstadoFila = ar.EstadoFila,
+                                            AfectaInventario = ar.AfectaInventario,
+                                            NombreTipoArticulo = ta.Descripcion,
+                                            NombreUnidadMed = um.Descripcion,
+                                            DescEsLinea = ar.EsLinea ? "Si" : "No",
+                                        }).ToList();
+
+                for (int i = 1; i < ListPrefix.Length; i++)
+                {
+                    Lista = Lista.Where(x => x.NombreBusqueda.Contains(ListPrefix[i])).ToList();
+                }
+                return Lista.OrderBy(x => x.NombreArticulo).ToList();
+            }
+            catch (Exception ex)
+            {
+                errorBusiness.Create("GetByPrefixListaP", ex.Message, null);
+                throw;
+            }
+        }
         public List<Articulo> GetArticulosByIdListaPrecio(int IdListaPrecio)
         {
             try

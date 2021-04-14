@@ -7,6 +7,7 @@ namespace SiinErp.Model.Abstract.Inventario
     public interface IArticuloBusiness
     {
         List<Articulo> GetArticulos(int IdEmp);
+        List<Articulo> GetAllByPrefix(JObject data);
         List<Articulo> GetArticulosByIdListaPrecio(int IdListaPrecio);
         List<Articulo> GetArticulosNotByIdListaPrecio(int IdListaPrecio);
         Articulo GetByCodigoListaP(JObject data);

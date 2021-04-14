@@ -42,7 +42,7 @@ namespace SiinErp.Areas.Inventario.Controllers
         {
             try
             {
-                var lista = "";// articuloBusiness.GetAllByPrefix(data);
+                var lista = articuloBusiness.GetAllByPrefix(data);
                 return Ok(lista);
             }
             catch (Exception)
