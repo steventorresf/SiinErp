@@ -217,12 +217,19 @@ namespace SiinErp.Model.Business.Inventario
                                 entityExist.IdDetAlmacen = entityMov.IdDetAlmacen;
                                 entityExist.IdArticulo = m.IdArticulo;
                                 entityExist.Existencia = m.Cantidad * -1;
+                                entityExist.CreadoPor = entityMov.CreadoPor;
+                                entityExist.ModificadoPor = entityMov.CreadoPor;
+                                entityExist.FechaCreacion = DateTimeOffset.Now;
+                                entityExist.FechaModificado = DateTimeOffset.Now;
+                                entityExist.EstadoFila = Constantes.EstadoActivo;
                                 context.Existencias.Add(entityExist);
                                 context.SaveChanges();
                             }
                             else
                             {
                                 entityExist.Existencia += m.Cantidad * -1;
+                                entityExist.ModificadoPor = entityMov.CreadoPor;
+                                entityExist.FechaModificado = DateTimeOffset.Now;
                                 context.SaveChanges();
                             }
                         }
@@ -322,6 +329,8 @@ namespace SiinErp.Model.Business.Inventario
                                 ArticuloExistencia entityExist = context.Existencias.FirstOrDefault(x => x.IdArticulo == m.IdArticulo && x.IdDetAlmacen == entityMov.IdDetAlmacen);
                                 if (entityExist != null)
                                 {
+                                    entityExist.ModificadoPor = entityMov.CreadoPor;
+                                    entityExist.FechaModificado = DateTimeOffset.Now;
                                     entityExist.Existencia += m.Cantidad;
                                     context.SaveChanges();
                                 }

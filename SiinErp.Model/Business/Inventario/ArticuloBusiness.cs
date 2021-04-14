@@ -304,7 +304,7 @@ namespace SiinErp.Model.Business.Inventario
                                             PcIva = ar.PcIva,
                                             StkMin = ar.StkMin,
                                             StkMax = ar.StkMax,
-                                            VrVenta = ar.VrVenta,
+                                            VrVenta = lp.VrUnitario,
                                             VrCosto = ar.VrCosto,
                                             Existencia = ar.Existencia,
                                             IndCosto = ar.IndCosto,

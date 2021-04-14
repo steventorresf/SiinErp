@@ -48,13 +48,15 @@
         }
 
         function refreshArticulo(prefix) {
+           
             if (prefix.length > 2) {
                 var data = {
                     idEmpresa: vm.userApp.idEmpresa,
                     prefix: prefix,
                 };
-
+              
                 var response = artService.getAllByPrefix(data);
+              
                 response.then(
                     function (response) {
                         vm.listArticulos = response.data;

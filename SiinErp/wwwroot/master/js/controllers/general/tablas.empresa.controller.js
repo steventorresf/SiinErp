@@ -104,8 +104,8 @@
                     width: 100,
                 },
                 {
-                    name: 'estado',
-                    field: 'estado',
+                    name: 'estadoFila',
+                    field: 'estadoFila',
                     displayName: 'Estado',
                     headerCellClass: 'bg-header',
                     cellClass: 'text-center',
