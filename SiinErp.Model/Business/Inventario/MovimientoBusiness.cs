@@ -195,7 +195,6 @@ namespace SiinErp.Model.Business.Inventario
                     entityMov.EstadoFila = Constantes.EstadoActivo;
                     entityMov.FechaVencimiento = entityMov.PlazoPago == null ? entityMov.FechaDoc : entityMov.FechaDoc.AddDays(entityMov.PlazoPago.PlazoDias);
                     entityMov.FechaCreacion = DateTimeOffset.Now;
-                    entityMov.FechaModificado = DateTimeOffset.Now;
                     context.Movimientos.Add(entityMov);
                     context.SaveChanges();
 
@@ -261,11 +260,10 @@ namespace SiinErp.Model.Business.Inventario
                         entityCajaDet.FechaModificado = DateTimeOffset.Now;
                         ListaCajaDetalle.Add(entityCajaDet);
                     }
-
-                    context.MovimientosDetalles.AddRange(listaDetalleMov);
+                    //context.MovimientosFormasPagos.AddRange(listaDetallePag);
                     context.SaveChanges();
 
-                    context.MovimientosFormasPagos.AddRange(listaDetallePag);
+                    context.MovimientosDetalles.AddRange(listaDetalleMov);
                     context.SaveChanges();
 
                     context.CajaDetalle.AddRange(ListaCajaDetalle);
@@ -420,6 +418,11 @@ namespace SiinErp.Model.Business.Inventario
                         {
                             mfp.IdMovFormaDePago = 0;
                             mfp.IdMovimiento = entityMov.IdMovimiento;
+                            mfp.EstadoFila = Constantes.EstadoActivo;
+                            mfp.CreadoPor = entityMov.CreadoPor;
+                            mfp.ModificadoPor = entityMov.CreadoPor;
+                            mfp.FechaCreacion = DateTimeOffset.Now;
+                            mfp.FechaModificado = DateTimeOffset.Now;
                             context.MovimientosFormasPagos.Add(mfp);
                             context.SaveChanges();
 
@@ -438,6 +441,8 @@ namespace SiinErp.Model.Business.Inventario
                                 entityCajaDet.EstadoFila = Constantes.EstadoActivo;
                                 entityCajaDet.FechaCreacion = DateTimeOffset.Now;
                                 entityCajaDet.CreadoPor = entityMov.ModificadoPor;
+                                entityCajaDet.FechaModificado = DateTimeOffset.Now;
+                                entityCajaDet.ModificadoPor = entityMov.ModificadoPor;
                                 context.CajaDetalle.Add(entityCajaDet);
                                 context.SaveChanges();
                             }
@@ -445,6 +450,8 @@ namespace SiinErp.Model.Business.Inventario
                         else
                         {
                             entityFormaPag.Valor = mfp.Valor;
+                            mfp.ModificadoPor = entityMov.CreadoPor;
+                            mfp.FechaModificado = DateTimeOffset.Now;
                             context.SaveChanges();
 
                             CajaDetalle entityCajaDet = context.CajaDetalle.FirstOrDefault(x => x.IdMovimiento == entityMov.IdMovimiento && x.IdCaja == entityMov.IdCaja && x.IdDetFormaPago == mfp.IdDetFormaDePago && x.IdDetCuenta == mfp.IdDetCuenta);

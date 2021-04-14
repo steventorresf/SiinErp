@@ -174,7 +174,8 @@
         }
 
         function remove(id) {
-            return $http.delete(nameSpace + '/' + id)
+            console.log("borra", id);
+            return $http.delete(nameSpace + id)
                 .then(
                     function (response) {
                         return response;

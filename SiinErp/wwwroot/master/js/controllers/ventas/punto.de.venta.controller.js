@@ -870,6 +870,7 @@
         }
 
         function btnAnular() {
+            console.log("borra", vm.entityMov.idMovimiento);
             var response = movService.remove(vm.entityMov.idMovimiento);
             response.then(
                 function (response) {
