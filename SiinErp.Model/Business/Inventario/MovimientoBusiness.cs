@@ -242,6 +242,7 @@ namespace SiinErp.Model.Business.Inventario
                         mfp.IdMovimiento = obMov.IdMovimiento;
                         mfp.FechaCreacion = DateTimeOffset.Now;
                         mfp.FechaModificado = DateTimeOffset.Now;
+                        mfp.EstadoFila = Constantes.EstadoActivo;
 
                         CajaDetalle entityCajaDet = new CajaDetalle();
                         entityCajaDet.IdCaja = Convert.ToInt32(entityMov.IdCaja);
@@ -260,7 +261,7 @@ namespace SiinErp.Model.Business.Inventario
                         entityCajaDet.FechaModificado = DateTimeOffset.Now;
                         ListaCajaDetalle.Add(entityCajaDet);
                     }
-                    //context.MovimientosFormasPagos.AddRange(listaDetallePag);
+                    context.MovimientosFormasPagos.AddRange(listaDetallePag);
                     context.SaveChanges();
 
                     context.MovimientosDetalles.AddRange(listaDetalleMov);
@@ -742,6 +743,13 @@ namespace SiinErp.Model.Business.Inventario
                     {
                         ArticuloExistencia existencia = context.Existencias.FirstOrDefault(x => x.IdDetAlmacen == entityMov.IdDetAlmacen && x.IdArticulo == md.IdArticulo);
                         existencia.Existencia += (md.Cantidad * entityMov.Transaccion * -1);
+                        context.SaveChanges();
+                    }
+
+                    List<CajaDetalle> listCaja = context.CajaDetalle.Where(x => x.IdMovimiento == entityMov.IdMovimiento).ToList();
+                    foreach (CajaDetalle md in listCaja)
+                    {
+                        md.EstadoFila = Constantes.EstadoInactivo;
                         context.SaveChanges();
                     }
                     context.SaveChanges();

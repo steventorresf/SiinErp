@@ -197,7 +197,7 @@ namespace SiinErp.Model.Business.Ventas
                                    NombreCaja = cj.Descripcion,
                                    NombreTurno = tu.Descripcion,
                                }).FirstOrDefault();
-                List<CajaDetalle> ListaDetalle = (from cd in context.CajaDetalle.Where(x => x.IdCaja == IdCaja)
+                List<CajaDetalle> ListaDetalle = (from cd in context.CajaDetalle.Where(x => x.IdCaja == IdCaja && x.EstadoFila == Constantes.EstadoActivo)
                                                   join fp in context.TablasDetalles on cd.IdDetFormaPago equals fp.IdDetalle into joined
                                                   from j in joined.DefaultIfEmpty()
                                                   select new CajaDetalle()
