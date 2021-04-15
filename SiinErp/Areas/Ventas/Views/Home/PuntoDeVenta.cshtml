@@ -42,7 +42,7 @@
                                     </div>
                                     <button class="mr-2" ng-click="vm.clicAntSig('A')"><i class="fa fa-arrow-left"></i></button>
                                     <button class="mr-2" ng-click="vm.clicAntSig('S')"><i class="fa fa-arrow-right"></i></button>
-                                    <b ng-if="vm.entityMov.estado === 'I'" class="ml-3 mr-3 text-danger">ANULADA</b>
+                                    <b ng-if="vm.entityMov.estadoFila === 'I'" class="ml-3 mr-3 text-danger">ANULADA</b>
                                     <button ng-if="vm.entityMov.modify" class="mr-2 btn-primary" ng-click="vm.imprimirPVen()"><i class="fa fa-print"></i> P. Venta</button>
                                     <button ng-if="vm.entityMov.modify" class="btn-success" ng-click="vm.imprimirFact()"><i class="fa fa-print"></i> Factura</button>
                                 </form>
@@ -263,8 +263,8 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="col-12">
-                            <button class="btn btn-primary" ng-click="vm.btnGuardar()" ng-if="vm.entityMov.estado != 'I'" ng-disabled="formApp.$invalid || !vm.entityMov.valorNeto || vm.entityMov.valorNeto <= 0 || vm.entityMov.vrRestante != 0">Guardar</button>
-                            <button class="btn btn-danger ml-5" ng-click="vm.btnAnular()" ng-if="vm.entityMov.modify && vm.entityMov.estado != 'I'">Anular</button>
+                            <button class="btn btn-primary" ng-click="vm.btnGuardar()" ng-if="vm.entityMov.estadoFila != 'I'" ng-disabled="formApp.$invalid || !vm.entityMov.valorNeto || vm.entityMov.valorNeto <= 0 || vm.entityMov.vrRestante != 0">Guardar</button>
+                            <button class="btn btn-danger ml-5" ng-click="vm.btnAnular()" ng-if="vm.entityMov.modify && vm.entityMov.estadoFila != 'I'">Anular</button>
                         </div>
                     </div>
                 </div>
