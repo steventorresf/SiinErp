@@ -25,10 +25,6 @@ namespace SiinErp.Model.Entities.General
         [StringLength(50)]
         public string Clave { get; set; }
 
-        [Required]
-        [StringLength(1)]
-        public string Estado { get; set; }
-
         public int? UltimoAlmacen { get; set; }
 
 

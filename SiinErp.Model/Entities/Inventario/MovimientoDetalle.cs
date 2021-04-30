@@ -50,5 +50,8 @@ namespace SiinErp.Model.Entities.Inventario
         [NotMapped]
         public string NombreArticulo { get; set; }
 
+        [NotMapped]
+        public bool IncluyeIva { get; set; }
+
     }
 }

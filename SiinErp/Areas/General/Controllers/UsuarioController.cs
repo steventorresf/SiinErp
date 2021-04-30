@@ -42,7 +42,7 @@ namespace SiinErp.Areas.General.Controllers
                     Usuario obUsu = usuarioBusiness.GetByUsuario(Usu, Clave);
                     if (obUsu != null)
                     {
-                        if (obUsu.Estado.Equals(Constantes.EstadoActivo))
+                        if (obUsu.EstadoFila.Equals(Constantes.EstadoActivo))
                         {
                             dataCookie.IdUsu = obUsu.IdUsuario;
                             dataCookie.NombreUsuario = obUsu.NombreUsuario;

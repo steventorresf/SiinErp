@@ -9,9 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiinErp.Logger", "SiinErp.L
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiinErp.Model", "SiinErp.Model\SiinErp.Model.csproj", "{79EFD3DE-2C30-4B37-AE5D-A82C44DFBCBD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiinErp.Web", "SiinErp.Web\SiinErp.Web.csproj", "{94A9DD79-4651-4741-BA97-067D39601B79}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiinErp.Desktop", "SiinErp.Desktop\SiinErp.Desktop.csproj", "{CD2E3036-EFF7-4F5B-84B5-EAA1A7598556}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiinErp.Desktop", "SiinErp.Desktop\SiinErp.Desktop.csproj", "{CD2E3036-EFF7-4F5B-84B5-EAA1A7598556}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +29,6 @@ Global
 		{79EFD3DE-2C30-4B37-AE5D-A82C44DFBCBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79EFD3DE-2C30-4B37-AE5D-A82C44DFBCBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79EFD3DE-2C30-4B37-AE5D-A82C44DFBCBD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{94A9DD79-4651-4741-BA97-067D39601B79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{94A9DD79-4651-4741-BA97-067D39601B79}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{94A9DD79-4651-4741-BA97-067D39601B79}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{94A9DD79-4651-4741-BA97-067D39601B79}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CD2E3036-EFF7-4F5B-84B5-EAA1A7598556}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CD2E3036-EFF7-4F5B-84B5-EAA1A7598556}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD2E3036-EFF7-4F5B-84B5-EAA1A7598556}.Release|Any CPU.ActiveCfg = Release|Any CPU

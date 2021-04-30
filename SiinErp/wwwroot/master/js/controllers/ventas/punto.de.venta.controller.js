@@ -171,6 +171,8 @@
                     vm.entityMov = {
                         tipoDoc: data.tipoDoc,
                         numDoc: data.numDoc,
+                        idEmpresa: data.idEmpresa,
+                        sFechaDoc: new Date(),
                         idDetAlmacen: angular.copy(vm.last.idDetAlmacen),
                         idDetCajero: angular.copy(vm.last.idDetCajero),
                         creadoPor: vm.userApp.nombreUsuario,

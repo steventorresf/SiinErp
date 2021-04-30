@@ -750,9 +750,9 @@ namespace SiinErp.Model.Business.Inventario
                     foreach (CajaDetalle md in listCaja)
                     {
                         md.EstadoFila = Constantes.EstadoInactivo;
+                        md.FechaModificado = DateTimeOffset.Now;
                         context.SaveChanges();
                     }
-                    context.SaveChanges();
 
                     tran.Commit();
                 }

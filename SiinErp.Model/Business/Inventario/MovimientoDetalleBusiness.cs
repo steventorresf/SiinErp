@@ -33,6 +33,7 @@ namespace SiinErp.Model.Business.Inventario
                                                      Cantidad = md.Cantidad,
                                                      PcDscto = md.PcDscto,
                                                      PcIva = md.PcIva,
+                                                     IncluyeIva = ar.IncluyeIva,
                                                      VrCosto = md.VrCosto,
                                                      VrUnitario = md.VrUnitario,
                                                      CodArticulo = ar.CodArticulo,

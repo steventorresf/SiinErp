@@ -43,10 +43,10 @@ namespace SiinErp.Model.Business.General
                                            IdUsuario = us.IdUsuario,
                                            NombreCompleto = us.NombreCompleto,
                                            NombreUsuario = us.NombreUsuario,
-                                           Estado = us.Estado,
-                                           NombreEstado = us.Estado.Equals(Constantes.EstadoActivo) ? "ACTIVO" : "INACTIVO",
+                                           EstadoFila = us.EstadoFila,
+                                           NombreEstado = us.EstadoFila.Equals(Constantes.EstadoActivo) ? "ACTIVO" : "INACTIVO",
                                            Clave = ".",
-                                       }).OrderBy(x => x.NombreCompleto).OrderBy(x => x.Estado).ToList();
+                                       }).OrderBy(x => x.NombreCompleto).OrderBy(x => x.EstadoFila).ToList();
                 return Lista;
             }
             catch (Exception ex)
@@ -92,7 +92,7 @@ namespace SiinErp.Model.Business.General
             try
             {
                 Usuario obUsu = context.Usuarios.Find(IdUsuario);
-                obUsu.Estado = Estado;
+                obUsu.EstadoFila = Estado;
                 context.SaveChanges();
             }
             catch (Exception ex)

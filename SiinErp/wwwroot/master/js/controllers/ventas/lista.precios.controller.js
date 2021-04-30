@@ -163,7 +163,7 @@
         function verDetalle(entity) {
             vm.entity = angular.copy(entity);
             vm.entityDet = {
-                idListaPrecio: angular.copy(entity.idListaPrecio),
+                idListaPrecio: angular.copy(vm.entity.idListaPrecio),
                 estadoFila: 'A',
                 creadoPor: vm.userApp.nombreUsuario,
                 modificadoPor: vm.userApp.nombreUsuario,
@@ -199,7 +199,12 @@
                 var response = lisdetService.create(vm.entityDet);
                 response.then(
                     function (response) {
-                        vm.entityDet = {};
+                        vm.entityDet = {
+                            idListaPrecio: angular.copy(vm.entity.idListaPrecio),
+                            estadoFila: 'A',
+                            creadoPor: vm.userApp.nombreUsuario,
+                            modificadoPor: vm.userApp.nombreUsuario,
+                        };
                         getDetalle();
                     },
                     function (response) {

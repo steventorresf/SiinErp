@@ -398,7 +398,7 @@ namespace SiinErp.Desktop.Forms.Ventas
                             if(IdMov > 0)
                             {
                                 MessageBox.Show("La factura ha sido registrada correctamente.", "¡Ok!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                this.Limpiar();
+                                this.NuevaFactura();
                             }
                             else { MessageBox.Show("Ha ocurrido un error inesperado.", "¡No Valido!", MessageBoxButtons.OK, MessageBoxIcon.Error); }
                         }
@@ -412,9 +412,12 @@ namespace SiinErp.Desktop.Forms.Ventas
                     if (Resp)
                     {
                         this.LlenarDataObject();
-                        this.controllerBusiness.movimientoBusiness.UpdateByPuntoDeVenta(data);
-                        MessageBox.Show("La factura ha sido actualizada correctamente.", "¡Ok!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.Limpiar();
+                        int IdMov = this.controllerBusiness.movimientoBusiness.UpdateByPuntoDeVenta(data);
+                        if (IdMov > 0)
+                        {
+                            MessageBox.Show("La factura ha sido actualizada correctamente.", "¡Ok!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.NuevaFactura();
+                        }
                     }
                 }
             }

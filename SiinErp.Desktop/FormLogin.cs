@@ -45,7 +45,7 @@ namespace SiinErp.Desktop
                 var entityUsu = controllerBusiness.usuarioBusiness.GetByUsuario(txtNombreUsuario.Text, claveEncriptada);
                 if(entityUsu != null)
                 {
-                    if (entityUsu.Estado.Equals(Constantes.EstadoActivo))
+                    if (entityUsu.EstadoFila.Equals(Constantes.EstadoActivo))
                     {
                         Cookie.IdUsu = entityUsu.IdUsuario;
                         Cookie.NombreUsuario = entityUsu.NombreUsuario;
