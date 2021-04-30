@@ -181,6 +181,10 @@
                         modify: false,
                     };
 
+                    getListasPrecios();
+                    getAlmacens();
+                    getCajeros();
+
                     var dataR = response.data;
                     if (dataR.entity != null) {
 
