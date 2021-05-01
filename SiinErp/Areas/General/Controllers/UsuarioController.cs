@@ -157,5 +157,19 @@ namespace SiinErp.Areas.General.Controllers
             }
         }
 
+        [HttpPost("CamClave")]
+        public IActionResult CambiarClave([FromBody] JObject data)
+        {
+            try
+            {
+                string respuesta = usuarioBusiness.CambiarClave(data);
+                return Ok(respuesta);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }

@@ -5,6 +5,7 @@ using SiinErp.Model.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace SiinErp.Model.Business.General
 {
@@ -130,5 +131,48 @@ namespace SiinErp.Model.Business.General
                 throw;
             }
         }
+
+        public string CambiarClave(JObject data)
+        {
+            try
+            {
+                string respuesta = "";
+                int idUsuario = data["idUsuario"].ToObject<int>();
+                string claveActual = data["claveActual"].ToObject<string>();
+                string nuevaClave = data["nuevaClave"].ToObject<string>();
+                string confirmarClave = data["confirmarClave"].ToObject<string>();
+
+                if (claveActual.Length >= 4 && nuevaClave.Length >= 4 && confirmarClave.Length >= 4)
+                {
+                    Usuario entity = context.Usuarios.Find(idUsuario);
+                    if (entity != null)
+                    {
+                        if (entity.Clave.Equals(Seguridad.EncriptarMD5(claveActual)))
+                        {
+                            nuevaClave = Seguridad.EncriptarMD5(nuevaClave);
+                            confirmarClave = Seguridad.EncriptarMD5(confirmarClave);
+                            if (nuevaClave.Equals(confirmarClave))
+                            {
+                                entity.Clave = nuevaClave;
+                                context.SaveChanges();
+                                respuesta = "1";
+                            }
+                            else { respuesta = "Las contraseñas no coinciden."; }
+                        }
+                        else { respuesta = "La contraseña es incorrecta."; }
+                    }
+                    else { respuesta = "Hacker."; }
+                }
+                else { respuesta = "Las contraseñas deben tener 4 o más caracteres."; }
+
+                return respuesta;
+            }
+            catch (Exception ex)
+            {
+                errorBusiness.Create("CambiarClaveUsuario", ex.Message, null);
+                throw;
+            }
+        }
+
     }
 }

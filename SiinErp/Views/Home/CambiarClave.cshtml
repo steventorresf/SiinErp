@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewData["Title"] = "CambiarClave";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-12 offset-md-2 col-md-6 col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <form id="formApp" name="formApp" class="form-horizontal" novalidate="novalidate">
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <label>Contraseña actual:</label>
+                            <input type="password" class="form-control" form="formApp" ng-model="vm.entity.claveActual" required />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <label>Nueva Contraseña:</label>
+                            <input type="password" class="form-control" form="formApp" ng-model="vm.entity.nuevaClave" required />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <label>Confirmar Contraseña:</label>
+                            <input type="password" class="form-control" form="formApp" ng-model="vm.entity.confirmarClave" required />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <button class="btn btn-primary" ng-click="vm.cambiarClave()" ng-disabled="formApp.$invalid">Actualizar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/master/js/controllers/cambiarClave.controller.js"></script>

@@ -17,6 +17,7 @@
             upEstado: upEstado,
             resetClave: resetClave,
             getLastAlm: getLastAlm,
+            cambiarClave: cambiarClave,
         };
 
         return service;
@@ -101,6 +102,19 @@
 
         function getLastAlm(id) {
             return $http.get(nameSpace + 'UltAlm/' + id + '/')
+                .then(
+                    function (response) {
+                        return response;
+                    },
+                    function (errResponse) {
+                        console.log(errResponse);
+                        return $q.reject(errResponse);
+                    }
+                );
+        }
+
+        function cambiarClave(data) {
+            return $http.post(nameSpace + 'CamClave/', data)
                 .then(
                     function (response) {
                         return response;
