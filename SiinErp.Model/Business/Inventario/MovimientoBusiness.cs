@@ -207,8 +207,12 @@ namespace SiinErp.Model.Business.Inventario
                         m.FechaModificado = DateTimeOffset.Now;
 
                         Articulo entityArt = context.Articulos.Find(m.IdArticulo);
+
                         if (entityArt.AfectaInventario)
                         {
+                            entityArt.Existencia -= m.Cantidad;
+                            context.SaveChanges();
+
                             ArticuloExistencia entityExist = context.Existencias.FirstOrDefault(x => x.IdArticulo == m.IdArticulo && x.IdDetAlmacen == entityMov.IdDetAlmacen);
                             if (entityExist == null)
                             {
@@ -325,8 +329,12 @@ namespace SiinErp.Model.Business.Inventario
                             context.SaveChanges();
 
                             Articulo entityArt = context.Articulos.Find(m.IdArticulo);
+
                             if (entityArt.AfectaInventario)
                             {
+                                entityArt.Existencia += m.Cantidad;
+                                context.SaveChanges();
+
                                 ArticuloExistencia entityExist = context.Existencias.FirstOrDefault(x => x.IdArticulo == m.IdArticulo && x.IdDetAlmacen == entityMov.IdDetAlmacen);
                                 if (entityExist != null)
                                 {
@@ -352,6 +360,9 @@ namespace SiinErp.Model.Business.Inventario
 
                             if (entityArt.AfectaInventario)
                             {
+                                entityArt.Existencia += m.Cantidad * entityMov.Transaccion;
+                                context.SaveChanges();
+
                                 ArticuloExistencia entityExist = context.Existencias.FirstOrDefault(x => x.IdArticulo == m.IdArticulo && x.IdDetAlmacen == entityMov.IdDetAlmacen);
                                 if (entityExist == null)
                                 {
@@ -374,6 +385,9 @@ namespace SiinErp.Model.Business.Inventario
                         {
                             if (entityArt.AfectaInventario)
                             {
+                                entityArt.Existencia += entityDetalle.Cantidad - m.Cantidad;
+                                context.SaveChanges();
+
                                 ArticuloExistencia entityExist = context.Existencias.FirstOrDefault(x => x.IdArticulo == m.IdArticulo && x.IdDetAlmacen == entityMov.IdDetAlmacen);
                                 if (entityExist != null)
                                 {

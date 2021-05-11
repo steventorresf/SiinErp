@@ -24,6 +24,20 @@ namespace SiinErp.Model.Business.Inventario
         {
             try
             {
+                var ListaExistencia = (from ar in context.Articulos.Where(x => x.IdEmpresa == IdEmp)
+                                       join ex in context.Existencias on ar.IdArticulo equals ex.IdArticulo
+                                       select new
+                                       {
+                                           ar.IdArticulo,
+                                           ex.Existencia
+                                       })
+                                       .GroupBy(x => new { x.IdArticulo })
+                                       .Select(x => new
+                                       {
+                                           x.Key.IdArticulo,
+                                           CantidadExistente = x.Sum(s => s.Existencia)
+                                       }).ToList();
+
                 List<Articulo> Lista = (from ar in context.Articulos.Where(x => x.IdEmpresa == IdEmp)
                                         join ta in context.TablasDetalles on ar.IdDetTipoArticulo equals ta.IdDetalle
                                         join um in context.TablasDetalles on ar.IdDetUnidadMed equals um.IdDetalle
@@ -59,6 +73,16 @@ namespace SiinErp.Model.Business.Inventario
                                             NombreUnidadMed = um.Descripcion,
                                             DescEsLinea = ar.EsLinea ? "Si" : "No",
                                         }).OrderBy(x => x.NombreArticulo).ToList();
+
+                foreach(Articulo ar in Lista)
+                {
+                    var entityExist = ListaExistencia.FirstOrDefault(x => x.IdArticulo == ar.IdArticulo);
+                    if (entityExist != null)
+                    {
+                        ar.Existencia = entityExist.CantidadExistente;
+                    }
+                }
+
                 return Lista;
             }
             catch (Exception ex)
@@ -67,6 +91,7 @@ namespace SiinErp.Model.Business.Inventario
                 throw;
             }
         }
+
         public List<Articulo> GetAllByPrefix(JObject data)
         {
             try
