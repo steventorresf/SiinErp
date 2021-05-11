@@ -569,11 +569,7 @@
             }
 
             var Documento = {
-                //pageSize: 'A5',
-                pageSize: {
-                    width: '8.5m',
-                    height: '8.27m'
-                },
+                pageSize: 'A5',
                 //header: function (currentPage, pageCount, pageSize) {
                 //    return [
                 //        {
