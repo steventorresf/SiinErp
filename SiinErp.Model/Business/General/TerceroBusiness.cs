@@ -75,11 +75,25 @@ namespace SiinErp.Model.Business.General
         {
             try
             {
-                entity.NombreBusqueda = entity.CodTercero + " - " + entity.NitCedula + " - " + entity.NombreTercero;
-                entity.FechaCreacion = DateTimeOffset.Now;
-                entity.FechaModificado = DateTimeOffset.Now;
-                context.Terceros.Add(entity);
-                context.SaveChanges();
+                using(var tran = context.Database.BeginTransaction())
+                {
+                    if (entity.TipoTercero.Equals(Constantes.Cliente))
+                    {
+                        Secuencia entitySec = context.Secuencia.Find(entity.TipoTercero);
+                        entitySec.NoSecuencia++;
+                        context.SaveChanges();
+
+                        entity.CodTercero = Seguridad.GetPrefijoSecuencia(entitySec.Prefijo, entitySec.NoSecuencia, entitySec.Longitud);
+                    }
+
+                    entity.NombreBusqueda = entity.CodTercero + " - " + entity.NitCedula + " - " + entity.NombreTercero;
+                    entity.FechaCreacion = DateTimeOffset.Now;
+                    entity.FechaModificado = DateTimeOffset.Now;
+                    context.Terceros.Add(entity);
+                    context.SaveChanges();
+
+                    tran.Commit();
+                }
             }
             catch (Exception ex)
             {
