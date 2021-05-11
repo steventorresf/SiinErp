@@ -923,7 +923,7 @@
                 iva: 'true',
                 limiteCredito: 0,
                 idCuentaContable: 0,
-                estado: Estados.Activo,
+                estadoFila: Estados.Activo,
                 creadoPor: vm.userApp.nombreUsuario,
                 modificadoPor: vm.userApp.nombreUsuario,
             };

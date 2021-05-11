@@ -2594,11 +2594,9 @@
             }
 
             var Documento = {
-                //pageSize: 'A5',
-                pageSize: {
-                    width: '8.5m',
-                    height: '8.27m'
-                },
+                pageSize: 'A5',
+                pageOrientation: 'landscape',
+                pageMargins: [20, 10, 20, 10],
                 //header: function (currentPage, pageCount, pageSize) {
                 //    return [
                 //        {
@@ -2780,7 +2778,7 @@
                 ],
                 styles: {
                     estilo: {
-                        fontSize: 9,
+                        fontSize: 8,
                     },
                 },
             };
