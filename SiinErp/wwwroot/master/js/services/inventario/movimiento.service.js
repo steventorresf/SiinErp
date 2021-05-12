@@ -569,8 +569,8 @@
             }
 
             var Documento = {
-                pageSize: 'A5',
-                pageOrientation: 'landscape',
+                pageSize: 'A4',
+                //pageOrientation: 'landscape',
                 pageMargins: [20, 10, 20, 10],
                 //header: function (currentPage, pageCount, pageSize) {
                 //    return [
