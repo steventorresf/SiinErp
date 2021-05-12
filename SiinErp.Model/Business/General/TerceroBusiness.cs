@@ -79,7 +79,7 @@ namespace SiinErp.Model.Business.General
                 {
                     if (entity.TipoTercero.Equals(Constantes.Cliente))
                     {
-                        Secuencia entitySec = context.Secuencia.Find(entity.TipoTercero);
+                        Secuencia entitySec = context.Secuencia.FirstOrDefault(x => x.Prefijo.Equals(entity.TipoTercero));
                         entitySec.NoSecuencia++;
                         context.SaveChanges();
 
