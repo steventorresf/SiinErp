@@ -39,6 +39,7 @@
         vm.clicTipoBusqueda = clicTipoBusqueda;
         vm.busquedaArtCodigo = false;
         vm.busquedaArtTexto = true;
+        vm.btnGuardarEnabled = true;
         vm.quitarArticulo = quitarArticulo;
         vm.bloquearInput = bloquearInput;
         vm.onChangeFormaDePago = onChangeFormaDePago;
