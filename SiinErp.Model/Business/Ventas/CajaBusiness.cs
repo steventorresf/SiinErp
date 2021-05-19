@@ -215,7 +215,7 @@ namespace SiinErp.Model.Business.Ventas
                                                       NumDoc = cd.NumDoc,
                                                       Efectivo = cd.Efectivo,
                                                       NombreFormaPago = j == null ? (cd.TipoDoc.Equals(Constantes.VenDocEgresoCaja) ? "Egresos" : "Ingresos") : j.Descripcion,
-                                                  }).ToList();
+                                                  }).OrderBy(x => x.IdCajaDetalle).ToList();
                 entity.ListaDetalle = ListaDetalle;
                 entity.ListaResumen = ListaDetalle.GroupBy(x => new { x.NombreFormaPago })
                                                   .Select(x => new CajaDetalle()

@@ -15,6 +15,7 @@
         vm.userApp = angular.copy($cookies.getObject('UsuApp'));
         vm.refreshArticulo = refreshArticulo;
         vm.onChangeArticulo = onChangeArticulo;
+        vm.agregarArt = agregarArt;
         vm.btnGuardar = btnGuardar;
         vm.btnAnular = btnAnular;
         vm.entityMov = {
@@ -432,11 +433,11 @@
         }
 
         function getArticuloByCod() {
-            if (vm.entityMov.busquedaCodigo != undefined && vm.entityMov.busquedaCodigo != null && vm.entityMov.busquedaCodigo != '') {
+            if (vm.entityAgArt.busquedaCodigo != undefined && vm.entityAgArt.busquedaCodigo != null && vm.entityAgArt.busquedaCodigo != '') {
                 var data = {
                     idEmpresa: vm.userApp.idEmpresa,
                     idListaPrecio: vm.entityMov.idListaPrecio,
-                    codigo: vm.entityMov.busquedaCodigo,
+                    codigo: vm.entityAgArt.busquedaCodigo,
                 };
 
                 var response = artService.getByCodigoAndListaP(data);
@@ -454,48 +455,40 @@
             }
         }
 
-        function validarArticulo($item) {
-            var val = true;
+        function agregarArt() {
+            vm.idArt++;
+            var entity = {
+                idArt: vm.idArt,
+                idArticulo: vm.entityArt.idArticulo,
+                codArticulo: vm.entityArt.codArticulo,
+                nombreArticulo: vm.entityArt.nombreArticulo,
+                cantidad: parseFloat(vm.entityAgArt.cantidad),
+                vrUnitario: parseFloat(vm.entityAgArt.vrUnitario),
+                vrCosto: vm.entityArt.vrCosto,
+                pcDscto: 0,
+                pcIva: vm.entityArt.pcIva,
+                incluyeIva: vm.entityArt.incluyeIva,
+                vrBruto: 0,
+                vrNeto: 0,
+                vrDscto: 0,
+                vrIva: 0,
+                estadoFila: Estados.Pendiente,
+                creadoPor: vm.userApp.nombreUsuario,
+                modificadoPor: vm.userApp.nombreUsuario,
+            };
+            vm.gridOptions.data.push(entity);
+            vm.entityAgArt.idArticulo = null;
+            vm.entityAgArt.busquedaCodigo = null;
+            CalcularTotales();
 
-            var data = vm.gridOptions.data.filter(function (e) {
-                return e.idArticulo === $item.idArticulo;
-            });
-
-            if (data.length > 0) {
-                val = false;
-            }
-
-            return val;
+            vm.entityArt = {};
+            vm.entityAgArt = {};
         }
 
         function onChangeArticulo($item, $model) {
-            var val = true;//validarArticulo($item);
-            if (val) {
-                vm.idArt++;
-                var entity = {
-                    idArt: vm.idArt,
-                    idArticulo: $item.idArticulo,
-                    codArticulo: $item.codArticulo,
-                    nombreArticulo: $item.nombreArticulo,
-                    cantidad: 1,
-                    vrUnitario: $item.vrVenta,
-                    vrCosto: $item.vrCosto,
-                    pcDscto: 0,
-                    pcIva: $item.pcIva,
-                    incluyeIva: $item.incluyeIva,
-                    vrBruto: 0,
-                    vrNeto: 0,
-                    vrDscto: 0,
-                    vrIva: 0,
-                    estadoFila: Estados.Pendiente,
-                    creadoPor: vm.userApp.nombreUsuario,
-                    modificadoPor: vm.userApp.nombreUsuario,
-                };
-                vm.gridOptions.data.push(entity);
-                vm.entityMov.idArticulo = null;
-                vm.entityMov.busquedaCodigo = null;
-                CalcularTotales();
-            }
+            vm.entityArt = $item;
+            vm.entityAgArt.cantidad = 1;
+            vm.entityAgArt.vrUnitario = $item.vrVenta;
         }
         
         vm.gridOptions = {
@@ -605,18 +598,6 @@
             onRegisterApi: function (gridApi) {
                 vm.gridApi = gridApi;
                 gridApi.edit.on.afterCellEdit($scope, function (rowEntity, colDef, newValue, oldValue) {
-                    //rowEntity.vrBruto = (rowEntity.vrUnitario * rowEntity.cantidad);
-                    //rowEntity.vrDscto = (rowEntity.vrBruto * rowEntity.pcDscto / 100);
-                    //if (rowEntity.incluyeIva) {
-                    //    var valSinIva = parseFloat(rowEntity.vrBruto / ((rowEntity.pcIva / 100) + 1));
-                    //    rowEntity.vrIva = rowEntity.vrBruto - valSinIva;
-                    //    rowEntity.vrNeto = rowEntity.vrBruto - rowEntity.vrDscto;
-                    //}
-                    //else {
-                    //    rowEntity.vrIva = (rowEntity.vrBruto * rowEntity.pcIva / 100);
-                    //    rowEntity.vrNeto = rowEntity.vrBruto - rowEntity.vrDscto + rowEntity.vrIva;
-                    //}
-                    
                     CalcularTotales();
                 });
             },
@@ -785,6 +766,8 @@
         }
 
         function btnGuardar() {
+            vm.btnGuardarEnabled = false;
+
             var val = true;
             vm.entityMov.fechaDoc = vm.entityMov.sFechaDoc.DateSiin(true);
             vm.entityMov.valorSaldo = 0;
@@ -813,13 +796,16 @@
                             }
                             if (vm.entityMov.idCaja === 0) {
                                 alert('La caja NO se encuentra Abierta.');
+                                vm.btnGuardarEnabled = true;
                             }
                             if (vm.entityMov.idCaja < 0) {
                                 alert('La caja se encuentra Abierta más de una vez.');
+                                vm.btnGuardarEnabled = true;
                             }
                         },
                         function (response) {
                             console.log(response);
+                            vm.btnGuardarEnabled = true;
                         }
                     );
                 }
@@ -829,6 +815,7 @@
             }
             else {
                 alert('No puede asignar un valor "A Credito", porque no selecciona cliente. ');
+                vm.btnGuardarEnabled = true;
             }
         }
 
@@ -853,9 +840,11 @@
                         vm.entityMov.idMovimiento = response.data;
                         vm.gridPrincipal = false;
                         vm.gridTerminado = true;
+                        vm.btnGuardarEnabled = true;
                     },
                     function (response) {
                         console.log(response);
+                        vm.btnGuardarEnabled = true;
                     }
                 );
             }
@@ -866,10 +855,12 @@
                         vm.entityMov.idMovimiento = response.data;
                         vm.gridPrincipal = false;
                         vm.gridTerminado = true;
+                        vm.btnGuardarEnabled = true;
                     },
                     function (response) {
                         console.log(response);
-                        alert("Ha ocurrido un error inesperado.\rPuede ser que la factura no se pueda modificar, porque ya tiene abono.")
+                        alert("Ha ocurrido un error inesperado.\rPuede ser que la factura no se pueda modificar, porque ya tiene abono.");
+                        vm.btnGuardarEnabled = true;
                     }
                 );
             }            

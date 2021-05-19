@@ -873,7 +873,7 @@ namespace SiinErp.Model.Business.Inventario
                                            NombreArticulo = a.NombreArticulo,
                                            Articulo = a,
                                            CodArticulo = a.CodArticulo
-                                       }).ToList();
+                                       }).OrderBy(x => x.IdDetalleMovimiento).ToList();
                 return entity;
             }
             catch (Exception ex)

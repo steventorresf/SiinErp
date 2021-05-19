@@ -148,12 +148,13 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <form id="formApp" name="formApp" novalidate="novalidate" class="form-horizontal">
+                        <form id="formAppArt" name="formAppArt" novalidate="novalidate" class="form-horizontal">
                             <div class="form-group row">
                                 <div class="col-12 col-md-8" ng-if="vm.busquedaArtTexto">
                                     <label>Articulo:</label>
-                                    <ui-select ng-model="vm.entityMov.idArticulo"
+                                    <ui-select ng-model="vm.entityAgArt.idArticulo"
                                                theme="bootstrap"
+                                               form="formAppArt"
                                                on-select="vm.onChangeArticulo($item, $model)">
                                         <ui-select-match placeholder="Seleccione un articulo...">{{$select.selected.nombreBusqueda}}</ui-select-match>
                                         <ui-select-choices repeat="item.idArticulo as item in vm.listArticulos track by $index"
@@ -165,12 +166,26 @@
                                 </div>
                                 <div ng-if="vm.busquedaArtCodigo" class="col-12 col-md-8">
                                     <label>Articulo:</label>
-                                    <input type="text" class="form-control" ng-model="vm.entityMov.busquedaCodigo" my-enter="vm.getArticuloByCod()" placeholder="Digite código" />
+                                    <input type="text" class="form-control" form="formAppArt" ng-model="vm.entityAgArt.busquedaCodigo" my-enter="vm.getArticuloByCod()" placeholder="Digite código" />
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <br />
                                     <button ng-if="!vm.busquedaArtTexto" ng-click="vm.clicTipoBusqueda('Texto')" class="btn-link">¿B&uacute;squeda por texto?</button>
                                     <button ng-if="!vm.busquedaArtCodigo" ng-click="vm.clicTipoBusqueda('Codigo')" class="btn-link">¿B&uacute;squeda por c&oacute;digo?</button>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-12 col-md-4">
+                                    <label>Cantidad:</label>
+                                    <input type="number" class="form-control" form="formAppArt" ng-model="vm.entityAgArt.cantidad" />
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label>Precio:</label>
+                                    <input type="number" class="form-control" form="formAppArt" ng-model="vm.entityAgArt.vrUnitario" />
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <br />
+                                    <button class="btn btn-primary" ng-click="vm.agregarArt()" ng-disabled="formAppArt.$invalid">Agregar</button>
                                 </div>
                             </div>
                         </form>
@@ -263,7 +278,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="col-12">
-                            <button class="btn btn-primary" ng-click="vm.btnGuardar()" ng-if="vm.entityMov.estadoFila != 'I'" ng-disabled="formApp.$invalid || !vm.entityMov.valorNeto || vm.entityMov.valorNeto <= 0 || vm.entityMov.vrRestante != 0">Guardar</button>
+                            <button class="btn btn-primary" ng-click="vm.btnGuardar()" ng-if="vm.entityMov.estadoFila != 'I'" ng-disabled="formApp.$invalid || !vm.entityMov.valorNeto || vm.entityMov.valorNeto <= 0 || vm.entityMov.vrRestante != 0 || !vm.btnGuardarEnabled">Guardar</button>
                             <button class="btn btn-danger ml-5" ng-click="vm.btnAnular()" ng-if="vm.entityMov.modify && vm.entityMov.estadoFila != 'I'">Anular</button>
                         </div>
                     </div>
