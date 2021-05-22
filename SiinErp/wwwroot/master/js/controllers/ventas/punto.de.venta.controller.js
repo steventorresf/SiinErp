@@ -484,6 +484,15 @@
 
             vm.entityArt = {};
             vm.entityAgArt = {};
+
+            console.log($scope);
+            console.log($scope.formAppArt.$$controls);
+            if (vm.busquedaArtCodigo) {
+                $("#txtBusquedaArticulo").focus();
+            }
+            if (vm.busquedaArtTexto) {
+                $scope.$broadcast('UiSelectArticulo');
+            }
         }
 
         function onChangeArticulo($item, $model) {

@@ -315,6 +315,7 @@ namespace SiinErp.Model.Business.Inventario
                     entityMovBD.ValorDscto = entityMov.ValorDscto;
                     entityMovBD.ValorIva = entityMov.ValorIva;
                     entityMovBD.ValorNeto = entityMov.ValorNeto;
+                    entityMovBD.ValorSaldo = entityMov.ValorSaldo;
                     entityMovBD.ModificadoPor = entityMov.ModificadoPor;
                     entityMovBD.FechaModificado = DateTimeOffset.Now;
                     context.SaveChanges();
