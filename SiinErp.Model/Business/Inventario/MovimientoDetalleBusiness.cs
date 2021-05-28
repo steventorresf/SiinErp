@@ -39,7 +39,7 @@ namespace SiinErp.Model.Business.Inventario
                                                      CodArticulo = ar.CodArticulo,
                                                      NombreArticulo = ar.NombreArticulo,
                                                      Articulo = ar,
-                                                 }).ToList();
+                                                 }).OrderBy(x => x.IdDetalleMovimiento).ToList();
                 return Lista;
             }
             catch (Exception)
