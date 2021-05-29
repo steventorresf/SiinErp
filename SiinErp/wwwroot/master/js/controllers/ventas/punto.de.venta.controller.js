@@ -629,16 +629,16 @@
             vm.entityMov.valorNeto = 0;
 
             for (var i = 0; i < vm.gridOptions.data.length; i++) {
-                vm.gridOptions.data[i].vrBruto = (vm.gridOptions.data[i].vrUnitario * vm.gridOptions.data[i].cantidad);
-                vm.gridOptions.data[i].vrDscto = (vm.gridOptions.data[i].vrBruto * vm.gridOptions.data[i].pcDscto / 100);
+                vm.gridOptions.data[i].vrBruto = Math.round(vm.gridOptions.data[i].vrUnitario * vm.gridOptions.data[i].cantidad);
+                vm.gridOptions.data[i].vrDscto = Math.round(vm.gridOptions.data[i].vrBruto * vm.gridOptions.data[i].pcDscto / 100);
 
                 if (vm.gridOptions.data[i].incluyeIva) {
-                    var valSinIva = parseFloat((vm.gridOptions.data[i].vrBruto - vm.gridOptions.data[i].vrDscto) / ((vm.gridOptions.data[i].pcIva / 100) + 1));
+                    var valSinIva = Math.round((vm.gridOptions.data[i].vrBruto - vm.gridOptions.data[i].vrDscto) / ((vm.gridOptions.data[i].pcIva / 100) + 1));
                     vm.gridOptions.data[i].vrIva = vm.gridOptions.data[i].vrBruto - vm.gridOptions.data[i].vrDscto - valSinIva;
                     vm.gridOptions.data[i].vrNeto = vm.gridOptions.data[i].vrBruto - vm.gridOptions.data[i].vrDscto;
                 }
                 else {
-                    vm.gridOptions.data[i].vrIva = (vm.gridOptions.data[i].vrBruto - vm.gridOptions.data[i].vrDscto) * vm.gridOptions.data[i].pcIva / 100;
+                    vm.gridOptions.data[i].vrIva = Math.round(vm.gridOptions.data[i].vrBruto - vm.gridOptions.data[i].vrDscto) * vm.gridOptions.data[i].pcIva / 100;
                     vm.gridOptions.data[i].vrNeto = vm.gridOptions.data[i].vrBruto - vm.gridOptions.data[i].vrDscto + vm.gridOptions.data[i].vrIva;
                 }
 
