@@ -85,6 +85,7 @@
         function editar(entity) {
             vm.entity = angular.copy(entity);
             vm.entity.modificadoPor = vm.userApp.nombreUsuario;
+
             vm.formModify = true;
             vm.formVisible = true;
         }
@@ -284,6 +285,13 @@
         };
 
         function updateDet(entity) {
+          
+            entity.estadoFila = 'A';
+            entity.creadoPor = vm.userApp.nombreUsuario;
+            entity.modificadoPor = vm.userApp.nombreUsuario;
+            entity.fechaModificado = Date;
+            console.log("cambia", entity.idDetalleListaPrecio, entity);
+
             var response = lisdetService.update(entity.idDetalleListaPrecio, entity);
             response.then(
                 function (response) {

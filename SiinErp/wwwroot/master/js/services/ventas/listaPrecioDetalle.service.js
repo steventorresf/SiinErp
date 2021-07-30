@@ -9,6 +9,7 @@
 
     function VenListaPrecioDetalleService($http, $q) {
         var nameSpace = '/Ventas/api/ListaPrecioDetalle/';
+       
 
         var service = {
             getAll: getAll,
@@ -60,6 +61,7 @@
         }
 
         function update(id, data) {
+            console.log("camiaaaaa",id, data);
             return $http.put(nameSpace + id, data)
                 .then(
                     function (response) {
